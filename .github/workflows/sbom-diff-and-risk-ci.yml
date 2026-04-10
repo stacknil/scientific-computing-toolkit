@@ -1,0 +1,51 @@
+name: sbom-diff-and-risk-ci
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/sbom-diff-and-risk-ci.yml"
+      - "tools/sbom-diff-and-risk/**"
+  pull_request:
+    paths:
+      - ".github/workflows/sbom-diff-and-risk-ci.yml"
+      - "tools/sbom-diff-and-risk/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/sbom-diff-and-risk
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install project
+        run: python -m pip install -e .[dev]
+
+      - name: Run test suite
+        run: python -m pytest
+
+      - name: CLI smoke test
+        shell: bash
+        run: |
+          tmpdir="$(mktemp -d)"
+          python -m sbom_diff_risk.cli compare \
+            --before examples/cdx_before.json \
+            --after examples/cdx_after.json \
+            --format auto \
+            --out-json "$tmpdir/report.json" \
+            --out-md "$tmpdir/report.md"
+          test -f "$tmpdir/report.json"
+          test -f "$tmpdir/report.md"
+          diff -u examples/sample-report.json "$tmpdir/report.json"
+          diff -u examples/sample-report.md "$tmpdir/report.md"

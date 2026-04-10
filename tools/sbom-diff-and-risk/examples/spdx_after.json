@@ -1,0 +1,37 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-requests",
+      "name": "requests",
+      "versionInfo": "2.32.0",
+      "downloadLocation": "https://pypi.org/project/requests/",
+      "homepage": "https://requests.readthedocs.io/",
+      "licenseConcluded": "Apache-2.0",
+      "supplier": "Organization: Python Software Foundation",
+      "primaryPackagePurpose": "LIBRARY",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:pypi/requests@2.32.0"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-urllib3",
+      "name": "urllib3",
+      "versionInfo": "2.2.1",
+      "downloadLocation": "https://pypi.org/project/urllib3/",
+      "licenseDeclared": "MIT",
+      "primaryPackagePurpose": "LIBRARY",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:pypi/urllib3@2.2.1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "summary": {
+    "added": 1,
+    "removed": 0,
+    "changed": 1,
+    "risk_counts": {
+      "new_package": 1,
+      "major_upgrade": 0,
+      "version_change_unclassified": 1,
+      "unknown_license": 0,
+      "stale_package": 0,
+      "suspicious_source": 0,
+      "not_evaluated": 2
+    }
+  },
+  "components": {
+    "added": [
+      {
+        "name": "urllib3",
+        "version": "2.2.1",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/urllib3@2.2.1",
+        "license_id": "MIT",
+        "supplier": null,
+        "source_url": "https://pypi.org/project/urllib3/",
+        "bom_ref": "pkg:pypi/urllib3@2.2.1",
+        "raw_type": "library",
+        "evidence": {
+          "source_format": "cyclonedx-json",
+          "component": {
+            "bom-ref": "pkg:pypi/urllib3@2.2.1",
+            "type": "library",
+            "name": "urllib3",
+            "version": "2.2.1",
+            "purl": "pkg:pypi/urllib3@2.2.1",
+            "licenses": [
+              {
+                "license": {
+                  "id": "MIT"
+                }
+              }
+            ],
+            "externalReferences": [
+              {
+                "type": "website",
+                "url": "https://pypi.org/project/urllib3/"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "removed": [],
+    "changed": [
+      {
+        "key": "purl:pkg:pypi/requests",
+        "classification": "version_changed",
+        "before": {
+          "name": "requests",
+          "version": "2.31.0",
+          "ecosystem": "pypi",
+          "purl": "pkg:pypi/requests@2.31.0",
+          "license_id": "Apache-2.0",
+          "supplier": "Python Software Foundation",
+          "source_url": "https://pypi.org/project/requests/",
+          "bom_ref": "pkg:pypi/requests@2.31.0",
+          "raw_type": "library",
+          "evidence": {
+            "source_format": "cyclonedx-json",
+            "component": {
+              "bom-ref": "pkg:pypi/requests@2.31.0",
+              "type": "library",
+              "name": "requests",
+              "version": "2.31.0",
+              "purl": "pkg:pypi/requests@2.31.0",
+              "supplier": {
+                "name": "Python Software Foundation"
+              },
+              "licenses": [
+                {
+                  "license": {
+                    "id": "Apache-2.0"
+                  }
+                }
+              ],
+              "externalReferences": [
+                {
+                  "type": "website",
+                  "url": "https://pypi.org/project/requests/"
+                },
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/psf/requests"
+                }
+              ]
+            }
+          }
+        },
+        "after": {
+          "name": "requests",
+          "version": "2.32.0",
+          "ecosystem": "pypi",
+          "purl": "pkg:pypi/requests@2.32.0",
+          "license_id": "Apache-2.0",
+          "supplier": "Python Software Foundation",
+          "source_url": "https://pypi.org/project/requests/",
+          "bom_ref": "pkg:pypi/requests@2.32.0",
+          "raw_type": "library",
+          "evidence": {
+            "source_format": "cyclonedx-json",
+            "component": {
+              "bom-ref": "pkg:pypi/requests@2.32.0",
+              "type": "library",
+              "name": "requests",
+              "version": "2.32.0",
+              "purl": "pkg:pypi/requests@2.32.0",
+              "supplier": {
+                "name": "Python Software Foundation"
+              },
+              "licenses": [
+                {
+                  "license": {
+                    "id": "Apache-2.0"
+                  }
+                }
+              ],
+              "externalReferences": [
+                {
+                  "type": "website",
+                  "url": "https://pypi.org/project/requests/"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  "risks": [
+    {
+      "bucket": "new_package",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component": {
+        "name": "urllib3",
+        "version": "2.2.1",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/urllib3@2.2.1",
+        "license_id": "MIT",
+        "supplier": null,
+        "source_url": "https://pypi.org/project/urllib3/",
+        "bom_ref": "pkg:pypi/urllib3@2.2.1",
+        "raw_type": "library",
+        "evidence": {
+          "source_format": "cyclonedx-json",
+          "component": {
+            "bom-ref": "pkg:pypi/urllib3@2.2.1",
+            "type": "library",
+            "name": "urllib3",
+            "version": "2.2.1",
+            "purl": "pkg:pypi/urllib3@2.2.1",
+            "licenses": [
+              {
+                "license": {
+                  "id": "MIT"
+                }
+              }
+            ],
+            "externalReferences": [
+              {
+                "type": "website",
+                "url": "https://pypi.org/project/urllib3/"
+              }
+            ]
+          }
+        }
+      },
+      "rationale": "Component was not present in the before input."
+    },
+    {
+      "bucket": "not_evaluated",
+      "component_key": "purl:pkg:pypi/requests",
+      "component": {
+        "name": "requests",
+        "version": "2.32.0",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/requests@2.32.0",
+        "license_id": "Apache-2.0",
+        "supplier": "Python Software Foundation",
+        "source_url": "https://pypi.org/project/requests/",
+        "bom_ref": "pkg:pypi/requests@2.32.0",
+        "raw_type": "library",
+        "evidence": {
+          "source_format": "cyclonedx-json",
+          "component": {
+            "bom-ref": "pkg:pypi/requests@2.32.0",
+            "type": "library",
+            "name": "requests",
+            "version": "2.32.0",
+            "purl": "pkg:pypi/requests@2.32.0",
+            "supplier": {
+              "name": "Python Software Foundation"
+            },
+            "licenses": [
+              {
+                "license": {
+                  "id": "Apache-2.0"
+                }
+              }
+            ],
+            "externalReferences": [
+              {
+                "type": "website",
+                "url": "https://pypi.org/project/requests/"
+              }
+            ]
+          }
+        }
+      },
+      "rationale": "stale_package was not evaluated because enrichment mode is disabled."
+    },
+    {
+      "bucket": "not_evaluated",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component": {
+        "name": "urllib3",
+        "version": "2.2.1",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/urllib3@2.2.1",
+        "license_id": "MIT",
+        "supplier": null,
+        "source_url": "https://pypi.org/project/urllib3/",
+        "bom_ref": "pkg:pypi/urllib3@2.2.1",
+        "raw_type": "library",
+        "evidence": {
+          "source_format": "cyclonedx-json",
+          "component": {
+            "bom-ref": "pkg:pypi/urllib3@2.2.1",
+            "type": "library",
+            "name": "urllib3",
+            "version": "2.2.1",
+            "purl": "pkg:pypi/urllib3@2.2.1",
+            "licenses": [
+              {
+                "license": {
+                  "id": "MIT"
+                }
+              }
+            ],
+            "externalReferences": [
+              {
+                "type": "website",
+                "url": "https://pypi.org/project/urllib3/"
+              }
+            ]
+          }
+        }
+      },
+      "rationale": "stale_package was not evaluated because enrichment mode is disabled."
+    },
+    {
+      "bucket": "version_change_unclassified",
+      "component_key": "purl:pkg:pypi/requests",
+      "component": {
+        "name": "requests",
+        "version": "2.32.0",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/requests@2.32.0",
+        "license_id": "Apache-2.0",
+        "supplier": "Python Software Foundation",
+        "source_url": "https://pypi.org/project/requests/",
+        "bom_ref": "pkg:pypi/requests@2.32.0",
+        "raw_type": "library",
+        "evidence": {
+          "source_format": "cyclonedx-json",
+          "component": {
+            "bom-ref": "pkg:pypi/requests@2.32.0",
+            "type": "library",
+            "name": "requests",
+            "version": "2.32.0",
+            "purl": "pkg:pypi/requests@2.32.0",
+            "supplier": {
+              "name": "Python Software Foundation"
+            },
+            "licenses": [
+              {
+                "license": {
+                  "id": "Apache-2.0"
+                }
+              }
+            ],
+            "externalReferences": [
+              {
+                "type": "website",
+                "url": "https://pypi.org/project/requests/"
+              }
+            ]
+          }
+        }
+      },
+      "rationale": "Version changed but did not qualify as a parseable SemVer major upgrade."
+    }
+  ],
+  "metadata": {
+    "before_format": "cyclonedx-json",
+    "after_format": "cyclonedx-json",
+    "generated_at": null,
+    "strict": false,
+    "stub": false
+  },
+  "notes": [
+    "This tool uses heuristic risk classification.",
+    "No network enrichment was performed."
+  ]
+}

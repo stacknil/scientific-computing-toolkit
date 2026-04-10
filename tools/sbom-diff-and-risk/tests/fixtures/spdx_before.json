@@ -1,0 +1,22 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-requests",
+      "name": "requests",
+      "versionInfo": "2.31.0",
+      "downloadLocation": "https://pypi.org/project/requests/",
+      "homepage": "https://requests.readthedocs.io/",
+      "licenseConcluded": "Apache-2.0",
+      "supplier": "Organization: Python Software Foundation",
+      "primaryPackagePurpose": "LIBRARY",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:pypi/requests@2.31.0"
+        }
+      ]
+    }
+  ]
+}
