@@ -207,6 +207,8 @@ sbom-diff-risk compare \
   --out-sarif outputs/report.sarif
 ```
 
+For GitHub code scanning integration guidance and a minimal upload workflow, see [docs/github-code-scanning.md](D:/OneDrive/Code/scientific-computing-toolkit-real/tools/sbom-diff-and-risk/docs/github-code-scanning.md).
+
 ## Limitations
 
 - v0.1 is local-file based only.
