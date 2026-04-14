@@ -1,0 +1,43 @@
+name: sbom-diff-and-risk-code-scanning
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/sbom-diff-and-risk-code-scanning.yml"
+      - "tools/sbom-diff-and-risk/**"
+
+jobs:
+  upload-sarif:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+    defaults:
+      run:
+        working-directory: tools/sbom-diff-and-risk
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install sbom-diff-and-risk
+        run: python -m pip install -e .[dev]
+
+      - name: Generate SARIF report
+        run: |
+          mkdir -p outputs
+          python -m sbom_diff_risk.cli compare \
+            --before examples/sarif_before.json \
+            --after examples/sarif_after.json \
+            --out-sarif outputs/report.sarif
+
+      - name: Upload SARIF to code scanning
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: tools/sbom-diff-and-risk/outputs/report.sarif
+          category: sbom-diff-risk/example
