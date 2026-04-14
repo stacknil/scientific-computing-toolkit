@@ -1,0 +1,15 @@
+version: 1
+block_on:
+  - unknown_license
+  - suspicious_source
+  - stale_package
+  - max_added_packages
+  - allow_sources
+warn_on:
+  - new_package
+  - major_upgrade
+max_added_packages: 0
+allow_sources:
+  - pypi.org
+  - files.pythonhosted.org
+  - github.com

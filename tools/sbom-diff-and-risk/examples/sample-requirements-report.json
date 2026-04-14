@@ -241,7 +241,20 @@
     "after_format": "requirements-txt",
     "generated_at": null,
     "strict": false,
-    "stub": false
+    "stub": false,
+    "policy_evaluation": {
+      "applied": false,
+      "policy_path": null,
+      "effective_policy": null,
+      "blocking_violations": [],
+      "warning_violations": [],
+      "totals": {
+        "blocking": 0,
+        "warning": 0,
+        "ignored_checks": 0
+      },
+      "exit_code": 0
+    }
   },
   "notes": [
     "This tool uses heuristic risk classification.",

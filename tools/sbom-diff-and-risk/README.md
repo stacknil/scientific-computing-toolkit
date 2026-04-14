@@ -131,6 +131,9 @@ sbom-diff-risk compare \
 - `--after-format cyclonedx-json|spdx-json|requirements-txt|pyproject-toml`
 - `--out-json path`
 - `--out-md path`
+- `--policy path`
+- `--fail-on rule[,rule...]`
+- `--warn-on rule[,rule...]`
 - `--strict`
 - `--enrich-pypi`
 - `--source-allowlist pypi.org,files.pythonhosted.org,github.com`
@@ -142,9 +145,41 @@ sbom-diff-risk compare \
 The [`examples/`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples) directory includes:
 
 - before/after inputs for CycloneDX JSON, SPDX JSON, `requirements.txt`, and `pyproject.toml`
+- example policies at `examples/policy-minimal.yml` and `examples/policy-strict.yml`
 - a sample CycloneDX-based JSON report at [`sample-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.json)
 - a sample CycloneDX-based Markdown report at [`sample-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.md)
 - requirements-based sample reports at [`sample-requirements-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.json) and [`sample-requirements-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.md)
+
+## Enforcement
+
+Policy enforcement is optional and deterministic. Exit codes are stable:
+
+- `0` = success / no blocking violations
+- `1` = blocking policy violations
+- `2` = usage, parse, policy, or runtime error
+
+Minimal policy enforcement example:
+
+```bash
+sbom-diff-risk compare \
+  --before examples/requirements_before.txt \
+  --after examples/requirements_after.txt \
+  --policy examples/policy-minimal.yml \
+  --out-json outputs/report.json \
+  --out-md outputs/report.md
+```
+
+Ad hoc enforcement without a policy file:
+
+```bash
+sbom-diff-risk compare \
+  --before examples/cdx_before.json \
+  --after examples/cdx_after.json \
+  --fail-on suspicious_source,unknown_license \
+  --warn-on new_package \
+  --out-json outputs/report.json \
+  --out-md outputs/report.md
+```
 
 ## Limitations
 
@@ -158,6 +193,7 @@ The [`examples/`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-
 - `pyproject.toml` intentionally does not support tool-specific layouts such as Poetry, Hatch, or PDM sections in v0.1.
 - Risk buckets are heuristics, not security verdicts.
 - Runtime-generated `outputs/` artifacts are ignored; tracked examples live in `examples/`.
+- Policy files are YAML-only in v0.1 and unknown rule ids fail closed.
 
 ## Current Status
 
