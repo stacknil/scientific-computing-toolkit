@@ -16,6 +16,14 @@
 - suspicious_source: 0
 - not_evaluated: 2
 
+## Policy summary
+- Applied: no
+- Policy path: none
+- Exit code: 0
+- Blocking findings: 0
+- Warnings: 0
+- Suppressed findings: 0
+
 ## Added components
 | name | version | ecosystem | risk buckets |
 |------|---------|-----------|--------------|
@@ -40,6 +48,16 @@
 | unknown_license | requests | 2.32.0 | License is missing, empty, UNKNOWN, or NOASSERTION. |
 | unknown_license | urllib3 | 2.2.1 | License is missing, empty, UNKNOWN, or NOASSERTION. |
 | version_change_unclassified | requests | 2.32.0 | Version changed but did not qualify as a parseable SemVer major upgrade. |
+
+## Blocking violations
+| rule id | component | level | message |
+|---------|-----------|-------|---------|
+| _none_ |  |  |  |
+
+## Warnings
+| rule id | component | level | message |
+|---------|-----------|-------|---------|
+| _none_ |  |  |  |
 
 ## Notes
 - This tool uses heuristic risk classification.

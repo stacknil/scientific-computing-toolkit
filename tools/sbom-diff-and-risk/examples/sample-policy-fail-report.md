@@ -17,11 +17,11 @@
 - not_evaluated: 2
 
 ## Policy summary
-- Applied: no
-- Policy path: none
-- Exit code: 0
-- Blocking findings: 0
-- Warnings: 0
+- Applied: yes
+- Policy path: examples\policy-strict.yml
+- Exit code: 1
+- Blocking findings: 3
+- Warnings: 1
 - Suppressed findings: 0
 
 ## Added components
@@ -50,12 +50,14 @@
 ## Blocking violations
 | rule id | component | level | message |
 |---------|-----------|-------|---------|
-| _none_ |  |  |  |
+| max_added_packages |  | block | Added package count 1 exceeds max_added_packages=0. |
+| stale_package | requests | block | stale_package was not evaluated because enrichment mode is disabled. |
+| stale_package | urllib3 | block | stale_package was not evaluated because enrichment mode is disabled. |
 
 ## Warnings
 | rule id | component | level | message |
 |---------|-----------|-------|---------|
-| _none_ |  |  |  |
+| new_package | urllib3 | warn | Component was not present in the before input. |
 
 ## Notes
 - This tool uses heuristic risk classification.

@@ -301,22 +301,118 @@
     }
   ],
   "policy_evaluation": {
-    "applied": false,
-    "policy_path": null,
-    "effective_policy": null,
-    "blocking_violations": [],
-    "warning_violations": [],
+    "applied": true,
+    "policy_path": "examples\\policy-strict.yml",
+    "effective_policy": {
+      "version": 1,
+      "block_on": [
+        "unknown_license",
+        "suspicious_source",
+        "stale_package",
+        "max_added_packages",
+        "allow_sources"
+      ],
+      "warn_on": [
+        "new_package",
+        "major_upgrade"
+      ],
+      "max_added_packages": 0,
+      "allow_sources": [
+        "pypi.org",
+        "files.pythonhosted.org",
+        "github.com"
+      ],
+      "ignore_rules": []
+    },
+    "blocking_violations": [
+      {
+        "rule_id": "max_added_packages",
+        "level": "block",
+        "message": "Added package count 1 exceeds max_added_packages=0.",
+        "component_key": null,
+        "component_name": null,
+        "finding_bucket": null,
+        "suppression_reason": null
+      },
+      {
+        "rule_id": "stale_package",
+        "level": "block",
+        "message": "stale_package was not evaluated because enrichment mode is disabled.",
+        "component_key": "purl:pkg:pypi/requests",
+        "component_name": "requests",
+        "finding_bucket": "not_evaluated",
+        "suppression_reason": null
+      },
+      {
+        "rule_id": "stale_package",
+        "level": "block",
+        "message": "stale_package was not evaluated because enrichment mode is disabled.",
+        "component_key": "purl:pkg:pypi/urllib3",
+        "component_name": "urllib3",
+        "finding_bucket": "not_evaluated",
+        "suppression_reason": null
+      }
+    ],
+    "warning_violations": [
+      {
+        "rule_id": "new_package",
+        "level": "warn",
+        "message": "Component was not present in the before input.",
+        "component_key": "purl:pkg:pypi/urllib3",
+        "component_name": "urllib3",
+        "finding_bucket": "new_package",
+        "suppression_reason": null
+      }
+    ],
     "suppressed_violations": [],
     "totals": {
-      "blocking": 0,
-      "warning": 0,
+      "blocking": 3,
+      "warning": 1,
       "suppressed": 0,
       "ignored_checks": 0
     },
-    "exit_code": 0
+    "exit_code": 1
   },
-  "blocking_findings": [],
-  "warning_findings": [],
+  "blocking_findings": [
+    {
+      "rule_id": "max_added_packages",
+      "level": "block",
+      "message": "Added package count 1 exceeds max_added_packages=0.",
+      "component_key": null,
+      "component_name": null,
+      "finding_bucket": null,
+      "suppression_reason": null
+    },
+    {
+      "rule_id": "stale_package",
+      "level": "block",
+      "message": "stale_package was not evaluated because enrichment mode is disabled.",
+      "component_key": "purl:pkg:pypi/requests",
+      "component_name": "requests",
+      "finding_bucket": "not_evaluated",
+      "suppression_reason": null
+    },
+    {
+      "rule_id": "stale_package",
+      "level": "block",
+      "message": "stale_package was not evaluated because enrichment mode is disabled.",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component_name": "urllib3",
+      "finding_bucket": "not_evaluated",
+      "suppression_reason": null
+    }
+  ],
+  "warning_findings": [
+    {
+      "rule_id": "new_package",
+      "level": "warn",
+      "message": "Component was not present in the before input.",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component_name": "urllib3",
+      "finding_bucket": "new_package",
+      "suppression_reason": null
+    }
+  ],
   "suppressed_findings": [],
   "rule_catalog": {
     "new_package": {
@@ -388,19 +484,77 @@
     "strict": false,
     "stub": false,
     "policy_evaluation": {
-      "applied": false,
-      "policy_path": null,
-      "effective_policy": null,
-      "blocking_violations": [],
-      "warning_violations": [],
+      "applied": true,
+      "policy_path": "examples\\policy-strict.yml",
+      "effective_policy": {
+        "version": 1,
+        "block_on": [
+          "unknown_license",
+          "suspicious_source",
+          "stale_package",
+          "max_added_packages",
+          "allow_sources"
+        ],
+        "warn_on": [
+          "new_package",
+          "major_upgrade"
+        ],
+        "max_added_packages": 0,
+        "allow_sources": [
+          "pypi.org",
+          "files.pythonhosted.org",
+          "github.com"
+        ],
+        "ignore_rules": []
+      },
+      "blocking_violations": [
+        {
+          "rule_id": "max_added_packages",
+          "level": "block",
+          "message": "Added package count 1 exceeds max_added_packages=0.",
+          "component_key": null,
+          "component_name": null,
+          "finding_bucket": null,
+          "suppression_reason": null
+        },
+        {
+          "rule_id": "stale_package",
+          "level": "block",
+          "message": "stale_package was not evaluated because enrichment mode is disabled.",
+          "component_key": "purl:pkg:pypi/requests",
+          "component_name": "requests",
+          "finding_bucket": "not_evaluated",
+          "suppression_reason": null
+        },
+        {
+          "rule_id": "stale_package",
+          "level": "block",
+          "message": "stale_package was not evaluated because enrichment mode is disabled.",
+          "component_key": "purl:pkg:pypi/urllib3",
+          "component_name": "urllib3",
+          "finding_bucket": "not_evaluated",
+          "suppression_reason": null
+        }
+      ],
+      "warning_violations": [
+        {
+          "rule_id": "new_package",
+          "level": "warn",
+          "message": "Component was not present in the before input.",
+          "component_key": "purl:pkg:pypi/urllib3",
+          "component_name": "urllib3",
+          "finding_bucket": "new_package",
+          "suppression_reason": null
+        }
+      ],
       "suppressed_violations": [],
       "totals": {
-        "blocking": 0,
-        "warning": 0,
+        "blocking": 3,
+        "warning": 1,
         "suppressed": 0,
         "ignored_checks": 0
       },
-      "exit_code": 0
+      "exit_code": 1
     }
   },
   "notes": [

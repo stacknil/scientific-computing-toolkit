@@ -34,11 +34,12 @@ class PolicyConfig:
 @dataclass(slots=True)
 class PolicyViolation:
     rule_id: str
-    level: PolicyLevel
+    level: PolicyLevel | None
     message: str
     component_key: str | None = None
     component_name: str | None = None
     finding_bucket: str | None = None
+    suppression_reason: str | None = None
 
 
 @dataclass(slots=True)
@@ -48,5 +49,6 @@ class PolicyEvaluation:
     effective_policy: PolicyConfig | None = None
     blocking_violations: list[PolicyViolation] = field(default_factory=list)
     warning_violations: list[PolicyViolation] = field(default_factory=list)
+    suppressed_violations: list[PolicyViolation] = field(default_factory=list)
     ignored_checks: int = 0
     exit_code: int = 0

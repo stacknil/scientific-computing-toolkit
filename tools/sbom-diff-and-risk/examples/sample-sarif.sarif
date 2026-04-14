@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "sbom-diff-risk",
+          "fullName": "sbom-diff-risk",
+          "version": "0.1.0",
+          "semanticVersion": "0.1.0",
+          "rules": [
+            {
+              "id": "sdr.major_upgrade",
+              "name": "major_upgrade",
+              "shortDescription": {
+                "text": "Version change is a parseable SemVer major upgrade."
+              },
+              "fullDescription": {
+                "text": "Version change is a parseable SemVer major upgrade."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "sbom"
+                ]
+              }
+            },
+            {
+              "id": "sdr.policy_violation.allow_sources",
+              "name": "policy_violation.allow_sources",
+              "shortDescription": {
+                "text": "Blocking policy violation: allow_sources"
+              },
+              "fullDescription": {
+                "text": "Component source host was not present in the configured allow_sources list."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "policy"
+                ]
+              }
+            },
+            {
+              "id": "sdr.policy_violation.max_added_packages",
+              "name": "policy_violation.max_added_packages",
+              "shortDescription": {
+                "text": "Blocking policy violation: max_added_packages"
+              },
+              "fullDescription": {
+                "text": "Added package count exceeded the configured deterministic threshold."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "policy"
+                ]
+              }
+            },
+            {
+              "id": "sdr.suspicious_source",
+              "name": "suspicious_source",
+              "shortDescription": {
+                "text": "Source provenance is missing or points to a suspicious scheme, path, or host."
+              },
+              "fullDescription": {
+                "text": "Source provenance is missing or points to a suspicious scheme, path, or host."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "sbom"
+                ]
+              }
+            },
+            {
+              "id": "sdr.unknown_license",
+              "name": "unknown_license",
+              "shortDescription": {
+                "text": "License metadata is missing, empty, UNKNOWN, or NOASSERTION."
+              },
+              "fullDescription": {
+                "text": "License metadata is missing, empty, UNKNOWN, or NOASSERTION."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "sbom"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "examples/sarif_before.json",
+            "uriBaseId": "%SRCROOT%"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/sarif_after.json",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
+      "properties": {
+        "sbom_diff_risk": {
+          "result_limit": 5000,
+          "total_candidate_results": 5,
+          "emitted_results": 5,
+          "omitted_results": 0,
+          "truncated": false,
+          "prioritization": "error results first, then warning, then note; direct mapped findings before policy-only checks; stable rule priority and component key tie-breakers.",
+          "warning": null
+        }
+      },
+      "results": [
+        {
+          "ruleId": "sdr.suspicious_source",
+          "level": "error",
+          "message": {
+            "text": "Blocked by policy: mystery-lib 0.1.0 has suspicious or incomplete source provenance."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/sarif_after.json",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.suspicious_source",
+            "componentKey": "purl:pkg:pypi/mystery-lib"
+          },
+          "properties": {
+            "component_key": "purl:pkg:pypi/mystery-lib",
+            "component_name": "mystery-lib",
+            "finding_bucket": "suspicious_source",
+            "policy_blocking": true,
+            "result_kind": "risk_finding",
+            "blocking_rule_id": "suspicious_source"
+          }
+        },
+        {
+          "ruleId": "sdr.unknown_license",
+          "level": "error",
+          "message": {
+            "text": "Blocked by policy: mystery-lib 0.1.0 has missing or unknown license metadata."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/sarif_after.json",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.unknown_license",
+            "componentKey": "purl:pkg:pypi/mystery-lib"
+          },
+          "properties": {
+            "component_key": "purl:pkg:pypi/mystery-lib",
+            "component_name": "mystery-lib",
+            "finding_bucket": "unknown_license",
+            "policy_blocking": true,
+            "result_kind": "risk_finding",
+            "blocking_rule_id": "unknown_license"
+          }
+        },
+        {
+          "ruleId": "sdr.policy_violation.allow_sources",
+          "level": "error",
+          "message": {
+            "text": "mystery-lib: Source host 198.51.100.10 is not present in allow_sources."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/sarif_after.json",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.policy_violation.allow_sources",
+            "componentKey": "purl:pkg:pypi/mystery-lib"
+          },
+          "properties": {
+            "policy_rule_id": "allow_sources",
+            "component_key": "purl:pkg:pypi/mystery-lib",
+            "component_name": "mystery-lib",
+            "result_kind": "policy_violation"
+          }
+        },
+        {
+          "ruleId": "sdr.policy_violation.max_added_packages",
+          "level": "error",
+          "message": {
+            "text": "Added package count 1 exceeds max_added_packages=0."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/sarif_after.json",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.policy_violation.max_added_packages",
+            "componentKey": "global-policy-check"
+          },
+          "properties": {
+            "policy_rule_id": "max_added_packages",
+            "component_key": null,
+            "component_name": null,
+            "result_kind": "policy_violation"
+          }
+        },
+        {
+          "ruleId": "sdr.major_upgrade",
+          "level": "note",
+          "message": {
+            "text": "Version changed from 1.9.0 to 2.0.0 with a higher major version."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/sarif_after.json",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.major_upgrade",
+            "componentKey": "purl:pkg:pypi/requests"
+          },
+          "properties": {
+            "component_key": "purl:pkg:pypi/requests",
+            "component_name": "requests",
+            "finding_bucket": "major_upgrade",
+            "policy_blocking": false,
+            "result_kind": "risk_finding"
+          }
+        }
+      ],
+      "originalUriBaseIds": {
+        "%SRCROOT%": {
+          "uri": "file:///D:/OneDrive/Code/scientific-computing-toolkit-real/tools/sbom-diff-and-risk/"
+        }
+      }
+    }
+  ]
+}

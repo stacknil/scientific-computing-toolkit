@@ -1,0 +1,40 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/requests@2.0.0",
+      "type": "library",
+      "name": "requests",
+      "version": "2.0.0",
+      "purl": "pkg:pypi/requests@2.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://pypi.org/project/requests/"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:pypi/mystery-lib@0.1.0",
+      "type": "library",
+      "name": "mystery-lib",
+      "version": "0.1.0",
+      "purl": "pkg:pypi/mystery-lib@0.1.0",
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "http://198.51.100.10/packages/mystery-lib-0.1.0.tar.gz"
+        }
+      ]
+    }
+  ]
+}
