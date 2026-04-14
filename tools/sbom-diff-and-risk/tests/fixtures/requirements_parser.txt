@@ -1,8 +1,8 @@
 # pinned
 requests==2.31.0
 
-# version range
-urllib3>=2.0,<3.0
+# version range with marker
+urllib3>=2.0,<3.0 ; python_version >= "3.11"
 
-# direct reference
-internal-lib @ https://example.com/packages/internal_lib-1.2.0-py3-none-any.whl ; python_version >= "3.11"
+# extras remain local and deterministic
+pytest[testing]>=8.0

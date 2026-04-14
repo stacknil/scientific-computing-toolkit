@@ -9,19 +9,19 @@ from urllib.parse import quote, urlparse
 from packaging.requirements import InvalidRequirement, Requirement
 from packaging.utils import canonicalize_name
 
-from ..errors import ParseError
+from ..errors import MalformedInputError
 
 
 def load_json_object(path: Path, format_name: str) -> dict[str, Any]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
-        raise ParseError(
+        raise MalformedInputError(
             f"Malformed {format_name} JSON in {path} at line {exc.lineno}, column {exc.colno}: {exc.msg}."
         ) from exc
 
     if not isinstance(payload, dict):
-        raise ParseError(f"Malformed {format_name} input in {path}: top-level JSON value must be an object.")
+        raise MalformedInputError(f"Malformed {format_name} input in {path}: top-level JSON value must be an object.")
     return payload
 
 
@@ -29,22 +29,22 @@ def load_toml_object(path: Path, format_name: str) -> dict[str, Any]:
     try:
         payload = tomllib.loads(path.read_text(encoding="utf-8"))
     except tomllib.TOMLDecodeError as exc:
-        raise ParseError(f"Malformed {format_name} TOML in {path}: {exc}.") from exc
+        raise MalformedInputError(f"Malformed {format_name} TOML in {path}: {exc}.") from exc
 
     if not isinstance(payload, dict):
-        raise ParseError(f"Malformed {format_name} input in {path}: top-level TOML value must be a table.")
+        raise MalformedInputError(f"Malformed {format_name} input in {path}: top-level TOML value must be a table.")
     return payload
 
 
 def require_mapping(value: Any, context: str) -> dict[str, Any]:
     if not isinstance(value, dict):
-        raise ParseError(f"Malformed input: expected object for {context}.")
+        raise MalformedInputError(f"Malformed input: expected object for {context}.")
     return value
 
 
 def require_list(value: Any, context: str) -> list[Any]:
     if not isinstance(value, list):
-        raise ParseError(f"Malformed input: expected array for {context}.")
+        raise MalformedInputError(f"Malformed input: expected array for {context}.")
     return value
 
 
@@ -52,7 +52,7 @@ def optional_str(value: Any, context: str) -> str | None:
     if value is None:
         return None
     if not isinstance(value, str):
-        raise ParseError(f"Malformed input: expected string for {context}.")
+        raise MalformedInputError(f"Malformed input: expected string for {context}.")
     stripped = value.strip()
     return stripped or None
 
@@ -60,7 +60,7 @@ def optional_str(value: Any, context: str) -> str | None:
 def required_str(value: Any, context: str) -> str:
     parsed = optional_str(value, context)
     if parsed is None:
-        raise ParseError(f"Malformed input: missing required string for {context}.")
+        raise MalformedInputError(f"Malformed input: missing required string for {context}.")
     return parsed
 
 
@@ -95,7 +95,7 @@ def parse_requirement_text(raw_requirement: str, source_description: str) -> Req
     try:
         return Requirement(raw_requirement)
     except InvalidRequirement as exc:
-        raise ParseError(f"Malformed requirement in {source_description}: {raw_requirement!r}. {exc}") from exc
+        raise MalformedInputError(f"Malformed requirement in {source_description}: {raw_requirement!r}. {exc}") from exc
 
 
 def extract_requirement_version(requirement: Requirement) -> tuple[str | None, str | None]:

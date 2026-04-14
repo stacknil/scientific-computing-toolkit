@@ -9,6 +9,7 @@ It uses conservative heuristics for change intelligence. By default it does not 
 - Normalize two local inputs into a shared component schema.
 - Diff components as `added`, `removed`, and `changed`.
 - Apply conservative, heuristic risk buckets to newly added and changed components.
+- Apply optional local policy enforcement over those findings.
 - Produce machine-friendly JSON and reviewer-friendly Markdown reports.
 - Stay fully local-file based by default.
 
@@ -42,13 +43,15 @@ When a `purl` includes a version, the tool keeps the full value in `Component.pu
 - No reputation scoring or malware verdicts.
 - No hidden enrichment or implicit network access.
 - No web UI.
+- No packaged GitHub Marketplace Action.
 
 ## Supported Formats
 
 - CycloneDX JSON
 - SPDX JSON
 - `requirements.txt`
-- `pyproject.toml`
+- `pyproject.toml` via PEP 621 `[project]` metadata
+- `pyproject.toml` dependency groups via PEP 735 `[dependency-groups]` with explicit selection
 
 ## Risk Bucket Semantics
 
@@ -123,6 +126,18 @@ sbom-diff-risk compare \
   --out-md outputs/pyproject-report.md
 ```
 
+Generate reports for a specific PEP 735 dependency group:
+
+```bash
+sbom-diff-risk compare \
+  --before examples/pyproject_groups_before.toml \
+  --after examples/pyproject_groups_after.toml \
+  --format pyproject-toml \
+  --pyproject-group dev \
+  --out-json outputs/pyproject-groups-report.json \
+  --out-md outputs/pyproject-groups-report.md
+```
+
 ## CLI Flags
 
 - `--before path`
@@ -130,6 +145,7 @@ sbom-diff-risk compare \
 - `--format auto|cyclonedx-json|spdx-json|requirements-txt|pyproject-toml`
 - `--before-format cyclonedx-json|spdx-json|requirements-txt|pyproject-toml`
 - `--after-format cyclonedx-json|spdx-json|requirements-txt|pyproject-toml`
+- `--pyproject-group name`
 - `--out-json path`
 - `--out-md path`
 - `--out-sarif path`
@@ -144,18 +160,19 @@ sbom-diff-risk compare \
 
 ## Examples
 
-The [`examples/`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples) directory includes:
+The [examples/](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples) directory includes:
 
 - before/after inputs for CycloneDX JSON, SPDX JSON, `requirements.txt`, and `pyproject.toml`
+- dependency-group examples at `examples/pyproject_groups_before.toml` and `examples/pyproject_groups_after.toml`
 - example policies at `examples/policy-minimal.yml` and `examples/policy-strict.yml`
-- a sample CycloneDX-based JSON report at [`sample-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.json)
-- a sample CycloneDX-based Markdown report at [`sample-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.md)
-- sample policy-warn reports at [`sample-policy-warn-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.json) and [`sample-policy-warn-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.md)
-- sample policy-fail reports at [`sample-policy-fail-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.json) and [`sample-policy-fail-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.md)
-- a sample SARIF export at [`sample-sarif.sarif`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-sarif.sarif)
-- requirements-based sample reports at [`sample-requirements-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.json) and [`sample-requirements-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.md)
+- a sample pass JSON report at [sample-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.json)
+- a sample pass Markdown report at [sample-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.md)
+- sample policy-warn reports at [sample-policy-warn-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.json) and [sample-policy-warn-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.md)
+- sample policy-fail reports at [sample-policy-fail-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.json) and [sample-policy-fail-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.md)
+- a sample SARIF export at [sample-sarif.sarif](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-sarif.sarif)
+- requirements-based sample reports at [sample-requirements-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.json) and [sample-requirements-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.md)
 
-## Enforcement
+## Enforcement Mode
 
 Policy enforcement is optional and deterministic. Exit codes are stable:
 
@@ -207,23 +224,47 @@ sbom-diff-risk compare \
   --out-sarif outputs/report.sarif
 ```
 
-For GitHub code scanning integration guidance and a minimal upload workflow, see [docs/github-code-scanning.md](D:/OneDrive/Code/scientific-computing-toolkit-real/tools/sbom-diff-and-risk/docs/github-code-scanning.md).
+For GitHub code scanning integration guidance and a minimal upload workflow, see [docs/github-code-scanning.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/github-code-scanning.md).
+
+## Parser Boundaries
+
+Deterministic local mode intentionally supports a conservative subset of packaging syntax. The detailed matrix lives in [docs/parser-boundaries.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/parser-boundaries.md).
+
+### requirements.txt subset
+
+| Syntax | Status | Notes |
+| --- | --- | --- |
+| Plain PEP 508 requirement entries | Supported | Names, specifiers, extras, and markers |
+| Comments, blank lines, line continuations | Supported | Normalized locally without installer behavior |
+| `-r`, `--requirement` | Unsupported | Include chains fail closed |
+| `-c`, `--constraint` | Unsupported | Constraint files fail closed |
+| Editable installs | Unsupported | `-e` and `--editable` are rejected |
+| Direct URL, VCS, and local path refs | Unsupported | Includes `pkg @ https://...`, `git+...`, wheels, archives, and local paths |
+| Index and source options | Unsupported | Includes `--index-url`, `--extra-index-url`, `--find-links`, and related flags |
+
+### pyproject.toml subset
+
+- default parsing supports PEP 621 `[project.dependencies]` and `[project.optional-dependencies]`
+- dependency groups are supported through PEP 735 `[dependency-groups]`
+- dependency groups must be selected explicitly with `--pyproject-group <name>`
+- dependency groups are not treated as aliases for `[project.optional-dependencies]`
+- tool-specific layouts such as Poetry, Hatch, and PDM remain out of scope in v0.2
 
 ## Limitations
 
-- v0.1 is local-file based only.
+- default mode is local-file based only.
 - `generated_at` remains `null` to preserve deterministic report output.
 - `stale_package` is not resolved offline. The report emits `not_evaluated` instead.
-- SARIF export intentionally covers only a conservative subset of findings in v0.1.
+- SARIF export intentionally covers only a conservative subset of findings in v0.2.
 - No vulnerability database integration, CVE matching, or advisory enrichment.
-- `requirements.txt` support intentionally covers a conservative subset: plain PEP 508 requirement entries, comments, direct URL requirements, and line continuations.
-- `requirements.txt` intentionally does not support pip include/constraint directives such as `-r`, `-c`, or arbitrary install flags in v0.1.
-- `pyproject.toml` support intentionally covers a conservative subset: PEP 621 `[project.dependencies]` and `[project.optional-dependencies]`.
-- `pyproject.toml` intentionally does not support tool-specific layouts such as Poetry, Hatch, or PDM sections in v0.1.
+- `requirements.txt` support intentionally covers a conservative subset: plain PEP 508 requirement entries, comments, extras, markers, and line continuations.
+- `requirements.txt` intentionally rejects include/constraint directives, editable installs, direct URL/path refs, index/source options, and other pip-only install flags in deterministic mode.
+- `pyproject.toml` support intentionally covers a conservative subset: PEP 621 `[project.dependencies]`, `[project.optional-dependencies]`, and explicit PEP 735 `[dependency-groups]` selection.
+- `pyproject.toml` intentionally does not support tool-specific layouts such as Poetry, Hatch, or PDM sections in v0.2.
 - Risk buckets are heuristics, not security verdicts.
 - Runtime-generated `outputs/` artifacts are ignored; tracked examples live in `examples/`.
-- Policy files are YAML-only in v0.1 and unknown rule ids fail closed.
+- Policy files are YAML-only in v0.2 and unknown rule ids fail closed.
 
 ## Current Status
 
-The project now normalizes local CycloneDX JSON, SPDX JSON, `requirements.txt`, and PEP 621 `pyproject.toml` inputs into the shared component model, diffs them deterministically, and generates stable JSON/Markdown/SARIF reports with golden tests and optional policy enforcement.
+The project now normalizes local CycloneDX JSON, SPDX JSON, `requirements.txt`, and conservative `pyproject.toml` inputs, including explicit PEP 735 dependency-group selection, into the shared component model, diffs them deterministically, and generates stable JSON/Markdown/SARIF reports with tests and optional policy enforcement.

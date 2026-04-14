@@ -8,7 +8,7 @@ from typing import Sequence
 from .diffing import diff_components
 from .errors import ParseError, PolicyError
 from .models import CompareReport, ReportComponents, ReportMetadata, ReportSummary
-from .normalize import SUPPORTED_FORMATS, normalize_input
+from .normalize import SUPPORTED_FORMATS, normalize_input_with_options
 from .policy_evaluator import evaluate_policy
 from .policy_parser import build_policy
 from .presentation import effective_policy_evaluation, summarize_violations_by_rule
@@ -50,6 +50,11 @@ def build_parser() -> argparse.ArgumentParser:
         choices=SUPPORTED_FORMATS,
         default=None,
         help="Explicit format for the after input.",
+    )
+    compare.add_argument(
+        "--pyproject-group",
+        default=None,
+        help="Select a PEP 735 [dependency-groups] group when a compared input is pyproject.toml.",
     )
     compare.add_argument("--out-json", type=Path, default=None, help="Write a JSON report to this path.")
     compare.add_argument("--out-md", type=Path, default=None, help="Write a Markdown report to this path.")
@@ -107,6 +112,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 def run_compare(args: argparse.Namespace) -> int:
+    pyproject_group = getattr(args, "pyproject_group", None)
+
     if args.enrich_pypi:
         raise NotImplementedError("--enrich-pypi is reserved for a later network-enabled release.")
 
@@ -122,8 +129,18 @@ def run_compare(args: argparse.Namespace) -> int:
 
     before_declared = _resolve_declared_format(args.format, args.before_format)
     after_declared = _resolve_declared_format(args.format, args.after_format)
-    before_format, before_components, before_notes = normalize_input(before_path, before_declared)
-    after_format, after_components, after_notes = normalize_input(after_path, after_declared)
+    before_format, before_components, before_notes = normalize_input_with_options(
+        before_path,
+        declared_format=before_declared,
+        pyproject_group=pyproject_group,
+    )
+    after_format, after_components, after_notes = normalize_input_with_options(
+        after_path,
+        declared_format=after_declared,
+        pyproject_group=pyproject_group,
+    )
+    if pyproject_group and before_format != "pyproject-toml" and after_format != "pyproject-toml":
+        raise ValueError("--pyproject-group requires at least one pyproject.toml input.")
     policy, policy_path = build_policy(policy_path=args.policy, fail_on=args.fail_on, warn_on=args.warn_on)
 
     added, removed, changed = diff_components(before_components, after_components)

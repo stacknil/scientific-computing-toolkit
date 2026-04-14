@@ -11,5 +11,5 @@ dev = [
   "pytest>=8.0",
 ]
 docs = [
-  "mkdocs @ https://example.com/packages/mkdocs-1.6.0-py3-none-any.whl",
+  "mkdocs>=1.6",
 ]
