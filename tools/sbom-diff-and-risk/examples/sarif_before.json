@@ -1,0 +1,27 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/requests@1.9.0",
+      "type": "library",
+      "name": "requests",
+      "version": "1.9.0",
+      "purl": "pkg:pypi/requests@1.9.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://pypi.org/project/requests/"
+        }
+      ]
+    }
+  ]
+}

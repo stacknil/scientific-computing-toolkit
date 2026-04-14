@@ -301,22 +301,53 @@
     }
   ],
   "policy_evaluation": {
-    "applied": false,
-    "policy_path": null,
-    "effective_policy": null,
+    "applied": true,
+    "policy_path": "examples\\policy-minimal.yml",
+    "effective_policy": {
+      "version": 1,
+      "block_on": [
+        "unknown_license"
+      ],
+      "warn_on": [
+        "new_package"
+      ],
+      "max_added_packages": null,
+      "allow_sources": [],
+      "ignore_rules": []
+    },
     "blocking_violations": [],
-    "warning_violations": [],
+    "warning_violations": [
+      {
+        "rule_id": "new_package",
+        "level": "warn",
+        "message": "Component was not present in the before input.",
+        "component_key": "purl:pkg:pypi/urllib3",
+        "component_name": "urllib3",
+        "finding_bucket": "new_package",
+        "suppression_reason": null
+      }
+    ],
     "suppressed_violations": [],
     "totals": {
       "blocking": 0,
-      "warning": 0,
+      "warning": 1,
       "suppressed": 0,
       "ignored_checks": 0
     },
     "exit_code": 0
   },
   "blocking_findings": [],
-  "warning_findings": [],
+  "warning_findings": [
+    {
+      "rule_id": "new_package",
+      "level": "warn",
+      "message": "Component was not present in the before input.",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component_name": "urllib3",
+      "finding_bucket": "new_package",
+      "suppression_reason": null
+    }
+  ],
   "suppressed_findings": [],
   "rule_catalog": {
     "new_package": {
@@ -388,15 +419,36 @@
     "strict": false,
     "stub": false,
     "policy_evaluation": {
-      "applied": false,
-      "policy_path": null,
-      "effective_policy": null,
+      "applied": true,
+      "policy_path": "examples\\policy-minimal.yml",
+      "effective_policy": {
+        "version": 1,
+        "block_on": [
+          "unknown_license"
+        ],
+        "warn_on": [
+          "new_package"
+        ],
+        "max_added_packages": null,
+        "allow_sources": [],
+        "ignore_rules": []
+      },
       "blocking_violations": [],
-      "warning_violations": [],
+      "warning_violations": [
+        {
+          "rule_id": "new_package",
+          "level": "warn",
+          "message": "Component was not present in the before input.",
+          "component_key": "purl:pkg:pypi/urllib3",
+          "component_name": "urllib3",
+          "finding_bucket": "new_package",
+          "suppression_reason": null
+        }
+      ],
       "suppressed_violations": [],
       "totals": {
         "blocking": 0,
-        "warning": 0,
+        "warning": 1,
         "suppressed": 0,
         "ignored_checks": 0
       },

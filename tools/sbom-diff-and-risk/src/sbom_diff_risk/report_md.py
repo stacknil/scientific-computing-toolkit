@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from .diffing import component_key
 from .models import CompareReport
+from .presentation import effective_policy_evaluation
 
 
 def render_report_markdown(report: CompareReport) -> str:
+    policy_evaluation = effective_policy_evaluation(report.metadata.policy_evaluation)
     lines = [
         "# sbom-diff-and-risk report",
         "",
@@ -20,6 +22,19 @@ def render_report_markdown(report: CompareReport) -> str:
 
     for bucket, count in report.summary.risk_counts.items():
         lines.append(f"- {bucket}: {count}")
+
+    lines.extend(
+        [
+            "",
+            "## Policy summary",
+            f"- Applied: {'yes' if policy_evaluation.applied else 'no'}",
+            f"- Policy path: {policy_evaluation.policy_path or 'none'}",
+            f"- Exit code: {policy_evaluation.exit_code}",
+            f"- Blocking findings: {len(policy_evaluation.blocking_violations)}",
+            f"- Warnings: {len(policy_evaluation.warning_violations)}",
+            f"- Suppressed findings: {len(policy_evaluation.suppressed_violations)}",
+        ]
+    )
 
     lines.extend(
         [
@@ -86,6 +101,56 @@ def render_report_markdown(report: CompareReport) -> str:
             )
     else:
         lines.append("| _none_ |  |  |  |")
+
+    lines.extend(
+        [
+            "",
+            "## Blocking violations",
+            "| rule id | component | level | message |",
+            "|---------|-----------|-------|---------|",
+        ]
+    )
+    if policy_evaluation.blocking_violations:
+        for violation in policy_evaluation.blocking_violations:
+            lines.append(
+                f"| {violation.rule_id} | {violation.component_name or ''} | {violation.level.value if violation.level else ''} | "
+                f"{_escape_table_text(violation.message)} |"
+            )
+    else:
+        lines.append("| _none_ |  |  |  |")
+
+    lines.extend(
+        [
+            "",
+            "## Warnings",
+            "| rule id | component | level | message |",
+            "|---------|-----------|-------|---------|",
+        ]
+    )
+    if policy_evaluation.warning_violations:
+        for violation in policy_evaluation.warning_violations:
+            lines.append(
+                f"| {violation.rule_id} | {violation.component_name or ''} | {violation.level.value if violation.level else ''} | "
+                f"{_escape_table_text(violation.message)} |"
+            )
+    else:
+        lines.append("| _none_ |  |  |  |")
+
+    if policy_evaluation.suppressed_violations:
+        lines.extend(
+            [
+                "",
+                "## Suppressions",
+                "| rule id | component | level | reason | message |",
+                "|---------|-----------|-------|--------|---------|",
+            ]
+        )
+        for violation in policy_evaluation.suppressed_violations:
+            lines.append(
+                f"| {violation.rule_id} | {violation.component_name or ''} | "
+                f"{violation.level.value if violation.level else 'n/a'} | "
+                f"{violation.suppression_reason or ''} | {_escape_table_text(violation.message)} |"
+            )
 
     lines.extend(["", "## Notes"])
     if report.notes:

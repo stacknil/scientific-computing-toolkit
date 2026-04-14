@@ -68,6 +68,7 @@ Offline `stale_package` evaluation is intentionally deferred. When enrichment is
 
 - `report.json`
 - `report.md`
+- `report.sarif`
 
 ## Install
 
@@ -131,6 +132,7 @@ sbom-diff-risk compare \
 - `--after-format cyclonedx-json|spdx-json|requirements-txt|pyproject-toml`
 - `--out-json path`
 - `--out-md path`
+- `--out-sarif path`
 - `--policy path`
 - `--fail-on rule[,rule...]`
 - `--warn-on rule[,rule...]`
@@ -148,6 +150,9 @@ The [`examples/`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-
 - example policies at `examples/policy-minimal.yml` and `examples/policy-strict.yml`
 - a sample CycloneDX-based JSON report at [`sample-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.json)
 - a sample CycloneDX-based Markdown report at [`sample-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.md)
+- sample policy-warn reports at [`sample-policy-warn-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.json) and [`sample-policy-warn-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.md)
+- sample policy-fail reports at [`sample-policy-fail-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.json) and [`sample-policy-fail-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.md)
+- a sample SARIF export at [`sample-sarif.sarif`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-sarif.sarif)
 - requirements-based sample reports at [`sample-requirements-report.json`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.json) and [`sample-requirements-report.md`](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.md)
 
 ## Enforcement
@@ -181,11 +186,33 @@ sbom-diff-risk compare \
   --out-md outputs/report.md
 ```
 
+Failed runs still write reports on exit code `1`; stderr prints a concise blocking summary so CI logs are understandable without opening raw JSON.
+
+## SARIF Export
+
+SARIF export is intentionally conservative. The current renderer emits a GitHub-compatible SARIF 2.1.0 subset for:
+
+- `suspicious_source`
+- `unknown_license`
+- `major_upgrade`
+- selected blocking policy results such as `max_added_packages` and `allow_sources`
+
+It does not turn every diff or informational heuristic into a code scanning alert.
+
+```bash
+sbom-diff-risk compare \
+  --before examples/sarif_before.json \
+  --after examples/sarif_after.json \
+  --policy examples/policy-strict.yml \
+  --out-sarif outputs/report.sarif
+```
+
 ## Limitations
 
 - v0.1 is local-file based only.
 - `generated_at` remains `null` to preserve deterministic report output.
 - `stale_package` is not resolved offline. The report emits `not_evaluated` instead.
+- SARIF export intentionally covers only a conservative subset of findings in v0.1.
 - No vulnerability database integration, CVE matching, or advisory enrichment.
 - `requirements.txt` support intentionally covers a conservative subset: plain PEP 508 requirement entries, comments, direct URL requirements, and line continuations.
 - `requirements.txt` intentionally does not support pip include/constraint directives such as `-r`, `-c`, or arbitrary install flags in v0.1.
@@ -197,4 +224,4 @@ sbom-diff-risk compare \
 
 ## Current Status
 
-The project now normalizes local CycloneDX JSON, SPDX JSON, `requirements.txt`, and PEP 621 `pyproject.toml` inputs into the shared component model, diffs them deterministically, and generates stable JSON/Markdown reports with golden tests.
+The project now normalizes local CycloneDX JSON, SPDX JSON, `requirements.txt`, and PEP 621 `pyproject.toml` inputs into the shared component model, diffs them deterministically, and generates stable JSON/Markdown/SARIF reports with golden tests and optional policy enforcement.

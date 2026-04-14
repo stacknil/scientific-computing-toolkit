@@ -236,6 +236,87 @@
       "rationale": "Version changed but did not qualify as a parseable SemVer major upgrade."
     }
   ],
+  "policy_evaluation": {
+    "applied": false,
+    "policy_path": null,
+    "effective_policy": null,
+    "blocking_violations": [],
+    "warning_violations": [],
+    "suppressed_violations": [],
+    "totals": {
+      "blocking": 0,
+      "warning": 0,
+      "suppressed": 0,
+      "ignored_checks": 0
+    },
+    "exit_code": 0
+  },
+  "blocking_findings": [],
+  "warning_findings": [],
+  "suppressed_findings": [],
+  "rule_catalog": {
+    "new_package": {
+      "rule_id": "new_package",
+      "kind": "risk_finding",
+      "description": "Component is present only in the after input.",
+      "finding_buckets": [
+        "new_package"
+      ]
+    },
+    "major_upgrade": {
+      "rule_id": "major_upgrade",
+      "kind": "risk_finding",
+      "description": "Version change is a parseable SemVer major upgrade.",
+      "finding_buckets": [
+        "major_upgrade"
+      ]
+    },
+    "version_change_unclassified": {
+      "rule_id": "version_change_unclassified",
+      "kind": "risk_finding",
+      "description": "Version changed but could not be classified as a reliable major SemVer upgrade.",
+      "finding_buckets": [
+        "version_change_unclassified"
+      ]
+    },
+    "unknown_license": {
+      "rule_id": "unknown_license",
+      "kind": "risk_finding",
+      "description": "License metadata is missing, empty, UNKNOWN, or NOASSERTION.",
+      "finding_buckets": [
+        "unknown_license"
+      ]
+    },
+    "suspicious_source": {
+      "rule_id": "suspicious_source",
+      "kind": "risk_finding",
+      "description": "Source provenance is missing or points to a suspicious scheme, path, or host.",
+      "finding_buckets": [
+        "suspicious_source"
+      ]
+    },
+    "stale_package": {
+      "rule_id": "stale_package",
+      "kind": "risk_finding",
+      "description": "Staleness check result. Offline mode maps this rule to not_evaluated instead of guessing.",
+      "finding_buckets": [
+        "stale_package",
+        "not_evaluated"
+      ]
+    },
+    "max_added_packages": {
+      "rule_id": "max_added_packages",
+      "kind": "policy_check",
+      "description": "Added package count exceeded the configured deterministic threshold.",
+      "finding_buckets": []
+    },
+    "allow_sources": {
+      "rule_id": "allow_sources",
+      "kind": "policy_check",
+      "description": "Component source host was not present in the configured allow_sources list.",
+      "finding_buckets": []
+    }
+  },
   "metadata": {
     "before_format": "requirements-txt",
     "after_format": "requirements-txt",
@@ -248,9 +329,11 @@
       "effective_policy": null,
       "blocking_violations": [],
       "warning_violations": [],
+      "suppressed_violations": [],
       "totals": {
         "blocking": 0,
         "warning": 0,
+        "suppressed": 0,
         "ignored_checks": 0
       },
       "exit_code": 0
