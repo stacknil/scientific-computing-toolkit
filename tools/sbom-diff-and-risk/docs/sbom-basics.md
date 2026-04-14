@@ -2,7 +2,7 @@
 
 This project treats SBOMs as one possible source of dependency inventory data.
 
-For v0.1, the tool is intentionally limited to local-file parsing, normalization, diffing, and heuristic reporting.
+For v0.2, the tool is intentionally limited to local-file parsing, normalization, diffing, and conservative heuristic reporting.
 
 ## Supported local inputs
 
@@ -17,17 +17,19 @@ For v0.1, the tool is intentionally limited to local-file parsing, normalization
 
 - supported: plain PEP 508 requirement entries
 - supported: comments and blank lines
-- supported: direct URL requirements
 - supported: line continuations
-- not supported: `-r`, `--requirement`, `-c`, `--constraint`, or arbitrary pip install flags
+- not supported: `-r`, `--requirement`, `-c`, `--constraint`, editable installs, direct URL/path refs, or pip index/options
 
-`pyproject.toml` support is intentionally conservative in v0.1:
+`pyproject.toml` support is intentionally conservative in v0.2:
 
 - supported: PEP 621 `[project.dependencies]`
 - supported: PEP 621 `[project.optional-dependencies]`
+- supported: PEP 735 `[dependency-groups]` with explicit `--pyproject-group` selection
 - not supported: Poetry, Hatch, PDM, or other tool-specific dependency sections
 
 These boundaries are deliberate so the tool can stay deterministic and explicit about what it does and does not parse.
+
+For the detailed supported/unsupported matrix, see [parser-boundaries.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/parser-boundaries.md).
 
 ## Normalization goals
 

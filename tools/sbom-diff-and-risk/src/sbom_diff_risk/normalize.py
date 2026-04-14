@@ -47,11 +47,23 @@ def detect_format(path: Path) -> str:
 
 
 def normalize_input(path: Path, declared_format: str | None = None) -> tuple[str, list[Component], list[str]]:
+    return normalize_input_with_options(path, declared_format=declared_format, pyproject_group=None)
+
+
+def normalize_input_with_options(
+    path: Path,
+    *,
+    declared_format: str | None = None,
+    pyproject_group: str | None = None,
+) -> tuple[str, list[Component], list[str]]:
     selected_format = declared_format or detect_format(path)
     if selected_format not in SUPPORTED_FORMATS:
         raise ValueError(
             f"Unsupported input format {selected_format!r}. Supported formats: {', '.join(SUPPORTED_FORMATS)}."
         )
+
+    if selected_format == "pyproject-toml":
+        return selected_format, pyproject_toml.parse(path, dependency_group=pyproject_group), []
 
     parser = _FORMAT_PARSERS[selected_format]
     return selected_format, parser(path), []

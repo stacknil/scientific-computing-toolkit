@@ -118,6 +118,7 @@ def test_cli_compare_help_mentions_policy_flags_and_exit_codes() -> None:
 
     assert result.returncode == 0
     assert "--out-sarif" in result.stdout
+    assert "--pyproject-group" in result.stdout
     assert "--policy" in result.stdout
     assert "--fail-on" in result.stdout
     assert "--warn-on" in result.stdout
@@ -146,6 +147,80 @@ def test_cli_can_write_sarif_only(tmp_path: Path) -> None:
 
     assert result.returncode == 1
     assert (tmp_path / "report.sarif").is_file()
+
+
+def test_cli_pyproject_group_selection_smoke(tmp_path: Path) -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    before = project_root / "examples" / "pyproject_groups_before.toml"
+    after = project_root / "examples" / "pyproject_groups_after.toml"
+
+    result = _run_compare(
+        project_root,
+        [
+            "--before",
+            str(before),
+            "--after",
+            str(after),
+            "--format",
+            "pyproject-toml",
+            "--pyproject-group",
+            "dev",
+            "--out-json",
+            str(tmp_path / "report.json"),
+        ],
+    )
+
+    assert result.returncode == 0
+    assert (tmp_path / "report.json").is_file()
+
+
+def test_cli_pyproject_group_missing_fails_clearly(tmp_path: Path) -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    before = project_root / "examples" / "pyproject_groups_before.toml"
+    after = project_root / "examples" / "pyproject_groups_after.toml"
+
+    result = _run_compare(
+        project_root,
+        [
+            "--before",
+            str(before),
+            "--after",
+            str(after),
+            "--format",
+            "pyproject-toml",
+            "--pyproject-group",
+            "docs",
+            "--out-json",
+            str(tmp_path / "report.json"),
+        ],
+    )
+
+    assert result.returncode == 2
+    assert "Requested dependency group" in result.stderr
+    assert "distinct from [project.optional-dependencies]" in result.stderr
+
+
+def test_cli_pyproject_group_requires_pyproject_input(tmp_path: Path) -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    before = project_root / "examples" / "requirements_before.txt"
+    after = project_root / "examples" / "requirements_after.txt"
+
+    result = _run_compare(
+        project_root,
+        [
+            "--before",
+            str(before),
+            "--after",
+            str(after),
+            "--pyproject-group",
+            "dev",
+            "--out-json",
+            str(tmp_path / "report.json"),
+        ],
+    )
+
+    assert result.returncode == 2
+    assert "--pyproject-group requires at least one pyproject.toml input" in result.stderr
 
 
 def _run_compare(project_root: Path, args: list[str]) -> subprocess.CompletedProcess[str]:

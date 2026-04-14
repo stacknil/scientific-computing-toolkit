@@ -3,20 +3,23 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from ..errors import ParseError
+from ..errors import MalformedInputError, UnsupportedInputError
 from ..models import Component
 from .common import build_pypi_purl, extract_requirement_version, parse_requirement_text
+from .requirements_rules import reject_unsupported_requirement_syntax
 
 
 def parse(path: Path) -> list[Component]:
     normalized: list[Component] = []
     for start_line, raw_requirement in _iter_logical_requirements(path):
-        if raw_requirement.startswith("-"):
-            raise ParseError(
-                f"Unsupported requirements directive in {path} at line {start_line}: {raw_requirement!r}."
-            )
+        reject_unsupported_requirement_syntax(raw_requirement, path=path, line_number=start_line)
 
         requirement = parse_requirement_text(raw_requirement, f"{path}:{start_line}")
+        if requirement.url is not None:
+            raise UnsupportedInputError(
+                f"Unsupported requirements.txt syntax in {path} at line {start_line}: "
+                "deterministic mode does not accept direct URL or VCS references."
+            )
         version, exact_version = extract_requirement_version(requirement)
         normalized.append(
             Component(
@@ -36,7 +39,7 @@ def parse(path: Path) -> list[Component]:
                     "specifier": str(requirement.specifier) or None,
                     "marker": str(requirement.marker) if requirement.marker else None,
                     "extras": sorted(requirement.extras),
-                    "url": requirement.url,
+                    "url": None,
                 },
             )
         )
@@ -75,7 +78,9 @@ def _iter_logical_requirements(path: Path) -> list[tuple[int, str]]:
             logical_lines.append((start_line, logical))
 
     if buffer:
-        raise ParseError(f"Malformed requirements.txt in {path}: dangling line continuation starting at line {start_line}.")
+        raise MalformedInputError(
+            f"Malformed requirements.txt in {path}: dangling line continuation starting at line {start_line}."
+        )
 
     return logical_lines
 

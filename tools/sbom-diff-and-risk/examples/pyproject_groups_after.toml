@@ -1,0 +1,25 @@
+[project]
+name = "grouped-project"
+version = "0.2.0"
+dependencies = [
+  "requests==2.32.0",
+]
+
+[project.optional-dependencies]
+docs = [
+  "mkdocs>=1.6",
+]
+
+[dependency-groups]
+lint = [
+  "ruff==0.6.3",
+]
+dev = [
+  "pytest==8.3.1",
+  "mypy==1.11.2",
+  { include-group = "lint" },
+]
+test = [
+  "pytest-cov==5.0.0",
+  { include-group = "dev" },
+]
