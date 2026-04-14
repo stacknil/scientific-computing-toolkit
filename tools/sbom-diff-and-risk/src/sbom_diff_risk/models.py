@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import StrEnum
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from .policy_models import PolicyEvaluation
 
 
 class RiskBucket(StrEnum):
@@ -67,6 +70,7 @@ class ReportMetadata:
     generated_at: str | None = None
     strict: bool = False
     stub: bool = True
+    policy_evaluation: PolicyEvaluation | None = None
 
 
 @dataclass(slots=True)

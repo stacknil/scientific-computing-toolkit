@@ -8,6 +8,8 @@ from typing import Sequence
 from .diffing import diff_components
 from .models import CompareReport, ReportComponents, ReportMetadata, ReportSummary
 from .normalize import SUPPORTED_FORMATS, normalize_input
+from .policy_evaluator import evaluate_policy
+from .policy_parser import build_policy
 from .report_json import render_report_json
 from .report_md import render_report_markdown
 from .risk import evaluate_risks, summarize_risks
@@ -46,6 +48,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     compare.add_argument("--out-json", type=Path, default=None, help="Write a JSON report to this path.")
     compare.add_argument("--out-md", type=Path, default=None, help="Write a Markdown report to this path.")
+    compare.add_argument("--policy", type=Path, default=None, help="Path to a YAML policy file.")
+    compare.add_argument("--fail-on", default=None, help="Comma-separated policy rule ids that should block.")
+    compare.add_argument("--warn-on", default=None, help="Comma-separated policy rule ids that should warn.")
     compare.add_argument("--strict", action="store_true", help="Treat scaffold notes as errors.")
     compare.add_argument(
         "--enrich-pypi",
@@ -90,10 +95,18 @@ def run_compare(args: argparse.Namespace) -> int:
     after_declared = _resolve_declared_format(args.format, args.after_format)
     before_format, before_components, before_notes = normalize_input(before_path, before_declared)
     after_format, after_components, after_notes = normalize_input(after_path, after_declared)
+    policy, policy_path = build_policy(policy_path=args.policy, fail_on=args.fail_on, warn_on=args.warn_on)
 
     added, removed, changed = diff_components(before_components, after_components)
     allowlist = [entry.strip() for entry in args.source_allowlist.split(",") if entry.strip()]
     risks = evaluate_risks(added, changed, allowlist=allowlist)
+    policy_evaluation = evaluate_policy(
+        policy,
+        policy_path=policy_path,
+        added=added,
+        changed=changed,
+        findings=risks,
+    )
 
     notes = [
         "This tool uses heuristic risk classification.",
@@ -117,6 +130,7 @@ def run_compare(args: argparse.Namespace) -> int:
             generated_at=None,
             strict=args.strict,
             stub=False,
+            policy_evaluation=policy_evaluation,
         ),
         notes=notes,
     )
@@ -129,7 +143,7 @@ def run_compare(args: argparse.Namespace) -> int:
     if args.out_md is not None:
         _write_text(args.out_md, render_report_markdown(report))
 
-    return 0
+    return policy_evaluation.exit_code
 
 
 def _resolve_declared_format(global_format: str, explicit_format: str | None) -> str | None:
