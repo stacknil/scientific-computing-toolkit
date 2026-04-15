@@ -7,8 +7,8 @@
         "driver": {
           "name": "sbom-diff-risk",
           "fullName": "sbom-diff-risk",
-          "version": "0.1.0",
-          "semanticVersion": "0.1.0",
+          "version": "0.2.0",
+          "semanticVersion": "0.2.0",
           "rules": [
             {
               "id": "sdr.major_upgrade",
@@ -292,7 +292,7 @@
       ],
       "originalUriBaseIds": {
         "%SRCROOT%": {
-          "uri": "file:///D:/OneDrive/Code/scientific-computing-toolkit-real/tools/sbom-diff-and-risk/"
+          "uri": "file:///D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/"
         }
       }
     }
