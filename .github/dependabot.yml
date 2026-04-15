@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/tools/sbom-diff-and-risk"
+    schedule:
+      interval: "weekly"
+    exclude-paths:
+      - "examples/**"
+      - "tests/fixtures/**"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
