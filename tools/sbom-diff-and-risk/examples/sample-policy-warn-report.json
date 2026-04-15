@@ -302,7 +302,7 @@
   ],
   "policy_evaluation": {
     "applied": true,
-    "policy_path": "examples\\policy-minimal.yml",
+    "policy_path": "examples/policy-minimal.yml",
     "effective_policy": {
       "version": 1,
       "block_on": [
@@ -420,7 +420,7 @@
     "stub": false,
     "policy_evaluation": {
       "applied": true,
-      "policy_path": "examples\\policy-minimal.yml",
+      "policy_path": "examples/policy-minimal.yml",
       "effective_policy": {
         "version": 1,
         "block_on": [

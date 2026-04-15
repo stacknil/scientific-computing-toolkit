@@ -72,7 +72,7 @@ def build_policy(
     rendered_path: str | None = None
     if policy_path is not None:
         base_policy = load_policy(policy_path)
-        rendered_path = str(policy_path)
+        rendered_path = _render_policy_path(policy_path)
 
     cli_block_on = parse_rule_csv(fail_on, "--fail-on")
     cli_warn_on = parse_rule_csv(warn_on, "--warn-on")
@@ -154,3 +154,11 @@ def _validate_rule_ids(rule_ids: Iterable[str], context: str) -> tuple[str, ...]
 
 def _merge_strings(base: tuple[str, ...], extra: tuple[str, ...]) -> tuple[str, ...]:
     return tuple(dict.fromkeys((*base, *extra)))
+
+
+def _render_policy_path(policy_path: Path) -> str:
+    resolved_policy_path = policy_path.resolve()
+    try:
+        return resolved_policy_path.relative_to(Path.cwd().resolve()).as_posix()
+    except ValueError:
+        return resolved_policy_path.as_posix()

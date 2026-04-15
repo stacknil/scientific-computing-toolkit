@@ -302,7 +302,7 @@
   ],
   "policy_evaluation": {
     "applied": true,
-    "policy_path": "examples\\policy-strict.yml",
+    "policy_path": "examples/policy-strict.yml",
     "effective_policy": {
       "version": 1,
       "block_on": [
@@ -485,7 +485,7 @@
     "stub": false,
     "policy_evaluation": {
       "applied": true,
-      "policy_path": "examples\\policy-strict.yml",
+      "policy_path": "examples/policy-strict.yml",
       "effective_policy": {
         "version": 1,
         "block_on": [

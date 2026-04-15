@@ -18,7 +18,7 @@
 
 ## Policy summary
 - Applied: yes
-- Policy path: examples\policy-strict.yml
+- Policy path: examples/policy-strict.yml
 - Exit code: 1
 - Blocking findings: 3
 - Warnings: 1
