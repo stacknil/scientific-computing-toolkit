@@ -1,5 +1,7 @@
 # sbom-diff-and-risk
 
+v0.2.0 adds policy-based enforcement, SARIF export, GitHub code scanning integration, and deterministic parser hardening for Python dependency inputs.
+
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
 It uses conservative heuristics for change intelligence. By default it does not resolve CVEs, does not act as a reputation oracle, and does not perform hidden network enrichment.
