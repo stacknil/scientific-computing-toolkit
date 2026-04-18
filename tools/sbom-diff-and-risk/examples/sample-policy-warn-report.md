@@ -18,7 +18,7 @@
 
 ## Policy summary
 - Applied: yes
-- Policy path: examples\policy-minimal.yml
+- Policy path: examples/policy-minimal.yml
 - Exit code: 0
 - Blocking findings: 0
 - Warnings: 1
