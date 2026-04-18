@@ -1,5 +1,7 @@
 # sbom-diff-and-risk
 
+v0.2.0 adds policy-based enforcement, SARIF export, GitHub code scanning integration, and deterministic parser hardening for Python dependency inputs.
+
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
 It uses conservative heuristics for change intelligence. By default it does not resolve CVEs, does not act as a reputation oracle, and does not perform hidden network enrichment.
@@ -237,7 +239,6 @@ This repository also records provenance for `sbom-diff-and-risk` itself by gener
 - this complements the tool's analysis of third-party supply-chain inputs, but it does not replace that analysis
 
 See [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for the exact attested filenames, where the evidence appears in GitHub, and a run-by-run verification flow for consumers.
-
 ## Parser Boundaries
 
 Deterministic local mode intentionally supports a conservative subset of packaging syntax. The detailed matrix lives in [docs/parser-boundaries.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/parser-boundaries.md).

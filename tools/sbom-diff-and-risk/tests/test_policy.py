@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from sbom_diff_risk.errors import PolicyError
-from sbom_diff_risk.models import Component, ComponentChange, RiskBucket, RiskFinding
+from sbom_diff_risk.models import Component, RiskBucket, RiskFinding
 from sbom_diff_risk.policy_evaluator import evaluate_policy
 from sbom_diff_risk.policy_models import PolicyConfig, PolicyLevel
 from sbom_diff_risk.policy_parser import build_policy, load_policy
@@ -55,6 +55,15 @@ def test_build_policy_merges_cli_rules() -> None:
     assert "unknown_license" in policy.block_on
     assert "suspicious_source" in policy.block_on
     assert "new_package" in policy.warn_on
+
+
+def test_build_policy_renders_path_relative_to_cwd(monkeypatch: pytest.MonkeyPatch) -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    monkeypatch.chdir(project_root)
+
+    _, policy_path_str = build_policy(policy_path=project_root / "examples" / "policy-minimal.yml")
+
+    assert policy_path_str == "examples/policy-minimal.yml"
 
 
 def test_policy_evaluator_blocks_on_finding_bucket() -> None:
@@ -134,6 +143,8 @@ def test_policy_ignore_rules_suppresses_violations() -> None:
     assert evaluation.exit_code == 0
     assert evaluation.blocking_violations == []
     assert evaluation.ignored_checks == 1
+    assert len(evaluation.suppressed_violations) == 1
+    assert evaluation.suppressed_violations[0].suppression_reason == "ignored_by_policy"
 
 
 def _example_path(name: str) -> Path:
