@@ -226,6 +226,18 @@ sbom-diff-risk compare \
 
 For GitHub code scanning integration guidance and a minimal upload workflow, see [docs/github-code-scanning.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/github-code-scanning.md).
 
+## Self-provenance
+
+This repository also records provenance for `sbom-diff-and-risk` itself by generating GitHub artifact attestations for the wheel and source distribution produced by the `sbom-diff-and-risk-ci` workflow.
+
+- the attested files are the wheel and source distribution built by `python -m build` from `tools/sbom-diff-and-risk`
+- the build files are uploaded together as the `sbom-diff-and-risk-dist` workflow artifact
+- only trusted non-PR runs publish the attestation
+- consumers can verify provenance with GitHub's attestation tooling after downloading one of those artifacts
+- this complements the tool's analysis of third-party supply-chain inputs, but it does not replace that analysis
+
+See [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for the exact attested filenames, where the evidence appears in GitHub, and a run-by-run verification flow for consumers.
+
 ## Parser Boundaries
 
 Deterministic local mode intentionally supports a conservative subset of packaging syntax. The detailed matrix lives in [docs/parser-boundaries.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/parser-boundaries.md).

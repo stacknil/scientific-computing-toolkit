@@ -11,9 +11,14 @@ on:
       - ".github/workflows/sbom-diff-and-risk-ci.yml"
       - "tools/sbom-diff-and-risk/**"
 
+env:
+  SBOM_DIFF_RISK_DIST_ARTIFACT_NAME: sbom-diff-and-risk-dist
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     defaults:
       run:
         working-directory: tools/sbom-diff-and-risk
@@ -49,3 +54,48 @@ jobs:
           test -f "$tmpdir/report.md"
           diff -u examples/sample-report.json "$tmpdir/report.json"
           diff -u examples/sample-report.md "$tmpdir/report.md"
+
+  build-and-attest:
+    # Keep provenance publication on trusted non-PR runs so consumers verify
+    # workflow-produced wheel and sdist artifacts from this repository workflow.
+    if: github.event_name != 'pull_request'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    defaults:
+      run:
+        working-directory: tools/sbom-diff-and-risk
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install build tooling
+        run: python -m pip install build
+
+      - name: Build distributable artifacts
+        run: python -m build
+
+      - name: Upload wheel and source distribution artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
+          path: |
+            tools/sbom-diff-and-risk/dist/*.whl
+            tools/sbom-diff-and-risk/dist/*.tar.gz
+          if-no-files-found: error
+
+      - name: Generate artifact attestation for built distributions
+        uses: actions/attest@v4
+        with:
+          subject-path: ${{ github.workspace }}/tools/sbom-diff-and-risk/dist/*
