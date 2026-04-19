@@ -1,0 +1,792 @@
+{
+  "summary": {
+    "added": 2,
+    "removed": 0,
+    "changed": 1,
+    "risk_counts": {
+      "new_package": 2,
+      "major_upgrade": 0,
+      "version_change_unclassified": 1,
+      "unknown_license": 0,
+      "stale_package": 0,
+      "suspicious_source": 0,
+      "not_evaluated": 0
+    }
+  },
+  "components": {
+    "added": [
+      {
+        "name": "urllib3",
+        "version": "2.2.1",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/urllib3@2.2.1",
+        "license_id": null,
+        "supplier": null,
+        "source_url": "https://pypi.org/project/urllib3/2.2.1/",
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "provenance": {
+            "provider": "pypi",
+            "requested": true,
+            "supported": true,
+            "lookup_performed": true,
+            "package_name": "urllib3",
+            "package_version": "2.2.1",
+            "release_url": "https://pypi.org/project/urllib3/2.2.1/",
+            "statuses": [
+              "provenance_available",
+              "attestation_available"
+            ],
+            "files": [
+              {
+                "filename": "urllib3-2.2.1.tar.gz",
+                "url": "https://files.pythonhosted.org/packages/urllib3-2.2.1.tar.gz",
+                "sha256": "deadbeef",
+                "upload_time": "2026-04-01T00:00:00.000000Z",
+                "yanked": false,
+                "statuses": [
+                  "provenance_available",
+                  "attestation_available"
+                ],
+                "attestation_count": 1,
+                "predicate_types": [
+                  "https://example.test/attestation/v1"
+                ],
+                "publisher_kinds": [
+                  "github actions"
+                ],
+                "error": null
+              }
+            ],
+            "files_evaluated": 1,
+            "files_with_attestations": 1,
+            "files_without_attestations": 0,
+            "error": null
+          }
+        }
+      },
+      {
+        "name": "mystery-lib",
+        "version": "1.0.0",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/mystery-lib@1.0.0",
+        "license_id": null,
+        "supplier": null,
+        "source_url": "https://pypi.org/project/mystery-lib/1.0.0/",
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "provenance": {
+            "provider": "pypi",
+            "requested": true,
+            "supported": true,
+            "lookup_performed": true,
+            "package_name": "mystery-lib",
+            "package_version": "1.0.0",
+            "release_url": "https://pypi.org/project/mystery-lib/1.0.0/",
+            "statuses": [
+              "attestation_unavailable"
+            ],
+            "files": [
+              {
+                "filename": "mystery-lib-1.0.0.tar.gz",
+                "url": "https://files.pythonhosted.org/packages/mystery-lib-1.0.0.tar.gz",
+                "sha256": "deadbeef",
+                "upload_time": "2026-04-01T00:00:00.000000Z",
+                "yanked": false,
+                "statuses": [
+                  "attestation_unavailable"
+                ],
+                "attestation_count": 0,
+                "predicate_types": [],
+                "publisher_kinds": [],
+                "error": null
+              }
+            ],
+            "files_evaluated": 1,
+            "files_with_attestations": 0,
+            "files_without_attestations": 1,
+            "error": null
+          }
+        }
+      }
+    ],
+    "removed": [],
+    "changed": [
+      {
+        "key": "purl:pkg:pypi/legacy-lib",
+        "classification": "version_changed",
+        "before": {
+          "name": "legacy-lib",
+          "version": "1.0.0",
+          "ecosystem": "pypi",
+          "purl": "pkg:pypi/legacy-lib@1.0.0",
+          "license_id": null,
+          "supplier": null,
+          "source_url": null,
+          "bom_ref": null,
+          "raw_type": null,
+          "evidence": {}
+        },
+        "after": {
+          "name": "legacy-lib",
+          "version": "1.1.0",
+          "ecosystem": "pypi",
+          "purl": "pkg:pypi/legacy-lib@1.1.0",
+          "license_id": null,
+          "supplier": null,
+          "source_url": null,
+          "bom_ref": null,
+          "raw_type": null,
+          "evidence": {
+            "provenance": {
+              "provider": "pypi",
+              "requested": true,
+              "supported": true,
+              "lookup_performed": true,
+              "package_name": "legacy-lib",
+              "package_version": "1.1.0",
+              "release_url": "https://pypi.org/project/legacy-lib/1.1.0/",
+              "statuses": [
+                "provenance_available",
+                "attestation_available"
+              ],
+              "files": [
+                {
+                  "filename": "legacy-lib-1.1.0.tar.gz",
+                  "url": "https://files.pythonhosted.org/packages/legacy-lib-1.1.0.tar.gz",
+                  "sha256": "deadbeef",
+                  "upload_time": "2026-04-01T00:00:00.000000Z",
+                  "yanked": false,
+                  "statuses": [
+                    "provenance_available",
+                    "attestation_available"
+                  ],
+                  "attestation_count": 1,
+                  "predicate_types": [
+                    "https://example.test/attestation/v1"
+                  ],
+                  "publisher_kinds": [
+                    "manual upload"
+                  ],
+                  "error": null
+                }
+              ],
+              "files_evaluated": 1,
+              "files_with_attestations": 1,
+              "files_without_attestations": 0,
+              "error": null
+            }
+          }
+        }
+      }
+    ]
+  },
+  "risks": [
+    {
+      "bucket": "new_package",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component": {
+        "name": "urllib3",
+        "version": "2.2.1",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/urllib3@2.2.1",
+        "license_id": null,
+        "supplier": null,
+        "source_url": "https://pypi.org/project/urllib3/2.2.1/",
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "provenance": {
+            "provider": "pypi",
+            "requested": true,
+            "supported": true,
+            "lookup_performed": true,
+            "package_name": "urllib3",
+            "package_version": "2.2.1",
+            "release_url": "https://pypi.org/project/urllib3/2.2.1/",
+            "statuses": [
+              "provenance_available",
+              "attestation_available"
+            ],
+            "files": [
+              {
+                "filename": "urllib3-2.2.1.tar.gz",
+                "url": "https://files.pythonhosted.org/packages/urllib3-2.2.1.tar.gz",
+                "sha256": "deadbeef",
+                "upload_time": "2026-04-01T00:00:00.000000Z",
+                "yanked": false,
+                "statuses": [
+                  "provenance_available",
+                  "attestation_available"
+                ],
+                "attestation_count": 1,
+                "predicate_types": [
+                  "https://example.test/attestation/v1"
+                ],
+                "publisher_kinds": [
+                  "github actions"
+                ],
+                "error": null
+              }
+            ],
+            "files_evaluated": 1,
+            "files_with_attestations": 1,
+            "files_without_attestations": 0,
+            "error": null
+          }
+        }
+      },
+      "rationale": "Component was not present in the before input."
+    },
+    {
+      "bucket": "new_package",
+      "component_key": "purl:pkg:pypi/mystery-lib",
+      "component": {
+        "name": "mystery-lib",
+        "version": "1.0.0",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/mystery-lib@1.0.0",
+        "license_id": null,
+        "supplier": null,
+        "source_url": "https://pypi.org/project/mystery-lib/1.0.0/",
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "provenance": {
+            "provider": "pypi",
+            "requested": true,
+            "supported": true,
+            "lookup_performed": true,
+            "package_name": "mystery-lib",
+            "package_version": "1.0.0",
+            "release_url": "https://pypi.org/project/mystery-lib/1.0.0/",
+            "statuses": [
+              "attestation_unavailable"
+            ],
+            "files": [
+              {
+                "filename": "mystery-lib-1.0.0.tar.gz",
+                "url": "https://files.pythonhosted.org/packages/mystery-lib-1.0.0.tar.gz",
+                "sha256": "deadbeef",
+                "upload_time": "2026-04-01T00:00:00.000000Z",
+                "yanked": false,
+                "statuses": [
+                  "attestation_unavailable"
+                ],
+                "attestation_count": 0,
+                "predicate_types": [],
+                "publisher_kinds": [],
+                "error": null
+              }
+            ],
+            "files_evaluated": 1,
+            "files_with_attestations": 0,
+            "files_without_attestations": 1,
+            "error": null
+          }
+        }
+      },
+      "rationale": "Component was not present in the before input."
+    },
+    {
+      "bucket": "version_change_unclassified",
+      "component_key": "purl:pkg:pypi/legacy-lib",
+      "component": {
+        "name": "legacy-lib",
+        "version": "1.1.0",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/legacy-lib@1.1.0",
+        "license_id": null,
+        "supplier": null,
+        "source_url": null,
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "provenance": {
+            "provider": "pypi",
+            "requested": true,
+            "supported": true,
+            "lookup_performed": true,
+            "package_name": "legacy-lib",
+            "package_version": "1.1.0",
+            "release_url": "https://pypi.org/project/legacy-lib/1.1.0/",
+            "statuses": [
+              "provenance_available",
+              "attestation_available"
+            ],
+            "files": [
+              {
+                "filename": "legacy-lib-1.1.0.tar.gz",
+                "url": "https://files.pythonhosted.org/packages/legacy-lib-1.1.0.tar.gz",
+                "sha256": "deadbeef",
+                "upload_time": "2026-04-01T00:00:00.000000Z",
+                "yanked": false,
+                "statuses": [
+                  "provenance_available",
+                  "attestation_available"
+                ],
+                "attestation_count": 1,
+                "predicate_types": [
+                  "https://example.test/attestation/v1"
+                ],
+                "publisher_kinds": [
+                  "manual upload"
+                ],
+                "error": null
+              }
+            ],
+            "files_evaluated": 1,
+            "files_with_attestations": 1,
+            "files_without_attestations": 0,
+            "error": null
+          }
+        }
+      },
+      "rationale": "Version changed but did not qualify as a parseable SemVer major upgrade."
+    }
+  ],
+  "policy_evaluation": {
+    "applied": true,
+    "policy_path": "examples/policy-provenance-strict.yml",
+    "effective_policy": {
+      "version": 2,
+      "block_on": [
+        "provenance_required",
+        "unverified_provenance"
+      ],
+      "warn_on": [
+        "missing_attestation"
+      ],
+      "max_added_packages": null,
+      "allow_sources": [],
+      "ignore_rules": [],
+      "require_attestations_for_new_packages": true,
+      "require_provenance_for_suspicious_sources": false,
+      "allow_unattested_packages": [],
+      "allow_provenance_publishers": [
+        "github actions"
+      ]
+    },
+    "blocking_violations": [
+      {
+        "rule_id": "provenance_required",
+        "level": "block",
+        "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "component_name": "mystery-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      },
+      {
+        "rule_id": "unverified_provenance",
+        "level": "block",
+        "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
+        "component_key": "purl:pkg:pypi/legacy-lib",
+        "component_name": "legacy-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      }
+    ],
+    "warning_violations": [
+      {
+        "rule_id": "missing_attestation",
+        "level": "warn",
+        "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "component_name": "mystery-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      }
+    ],
+    "suppressed_violations": [],
+    "totals": {
+      "blocking": 2,
+      "warning": 1,
+      "suppressed": 0,
+      "ignored_checks": 0
+    },
+    "exit_code": 1
+  },
+  "blocking_findings": [
+    {
+      "rule_id": "provenance_required",
+      "level": "block",
+      "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
+      "component_key": "purl:pkg:pypi/mystery-lib",
+      "component_name": "mystery-lib",
+      "finding_bucket": null,
+      "suppression_reason": null
+    },
+    {
+      "rule_id": "unverified_provenance",
+      "level": "block",
+      "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
+      "component_key": "purl:pkg:pypi/legacy-lib",
+      "component_name": "legacy-lib",
+      "finding_bucket": null,
+      "suppression_reason": null
+    }
+  ],
+  "warning_findings": [
+    {
+      "rule_id": "missing_attestation",
+      "level": "warn",
+      "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
+      "component_key": "purl:pkg:pypi/mystery-lib",
+      "component_name": "mystery-lib",
+      "finding_bucket": null,
+      "suppression_reason": null
+    }
+  ],
+  "suppressed_findings": [],
+  "rule_catalog": {
+    "new_package": {
+      "rule_id": "new_package",
+      "kind": "risk_finding",
+      "description": "Component is present only in the after input.",
+      "finding_buckets": [
+        "new_package"
+      ]
+    },
+    "major_upgrade": {
+      "rule_id": "major_upgrade",
+      "kind": "risk_finding",
+      "description": "Version change is a parseable SemVer major upgrade.",
+      "finding_buckets": [
+        "major_upgrade"
+      ]
+    },
+    "version_change_unclassified": {
+      "rule_id": "version_change_unclassified",
+      "kind": "risk_finding",
+      "description": "Version changed but could not be classified as a reliable major SemVer upgrade.",
+      "finding_buckets": [
+        "version_change_unclassified"
+      ]
+    },
+    "unknown_license": {
+      "rule_id": "unknown_license",
+      "kind": "risk_finding",
+      "description": "License metadata is missing, empty, UNKNOWN, or NOASSERTION.",
+      "finding_buckets": [
+        "unknown_license"
+      ]
+    },
+    "suspicious_source": {
+      "rule_id": "suspicious_source",
+      "kind": "risk_finding",
+      "description": "Source provenance is missing or points to a suspicious scheme, path, or host.",
+      "finding_buckets": [
+        "suspicious_source"
+      ]
+    },
+    "stale_package": {
+      "rule_id": "stale_package",
+      "kind": "risk_finding",
+      "description": "Staleness check result. Offline mode maps this rule to not_evaluated instead of guessing.",
+      "finding_buckets": [
+        "stale_package",
+        "not_evaluated"
+      ]
+    },
+    "max_added_packages": {
+      "rule_id": "max_added_packages",
+      "kind": "policy_check",
+      "description": "Added package count exceeded the configured deterministic threshold.",
+      "finding_buckets": []
+    },
+    "allow_sources": {
+      "rule_id": "allow_sources",
+      "kind": "policy_check",
+      "description": "Component source host was not present in the configured allow_sources list.",
+      "finding_buckets": []
+    },
+    "missing_attestation": {
+      "rule_id": "missing_attestation",
+      "kind": "provenance_signal",
+      "description": "PyPI release metadata was fetched, but no attestations were published for the package release.",
+      "finding_buckets": []
+    },
+    "unverified_provenance": {
+      "rule_id": "unverified_provenance",
+      "kind": "provenance_signal",
+      "description": "PyPI attestations were present, but provenance could not be verified against publisher metadata.",
+      "finding_buckets": []
+    },
+    "provenance_unavailable": {
+      "rule_id": "provenance_unavailable",
+      "kind": "provenance_signal",
+      "description": "PyPI provenance evidence was unavailable because enrichment was disabled, unsupported, or errored.",
+      "finding_buckets": []
+    },
+    "provenance_required": {
+      "rule_id": "provenance_required",
+      "kind": "policy_check",
+      "description": "A configured provenance requirement was not satisfied for the component.",
+      "finding_buckets": []
+    },
+    "scorecard_below_threshold": {
+      "rule_id": "scorecard_below_threshold",
+      "kind": "policy_check",
+      "description": "A mapped repository's OpenSSF Scorecard score was below the configured minimum threshold.",
+      "finding_buckets": []
+    }
+  },
+  "provenance_summary": {
+    "components_in_scope": 3,
+    "pypi_components_in_scope": 3,
+    "pypi_components_without_provenance": 0,
+    "components_with_provenance": 2,
+    "components_with_attestations": 2,
+    "components_with_attestation_gaps": 1,
+    "components_with_enrichment_errors": 0,
+    "unsupported_components": 0
+  },
+  "attestation_summary": {
+    "files_evaluated": 3,
+    "files_with_attestations": 2,
+    "files_without_attestations": 1,
+    "packages_with_attestation_gaps": [
+      {
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "name": "mystery-lib",
+        "version": "1.0.0",
+        "statuses": [
+          "attestation_unavailable"
+        ]
+      }
+    ],
+    "publisher_kind_counts": {
+      "github actions": 1,
+      "manual upload": 1
+    }
+  },
+  "scorecard_summary": {
+    "enabled": false,
+    "components_in_scope": 3,
+    "candidate_components": 0,
+    "supported_components": 0,
+    "components_with_mapped_repositories": 0,
+    "components_with_scorecards": 0,
+    "scorecard_unavailable": 0,
+    "repository_unmapped": 0,
+    "components_with_enrichment_errors": 0,
+    "results": []
+  },
+  "enrichment_metadata": {
+    "mode": "opt_in_pypi",
+    "pypi_enabled": true,
+    "pypi_timeout_seconds": 3.0,
+    "pypi_network_access_performed": true,
+    "network_access_performed": true,
+    "candidate_components": 3,
+    "supported_components": 3,
+    "status_counts": {
+      "attestation_available": 2,
+      "attestation_unavailable": 1,
+      "provenance_available": 2
+    },
+    "scorecard_enabled": false,
+    "scorecard_timeout_seconds": null,
+    "scorecard_network_access_performed": false,
+    "scorecard_candidate_components": 0,
+    "scorecard_supported_components": 0,
+    "scorecard_status_counts": {}
+  },
+  "trust_signal_notes": [
+    "Missing attestations indicate an attestation gap for the release; they are not treated as proof of compromise.",
+    "Observed attestation publisher kinds: github actions, manual upload.",
+    "Policy produced 3 provenance-related blocking or warning decision(s)."
+  ],
+  "metadata": {
+    "before_format": "requirements-txt",
+    "after_format": "requirements-txt",
+    "generated_at": null,
+    "strict": false,
+    "stub": false,
+    "policy_evaluation": {
+      "applied": true,
+      "policy_path": "examples/policy-provenance-strict.yml",
+      "effective_policy": {
+        "version": 2,
+        "block_on": [
+          "provenance_required",
+          "unverified_provenance"
+        ],
+        "warn_on": [
+          "missing_attestation"
+        ],
+        "max_added_packages": null,
+        "allow_sources": [],
+        "ignore_rules": [],
+        "require_attestations_for_new_packages": true,
+        "require_provenance_for_suspicious_sources": false,
+        "allow_unattested_packages": [],
+        "allow_provenance_publishers": [
+          "github actions"
+        ]
+      },
+      "blocking_violations": [
+        {
+          "rule_id": "provenance_required",
+          "level": "block",
+          "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
+          "component_key": "purl:pkg:pypi/mystery-lib",
+          "component_name": "mystery-lib",
+          "finding_bucket": null,
+          "suppression_reason": null
+        },
+        {
+          "rule_id": "unverified_provenance",
+          "level": "block",
+          "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
+          "component_key": "purl:pkg:pypi/legacy-lib",
+          "component_name": "legacy-lib",
+          "finding_bucket": null,
+          "suppression_reason": null
+        }
+      ],
+      "warning_violations": [
+        {
+          "rule_id": "missing_attestation",
+          "level": "warn",
+          "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
+          "component_key": "purl:pkg:pypi/mystery-lib",
+          "component_name": "mystery-lib",
+          "finding_bucket": null,
+          "suppression_reason": null
+        }
+      ],
+      "suppressed_violations": [],
+      "totals": {
+        "blocking": 2,
+        "warning": 1,
+        "suppressed": 0,
+        "ignored_checks": 0
+      },
+      "exit_code": 1
+    },
+    "enrichment": {
+      "mode": "opt_in_pypi",
+      "pypi_enabled": true,
+      "pypi_timeout_seconds": 3.0,
+      "pypi_network_access_performed": true,
+      "network_access_performed": true,
+      "candidate_components": 3,
+      "supported_components": 3,
+      "status_counts": {
+        "attestation_available": 2,
+        "attestation_unavailable": 1,
+        "provenance_available": 2
+      },
+      "scorecard_enabled": false,
+      "scorecard_timeout_seconds": null,
+      "scorecard_network_access_performed": false,
+      "scorecard_candidate_components": 0,
+      "scorecard_supported_components": 0,
+      "scorecard_status_counts": {}
+    }
+  },
+  "notes": [
+    "This tool uses heuristic risk classification.",
+    "PyPI provenance enrichment was requested explicitly."
+  ],
+  "provenance_policy": {
+    "configured": true,
+    "requirements": {
+      "require_attestations_for_new_packages": true,
+      "require_provenance_for_suspicious_sources": false,
+      "allow_unattested_packages": [],
+      "allow_provenance_publishers": [
+        "github actions"
+      ]
+    },
+    "counts": {
+      "blocking": 2,
+      "warning": 1,
+      "suppressed": 0
+    },
+    "blocking": [
+      {
+        "rule_id": "provenance_required",
+        "level": "block",
+        "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "component_name": "mystery-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      },
+      {
+        "rule_id": "unverified_provenance",
+        "level": "block",
+        "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
+        "component_key": "purl:pkg:pypi/legacy-lib",
+        "component_name": "legacy-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      }
+    ],
+    "warning": [
+      {
+        "rule_id": "missing_attestation",
+        "level": "warn",
+        "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "component_name": "mystery-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      }
+    ],
+    "suppressed": []
+  },
+  "provenance_policy_impact": {
+    "configured": true,
+    "requirements": {
+      "require_attestations_for_new_packages": true,
+      "require_provenance_for_suspicious_sources": false,
+      "allow_unattested_packages": [],
+      "allow_provenance_publishers": [
+        "github actions"
+      ]
+    },
+    "counts": {
+      "blocking": 2,
+      "warning": 1,
+      "suppressed": 0
+    },
+    "blocking": [
+      {
+        "rule_id": "provenance_required",
+        "level": "block",
+        "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "component_name": "mystery-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      },
+      {
+        "rule_id": "unverified_provenance",
+        "level": "block",
+        "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
+        "component_key": "purl:pkg:pypi/legacy-lib",
+        "component_name": "legacy-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      }
+    ],
+    "warning": [
+      {
+        "rule_id": "missing_attestation",
+        "level": "warn",
+        "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "component_name": "mystery-lib",
+        "finding_bucket": null,
+        "suppression_reason": null
+      }
+    ],
+    "suppressed": []
+  }
+}

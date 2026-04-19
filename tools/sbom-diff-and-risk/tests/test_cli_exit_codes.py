@@ -123,6 +123,10 @@ def test_cli_compare_help_mentions_policy_flags_and_exit_codes() -> None:
     assert "--fail-on" in result.stdout
     assert "--warn-on" in result.stdout
     assert "--strict" in result.stdout
+    assert "--enrich-pypi" in result.stdout
+    assert "--pypi-timeout" in result.stdout
+    assert "--enrich-scorecard" in result.stdout
+    assert "--scorecard-timeout" in result.stdout
     assert "Exit codes: 0 = success/no blocking violations" in result.stdout
 
 

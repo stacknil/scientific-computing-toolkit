@@ -1,0 +1,567 @@
+{
+  "summary": {
+    "added": 2,
+    "removed": 0,
+    "changed": 1,
+    "risk_counts": {
+      "new_package": 2,
+      "major_upgrade": 0,
+      "version_change_unclassified": 0,
+      "unknown_license": 0,
+      "stale_package": 0,
+      "suspicious_source": 0,
+      "not_evaluated": 0
+    }
+  },
+  "components": {
+    "added": [
+      {
+        "name": "requests",
+        "version": "2.32.0",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/requests@2.32.0",
+        "license_id": null,
+        "supplier": null,
+        "source_url": "https://github.com/psf/requests",
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "scorecard": {
+            "provider": "openssf-scorecard",
+            "requested": true,
+            "repository": {
+              "platform": "github.com",
+              "owner": "psf",
+              "repo": "requests",
+              "canonical_name": "github.com/psf/requests",
+              "repository_url": "https://github.com/psf/requests",
+              "source": "component.source_url",
+              "confidence": "high"
+            },
+            "statuses": [
+              "scorecard_available"
+            ],
+            "score": 6.0,
+            "date": "2026-04-10T00:00:00Z",
+            "scorecard_version": "5.0.0",
+            "scorecard_commit": "def456",
+            "repository_commit": "abc123",
+            "checks": [
+              {
+                "name": "Maintained",
+                "score": 10,
+                "reason": "Project is active.",
+                "documentation_url": null,
+                "documentation_short": null
+              },
+              {
+                "name": "Binary-Artifacts",
+                "score": 8,
+                "reason": "No unexpected artifacts were found.",
+                "documentation_url": null,
+                "documentation_short": null
+              }
+            ],
+            "note": null,
+            "error": null
+          }
+        }
+      },
+      {
+        "name": "urllib3",
+        "version": "2.2.1",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/urllib3@2.2.1",
+        "license_id": null,
+        "supplier": null,
+        "source_url": "https://pypi.org/project/urllib3/2.2.1/",
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "scorecard": {
+            "provider": "openssf-scorecard",
+            "requested": true,
+            "repository": null,
+            "statuses": [
+              "repository_unmapped"
+            ],
+            "score": null,
+            "date": null,
+            "scorecard_version": null,
+            "scorecard_commit": null,
+            "repository_commit": null,
+            "checks": [],
+            "note": "No high-confidence source repository mapping was available from explicit component metadata.",
+            "error": null
+          }
+        }
+      }
+    ],
+    "removed": [],
+    "changed": [
+      {
+        "key": "purl:pkg:pypi/certifi",
+        "classification": "version_changed",
+        "before": {
+          "name": "certifi",
+          "version": "2025.1.0",
+          "ecosystem": "pypi",
+          "purl": "pkg:pypi/certifi@2025.1.0",
+          "license_id": null,
+          "supplier": null,
+          "source_url": null,
+          "bom_ref": null,
+          "raw_type": null,
+          "evidence": {}
+        },
+        "after": {
+          "name": "certifi",
+          "version": "2026.1.1",
+          "ecosystem": "pypi",
+          "purl": "pkg:pypi/certifi@2026.1.1",
+          "license_id": null,
+          "supplier": null,
+          "source_url": "https://github.com/certifi/python-certifi",
+          "bom_ref": null,
+          "raw_type": null,
+          "evidence": {
+            "scorecard": {
+              "provider": "openssf-scorecard",
+              "requested": true,
+              "repository": {
+                "platform": "github.com",
+                "owner": "certifi",
+                "repo": "python-certifi",
+                "canonical_name": "github.com/certifi/python-certifi",
+                "repository_url": "https://github.com/certifi/python-certifi",
+                "source": "component.source_url",
+                "confidence": "high"
+              },
+              "statuses": [
+                "scorecard_available"
+              ],
+              "score": 8.4,
+              "date": "2026-04-10T00:00:00Z",
+              "scorecard_version": "5.0.0",
+              "scorecard_commit": "def456",
+              "repository_commit": "abc123",
+              "checks": [
+                {
+                  "name": "Maintained",
+                  "score": 10,
+                  "reason": "Project is active.",
+                  "documentation_url": null,
+                  "documentation_short": null
+                },
+                {
+                  "name": "Binary-Artifacts",
+                  "score": 8,
+                  "reason": "No unexpected artifacts were found.",
+                  "documentation_url": null,
+                  "documentation_short": null
+                }
+              ],
+              "note": null,
+              "error": null
+            }
+          }
+        }
+      }
+    ]
+  },
+  "risks": [
+    {
+      "bucket": "new_package",
+      "component_key": "purl:pkg:pypi/requests",
+      "component": {
+        "name": "requests",
+        "version": "2.32.0",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/requests@2.32.0",
+        "license_id": null,
+        "supplier": null,
+        "source_url": "https://github.com/psf/requests",
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "scorecard": {
+            "provider": "openssf-scorecard",
+            "requested": true,
+            "repository": {
+              "platform": "github.com",
+              "owner": "psf",
+              "repo": "requests",
+              "canonical_name": "github.com/psf/requests",
+              "repository_url": "https://github.com/psf/requests",
+              "source": "component.source_url",
+              "confidence": "high"
+            },
+            "statuses": [
+              "scorecard_available"
+            ],
+            "score": 6.0,
+            "date": "2026-04-10T00:00:00Z",
+            "scorecard_version": "5.0.0",
+            "scorecard_commit": "def456",
+            "repository_commit": "abc123",
+            "checks": [
+              {
+                "name": "Maintained",
+                "score": 10,
+                "reason": "Project is active.",
+                "documentation_url": null,
+                "documentation_short": null
+              },
+              {
+                "name": "Binary-Artifacts",
+                "score": 8,
+                "reason": "No unexpected artifacts were found.",
+                "documentation_url": null,
+                "documentation_short": null
+              }
+            ],
+            "note": null,
+            "error": null
+          }
+        }
+      },
+      "rationale": "Component was not present in the before input."
+    },
+    {
+      "bucket": "new_package",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component": {
+        "name": "urllib3",
+        "version": "2.2.1",
+        "ecosystem": "pypi",
+        "purl": "pkg:pypi/urllib3@2.2.1",
+        "license_id": null,
+        "supplier": null,
+        "source_url": "https://pypi.org/project/urllib3/2.2.1/",
+        "bom_ref": null,
+        "raw_type": null,
+        "evidence": {
+          "scorecard": {
+            "provider": "openssf-scorecard",
+            "requested": true,
+            "repository": null,
+            "statuses": [
+              "repository_unmapped"
+            ],
+            "score": null,
+            "date": null,
+            "scorecard_version": null,
+            "scorecard_commit": null,
+            "repository_commit": null,
+            "checks": [],
+            "note": "No high-confidence source repository mapping was available from explicit component metadata.",
+            "error": null
+          }
+        }
+      },
+      "rationale": "Component was not present in the before input."
+    }
+  ],
+  "policy_evaluation": {
+    "applied": true,
+    "policy_path": "examples/policy-scorecard-minimal.yml",
+    "effective_policy": {
+      "version": 3,
+      "block_on": [],
+      "warn_on": [
+        "scorecard_below_threshold"
+      ],
+      "max_added_packages": null,
+      "allow_sources": [],
+      "ignore_rules": [],
+      "require_attestations_for_new_packages": false,
+      "require_provenance_for_suspicious_sources": false,
+      "allow_unattested_packages": [],
+      "allow_provenance_publishers": [],
+      "minimum_scorecard_score": 7.0
+    },
+    "blocking_violations": [],
+    "warning_violations": [
+      {
+        "rule_id": "scorecard_below_threshold",
+        "level": "warn",
+        "message": "Scorecard score 6.0 is below minimum_scorecard_score=7.0 for repository github.com/psf/requests.",
+        "component_key": "purl:pkg:pypi/requests",
+        "component_name": "requests",
+        "finding_bucket": null,
+        "suppression_reason": null
+      }
+    ],
+    "suppressed_violations": [],
+    "totals": {
+      "blocking": 0,
+      "warning": 1,
+      "suppressed": 0,
+      "ignored_checks": 0
+    },
+    "exit_code": 0
+  },
+  "blocking_findings": [],
+  "warning_findings": [
+    {
+      "rule_id": "scorecard_below_threshold",
+      "level": "warn",
+      "message": "Scorecard score 6.0 is below minimum_scorecard_score=7.0 for repository github.com/psf/requests.",
+      "component_key": "purl:pkg:pypi/requests",
+      "component_name": "requests",
+      "finding_bucket": null,
+      "suppression_reason": null
+    }
+  ],
+  "suppressed_findings": [],
+  "rule_catalog": {
+    "new_package": {
+      "rule_id": "new_package",
+      "kind": "risk_finding",
+      "description": "Component is present only in the after input.",
+      "finding_buckets": [
+        "new_package"
+      ]
+    },
+    "major_upgrade": {
+      "rule_id": "major_upgrade",
+      "kind": "risk_finding",
+      "description": "Version change is a parseable SemVer major upgrade.",
+      "finding_buckets": [
+        "major_upgrade"
+      ]
+    },
+    "version_change_unclassified": {
+      "rule_id": "version_change_unclassified",
+      "kind": "risk_finding",
+      "description": "Version changed but could not be classified as a reliable major SemVer upgrade.",
+      "finding_buckets": [
+        "version_change_unclassified"
+      ]
+    },
+    "unknown_license": {
+      "rule_id": "unknown_license",
+      "kind": "risk_finding",
+      "description": "License metadata is missing, empty, UNKNOWN, or NOASSERTION.",
+      "finding_buckets": [
+        "unknown_license"
+      ]
+    },
+    "suspicious_source": {
+      "rule_id": "suspicious_source",
+      "kind": "risk_finding",
+      "description": "Source provenance is missing or points to a suspicious scheme, path, or host.",
+      "finding_buckets": [
+        "suspicious_source"
+      ]
+    },
+    "stale_package": {
+      "rule_id": "stale_package",
+      "kind": "risk_finding",
+      "description": "Staleness check result. Offline mode maps this rule to not_evaluated instead of guessing.",
+      "finding_buckets": [
+        "stale_package",
+        "not_evaluated"
+      ]
+    },
+    "max_added_packages": {
+      "rule_id": "max_added_packages",
+      "kind": "policy_check",
+      "description": "Added package count exceeded the configured deterministic threshold.",
+      "finding_buckets": []
+    },
+    "allow_sources": {
+      "rule_id": "allow_sources",
+      "kind": "policy_check",
+      "description": "Component source host was not present in the configured allow_sources list.",
+      "finding_buckets": []
+    },
+    "missing_attestation": {
+      "rule_id": "missing_attestation",
+      "kind": "provenance_signal",
+      "description": "PyPI release metadata was fetched, but no attestations were published for the package release.",
+      "finding_buckets": []
+    },
+    "unverified_provenance": {
+      "rule_id": "unverified_provenance",
+      "kind": "provenance_signal",
+      "description": "PyPI attestations were present, but provenance could not be verified against publisher metadata.",
+      "finding_buckets": []
+    },
+    "provenance_unavailable": {
+      "rule_id": "provenance_unavailable",
+      "kind": "provenance_signal",
+      "description": "PyPI provenance evidence was unavailable because enrichment was disabled, unsupported, or errored.",
+      "finding_buckets": []
+    },
+    "provenance_required": {
+      "rule_id": "provenance_required",
+      "kind": "policy_check",
+      "description": "A configured provenance requirement was not satisfied for the component.",
+      "finding_buckets": []
+    },
+    "scorecard_below_threshold": {
+      "rule_id": "scorecard_below_threshold",
+      "kind": "policy_check",
+      "description": "A mapped repository's OpenSSF Scorecard score was below the configured minimum threshold.",
+      "finding_buckets": []
+    }
+  },
+  "provenance_summary": {
+    "components_in_scope": 3,
+    "pypi_components_in_scope": 3,
+    "pypi_components_without_provenance": 3,
+    "components_with_provenance": 0,
+    "components_with_attestations": 0,
+    "components_with_attestation_gaps": 0,
+    "components_with_enrichment_errors": 0,
+    "unsupported_components": 0
+  },
+  "attestation_summary": {
+    "files_evaluated": 0,
+    "files_with_attestations": 0,
+    "files_without_attestations": 0,
+    "packages_with_attestation_gaps": [],
+    "publisher_kind_counts": {}
+  },
+  "scorecard_summary": {
+    "enabled": true,
+    "components_in_scope": 3,
+    "candidate_components": 3,
+    "supported_components": 2,
+    "components_with_mapped_repositories": 2,
+    "components_with_scorecards": 2,
+    "scorecard_unavailable": 0,
+    "repository_unmapped": 1,
+    "components_with_enrichment_errors": 0,
+    "results": [
+      {
+        "component_key": "purl:pkg:pypi/requests",
+        "name": "requests",
+        "version": "2.32.0",
+        "repository": "github.com/psf/requests",
+        "repository_source": "component.source_url",
+        "status": "scorecard_available",
+        "score": 6.0,
+        "note": null,
+        "error": null
+      },
+      {
+        "component_key": "purl:pkg:pypi/urllib3",
+        "name": "urllib3",
+        "version": "2.2.1",
+        "repository": null,
+        "repository_source": null,
+        "status": "repository_unmapped",
+        "score": null,
+        "note": "No high-confidence source repository mapping was available from explicit component metadata.",
+        "error": null
+      },
+      {
+        "component_key": "purl:pkg:pypi/certifi",
+        "name": "certifi",
+        "version": "2026.1.1",
+        "repository": "github.com/certifi/python-certifi",
+        "repository_source": "component.source_url",
+        "status": "scorecard_available",
+        "score": 8.4,
+        "note": null,
+        "error": null
+      }
+    ]
+  },
+  "enrichment_metadata": {
+    "mode": "opt_in_scorecard",
+    "pypi_enabled": false,
+    "pypi_timeout_seconds": null,
+    "pypi_network_access_performed": false,
+    "network_access_performed": true,
+    "candidate_components": 0,
+    "supported_components": 0,
+    "status_counts": {},
+    "scorecard_enabled": true,
+    "scorecard_timeout_seconds": 3.0,
+    "scorecard_network_access_performed": true,
+    "scorecard_candidate_components": 3,
+    "scorecard_supported_components": 2,
+    "scorecard_status_counts": {
+      "repository_unmapped": 1,
+      "scorecard_available": 2
+    }
+  },
+  "trust_signal_notes": [
+    "PyPI components are present, but provenance enrichment was not enabled for this run.",
+    "OpenSSF Scorecard results are auxiliary trust signals and are not proof of safety.",
+    "Scorecard lookups are skipped when no high-confidence repository mapping is available.",
+    "Policy produced 1 Scorecard-related blocking or warning decision(s)."
+  ],
+  "metadata": {
+    "before_format": "requirements-txt",
+    "after_format": "requirements-txt",
+    "generated_at": null,
+    "strict": false,
+    "stub": false,
+    "policy_evaluation": {
+      "applied": true,
+      "policy_path": "examples/policy-scorecard-minimal.yml",
+      "effective_policy": {
+        "version": 3,
+        "block_on": [],
+        "warn_on": [
+          "scorecard_below_threshold"
+        ],
+        "max_added_packages": null,
+        "allow_sources": [],
+        "ignore_rules": [],
+        "require_attestations_for_new_packages": false,
+        "require_provenance_for_suspicious_sources": false,
+        "allow_unattested_packages": [],
+        "allow_provenance_publishers": [],
+        "minimum_scorecard_score": 7.0
+      },
+      "blocking_violations": [],
+      "warning_violations": [
+        {
+          "rule_id": "scorecard_below_threshold",
+          "level": "warn",
+          "message": "Scorecard score 6.0 is below minimum_scorecard_score=7.0 for repository github.com/psf/requests.",
+          "component_key": "purl:pkg:pypi/requests",
+          "component_name": "requests",
+          "finding_bucket": null,
+          "suppression_reason": null
+        }
+      ],
+      "suppressed_violations": [],
+      "totals": {
+        "blocking": 0,
+        "warning": 1,
+        "suppressed": 0,
+        "ignored_checks": 0
+      },
+      "exit_code": 0
+    },
+    "enrichment": {
+      "mode": "opt_in_scorecard",
+      "pypi_enabled": false,
+      "pypi_timeout_seconds": null,
+      "pypi_network_access_performed": false,
+      "network_access_performed": true,
+      "candidate_components": 0,
+      "supported_components": 0,
+      "status_counts": {},
+      "scorecard_enabled": true,
+      "scorecard_timeout_seconds": 3.0,
+      "scorecard_network_access_performed": true,
+      "scorecard_candidate_components": 3,
+      "scorecard_supported_components": 2,
+      "scorecard_status_counts": {
+        "repository_unmapped": 1,
+        "scorecard_available": 2
+      }
+    }
+  },
+  "notes": [
+    "This tool uses heuristic risk classification.",
+    "OpenSSF Scorecard enrichment was requested explicitly."
+  ]
+}

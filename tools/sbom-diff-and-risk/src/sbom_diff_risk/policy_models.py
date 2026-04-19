@@ -9,7 +9,7 @@ class PolicyLevel(StrEnum):
     WARN = "warn"
 
 
-SUPPORTED_POLICY_RULE_IDS = (
+V1_SUPPORTED_POLICY_RULE_IDS = (
     "new_package",
     "major_upgrade",
     "version_change_unclassified",
@@ -18,6 +18,23 @@ SUPPORTED_POLICY_RULE_IDS = (
     "stale_package",
     "max_added_packages",
     "allow_sources",
+)
+
+V2_PROVENANCE_POLICY_RULE_IDS = (
+    "missing_attestation",
+    "unverified_provenance",
+    "provenance_unavailable",
+    "provenance_required",
+)
+
+V3_SCORECARD_POLICY_RULE_IDS = (
+    "scorecard_below_threshold",
+)
+
+SUPPORTED_POLICY_RULE_IDS = (
+    *V1_SUPPORTED_POLICY_RULE_IDS,
+    *V2_PROVENANCE_POLICY_RULE_IDS,
+    *V3_SCORECARD_POLICY_RULE_IDS,
 )
 
 
@@ -29,6 +46,11 @@ class PolicyConfig:
     max_added_packages: int | None = None
     allow_sources: tuple[str, ...] = ()
     ignore_rules: tuple[str, ...] = ()
+    require_attestations_for_new_packages: bool = False
+    require_provenance_for_suspicious_sources: bool = False
+    allow_unattested_packages: tuple[str, ...] = ()
+    allow_provenance_publishers: tuple[str, ...] = ()
+    minimum_scorecard_score: float | None = None
 
 
 @dataclass(slots=True)

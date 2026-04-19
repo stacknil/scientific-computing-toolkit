@@ -475,8 +475,86 @@
       "kind": "policy_check",
       "description": "Component source host was not present in the configured allow_sources list.",
       "finding_buckets": []
+    },
+    "missing_attestation": {
+      "rule_id": "missing_attestation",
+      "kind": "provenance_signal",
+      "description": "PyPI release metadata was fetched, but no attestations were published for the package release.",
+      "finding_buckets": []
+    },
+    "unverified_provenance": {
+      "rule_id": "unverified_provenance",
+      "kind": "provenance_signal",
+      "description": "PyPI attestations were present, but provenance could not be verified against publisher metadata.",
+      "finding_buckets": []
+    },
+    "provenance_unavailable": {
+      "rule_id": "provenance_unavailable",
+      "kind": "provenance_signal",
+      "description": "PyPI provenance evidence was unavailable because enrichment was disabled, unsupported, or errored.",
+      "finding_buckets": []
+    },
+    "provenance_required": {
+      "rule_id": "provenance_required",
+      "kind": "policy_check",
+      "description": "A configured provenance requirement was not satisfied for the component.",
+      "finding_buckets": []
+    },
+    "scorecard_below_threshold": {
+      "rule_id": "scorecard_below_threshold",
+      "kind": "policy_check",
+      "description": "A mapped repository's OpenSSF Scorecard score was below the configured minimum threshold.",
+      "finding_buckets": []
     }
   },
+  "provenance_summary": {
+    "components_in_scope": 2,
+    "pypi_components_in_scope": 2,
+    "pypi_components_without_provenance": 2,
+    "components_with_provenance": 0,
+    "components_with_attestations": 0,
+    "components_with_attestation_gaps": 0,
+    "components_with_enrichment_errors": 0,
+    "unsupported_components": 0
+  },
+  "attestation_summary": {
+    "files_evaluated": 0,
+    "files_with_attestations": 0,
+    "files_without_attestations": 0,
+    "packages_with_attestation_gaps": [],
+    "publisher_kind_counts": {}
+  },
+  "scorecard_summary": {
+    "enabled": false,
+    "components_in_scope": 2,
+    "candidate_components": 0,
+    "supported_components": 0,
+    "components_with_mapped_repositories": 0,
+    "components_with_scorecards": 0,
+    "scorecard_unavailable": 0,
+    "repository_unmapped": 0,
+    "components_with_enrichment_errors": 0,
+    "results": []
+  },
+  "enrichment_metadata": {
+    "mode": "offline_default",
+    "pypi_enabled": false,
+    "pypi_timeout_seconds": null,
+    "pypi_network_access_performed": false,
+    "network_access_performed": false,
+    "candidate_components": 0,
+    "supported_components": 0,
+    "status_counts": {},
+    "scorecard_enabled": false,
+    "scorecard_timeout_seconds": null,
+    "scorecard_network_access_performed": false,
+    "scorecard_candidate_components": 0,
+    "scorecard_supported_components": 0,
+    "scorecard_status_counts": {}
+  },
+  "trust_signal_notes": [
+    "PyPI components are present, but provenance enrichment was not enabled for this run."
+  ],
   "metadata": {
     "before_format": "cyclonedx-json",
     "after_format": "cyclonedx-json",
@@ -555,6 +633,22 @@
         "ignored_checks": 0
       },
       "exit_code": 1
+    },
+    "enrichment": {
+      "mode": "offline_default",
+      "pypi_enabled": false,
+      "pypi_timeout_seconds": null,
+      "pypi_network_access_performed": false,
+      "network_access_performed": false,
+      "candidate_components": 0,
+      "supported_components": 0,
+      "status_counts": {},
+      "scorecard_enabled": false,
+      "scorecard_timeout_seconds": null,
+      "scorecard_network_access_performed": false,
+      "scorecard_candidate_components": 0,
+      "scorecard_supported_components": 0,
+      "scorecard_status_counts": {}
     }
   },
   "notes": [

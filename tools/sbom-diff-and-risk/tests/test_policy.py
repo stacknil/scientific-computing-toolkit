@@ -39,9 +39,9 @@ def test_policy_parser_rejects_unknown_key(tmp_path: Path) -> None:
 
 def test_policy_parser_rejects_invalid_version(tmp_path: Path) -> None:
     path = tmp_path / "policy.yml"
-    path.write_text("version: 2\n", encoding="utf-8")
+    path.write_text("version: 4\n", encoding="utf-8")
 
-    with pytest.raises(PolicyError, match="only version 1"):
+    with pytest.raises(PolicyError, match="versions 1, 2, and 3"):
         load_policy(path)
 
 

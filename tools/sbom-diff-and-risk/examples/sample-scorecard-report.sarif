@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "sbom-diff-risk",
+          "fullName": "sbom-diff-risk",
+          "version": "0.3.0",
+          "semanticVersion": "0.3.0",
+          "rules": [
+            {
+              "id": "sdr.policy_violation.scorecard_below_threshold",
+              "name": "policy_violation.scorecard_below_threshold",
+              "shortDescription": {
+                "text": "Policy violation: scorecard_below_threshold"
+              },
+              "fullDescription": {
+                "text": "A mapped repository's OpenSSF Scorecard score was below the configured minimum threshold."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "policy",
+                  "scorecard"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "examples/requirements_before.txt",
+            "uriBaseId": "%SRCROOT%"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/requirements_after.txt",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
+      "properties": {
+        "sbom_diff_risk": {
+          "result_limit": 5000,
+          "total_candidate_results": 1,
+          "emitted_results": 1,
+          "omitted_results": 0,
+          "truncated": false,
+          "prioritization": "error results first, then warning, then note; direct mapped findings before policy-only checks; stable rule priority and component key tie-breakers.",
+          "warning": null
+        }
+      },
+      "results": [
+        {
+          "ruleId": "sdr.policy_violation.scorecard_below_threshold",
+          "level": "warning",
+          "message": {
+            "text": "requests: Scorecard score 6.0 is below minimum_scorecard_score=7.0 for repository github.com/psf/requests."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/requirements_after.txt",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.policy_violation.scorecard_below_threshold",
+            "componentKey": "purl:pkg:pypi/requests"
+          },
+          "properties": {
+            "policy_rule_id": "scorecard_below_threshold",
+            "component_key": "purl:pkg:pypi/requests",
+            "component_name": "requests",
+            "result_kind": "policy_violation"
+          }
+        }
+      ],
+      "originalUriBaseIds": {
+        "%SRCROOT%": {
+          "uri": "file:///__PROJECT_ROOT__/"
+        }
+      }
+    }
+  ]
+}

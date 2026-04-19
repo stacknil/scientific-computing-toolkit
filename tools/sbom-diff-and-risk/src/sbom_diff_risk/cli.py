@@ -6,8 +6,9 @@ from pathlib import Path
 from typing import Sequence
 
 from .diffing import diff_components
+from .enrichment import DEFAULT_PYPI_TIMEOUT_SECONDS, PyPIProvenanceEnricher, merge_enrichment_metadata
 from .errors import ParseError, PolicyError
-from .models import CompareReport, ReportComponents, ReportMetadata, ReportSummary
+from .models import CompareReport, ReportComponents, ReportEnrichmentMetadata, ReportMetadata, ReportSummary
 from .normalize import SUPPORTED_FORMATS, normalize_input_with_options
 from .policy_evaluator import evaluate_policy
 from .policy_parser import build_policy
@@ -16,6 +17,7 @@ from .report_json import render_report_json
 from .report_md import render_report_markdown
 from .report_sarif import render_report_sarif_output
 from .risk import evaluate_risks, summarize_risks
+from .scorecard_enrichment import DEFAULT_SCORECARD_TIMEOUT_SECONDS, ScorecardEnricher
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -68,7 +70,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--policy",
         type=Path,
         default=None,
-        help="Apply a YAML policy v1 file. Blocking violations return exit code 1.",
+        help="Apply a YAML policy v1, v2, or v3 file. Blocking violations return exit code 1.",
     )
     compare.add_argument(
         "--fail-on",
@@ -88,7 +90,24 @@ def build_parser() -> argparse.ArgumentParser:
     compare.add_argument(
         "--enrich-pypi",
         action="store_true",
-        help="Reserved for future PyPI metadata enrichment. Not implemented in v0.1 scaffolding.",
+        help="Opt-in PyPI provenance and integrity enrichment. Default behavior remains offline with no network access.",
+    )
+    compare.add_argument(
+        "--pypi-timeout",
+        type=float,
+        default=DEFAULT_PYPI_TIMEOUT_SECONDS,
+        help="Timeout in seconds for each explicit PyPI enrichment request. Used only with --enrich-pypi.",
+    )
+    compare.add_argument(
+        "--enrich-scorecard",
+        action="store_true",
+        help="Opt-in OpenSSF Scorecard enrichment for components with high-confidence repository mappings.",
+    )
+    compare.add_argument(
+        "--scorecard-timeout",
+        type=float,
+        default=DEFAULT_SCORECARD_TIMEOUT_SECONDS,
+        help="Timeout in seconds for each explicit Scorecard enrichment request. Used only with --enrich-scorecard.",
     )
     compare.add_argument(
         "--source-allowlist",
@@ -113,12 +132,17 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 def run_compare(args: argparse.Namespace) -> int:
     pyproject_group = getattr(args, "pyproject_group", None)
-
-    if args.enrich_pypi:
-        raise NotImplementedError("--enrich-pypi is reserved for a later network-enabled release.")
+    enrich_pypi = getattr(args, "enrich_pypi", False)
+    enrich_scorecard = getattr(args, "enrich_scorecard", False)
+    pypi_timeout = getattr(args, "pypi_timeout", DEFAULT_PYPI_TIMEOUT_SECONDS)
+    scorecard_timeout = getattr(args, "scorecard_timeout", DEFAULT_SCORECARD_TIMEOUT_SECONDS)
 
     if args.out_json is None and args.out_md is None and args.out_sarif is None:
         raise ValueError("at least one of --out-json, --out-md, or --out-sarif must be provided")
+    if pypi_timeout <= 0:
+        raise ValueError("--pypi-timeout must be a positive number of seconds.")
+    if scorecard_timeout <= 0:
+        raise ValueError("--scorecard-timeout must be a positive number of seconds.")
 
     before_path: Path = args.before
     after_path: Path = args.after
@@ -141,6 +165,23 @@ def run_compare(args: argparse.Namespace) -> int:
     )
     if pyproject_group and before_format != "pyproject-toml" and after_format != "pyproject-toml":
         raise ValueError("--pyproject-group requires at least one pyproject.toml input.")
+
+    pypi_enrichment_metadata = None
+    if enrich_pypi:
+        enricher = PyPIProvenanceEnricher(timeout_seconds=pypi_timeout)
+        before_components = enricher.enrich_components(before_components)
+        after_components = enricher.enrich_components(after_components)
+        pypi_enrichment_metadata = enricher.build_report_metadata()
+
+    scorecard_enrichment_metadata = None
+    if enrich_scorecard:
+        scorecard_enricher = ScorecardEnricher(timeout_seconds=scorecard_timeout)
+        before_components = scorecard_enricher.enrich_components(before_components)
+        after_components = scorecard_enricher.enrich_components(after_components)
+        scorecard_enrichment_metadata = scorecard_enricher.build_report_metadata()
+
+    enrichment_metadata = merge_enrichment_metadata(pypi_enrichment_metadata, scorecard_enrichment_metadata)
+
     policy, policy_path = build_policy(policy_path=args.policy, fail_on=args.fail_on, warn_on=args.warn_on)
 
     added, removed, changed = diff_components(before_components, after_components)
@@ -156,7 +197,7 @@ def run_compare(args: argparse.Namespace) -> int:
 
     notes = [
         "This tool uses heuristic risk classification.",
-        "No network enrichment was performed.",
+        _enrichment_note(enrich_pypi, enrich_scorecard),
         *before_notes,
         *after_notes,
     ]
@@ -177,6 +218,7 @@ def run_compare(args: argparse.Namespace) -> int:
             strict=args.strict,
             stub=False,
             policy_evaluation=policy_evaluation,
+            enrichment=enrichment_metadata or ReportEnrichmentMetadata(),
         ),
         notes=notes,
     )
@@ -244,6 +286,16 @@ def _format_policy_failure_summary(policy_evaluation) -> str:
         lines.append(f"sbom-diff-risk: suppressed = {len(resolved.suppressed_violations)}")
     lines.append("sbom-diff-risk: outputs were written; inspect the generated reports for full details.")
     return "\n".join(lines)
+
+
+def _enrichment_note(enrich_pypi: bool, enrich_scorecard: bool) -> str:
+    if enrich_pypi and enrich_scorecard:
+        return "PyPI provenance and OpenSSF Scorecard enrichment were requested explicitly."
+    if enrich_pypi:
+        return "PyPI provenance enrichment was requested explicitly."
+    if enrich_scorecard:
+        return "OpenSSF Scorecard enrichment was requested explicitly."
+    return "No network enrichment was performed."
 
 
 if __name__ == "__main__":

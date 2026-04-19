@@ -4,7 +4,16 @@ import json
 from pathlib import Path
 
 from sbom_diff_risk.diffing import diff_components
-from sbom_diff_risk.models import CompareReport, ReportComponents, ReportMetadata, ReportSummary
+from sbom_diff_risk.models import (
+    CompareReport,
+    Component,
+    ProvenanceEvidence,
+    ProvenanceFileEvidence,
+    ProvenanceStatus,
+    ReportComponents,
+    ReportMetadata,
+    ReportSummary,
+)
 from sbom_diff_risk.policy_evaluator import evaluate_policy
 from sbom_diff_risk.policy_models import PolicyConfig
 from sbom_diff_risk.policy_parser import build_policy
@@ -100,10 +109,54 @@ def test_report_json_keeps_legacy_sections() -> None:
         "warning_findings",
         "suppressed_findings",
         "rule_catalog",
+        "provenance_summary",
+        "attestation_summary",
+        "scorecard_summary",
+        "enrichment_metadata",
+        "trust_signal_notes",
         "metadata",
         "notes",
     }
     assert payload["metadata"]["policy_evaluation"] == payload["policy_evaluation"]
+    assert payload["metadata"]["enrichment"] == payload["enrichment_metadata"]
+    assert "provenance_policy" not in payload
+    assert "provenance_policy_impact" not in payload
+
+
+def test_report_json_offline_enrichment_metadata_is_stable_by_default() -> None:
+    report = _build_report("cdx_before.json", "cdx_after.json")
+
+    first = render_report_json(report)
+    second = render_report_json(report)
+    payload = json.loads(first)
+
+    assert first == second
+    assert payload["metadata"]["enrichment"] == {
+        "mode": "offline_default",
+        "pypi_enabled": False,
+        "pypi_timeout_seconds": None,
+        "pypi_network_access_performed": False,
+        "network_access_performed": False,
+        "candidate_components": 0,
+        "supported_components": 0,
+        "status_counts": {},
+        "scorecard_enabled": False,
+        "scorecard_timeout_seconds": None,
+        "scorecard_network_access_performed": False,
+        "scorecard_candidate_components": 0,
+        "scorecard_supported_components": 0,
+        "scorecard_status_counts": {},
+    }
+    assert payload["provenance_summary"]["pypi_components_without_provenance"] == 2
+    assert payload["provenance_summary"]["components_with_provenance"] == 0
+    assert payload["attestation_summary"]["files_evaluated"] == 0
+    assert payload["scorecard_summary"]["enabled"] is False
+    assert payload["scorecard_summary"]["components_with_scorecards"] == 0
+    assert payload["scorecard_summary"]["repository_unmapped"] == 0
+    assert payload["trust_signal_notes"] == ["PyPI components are present, but provenance enrichment was not enabled for this run."]
+    added_components = payload["components"]["added"]
+    assert all("provenance" not in component["evidence"] for component in added_components)
+    assert all("scorecard" not in component["evidence"] for component in added_components)
 
 
 def test_reports_render_suppressions_when_policy_ignores_findings() -> None:
@@ -120,6 +173,64 @@ def test_reports_render_suppressions_when_policy_ignores_findings() -> None:
     assert payload["suppressed_findings"]
     assert payload["suppressed_findings"][0]["suppression_reason"] == "ignored_by_policy"
     assert "## Suppressions" in markdown
+
+
+def test_reports_include_provenance_policy_details_for_v2_policy() -> None:
+    component = Component(
+        name="urllib3",
+        version="2.2.1",
+        ecosystem="pypi",
+        provenance=ProvenanceEvidence(
+            provider="pypi",
+            requested=True,
+            package_name="urllib3",
+            package_version="2.2.1",
+            release_url="https://pypi.org/project/urllib3/2.2.1/",
+            statuses=(ProvenanceStatus.ATTESTATION_UNAVAILABLE,),
+            files=(
+                ProvenanceFileEvidence(
+                    filename="urllib3-2.2.1.tar.gz",
+                    statuses=(ProvenanceStatus.ATTESTATION_UNAVAILABLE,),
+                    attestation_count=0,
+                ),
+            ),
+        ),
+    )
+    policy = PolicyConfig(
+        version=2,
+        warn_on=("missing_attestation",),
+        require_attestations_for_new_packages=True,
+        allow_unattested_packages=("pip",),
+    )
+    policy_evaluation = evaluate_policy(policy, policy_path="policy-provenance-minimal.yml", added=[component], changed=[], findings=[])
+    report = CompareReport(
+        summary=ReportSummary(added=1, removed=0, changed=0, risk_counts={}),
+        components=ReportComponents(added=[component], removed=[], changed=[]),
+        risks=[],
+        metadata=ReportMetadata(
+            before_format="requirements-txt",
+            after_format="requirements-txt",
+            generated_at=None,
+            strict=False,
+            stub=False,
+            policy_evaluation=policy_evaluation,
+        ),
+        notes=["PyPI provenance enrichment was requested explicitly."],
+    )
+
+    payload = json.loads(render_report_json(report))
+    markdown = render_report_markdown(report)
+
+    assert payload["policy_evaluation"]["effective_policy"]["require_attestations_for_new_packages"] is True
+    assert payload["policy_evaluation"]["effective_policy"]["allow_unattested_packages"] == ["pip"]
+    assert payload["provenance_policy"]["configured"] is True
+    assert payload["provenance_policy"]["requirements"]["allow_unattested_packages"] == ["pip"]
+    assert payload["provenance_policy"]["counts"]["blocking"] == 1
+    assert any(item["rule_id"] == "provenance_required" for item in payload["blocking_findings"])
+    assert "- Configured provenance policy: yes" in markdown
+    assert "- Allow unattested packages: pip" in markdown
+    assert "provenance_required" in markdown
+    assert "missing_attestation" in markdown
 
 
 def _build_report(
@@ -143,7 +254,7 @@ def _build_report(
 
     if policy is None:
         built_policy, policy_path = build_policy(
-            policy_path=(Path("examples") / policy_name) if policy_name else None,
+            policy_path=examples / policy_name if policy_name else None,
             fail_on=fail_on,
             warn_on=warn_on,
         )

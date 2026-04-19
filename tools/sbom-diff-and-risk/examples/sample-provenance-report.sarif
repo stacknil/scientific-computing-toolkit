@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "sbom-diff-risk",
+          "fullName": "sbom-diff-risk",
+          "version": "0.3.0",
+          "semanticVersion": "0.3.0",
+          "rules": [
+            {
+              "id": "sdr.policy_violation.provenance_required",
+              "name": "policy_violation.provenance_required",
+              "shortDescription": {
+                "text": "Policy violation: provenance_required"
+              },
+              "fullDescription": {
+                "text": "A configured provenance requirement was not satisfied for the component."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "policy",
+                  "provenance"
+                ]
+              }
+            },
+            {
+              "id": "sdr.policy_violation.unverified_provenance",
+              "name": "policy_violation.unverified_provenance",
+              "shortDescription": {
+                "text": "Policy violation: unverified_provenance"
+              },
+              "fullDescription": {
+                "text": "PyPI attestations were present, but provenance could not be verified against publisher metadata."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "policy",
+                  "provenance"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "examples/requirements_before.txt",
+            "uriBaseId": "%SRCROOT%"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/requirements_after.txt",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
+      "properties": {
+        "sbom_diff_risk": {
+          "result_limit": 5000,
+          "total_candidate_results": 2,
+          "emitted_results": 2,
+          "omitted_results": 0,
+          "truncated": false,
+          "prioritization": "error results first, then warning, then note; direct mapped findings before policy-only checks; stable rule priority and component key tie-breakers.",
+          "warning": null
+        }
+      },
+      "results": [
+        {
+          "ruleId": "sdr.policy_violation.provenance_required",
+          "level": "error",
+          "message": {
+            "text": "mystery-lib: Provenance required for new package; no attestations were published."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/requirements_after.txt",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.policy_violation.provenance_required",
+            "componentKey": "purl:pkg:pypi/mystery-lib"
+          },
+          "properties": {
+            "policy_rule_id": "provenance_required",
+            "component_key": "purl:pkg:pypi/mystery-lib",
+            "component_name": "mystery-lib",
+            "result_kind": "policy_violation"
+          }
+        },
+        {
+          "ruleId": "sdr.policy_violation.unverified_provenance",
+          "level": "error",
+          "message": {
+            "text": "legacy-lib: PyPI attestation publisher could not be verified by policy."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/requirements_after.txt",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.policy_violation.unverified_provenance",
+            "componentKey": "purl:pkg:pypi/legacy-lib"
+          },
+          "properties": {
+            "policy_rule_id": "unverified_provenance",
+            "component_key": "purl:pkg:pypi/legacy-lib",
+            "component_name": "legacy-lib",
+            "result_kind": "policy_violation"
+          }
+        }
+      ],
+      "originalUriBaseIds": {
+        "%SRCROOT%": {
+          "uri": "file:///__PROJECT_ROOT__/"
+        }
+      }
+    }
+  ]
+}

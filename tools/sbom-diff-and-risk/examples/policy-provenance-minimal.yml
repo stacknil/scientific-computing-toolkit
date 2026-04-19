@@ -1,0 +1,8 @@
+# Missing attestation remains a review signal, not proof of compromise.
+version: 2
+warn_on:
+  - missing_attestation
+  - provenance_required
+require_attestations_for_new_packages: true
+allow_unattested_packages:
+  - pip
