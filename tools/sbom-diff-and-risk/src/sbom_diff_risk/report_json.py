@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import json
 
+from .enrichment import enrichment_metadata_to_dict, provenance_evidence_to_dict
 from .models import CompareReport, Component, ComponentChange, RiskFinding
-from .presentation import build_policy_report_sections
+from .presentation import build_policy_report_sections, build_trust_signal_report_sections
+from .scorecard_enrichment import scorecard_evidence_to_dict
 
 
 def render_report_json(report: CompareReport) -> str:
     policy_sections = build_policy_report_sections(report.metadata.policy_evaluation)
+    trust_signal_sections = build_trust_signal_report_sections(report)
     payload = {
         "summary": {
             "added": report.summary.added,
@@ -26,6 +29,11 @@ def render_report_json(report: CompareReport) -> str:
         "warning_findings": policy_sections["warning_findings"],
         "suppressed_findings": policy_sections["suppressed_findings"],
         "rule_catalog": policy_sections["rule_catalog"],
+        "provenance_summary": trust_signal_sections["provenance_summary"],
+        "attestation_summary": trust_signal_sections["attestation_summary"],
+        "scorecard_summary": trust_signal_sections["scorecard_summary"],
+        "enrichment_metadata": trust_signal_sections["enrichment_metadata"],
+        "trust_signal_notes": trust_signal_sections["trust_signal_notes"],
         "metadata": {
             "before_format": report.metadata.before_format,
             "after_format": report.metadata.after_format,
@@ -33,13 +41,24 @@ def render_report_json(report: CompareReport) -> str:
             "strict": report.metadata.strict,
             "stub": report.metadata.stub,
             "policy_evaluation": policy_sections["policy_evaluation"],
+            "enrichment": enrichment_metadata_to_dict(report.metadata.enrichment),
         },
         "notes": list(report.notes),
     }
+    if policy_sections["provenance_policy"] is not None:
+        payload["provenance_policy"] = policy_sections["provenance_policy"]
+        payload["provenance_policy_impact"] = policy_sections["provenance_policy_impact"]
     return json.dumps(payload, indent=2) + "\n"
 
 
 def _component_to_dict(component: Component) -> dict[str, object]:
+    evidence = dict(component.evidence)
+    provenance = provenance_evidence_to_dict(component.provenance)
+    if provenance is not None:
+        evidence["provenance"] = provenance
+    scorecard = scorecard_evidence_to_dict(component.scorecard)
+    if scorecard is not None:
+        evidence["scorecard"] = scorecard
     return {
         "name": component.name,
         "version": component.version,
@@ -50,7 +69,7 @@ def _component_to_dict(component: Component) -> dict[str, object]:
         "source_url": component.source_url,
         "bom_ref": component.bom_ref,
         "raw_type": component.raw_type,
-        "evidence": component.evidence,
+        "evidence": evidence,
     }
 
 

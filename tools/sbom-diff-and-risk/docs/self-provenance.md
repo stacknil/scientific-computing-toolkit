@@ -11,7 +11,7 @@ The attested subjects are the exact Python distributables built from `tools/sbom
 
 Those two files are uploaded together as the workflow artifact named `sbom-diff-and-risk-dist`. The attestation applies to the built files themselves, not just to the artifact bundle name shown in the Actions UI.
 
-Current attestations cover workflow-built wheel and sdist artifacts, not GitHub Release assets or PyPI-published distributions.
+This repository does not currently publish PyPI Trusted Publishing provenance or immutable GitHub release attestations as part of this workflow. The current self-provenance coverage is limited to the workflow-produced wheel and source distribution files.
 
 ## Workflow and permissions
 

@@ -1,0 +1,12 @@
+# Explicit provenance requirements for enriched PyPI evidence.
+version: 2
+block_on:
+  - provenance_required
+  - provenance_unavailable
+  - unverified_provenance
+warn_on:
+  - missing_attestation
+require_attestations_for_new_packages: true
+require_provenance_for_suspicious_sources: true
+allow_unattested_publishers:
+  - github actions

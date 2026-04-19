@@ -7,7 +7,7 @@ from typing import Any
 
 from . import __version__
 from .models import CompareReport, RiskBucket, RiskFinding
-from .policy_models import PolicyViolation
+from .policy_models import PolicyLevel, PolicyViolation
 from .presentation import effective_policy_evaluation, rule_catalog_to_dict
 
 DEFAULT_SARIF_RESULT_LIMIT = 5000
@@ -21,14 +21,35 @@ _SARIF_SUPPORTED_RISK_BUCKETS = {
     RiskBucket.UNKNOWN_LICENSE,
     RiskBucket.MAJOR_UPGRADE,
 }
-_SARIF_POLICY_ONLY_RULE_IDS = {"allow_sources", "max_added_packages"}
+_SARIF_POLICY_ONLY_RULE_IDS = {
+    "allow_sources",
+    "max_added_packages",
+    "provenance_required",
+    "missing_attestation",
+    "unverified_provenance",
+    "scorecard_below_threshold",
+}
+_SARIF_HIGH_SIGNAL_PROVENANCE_RULE_IDS = {
+    "provenance_required",
+    "missing_attestation",
+    "unverified_provenance",
+}
 _LEVEL_PRIORITY = {"error": 0, "warning": 1, "note": 2}
+_POLICY_LEVEL_PRIORITY = {
+    PolicyLevel.BLOCK: 0,
+    PolicyLevel.WARN: 1,
+    None: 99,
+}
 _RULE_PRIORITY = {
     "sdr.suspicious_source": 0,
     "sdr.unknown_license": 1,
     "sdr.major_upgrade": 2,
-    "sdr.policy_violation.allow_sources": 3,
-    "sdr.policy_violation.max_added_packages": 4,
+    "sdr.policy_violation.provenance_required": 3,
+    "sdr.policy_violation.unverified_provenance": 4,
+    "sdr.policy_violation.missing_attestation": 5,
+    "sdr.policy_violation.allow_sources": 6,
+    "sdr.policy_violation.max_added_packages": 7,
+    "sdr.policy_violation.scorecard_below_threshold": 8,
 }
 
 
@@ -91,12 +112,15 @@ def render_report_sarif_output(
     resolved_base_dir = base_dir.resolve() if base_dir is not None else None
     policy_evaluation = effective_policy_evaluation(report.metadata.policy_evaluation)
     blocking_map = _blocking_violation_map(policy_evaluation.blocking_violations)
+    provenance_required_levels = _provenance_required_levels(policy_evaluation)
     emitted_blocking_keys: set[tuple[str, str | None]] = set()
 
     candidate_results: list[dict[str, Any]] = []
 
     for finding in report.risks:
         if finding.bucket not in _SARIF_SUPPORTED_RISK_BUCKETS:
+            continue
+        if finding.bucket is RiskBucket.SUSPICIOUS_SOURCE and finding.component_key in provenance_required_levels:
             continue
 
         policy_rule_id = _policy_rule_id_for_bucket(finding.bucket)
@@ -111,7 +135,7 @@ def render_report_sarif_output(
         if blocking_violation is not None:
             emitted_blocking_keys.add((policy_rule_id, finding.component_key))
 
-    for violation in policy_evaluation.blocking_violations:
+    for violation in _eligible_policy_violations(policy_evaluation):
         lookup_key = (violation.rule_id, violation.component_key)
         if lookup_key in emitted_blocking_keys:
             continue
@@ -239,7 +263,7 @@ def _policy_violation_to_result(
 
     return {
         "ruleId": rule_id,
-        "level": "error",
+        "level": _policy_result_level(violation),
         "message": {
             "text": _policy_result_message(violation),
         },
@@ -287,7 +311,30 @@ def _policy_result_message(violation: PolicyViolation) -> str:
     if violation.rule_id == "allow_sources" and violation.component_name:
         component_label = _component_label(violation.component_name, None)
         return f"{component_label}: {violation.message}"
+    if violation.rule_id == "missing_attestation" and violation.component_name:
+        return _component_policy_message(violation.component_name, "No PyPI attestations were published for this release.")
+    if violation.rule_id == "unverified_provenance" and violation.component_name:
+        return _component_policy_message(
+            violation.component_name,
+            "PyPI attestation publisher could not be verified by policy.",
+        )
+    if violation.rule_id == "provenance_required" and violation.component_name:
+        return _component_policy_message(
+            violation.component_name,
+            _concise_provenance_required_message(violation.message),
+        )
+    if violation.rule_id == "scorecard_below_threshold" and violation.component_name:
+        return _component_policy_message(
+            violation.component_name,
+            violation.message,
+        )
     return violation.message
+
+
+def _policy_result_level(violation: PolicyViolation) -> str:
+    if violation.level is PolicyLevel.WARN:
+        return "warning"
+    return "error"
 
 
 def _component_label(name: str, version: str | None) -> str:
@@ -296,11 +343,90 @@ def _component_label(name: str, version: str | None) -> str:
     return name
 
 
+def _component_policy_message(component_name: str, message: str) -> str:
+    return f"{_component_label(component_name, None)}: {message}"
+
+
+def _concise_provenance_required_message(message: str) -> str:
+    lowered = message.lower()
+    context = _provenance_requirement_context(message)
+
+    if "no attestations were published" in lowered:
+        reason = "no attestations were published"
+    elif "could not be verified" in lowered:
+        reason = "available attestations could not be verified"
+    elif "evidence is unavailable" in lowered or "evidence was unavailable" in lowered:
+        reason = "provenance evidence was unavailable"
+    else:
+        normalized = message.rstrip(".")
+        return normalized[0].upper() + normalized[1:] + "."
+
+    if context:
+        return f"Provenance required for {context}; {reason}."
+    return f"Provenance required; {reason}."
+
+
+def _provenance_requirement_context(message: str) -> str | None:
+    prefix = "Provenance is required for "
+    delimiter = ", but"
+    if not message.startswith(prefix):
+        return None
+    context, _, _ = message[len(prefix):].partition(delimiter)
+    normalized = context.strip()
+    return normalized or None
+
+
 def _blocking_violation_map(violations: list[PolicyViolation]) -> dict[tuple[str, str | None], PolicyViolation]:
     return {
         (violation.rule_id, violation.component_key): violation
         for violation in violations
     }
+
+
+def _provenance_required_levels(policy_evaluation) -> dict[str | None, PolicyLevel | None]:
+    return {
+        violation.component_key: violation.level
+        for violation in (*policy_evaluation.blocking_violations, *policy_evaluation.warning_violations)
+        if violation.rule_id == "provenance_required"
+    }
+
+
+def _eligible_policy_violations(policy_evaluation) -> list[PolicyViolation]:
+    provenance_required_levels = _provenance_required_levels(policy_evaluation)
+    eligible: list[PolicyViolation] = []
+    for violation in policy_evaluation.blocking_violations:
+        if sarif_rule_id_for_policy_violation(violation.rule_id) is not None and _should_emit_policy_violation(
+            violation,
+            provenance_required_levels=provenance_required_levels,
+        ):
+            eligible.append(violation)
+    for violation in policy_evaluation.warning_violations:
+        if sarif_rule_id_for_policy_violation(violation.rule_id) is None:
+            continue
+        if _should_emit_policy_violation(violation, provenance_required_levels=provenance_required_levels):
+            eligible.append(violation)
+    return eligible
+
+
+def _should_emit_policy_violation(
+    violation: PolicyViolation,
+    *,
+    provenance_required_levels: dict[str | None, PolicyLevel | None],
+) -> bool:
+    if violation.rule_id in {"allow_sources", "max_added_packages", "provenance_required", "scorecard_below_threshold"}:
+        return True
+    if violation.rule_id in {"missing_attestation", "unverified_provenance"}:
+        provenance_required_level = provenance_required_levels.get(violation.component_key)
+        if provenance_required_level is not None and _policy_level_rank(provenance_required_level) <= _policy_level_rank(
+            violation.level
+        ):
+            return False
+        return violation.level is PolicyLevel.BLOCK
+    return False
+
+
+def _policy_level_rank(level: PolicyLevel | None) -> int:
+    return _POLICY_LEVEL_PRIORITY[level]
 
 
 def _policy_rule_id_for_bucket(bucket: RiskBucket) -> str:
@@ -380,20 +506,26 @@ def _sarif_rule_metadata(rule_id: str) -> dict[str, Any]:
     if rule_id.startswith("sdr.policy_violation."):
         policy_rule_id = rule_id.removeprefix("sdr.policy_violation.")
         description = catalog.get(policy_rule_id, {}).get("description", "Blocking policy violation.")
+        default_level = "warning" if policy_rule_id in {"missing_attestation", "scorecard_below_threshold"} else "error"
+        tags = ["supply-chain", "policy"]
+        if policy_rule_id in _SARIF_HIGH_SIGNAL_PROVENANCE_RULE_IDS:
+            tags.append("provenance")
+        if policy_rule_id == "scorecard_below_threshold":
+            tags.append("scorecard")
         return {
             "id": rule_id,
             "name": f"policy_violation.{policy_rule_id}",
             "shortDescription": {
-                "text": f"Blocking policy violation: {policy_rule_id}",
+                "text": f"Policy violation: {policy_rule_id}",
             },
             "fullDescription": {
                 "text": description,
             },
             "defaultConfiguration": {
-                "level": "error",
+                "level": default_level,
             },
             "properties": {
-                "tags": ["supply-chain", "policy"],
+                "tags": tags,
             },
         }
 

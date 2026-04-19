@@ -24,6 +24,56 @@
 - Warnings: 1
 - Suppressed findings: 0
 
+## Provenance summary
+- Enrichment mode: offline_default
+- Network access performed: no
+- Candidate components for enrichment: 0
+- Supported components for enrichment: 0
+- Observed provenance status counts: none
+- Components in scope: 2
+- PyPI components in scope: 2
+- PyPI components without provenance records: 2
+- Components with provenance evidence: 0
+- Components with attestations: 0
+- Components with attestation gaps: 0
+- Components with enrichment errors: 0
+- Unsupported components: 0
+
+## Attestation gaps
+| component | version | statuses |
+|-----------|---------|----------|
+| _none_ |  |  |
+
+## Policy impact for provenance-related rules
+| rule id | component | level | message |
+|---------|-----------|-------|---------|
+| _none_ |  |  |  |
+
+## Trust signal notes
+- PyPI components are present, but provenance enrichment was not enabled for this run.
+
+## Scorecard summary
+- Enrichment enabled: no
+- Network access performed: no
+- Candidate components for Scorecard enrichment: 0
+- Components with supported repository mappings: 0
+- Components with mapped repositories: 0
+- Components with available Scorecards: 0
+- Scorecard unavailable: 0
+- Repository unmapped: 0
+- Components with enrichment errors: 0
+- Observed Scorecard status counts: none
+
+## Scorecard results
+| component | version | repository | score | status |
+|-----------|---------|------------|-------|--------|
+| _none_ |  |  |  |  |
+
+## Policy impact for Scorecard-related rules
+| rule id | component | level | message |
+|---------|-----------|-------|---------|
+| _none_ |  |  |  |
+
 ## Added components
 | name | version | ecosystem | risk buckets |
 |------|---------|-----------|--------------|

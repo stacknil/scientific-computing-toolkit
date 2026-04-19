@@ -1,6 +1,6 @@
 # sbom-diff-and-risk
 
-v0.2.0 adds policy-based enforcement, SARIF export, GitHub code scanning integration, and deterministic parser hardening for Python dependency inputs.
+v0.3.0 adds opt-in PyPI provenance enrichment, provenance-aware policy and reporting, optional advisory Scorecard signals, and self-provenance verification guidance for workflow-built artifacts.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
@@ -156,9 +156,82 @@ sbom-diff-risk compare \
 - `--warn-on rule[,rule...]`
 - `--strict`
 - `--enrich-pypi`
+- `--pypi-timeout seconds`
+- `--enrich-scorecard`
+- `--scorecard-timeout seconds`
 - `--source-allowlist pypi.org,files.pythonhosted.org,github.com`
 
-`--enrich-pypi` is reserved for future work and currently returns a clear error.
+Offline mode remains the default. No network access occurs unless `--enrich-pypi` or `--enrich-scorecard` is set explicitly.
+
+## Opt-in Provenance Enrichment
+
+PyPI provenance and integrity enrichment is explicit and additive in this PR:
+
+- only Python / PyPI packages are queried
+- no hidden network access occurs in default mode
+- enrichment results are captured as evidence and summarized in the reports
+- per-component `evidence.provenance` records stable lookup fields such as `supported`, `lookup_performed`, and per-file attestation totals
+- lack of attestation is treated as unavailable metadata, not as proof of compromise
+- policy evaluation can use these signals explicitly when configured
+- SARIF stays conservative and only emits selected high-signal provenance policy violations
+
+When enabled, the tool queries PyPI-facing release metadata plus file-level provenance data and records stable evidence fields under component `evidence.provenance`, along with run metadata under `metadata.enrichment` and the top-level trust-signal report fields in the JSON report.
+
+```bash
+sbom-diff-risk compare \
+  --before examples/requirements_before.txt \
+  --after examples/requirements_after.txt \
+  --enrich-pypi \
+  --pypi-timeout 3 \
+  --out-json outputs/report-enriched.json
+```
+
+## Provenance-Aware Reporting
+
+When provenance enrichment is enabled, the reports surface trust signals directly instead of burying them in component evidence:
+
+- JSON includes `provenance_summary`, `attestation_summary`, `enrichment_metadata`, `trust_signal_notes`, and `provenance_policy_impact`
+- Markdown includes `Provenance summary`, `Attestation gaps`, `Policy impact for provenance-related rules`, and `Trust signal notes`
+- core diff semantics do not change when enrichment is enabled
+- SARIF maps only selected high-signal provenance decisions such as `provenance_required`, blocking `missing_attestation`, and blocking `unverified_provenance`
+- provenance-related SARIF alerts prefer file-level locations that point to the relevant compared manifest or SBOM input
+
+Routine enrichment outcomes remain JSON and Markdown evidence for review. Non-blocking enrichment facts do not automatically become SARIF alerts.
+
+## Opt-in Scorecard Enrichment
+
+OpenSSF Scorecard enrichment is also explicit and advisory:
+
+- no Scorecard requests are made unless `--enrich-scorecard` is set
+- lookups only occur when a component can be mapped to a repository with high confidence from explicit metadata
+- repository registry pages and ambiguous URLs are treated as unmapped instead of inferred
+- Scorecard results are auxiliary trust signals, not proof of safety
+- Scorecard-only SARIF alerts are emitted only when policy explicitly turns a threshold breach into a violation
+
+```bash
+sbom-diff-risk compare \
+  --before examples/cdx_before.json \
+  --after examples/cdx_after.json \
+  --enrich-scorecard \
+  --scorecard-timeout 3 \
+  --out-json outputs/report-scorecard.json
+```
+
+If you want policy gating, make it explicit with a v3 policy such as [policy-scorecard-minimal.yml](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/policy-scorecard-minimal.yml), which sets `minimum_scorecard_score` and opts into the `scorecard_below_threshold` rule.
+
+Setting `minimum_scorecard_score` alone is advisory metadata for review. It only affects policy outcomes when `scorecard_below_threshold` is configured explicitly in `block_on`, `warn_on`, or `ignore_rules`.
+
+## Self-provenance
+
+This repository also records provenance for `sbom-diff-and-risk` itself by generating GitHub artifact attestations for the wheel and source distribution produced by the `sbom-diff-and-risk-ci` workflow.
+
+- the attested files are the wheel and source distribution built by `python -m build` from `tools/sbom-diff-and-risk`
+- the build files are uploaded together as the `sbom-diff-and-risk-dist` workflow artifact
+- only trusted non-PR runs publish the attestation
+- consumers can verify provenance with GitHub's attestation tooling after downloading one of those artifacts
+- this complements the tool's analysis of third-party supply-chain inputs, but it does not replace that analysis
+
+See [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for the exact attested filenames, where the evidence appears in GitHub, and a run-by-run verification flow for consumers.
 
 ## Examples
 
@@ -167,11 +240,15 @@ The [examples/](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-an
 - before/after inputs for CycloneDX JSON, SPDX JSON, `requirements.txt`, and `pyproject.toml`
 - dependency-group examples at `examples/pyproject_groups_before.toml` and `examples/pyproject_groups_after.toml`
 - example policies at `examples/policy-minimal.yml` and `examples/policy-strict.yml`
+- provenance-aware policy examples at `examples/policy-provenance-minimal.yml` and `examples/policy-provenance-strict.yml`
+- a Scorecard-aware policy example at `examples/policy-scorecard-minimal.yml`
 - a sample pass JSON report at [sample-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.json)
 - a sample pass Markdown report at [sample-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.md)
 - sample policy-warn reports at [sample-policy-warn-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.json) and [sample-policy-warn-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.md)
 - sample policy-fail reports at [sample-policy-fail-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.json) and [sample-policy-fail-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.md)
 - a sample SARIF export at [sample-sarif.sarif](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-sarif.sarif)
+- provenance-aware sample reports at [sample-provenance-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-provenance-report.json), [sample-provenance-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-provenance-report.md), and [sample-provenance-report.sarif](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-provenance-report.sarif)
+- Scorecard-aware sample reports at [sample-scorecard-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-scorecard-report.json), [sample-scorecard-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-scorecard-report.md), and [sample-scorecard-report.sarif](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-scorecard-report.sarif)
 - requirements-based sample reports at [sample-requirements-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.json) and [sample-requirements-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.md)
 
 ## Enforcement Mode
@@ -214,9 +291,10 @@ SARIF export is intentionally conservative. The current renderer emits a GitHub-
 - `suspicious_source`
 - `unknown_license`
 - `major_upgrade`
-- selected blocking policy results such as `max_added_packages` and `allow_sources`
+- selected policy results such as `max_added_packages`, `allow_sources`, `provenance_required`, and blocking provenance violations like `missing_attestation` or `unverified_provenance`
+- explicit Scorecard policy violations such as `scorecard_below_threshold`
 
-It does not turn every diff or informational heuristic into a code scanning alert.
+It does not turn every enrichment fact, diff, or informational heuristic into a code scanning alert.
 
 ```bash
 sbom-diff-risk compare \
@@ -228,17 +306,8 @@ sbom-diff-risk compare \
 
 For GitHub code scanning integration guidance and a minimal upload workflow, see [docs/github-code-scanning.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/github-code-scanning.md).
 
-## Self-provenance
+For details on how this repository attests the tool's own wheel and source distribution artifacts, see [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md).
 
-This repository also records provenance for `sbom-diff-and-risk` itself by generating GitHub artifact attestations for the wheel and source distribution produced by the `sbom-diff-and-risk-ci` workflow.
-
-- the attested files are the wheel and source distribution built by `python -m build` from `tools/sbom-diff-and-risk`
-- the build files are uploaded together as the `sbom-diff-and-risk-dist` workflow artifact
-- only trusted non-PR runs publish the attestation
-- consumers can verify provenance with GitHub's attestation tooling after downloading one of those artifacts
-- this complements the tool's analysis of third-party supply-chain inputs, but it does not replace that analysis
-
-See [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for the exact attested filenames, where the evidence appears in GitHub, and a run-by-run verification flow for consumers.
 ## Parser Boundaries
 
 Deterministic local mode intentionally supports a conservative subset of packaging syntax. The detailed matrix lives in [docs/parser-boundaries.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/parser-boundaries.md).
@@ -266,9 +335,12 @@ Deterministic local mode intentionally supports a conservative subset of packagi
 ## Limitations
 
 - default mode is local-file based only.
+- PyPI provenance enrichment is opt-in only via `--enrich-pypi`; default runs stay offline.
 - `generated_at` remains `null` to preserve deterministic report output.
 - `stale_package` is not resolved offline. The report emits `not_evaluated` instead.
-- SARIF export intentionally covers only a conservative subset of findings in v0.2.
+- provenance evidence is recorded for supported PyPI packages only; unsupported and failed lookups remain explicit evidence gaps.
+- SARIF export intentionally covers only a conservative subset of findings in v0.2, including only selected high-signal provenance policy violations.
+- Scorecard enrichment is opt-in only via `--enrich-scorecard`, uses only high-confidence repository mappings, and remains advisory unless policy explicitly gates it.
 - No vulnerability database integration, CVE matching, or advisory enrichment.
 - `requirements.txt` support intentionally covers a conservative subset: plain PEP 508 requirement entries, comments, extras, markers, and line continuations.
 - `requirements.txt` intentionally rejects include/constraint directives, editable installs, direct URL/path refs, index/source options, and other pip-only install flags in deterministic mode.

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 from pathlib import Path
 
 from sbom_diff_risk.cli import run_compare
@@ -31,7 +30,7 @@ def test_render_report_sarif_matches_golden() -> None:
     rendered = render_report_sarif(report, before_path=before_path, after_path=after_path, base_dir=project_root)
     expected = (project_root / "examples" / "sample-sarif.sarif").read_text(encoding="utf-8")
 
-    assert _normalize_sarif_golden(rendered) == _normalize_sarif_golden(expected)
+    assert _normalize_sarif_snapshot(rendered) == _normalize_sarif_snapshot(expected)
 
 
 def test_sarif_rule_ids_are_stable() -> None:
@@ -172,7 +171,7 @@ def _build_report(before_name: str, after_name: str, *, policy_name: str | None 
 
     added, removed, changed = diff_components(before_components, after_components)
     risks = evaluate_risks(added, changed, allowlist=["pypi.org", "files.pythonhosted.org", "github.com"])
-    policy, policy_path = build_policy(policy_path=(Path("examples") / policy_name) if policy_name else None)
+    policy, policy_path = build_policy(policy_path=examples / policy_name if policy_name else None)
     policy_evaluation = evaluate_policy(
         policy,
         policy_path=policy_path,
@@ -213,9 +212,7 @@ def _build_report(before_name: str, after_name: str, *, policy_name: str | None 
     return report, before_path, after_path
 
 
-def _normalize_sarif_golden(value: str) -> str:
-    return re.sub(
-        r"file:///[^\"\r\n]+/tools/sbom-diff-and-risk(?:-real)?/",
-        "file:///__PROJECT_ROOT__/",
-        value,
-    )
+def _normalize_sarif_snapshot(content: str) -> str:
+    payload = json.loads(content)
+    payload["runs"][0]["originalUriBaseIds"]["%SRCROOT%"]["uri"] = "file:///__PROJECT_ROOT__/"
+    return json.dumps(payload, indent=2) + "\n"

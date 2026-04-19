@@ -7,8 +7,8 @@
         "driver": {
           "name": "sbom-diff-risk",
           "fullName": "sbom-diff-risk",
-          "version": "0.2.0",
-          "semanticVersion": "0.2.0",
+          "version": "0.3.0",
+          "semanticVersion": "0.3.0",
           "rules": [
             {
               "id": "sdr.major_upgrade",
@@ -33,7 +33,7 @@
               "id": "sdr.policy_violation.allow_sources",
               "name": "policy_violation.allow_sources",
               "shortDescription": {
-                "text": "Blocking policy violation: allow_sources"
+                "text": "Policy violation: allow_sources"
               },
               "fullDescription": {
                 "text": "Component source host was not present in the configured allow_sources list."
@@ -52,7 +52,7 @@
               "id": "sdr.policy_violation.max_added_packages",
               "name": "policy_violation.max_added_packages",
               "shortDescription": {
-                "text": "Blocking policy violation: max_added_packages"
+                "text": "Policy violation: max_added_packages"
               },
               "fullDescription": {
                 "text": "Added package count exceeded the configured deterministic threshold."
@@ -292,7 +292,7 @@
       ],
       "originalUriBaseIds": {
         "%SRCROOT%": {
-          "uri": "file:///D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/"
+          "uri": "file:///__PROJECT_ROOT__/"
         }
       }
     }

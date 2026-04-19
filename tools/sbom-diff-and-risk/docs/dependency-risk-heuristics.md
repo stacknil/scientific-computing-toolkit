@@ -25,6 +25,7 @@ The current rules are intentionally conservative:
 ## Deferred work
 
 - real `stale_package` evaluation behind explicit enrichment
+- provenance-based policy gates over opt-in enrichment evidence
 - ecosystem-specific trust rules
 - advisory and CVE enrichment
 - configurable risk policy profiles

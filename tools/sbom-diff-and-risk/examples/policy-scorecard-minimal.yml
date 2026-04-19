@@ -1,0 +1,4 @@
+version: 3
+warn_on:
+  - scorecard_below_threshold
+minimum_scorecard_score: 7.0

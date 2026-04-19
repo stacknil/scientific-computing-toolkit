@@ -24,10 +24,10 @@ jobs:
         working-directory: tools/sbom-diff-and-risk
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -57,7 +57,7 @@ jobs:
 
   build-and-attest:
     # Keep provenance publication on trusted non-PR runs so consumers verify
-    # workflow-produced wheel and sdist artifacts from this repository workflow.
+    # workflow-produced wheel/sdist artifacts from this repository workflow.
     if: github.event_name != 'pull_request'
     needs: test
     runs-on: ubuntu-latest
