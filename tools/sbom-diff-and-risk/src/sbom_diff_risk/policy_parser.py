@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Iterable
 
@@ -244,11 +245,11 @@ def _parse_bool(value: object, context: str) -> bool:
 def _parse_optional_score(value: object, context: str) -> float | None:
     if value is None:
         return None
-    if not isinstance(value, (int, float)):
-        raise PolicyError(f"Invalid policy schema in {context}: expected a number between 0 and 10.")
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise PolicyError(f"Invalid policy schema in {context}: expected a finite number between 0 and 10.")
     normalized = float(value)
-    if normalized < 0 or normalized > 10:
-        raise PolicyError(f"Invalid policy schema in {context}: expected a number between 0 and 10.")
+    if not math.isfinite(normalized) or normalized < 0 or normalized > 10:
+        raise PolicyError(f"Invalid policy schema in {context}: expected a finite number between 0 and 10.")
     return normalized
 
 

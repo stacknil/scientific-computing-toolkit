@@ -36,6 +36,25 @@ def test_policy_parser_accepts_scorecard_v3_policy(tmp_path) -> None:  # noqa: A
     assert policy.minimum_scorecard_score == 7.5
 
 
+@pytest.mark.parametrize("raw_score", ["true", ".nan", ".inf", "-.inf"])
+def test_policy_parser_rejects_non_finite_or_boolean_scorecard_threshold(tmp_path, raw_score: str) -> None:  # noqa: ANN001
+    path = tmp_path / "policy.yml"
+    path.write_text(
+        "\n".join(
+            [
+                "version: 3",
+                "warn_on: [scorecard_below_threshold]",
+                f"minimum_scorecard_score: {raw_score}",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(PolicyError, match="expected a finite number between 0 and 10"):
+        load_policy(path)
+
+
 def test_policy_parser_rejects_scorecard_keys_in_version_2_policy(tmp_path: Path) -> None:
     path = tmp_path / "policy.yml"
     path.write_text("version: 2\nminimum_scorecard_score: 7.0\n", encoding="utf-8")
