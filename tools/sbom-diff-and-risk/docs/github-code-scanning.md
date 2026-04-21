@@ -11,6 +11,7 @@ The example workflow in `.github/workflows/sbom-diff-and-risk-code-scanning.yml`
 - checks out the repository
 - installs Python and the local tool
 - runs `sbom-diff-risk compare ... --out-sarif`
+- uploads the generated SARIF file as the workflow artifact `sbom-diff-and-risk-sarif`
 - uploads the generated SARIF file with `github/codeql-action/upload-sarif`
 
 The example intentionally uses local example inputs and does not depend on secrets or network enrichment.
@@ -50,6 +51,18 @@ Set a SARIF category when you upload more than one analysis for the same commit 
 - separate policy modes or rule packs
 
 If you upload multiple SARIF files for the same tool and commit without distinct categories, later uploads replace earlier ones. In GitHub Actions, set the `category:` input on `github/codeql-action/upload-sarif`. Outside Actions, use `runAutomationDetails.id` in the SARIF file.
+
+## Manual verification for one workflow run
+
+After merging a change that touches `tools/sbom-diff-and-risk` or the workflow file itself:
+
+1. Open the repository's **Actions** tab.
+2. Open a successful `sbom-diff-and-risk-code-scanning` run for the pull request, or trigger it manually with `workflow_dispatch`.
+   - the visible run name starts with `sbom-diff-and-risk code scanning / <event> / <ref>`
+3. Confirm that the `upload-sarif` job completed successfully.
+4. Download the `sbom-diff-and-risk-sarif` artifact and confirm it contains `report.sarif`.
+5. Open the repository's **Security** tab, then **Code scanning**.
+6. Confirm the uploaded analysis appears under the category `sbom-diff-risk/example`.
 
 ## What this integration does not cover
 
