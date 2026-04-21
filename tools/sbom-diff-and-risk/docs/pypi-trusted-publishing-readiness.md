@@ -32,8 +32,8 @@ The main blockers are packaging and release-readiness concerns, not OIDC support
    That includes either:
    - a pending publisher for a new `sbom-diff-and-risk` project, or
    - a trusted publisher entry on an existing PyPI project
-4. The first PyPI release version and release sequencing have not been pinned down yet.
-   The repository currently builds version `0.3.0`, while the repository work is now in the `v0.4` release-hardening theme.
+4. PyPI release sequencing is still intentionally deferred.
+   The repository now builds version `0.4.0` and has GitHub-hosted release hardening in place, but PyPI publishing is still not enabled in this repository flow.
 
 Because of those gaps, enabling a publish job now would create a fragile or misleading path.
 
@@ -78,7 +78,7 @@ python -m twine check $files
 
 ### 2. Decide the first PyPI-published version and release sequence
 
-- Decide whether the first PyPI upload should be `0.3.0`, `0.4.0`, or a later release.
+- Decide whether the first PyPI upload should be `0.4.0` or a later release.
 - Ensure the tag, package version, release notes, GitHub Release assets, and PyPI upload plan all refer to the same version.
 
 ### 3. Configure PyPI-side Trusted Publishing
