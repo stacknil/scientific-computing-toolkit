@@ -118,6 +118,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Download built distribution artifact
         uses: actions/download-artifact@v4
@@ -129,6 +131,7 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.ref_name }}
           RELEASE_TITLE_PREFIX: ${{ env.SBOM_DIFF_RISK_RELEASE_TITLE_PREFIX }}
         run: |
@@ -142,19 +145,20 @@ jobs:
 
           title="${RELEASE_TITLE_PREFIX} ${RELEASE_TAG}"
 
-          if gh release view "${RELEASE_TAG}" >/dev/null 2>&1; then
-            is_draft="$(gh release view "${RELEASE_TAG}" --json isDraft -q .isDraft)"
+          if gh release view "${RELEASE_TAG}" --repo "${GH_REPO}" >/dev/null 2>&1; then
+            is_draft="$(gh release view "${RELEASE_TAG}" --repo "${GH_REPO}" --json isDraft -q .isDraft)"
             if [ "${is_draft}" != "true" ]; then
               echo "Release ${RELEASE_TAG} already exists and is published; leaving assets unchanged."
               exit 0
             fi
           else
             gh release create "${RELEASE_TAG}" \
+              --repo "${GH_REPO}" \
               --draft \
               --verify-tag \
               --title "${title}" \
               --notes "Release assets for ${RELEASE_TAG}. See docs/release-provenance.md for provenance verification guidance."
           fi
 
-          gh release upload "${RELEASE_TAG}" "${assets[@]}" --clobber
-          gh release edit "${RELEASE_TAG}" --draft=false --title "${title}"
+          gh release upload "${RELEASE_TAG}" "${assets[@]}" --repo "${GH_REPO}" --clobber
+          gh release edit "${RELEASE_TAG}" --repo "${GH_REPO}" --draft=false --title "${title}"
