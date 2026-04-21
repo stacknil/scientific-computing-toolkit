@@ -1,10 +1,17 @@
 # sbom-diff-and-risk
 
-v0.3.0 adds opt-in PyPI provenance enrichment, provenance-aware policy and reporting, optional advisory Scorecard signals, and self-provenance verification guidance for workflow-built artifacts.
+v0.4 keeps dependency analysis local and deterministic by default while improving how consumers verify `sbom-diff-and-risk` itself through workflow-built artifacts and GitHub Release assets.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
 It uses conservative heuristics for change intelligence. By default it does not resolve CVEs, does not act as a reputation oracle, and does not perform hidden network enrichment.
+
+## Start Here
+
+This project has two different provenance stories:
+
+1. If you want to verify `sbom-diff-and-risk` itself, start with [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md).
+2. If you want to use `sbom-diff-and-risk` to analyze third-party dependency provenance, start with [Dependency provenance analysis](#dependency-provenance-analysis-opt-in) and [Dependency provenance reporting](#dependency-provenance-reporting).
 
 ## Scope
 
@@ -163,7 +170,9 @@ sbom-diff-risk compare \
 
 Offline mode remains the default. No network access occurs unless `--enrich-pypi` or `--enrich-scorecard` is set explicitly.
 
-## Opt-in Provenance Enrichment
+## Dependency Provenance Analysis (Opt-in)
+
+This section is about analyzing third-party package provenance signals. It is not about verifying the `sbom-diff-and-risk` tool's own release artifacts.
 
 PyPI provenance and integrity enrichment is explicit and additive in this PR:
 
@@ -186,7 +195,7 @@ sbom-diff-risk compare \
   --out-json outputs/report-enriched.json
 ```
 
-## Provenance-Aware Reporting
+## Dependency Provenance Reporting
 
 When provenance enrichment is enabled, the reports surface trust signals directly instead of burying them in component evidence:
 
@@ -221,17 +230,26 @@ If you want policy gating, make it explicit with a v3 policy such as [policy-sco
 
 Setting `minimum_scorecard_score` alone is advisory metadata for review. It only affects policy outcomes when `scorecard_below_threshold` is configured explicitly in `block_on`, `warn_on`, or `ignore_rules`.
 
-## Self-provenance
+## Tool Provenance And Verification
+
+This section is about verifying `sbom-diff-and-risk` itself. If you want the shortest path to the right verification instructions, start with [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md).
 
 This repository also records provenance for `sbom-diff-and-risk` itself by generating GitHub artifact attestations for the wheel and source distribution produced by the `sbom-diff-and-risk-ci` workflow.
 
 - the attested files are the wheel and source distribution built by `python -m build` from `tools/sbom-diff-and-risk`
 - the build files are uploaded together as the `sbom-diff-and-risk-dist` workflow artifact
+- version-tag runs also publish those same built files as GitHub Release assets for the matching tag
 - only trusted non-PR runs publish the attestation
-- consumers can verify provenance with GitHub's attestation tooling after downloading one of those artifacts
+- consumers can verify workflow-built artifacts with `gh attestation verify`
+- consumers can verify immutable releases and downloaded release assets with `gh release verify` and `gh release verify-asset`
 - this complements the tool's analysis of third-party supply-chain inputs, but it does not replace that analysis
 
-See [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for the exact attested filenames, where the evidence appears in GitHub, and a run-by-run verification flow for consumers.
+Verification docs:
+
+- [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md) for the quick decision guide
+- [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for workflow-artifact attestation
+- [docs/release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md) for release-asset verification and immutable release guidance
+- [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md) for PyPI publishing prerequisites and sequencing
 
 ## Examples
 
@@ -306,7 +324,13 @@ sbom-diff-risk compare \
 
 For GitHub code scanning integration guidance and a minimal upload workflow, see [docs/github-code-scanning.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/github-code-scanning.md).
 
+For the shortest path to the tool-verification docs, start with [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md).
+
 For details on how this repository attests the tool's own wheel and source distribution artifacts, see [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md).
+
+For details on how version-tag releases publish those same build outputs as release assets, and how consumers can verify immutable releases with GitHub CLI, see [docs/release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md).
+
+For PyPI Trusted Publishing readiness, prerequisites, and the reasons this repository does not enable PyPI upload yet, see [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md).
 
 ## Parser Boundaries
 

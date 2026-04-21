@@ -1,8 +1,12 @@
 name: sbom-diff-and-risk-ci
+run-name: sbom-diff-and-risk ci / ${{ github.event_name }} / ${{ github.ref_name }}
 
 on:
   workflow_dispatch:
   push:
+    # Version tags provide a minimal release-build scaffold without changing publishing.
+    tags:
+      - "v*"
     paths:
       - ".github/workflows/sbom-diff-and-risk-ci.yml"
       - "tools/sbom-diff-and-risk/**"
@@ -11,8 +15,12 @@ on:
       - ".github/workflows/sbom-diff-and-risk-ci.yml"
       - "tools/sbom-diff-and-risk/**"
 
+permissions: {}
+
 env:
+  SBOM_DIFF_RISK_PYTHON_VERSION: "3.11"
   SBOM_DIFF_RISK_DIST_ARTIFACT_NAME: sbom-diff-and-risk-dist
+  SBOM_DIFF_RISK_RELEASE_TITLE_PREFIX: sbom-diff-and-risk
 
 jobs:
   test:
@@ -24,12 +32,12 @@ jobs:
         working-directory: tools/sbom-diff-and-risk
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: ${{ env.SBOM_DIFF_RISK_PYTHON_VERSION }}
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
@@ -70,12 +78,12 @@ jobs:
         working-directory: tools/sbom-diff-and-risk
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: ${{ env.SBOM_DIFF_RISK_PYTHON_VERSION }}
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
@@ -99,3 +107,51 @@ jobs:
         uses: actions/attest@v4
         with:
           subject-path: ${{ github.workspace }}/tools/sbom-diff-and-risk/dist/*
+
+  publish-release-assets:
+    # Publish the exact built wheel/sdist bytes from this run as release assets.
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: build-and-attest
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download built distribution artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
+          path: release-assets
+
+      - name: Publish release assets from CI-built distributions
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TITLE_PREFIX: ${{ env.SBOM_DIFF_RISK_RELEASE_TITLE_PREFIX }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          assets=(release-assets/*.whl release-assets/*.tar.gz)
+          if [ "${#assets[@]}" -eq 0 ]; then
+            echo "No release assets found in release-assets/" >&2
+            exit 1
+          fi
+
+          title="${RELEASE_TITLE_PREFIX} ${RELEASE_TAG}"
+
+          if gh release view "${RELEASE_TAG}" >/dev/null 2>&1; then
+            is_draft="$(gh release view "${RELEASE_TAG}" --json isDraft -q .isDraft)"
+            if [ "${is_draft}" != "true" ]; then
+              echo "Release ${RELEASE_TAG} already exists and is published; leaving assets unchanged."
+              exit 0
+            fi
+          else
+            gh release create "${RELEASE_TAG}" \
+              --draft \
+              --verify-tag \
+              --title "${title}" \
+              --notes "Release assets for ${RELEASE_TAG}. See docs/release-provenance.md for provenance verification guidance."
+          fi
+
+          gh release upload "${RELEASE_TAG}" "${assets[@]}" --clobber
+          gh release edit "${RELEASE_TAG}" --draft=false --title "${title}"
