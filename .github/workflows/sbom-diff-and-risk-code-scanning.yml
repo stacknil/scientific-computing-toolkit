@@ -49,7 +49,7 @@ jobs:
             --out-sarif ${{ env.SBOM_DIFF_RISK_SARIF_FILE }}
 
       - name: Upload SARIF workflow artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.SBOM_DIFF_RISK_SARIF_ARTIFACT_NAME }}
           path: tools/sbom-diff-and-risk/${{ env.SBOM_DIFF_RISK_SARIF_FILE }}
