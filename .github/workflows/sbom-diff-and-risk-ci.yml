@@ -122,7 +122,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download built distribution artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
           path: release-assets
