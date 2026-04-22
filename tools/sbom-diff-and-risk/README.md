@@ -1,6 +1,6 @@
 # sbom-diff-and-risk
 
-v0.4.0 focuses on release/distribution provenance hardening while keeping dependency analysis local and deterministic by default. It clarifies how consumers verify `sbom-diff-and-risk` itself through workflow-built artifacts and GitHub Release assets, and it documents PyPI Trusted Publishing readiness without enabling PyPI publishing yet.
+v0.4.1 is a narrow release-only follow-up that validates the repaired tag-path GitHub Release asset publishing flow. It keeps dependency analysis local and deterministic by default and does not change CLI analysis behavior.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
