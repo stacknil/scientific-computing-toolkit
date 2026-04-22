@@ -5,17 +5,35 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "sbom-diff-and-risk"
 version = "0.4.1"
-description = "Local, deterministic SBOM diff and heuristic risk reporting."
-readme = "README.md"
+description = "Deterministic SBOM diff CLI with heuristic risk reporting."
+readme = { file = "PYPI_DESCRIPTION.md", content-type = "text/markdown" }
 requires-python = ">=3.11"
 license = "MIT"
 authors = [
   { name = "OpenAI Codex" }
 ]
+keywords = ["sbom", "supply-chain", "cyclonedx", "spdx", "dependencies"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Security",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
   "packaging>=24.0",
   "PyYAML>=6.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/stacknil/scientific-computing-toolkit"
+Repository = "https://github.com/stacknil/scientific-computing-toolkit"
+Issues = "https://github.com/stacknil/scientific-computing-toolkit/issues"
+Releases = "https://github.com/stacknil/scientific-computing-toolkit/releases"
 
 [project.optional-dependencies]
 dev = [
