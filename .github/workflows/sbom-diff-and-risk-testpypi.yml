@@ -1,0 +1,91 @@
+name: sbom-diff-and-risk-testpypi
+run-name: sbom-diff-and-risk TestPyPI / ${{ github.event_name }} / ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_to_testpypi:
+        description: "Upload to TestPyPI using Trusted Publishing. Requires the TestPyPI publisher to be configured first."
+        required: true
+        default: false
+        type: boolean
+  push:
+    paths:
+      - ".github/workflows/sbom-diff-and-risk-testpypi.yml"
+      - "tools/sbom-diff-and-risk/PYPI_DESCRIPTION.md"
+      - "tools/sbom-diff-and-risk/pyproject.toml"
+      - "tools/sbom-diff-and-risk/src/**"
+  pull_request:
+    paths:
+      - ".github/workflows/sbom-diff-and-risk-testpypi.yml"
+      - "tools/sbom-diff-and-risk/PYPI_DESCRIPTION.md"
+      - "tools/sbom-diff-and-risk/pyproject.toml"
+      - "tools/sbom-diff-and-risk/src/**"
+
+permissions: {}
+
+env:
+  SBOM_DIFF_RISK_PYTHON_VERSION: "3.11"
+  SBOM_DIFF_RISK_DIST_ARTIFACT_NAME: sbom-diff-and-risk-testpypi-dist
+
+jobs:
+  build-and-check:
+    name: Build and check distributions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: tools/sbom-diff-and-risk
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.SBOM_DIFF_RISK_PYTHON_VERSION }}
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install package build tooling
+        run: python -m pip install build twine
+
+      - name: Build wheel and source distribution
+        run: python -m build
+
+      - name: Check distribution metadata
+        run: python -m twine check dist/*
+
+      - name: Upload checked distribution artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
+          path: |
+            tools/sbom-diff-and-risk/dist/*.whl
+            tools/sbom-diff-and-risk/dist/*.tar.gz
+          if-no-files-found: error
+
+  publish-testpypi:
+    name: Publish checked distributions to TestPyPI
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_to_testpypi }}
+    needs: build-and-check
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/sbom-diff-and-risk/
+    permissions:
+      id-token: write
+    steps:
+      - name: Download checked distribution artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
+          path: dist
+
+      - name: Publish to TestPyPI with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/

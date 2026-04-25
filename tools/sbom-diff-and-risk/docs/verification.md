@@ -18,7 +18,8 @@ Current boundaries:
 - the workflow artifact name is `sbom-diff-and-risk-dist`
 - version-tag runs matching `v*` can publish the same built files as GitHub Release assets
 - release verification depends on immutable releases being enabled for the repository
-- this repository still does not publish to PyPI in this flow; see the readiness checklist before enabling that path
+- the TestPyPI readiness workflow is `sbom-diff-and-risk-testpypi`
+- production PyPI publishing is still absent; see the readiness checklist before enabling that path
 
 ### 2. "How do I use `sbom-diff-and-risk` to analyze third-party dependency provenance?"
 
