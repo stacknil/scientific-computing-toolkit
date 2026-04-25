@@ -1,6 +1,6 @@
 # sbom-diff-and-risk
 
-v0.4.1 is a narrow release-only follow-up that validates the repaired tag-path GitHub Release asset publishing flow. It keeps dependency analysis local and deterministic by default and does not change CLI analysis behavior.
+v0.5 PR 4 adds a TestPyPI / Trusted Publishing readiness dry-run path. It keeps production PyPI publishing disabled, keeps dependency analysis local and deterministic by default, and does not change CLI analysis behavior.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
@@ -249,7 +249,7 @@ Verification docs:
 - [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md) for the quick decision guide
 - [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for workflow-artifact attestation
 - [docs/release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md) for release-asset verification and immutable release guidance
-- [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md) for PyPI publishing prerequisites and sequencing
+- [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md) for TestPyPI Trusted Publishing readiness, exact external publisher setup, and production PyPI blockers
 
 ## Examples
 
@@ -330,7 +330,7 @@ For details on how this repository attests the tool's own wheel and source distr
 
 For details on how version-tag releases publish those same build outputs as release assets, and how consumers can verify immutable releases with GitHub CLI, see [docs/release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md).
 
-For PyPI Trusted Publishing readiness, prerequisites, and the reasons this repository does not enable PyPI upload yet, see [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md).
+For TestPyPI Trusted Publishing readiness, the manually gated dry-run workflow, and the reasons production PyPI upload remains disabled, see [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md).
 
 ## Parser Boundaries
 

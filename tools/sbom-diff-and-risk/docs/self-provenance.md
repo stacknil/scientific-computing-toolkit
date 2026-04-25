@@ -15,7 +15,7 @@ Those two files are uploaded together as the workflow artifact named `sbom-diff-
 
 On version tags matching `v*`, the same workflow also publishes those exact wheel and sdist files as GitHub Release assets for the matching tag. The workflow-artifact attestation story remains the build-provenance source of truth for the files themselves; release verification is an additional GitHub-hosted surface layered on top of those same bytes.
 
-This repository does not currently publish PyPI Trusted Publishing provenance. Release verification is separate from workflow-artifact attestations and depends on GitHub immutable releases being enabled for the repository. When immutable releases are enabled, GitHub automatically generates a release attestation covering the published release record and its attached assets.
+This repository does not currently publish production PyPI Trusted Publishing provenance. The separate TestPyPI readiness workflow is a pre-production validation path and is documented in [pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md). Release verification is separate from workflow-artifact attestations and depends on GitHub immutable releases being enabled for the repository. When immutable releases are enabled, GitHub automatically generates a release attestation covering the published release record and its attached assets.
 
 ## Workflow and permissions
 
@@ -36,7 +36,7 @@ The `build-and-attest` job uses the minimum explicit permissions required for Gi
 - `id-token: write` for GitHub's signing identity
 - `attestations: write` to publish the attestation
 
-Regular branch pushes remain path-filtered to the `sbom-diff-and-risk` workflow file and tool directory. The workflow also accepts version tags matching `v*`, which gives the repository a minimal release-oriented build path that now covers workflow artifact attestation plus GitHub Release asset publication, without adding PyPI publishing.
+Regular branch pushes remain path-filtered to the `sbom-diff-and-risk` workflow file and tool directory. The workflow also accepts version tags matching `v*`, which gives the repository a minimal release-oriented build path that now covers workflow artifact attestation plus GitHub Release asset publication, without adding production PyPI publishing.
 
 ## Where provenance evidence appears in GitHub
 

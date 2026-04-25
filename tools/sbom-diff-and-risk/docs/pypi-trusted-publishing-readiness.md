@@ -1,144 +1,153 @@
 # PyPI Trusted Publishing readiness
 
-This page is a readiness checklist, not an enabled publish flow.
+This page documents the PR 4 TestPyPI / Trusted Publishing dry-run path for `sbom-diff-and-risk`.
 
-`sbom-diff-and-risk` is not enabling PyPI Trusted Publishing in this PR because the repository is not yet cleanly ready for a narrow, durable publish workflow. The goal here is to make the distribution-authentication story explicit without wiring a half-configured upload path.
+The repository now has a safe GitHub Actions path that always builds and checks the Python distributions, and can publish those already-checked distributions to TestPyPI only when a maintainer explicitly enables the manual upload input. It does not publish to production PyPI.
 
 Official references:
 
-- [PyPI Trusted Publishing overview](https://docs.pypi.org/trusted-publishers/)
+- [PyPI Trusted Publishers](https://docs.pypi.org/trusted-publishers/)
+- [Adding a Trusted Publisher to an existing PyPI project](https://docs.pypi.org/trusted-publishers/adding-a-publisher/)
 - [Creating a PyPI project with a Trusted Publisher](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/)
 - [Publishing with a Trusted Publisher](https://docs.pypi.org/trusted-publishers/using-a-publisher/)
+- [Configuring OpenID Connect in PyPI](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-pypi)
+- [PyPA gh-action-pypi-publish](https://github.com/pypa/gh-action-pypi-publish)
 
-## Current status
+## PR 4 decision
 
-Today, the repository is ready for:
+Use a TestPyPI-first readiness workflow, but do not claim that a TestPyPI dry-run is complete until the external TestPyPI publisher is configured and a maintainer runs the manual upload.
 
-- local package builds with `python -m build`
-- package metadata validation with `python -m twine check`
-- GitHub workflow artifact attestation for built distributions
-- GitHub Release asset publication and release-verification guidance
+Current outcome for this PR:
 
-Today, the repository is not yet ready for enabling PyPI Trusted Publishing by default.
+- **Trusted Publishing readiness only** by default
+- **TestPyPI dry-run blocked by external configuration** until TestPyPI has the matching pending publisher or trusted publisher
+- **No production PyPI publishing**
 
-## Why Trusted Publishing is not enabled yet
+The workflow file is `.github/workflows/sbom-diff-and-risk-testpypi.yml`.
 
-The main blockers are packaging and release-readiness concerns, not OIDC support itself:
+It has two separate jobs:
 
-1. The current `README.md` is repository-oriented and contains local absolute file links such as `D:/OneDrive/...`.
-   Those links are acceptable for the local Codex app, but they are not a clean PyPI-facing long description.
-2. The package does not yet have a dedicated, publish-only GitHub Actions workflow with the minimal Trusted Publishing permissions and a clear separation between build and upload responsibilities.
-3. PyPI-side configuration has not been established yet.
-   That includes either:
-   - a pending publisher for a new `sbom-diff-and-risk` project, or
-   - a trusted publisher entry on an existing PyPI project
-4. PyPI release sequencing is still intentionally deferred.
-   The repository now builds version `0.4.1` and has GitHub-hosted release hardening in place, but PyPI publishing is still not enabled in this repository flow.
+- `build-and-check` builds the wheel and source distribution, runs `twine check`, and uploads the checked files as a workflow artifact
+- `publish-testpypi` downloads that artifact and publishes to TestPyPI with OIDC only when `workflow_dispatch` input `publish_to_testpypi` is set to `true`
 
-Because of those gaps, enabling a publish job now would create a fragile or misleading path.
+The upload job does not rebuild the package.
 
-## Local checks that already pass
+## Current package and project status
 
-These checks are useful, but they are not sufficient to justify enabling Trusted Publishing:
+As checked on April 25, 2026:
 
-```bash
-cd tools/sbom-diff-and-risk
+- `https://pypi.org/pypi/sbom-diff-and-risk/json` returned `404`
+- `https://test.pypi.org/pypi/sbom-diff-and-risk/json` returned `404`
+
+That means neither the production PyPI project nor the TestPyPI project currently exists under `sbom-diff-and-risk`.
+
+Because the TestPyPI project does not exist yet, the first upload must use a **pending publisher** on TestPyPI, unless a maintainer creates the TestPyPI project some other way first. For production PyPI, defer all configuration and upload work to PR 5.
+
+## Workflow identity
+
+Configure the TestPyPI publisher to match this GitHub workflow identity exactly:
+
+| Field | Value |
+| --- | --- |
+| Package/project name | `sbom-diff-and-risk` |
+| GitHub owner | `stacknil` |
+| GitHub repository | `scientific-computing-toolkit` |
+| Workflow file in repository | `.github/workflows/sbom-diff-and-risk-testpypi.yml` |
+| Trusted Publisher workflow name field | `sbom-diff-and-risk-testpypi.yml` |
+| GitHub environment | `testpypi` |
+
+The workflow uses `environment: testpypi` for the upload job, so the TestPyPI publisher must also include `testpypi` as the environment name. If the publisher is configured without an environment, the OIDC identity will not match this workflow.
+
+## What this PR validates
+
+Locally and in GitHub Actions, this PR validates:
+
+- package metadata still points at `PYPI_DESCRIPTION.md` as the PyPI-facing long description
+- the package can build a wheel and source distribution
+- the built distributions pass `twine check`
+- the GitHub workflow separates build/check from upload
+- the TestPyPI upload job uses OIDC-compatible permissions with `id-token: write`
+- no PyPI token secret is required or documented
+- production PyPI upload is absent
+
+This PR does not validate:
+
+- that TestPyPI has the pending publisher configured
+- that TestPyPI accepts the first upload
+- that production PyPI has a project, pending publisher, or trusted publisher
+- that production PyPI publishing should happen for version `0.4.1`
+
+## TestPyPI setup required before upload
+
+Do these steps only after this workflow is merged.
+
+1. In GitHub, create or verify the repository environment named `testpypi`.
+2. In TestPyPI, create a pending publisher for the new `sbom-diff-and-risk` project.
+3. Use the identity values from [Workflow identity](#workflow-identity).
+4. Do not add a PyPI API token or GitHub secret for publishing.
+5. Run the workflow manually and set `publish_to_testpypi` to `true`.
+
+If the pending publisher is missing or any identity field differs, the upload job should fail instead of silently falling back to a token or pretending the dry-run succeeded.
+
+## Local validation
+
+From `tools/sbom-diff-and-risk`:
+
+```powershell
+python -m pip install --upgrade build twine
 python -m build
-$files = Get-ChildItem dist | ForEach-Object { $_.FullName }
+$files = (Get-ChildItem dist -File).FullName
 python -m twine check $files
 ```
 
-What those checks prove:
+What this proves:
 
-- the package can be built locally
-- the built distributions pass Twine's metadata/rendering validation
+- the local package can be built
+- the built distributions have valid metadata and long-description rendering according to Twine
 
-What they do not prove:
+What this does not prove:
 
-- that the README and linked documentation are appropriate for PyPI users
-- that the repository and PyPI project are wired together for OIDC publishing
-- that GitHub-side and PyPI-side Trusted Publishing configuration matches exactly
+- the GitHub OIDC identity matches TestPyPI
+- the TestPyPI pending publisher exists
+- the upload job can mint a TestPyPI publishing token
 
-## Readiness checklist before enabling Trusted Publishing
+## GitHub Actions validation
 
-Complete these items first:
+Without uploading anything:
 
-### 1. Make the package description PyPI-facing
+1. Open **Actions**.
+2. Run **sbom-diff-and-risk-testpypi** with `publish_to_testpypi` left as `false`.
+3. Confirm `build-and-check` succeeds.
+4. Confirm the run uploads `sbom-diff-and-risk-testpypi-dist`.
+5. Confirm `publish-testpypi` is skipped.
 
-- Replace local absolute-path links in `tools/sbom-diff-and-risk/README.md` with links that render sensibly on PyPI.
-- If the repository still needs desktop-specific local links, create a separate PyPI-oriented readme or another long-description strategy for packaging.
-- Re-run:
+With TestPyPI pending publisher configured:
 
-```bash
-cd tools/sbom-diff-and-risk
-python -m build
-$files = Get-ChildItem dist | ForEach-Object { $_.FullName }
-python -m twine check $files
-```
+1. Open **Actions**.
+2. Run **sbom-diff-and-risk-testpypi** with `publish_to_testpypi` set to `true`.
+3. Confirm `build-and-check` succeeds before upload.
+4. Confirm `publish-testpypi` downloads `sbom-diff-and-risk-testpypi-dist`.
+5. Confirm `publish-testpypi` uses OIDC and publishes to `https://test.pypi.org/legacy/`.
+6. Open `https://test.pypi.org/project/sbom-diff-and-risk/` and confirm the uploaded version appears.
 
-### 2. Decide the first PyPI-published version and release sequence
+Only after those steps pass can maintainers describe the result as **TestPyPI dry-run completed**.
 
-- Decide whether the first PyPI upload should be `0.4.1` or a later release.
-- Ensure the tag, package version, release notes, GitHub Release assets, and PyPI upload plan all refer to the same version.
+## Production PyPI boundary
 
-### 3. Configure PyPI-side Trusted Publishing
+Production PyPI remains intentionally out of scope for PR 4.
 
-PyPI Trusted Publishing should use OIDC and short-lived credentials instead of a long-lived API token.
+Do not add a production PyPI publish job here. Do not configure production PyPI Trusted Publishing as part of this PR unless it is documented as future preparation only and no upload path is enabled.
 
-On PyPI, configure either:
+PR 5 should decide:
 
-- a pending publisher for a new project, or
-- a trusted publisher for an existing project
+- the first production PyPI version
+- whether to use a pending publisher or an existing-project trusted publisher
+- the production workflow file identity
+- the GitHub environment name for production, if any
+- how PyPI distribution provenance should be documented alongside GitHub artifact and release verification
 
-Record the exact values that must match GitHub:
+## Current decision
 
-- owner: `stacknil`
-- repository: `scientific-computing-toolkit`
-- workflow file path that will publish
-- optional environment name, if the workflow uses one
+PR 4 stops at a clean readiness state unless a maintainer performs the explicit TestPyPI setup and manual upload after merge.
 
-### 4. Add a dedicated publish workflow only after the above is true
-
-When the repository is actually ready, add a dedicated publish workflow that:
-
-- uploads only from previously built distribution files
-- uses explicit minimal permissions
-- uses OIDC via `id-token: write`
-- uses the official PyPA publish action
-- does not rebuild the package in the upload step
-
-The intended shape is:
-
-- one build job that produces the wheel and sdist
-- one publish job that downloads those artifacts and uploads them to PyPI
-
-### 5. Validate on TestPyPI or an equivalent dry-run path first
-
-Before production PyPI adoption:
-
-- validate the workflow against TestPyPI or an equivalent pre-production publisher setup
-- confirm the GitHub-side workflow identity exactly matches the PyPI-side trusted publisher configuration
-- confirm the upload uses OIDC and no long-lived PyPI token secret
-
-## What the future Trusted Publishing PR should contain
-
-Once the checklist above is complete, the next publishing PR should be narrow and production-oriented:
-
-- add a dedicated publish workflow
-- document the exact PyPI-side trusted publisher configuration
-- document the exact GitHub trigger path for publishing
-- preserve the current GitHub workflow artifact attestation and release-asset provenance story
-- explain how PyPI distribution provenance relates to, but does not replace, GitHub artifact and release verification
-
-## Important boundary
-
-This repository already has:
-
-- tool provenance guidance for GitHub workflow artifacts
-- release provenance guidance for GitHub Releases and release assets
-
-It does not yet have:
-
-- enabled PyPI Trusted Publishing
-- documented TestPyPI validation
-- a production-ready PyPI upload workflow
+Until that happens, the correct status is **Trusted Publishing readiness only; TestPyPI upload blocked by external configuration**.
