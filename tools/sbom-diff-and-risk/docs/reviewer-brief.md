@@ -24,6 +24,7 @@ Dependency review often needs evidence that is stable enough for code review, CI
 | Question | Evidence path |
 | --- | --- |
 | What does the tool do? | `README.md`, examples, tests, and generated sample reports. |
+| How can a reviewer reproduce the core evidence? | [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for demo, release, TestPyPI, and SARIF verification paths. |
 | Are default runs offline? | CLI docs, tests for no-enrichment behavior, and explicit enrichment flags. |
 | Can code scanning consume the output? | `docs/github-code-scanning.md` and `examples/sample-sarif.sarif`. |
 | Can the tool's own artifacts be verified? | `docs/self-provenance.md` for workflow artifact attestations. |
@@ -34,11 +35,12 @@ Dependency review often needs evidence that is stable enough for code review, CI
 ## Quick verification path
 
 1. Read this brief for the 30-second project shape.
-2. Read `README.md` for CLI scope, supported inputs, and examples.
-3. Read `docs/verification.md` to choose the right verification path.
-4. Use `docs/self-provenance.md` when verifying workflow-built wheel or source distribution artifacts.
-5. Use `docs/release-provenance.md` when verifying GitHub Release assets.
-6. Use `docs/pypi-production-publishing-decision.md` before making any production PyPI publishing decision.
+2. Read [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for reproducible commands and evidence paths.
+3. Read `README.md` for CLI scope, supported inputs, and examples.
+4. Read `docs/verification.md` to choose the right verification path.
+5. Use `docs/self-provenance.md` when verifying workflow-built wheel or source distribution artifacts.
+6. Use `docs/release-provenance.md` when verifying GitHub Release assets.
+7. Use `docs/pypi-production-publishing-decision.md` before making any production PyPI publishing decision.
 
 ## What this project intentionally does not claim
 
