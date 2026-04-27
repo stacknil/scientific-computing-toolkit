@@ -28,6 +28,7 @@ Useful entry points:
 
 - [`sbom-diff-and-risk` README](tools/sbom-diff-and-risk/README.md)
 - [Reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md)
+- [Reviewer evidence pack](tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md)
 - [v0.5.0 release notes](tools/sbom-diff-and-risk/RELEASE_NOTES_v0.5.0.md)
 - [Examples](tools/sbom-diff-and-risk/examples/)
 
