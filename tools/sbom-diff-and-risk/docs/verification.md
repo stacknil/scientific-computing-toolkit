@@ -19,7 +19,8 @@ Current boundaries:
 - version-tag runs matching `v*` can publish the same built files as GitHub Release assets
 - release verification depends on immutable releases being enabled for the repository
 - the TestPyPI readiness workflow is `sbom-diff-and-risk-testpypi`
-- production PyPI publishing is still absent; see the readiness checklist before enabling that path
+- the TestPyPI Trusted Publishing dry-run has completed for version `0.4.1`
+- production PyPI publishing remains deferred behind the gate in [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md)
 
 ### 2. "How do I use `sbom-diff-and-risk` to analyze third-party dependency provenance?"
 
@@ -39,4 +40,5 @@ Current boundaries:
 ## One-line summary
 
 - Verify the tool itself: use `self-provenance.md` or `release-provenance.md`
+- Decide whether production PyPI publishing is ready: use `pypi-production-publishing-decision.md`
 - Analyze dependencies with the tool: use the README's dependency provenance sections

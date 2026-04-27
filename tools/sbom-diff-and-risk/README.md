@@ -1,6 +1,6 @@
 # sbom-diff-and-risk
 
-v0.5 PR 4 adds a TestPyPI / Trusted Publishing readiness dry-run path. It keeps production PyPI publishing disabled, keeps dependency analysis local and deterministic by default, and does not change CLI analysis behavior.
+v0.5 PR 5 adds a production PyPI publishing decision gate. Production PyPI publishing remains deferred until the documented prerequisites are complete, dependency analysis stays local and deterministic by default, and CLI analysis behavior is unchanged.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
@@ -249,7 +249,8 @@ Verification docs:
 - [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md) for the quick decision guide
 - [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for workflow-artifact attestation
 - [docs/release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md) for release-asset verification and immutable release guidance
-- [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md) for TestPyPI Trusted Publishing readiness, exact external publisher setup, and production PyPI blockers
+- [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md) for TestPyPI Trusted Publishing readiness and dry-run notes
+- [docs/pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md) for the production PyPI decision gate, publisher identity, future workflow shape, and production prerequisites
 
 ## Examples
 
@@ -330,7 +331,9 @@ For details on how this repository attests the tool's own wheel and source distr
 
 For details on how version-tag releases publish those same build outputs as release assets, and how consumers can verify immutable releases with GitHub CLI, see [docs/release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md).
 
-For TestPyPI Trusted Publishing readiness, the manually gated dry-run workflow, and the reasons production PyPI upload remains disabled, see [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md).
+For TestPyPI Trusted Publishing readiness and the completed dry-run path, see [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md).
+
+For the production PyPI decision gate, including the intended package name, first-version rule, publisher identity, future workflow shape, and provenance boundaries, see [docs/pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md).
 
 ## Parser Boundaries
 

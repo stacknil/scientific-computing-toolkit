@@ -2,6 +2,8 @@
 
 This page documents the PR 4 TestPyPI / Trusted Publishing dry-run path for `sbom-diff-and-risk`.
 
+The PR 5 production PyPI decision gate is documented separately in [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md).
+
 The repository now has a safe GitHub Actions path that always builds and checks the Python distributions, and can publish those already-checked distributions to TestPyPI only when a maintainer explicitly enables the manual upload input. It does not publish to production PyPI.
 
 Official references:
@@ -15,13 +17,13 @@ Official references:
 
 ## PR 4 decision
 
-Use a TestPyPI-first readiness workflow, but do not claim that a TestPyPI dry-run is complete until the external TestPyPI publisher is configured and a maintainer runs the manual upload.
+Use a TestPyPI-first readiness workflow, but do not treat TestPyPI success as automatic production PyPI readiness.
 
 Current outcome for this PR:
 
-- **Trusted Publishing readiness only** by default
-- **TestPyPI dry-run blocked by external configuration** until TestPyPI has the matching pending publisher or trusted publisher
+- **Trusted Publishing readiness and TestPyPI dry-run completed** after the external TestPyPI publisher was configured and a maintainer manually enabled upload
 - **No production PyPI publishing**
+- **Production PyPI deferred** to the decision gate in [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md)
 
 The workflow file is `.github/workflows/sbom-diff-and-risk-testpypi.yml`.
 
@@ -34,14 +36,13 @@ The upload job does not rebuild the package.
 
 ## Current package and project status
 
-As checked on April 25, 2026:
+As checked on April 26, 2026:
 
 - `https://pypi.org/pypi/sbom-diff-and-risk/json` returned `404`
-- `https://test.pypi.org/pypi/sbom-diff-and-risk/json` returned `404`
+- `https://test.pypi.org/pypi/sbom-diff-and-risk/json` returned `200`
+- TestPyPI reports `sbom-diff-and-risk` version `0.4.1`
 
-That means neither the production PyPI project nor the TestPyPI project currently exists under `sbom-diff-and-risk`.
-
-Because the TestPyPI project does not exist yet, the first upload must use a **pending publisher** on TestPyPI, unless a maintainer creates the TestPyPI project some other way first. For production PyPI, defer all configuration and upload work to PR 5.
+That means the production PyPI project is not currently visible under `sbom-diff-and-risk`, while the TestPyPI dry-run project exists. For production PyPI, use the PR 5 decision gate before adding any production workflow or publisher configuration.
 
 ## Workflow identity
 
@@ -72,14 +73,13 @@ Locally and in GitHub Actions, this PR validates:
 
 This PR does not validate:
 
-- that TestPyPI has the pending publisher configured
-- that TestPyPI accepts the first upload
 - that production PyPI has a project, pending publisher, or trusted publisher
 - that production PyPI publishing should happen for version `0.4.1`
+- that a TestPyPI upload is sufficient proof of production PyPI readiness
 
-## TestPyPI setup required before upload
+## TestPyPI setup used for upload
 
-Do these steps only after this workflow is merged.
+The completed TestPyPI dry-run required these external steps. Use them again only if the TestPyPI publisher must be recreated.
 
 1. In GitHub, create or verify the repository environment named `testpypi`.
 2. In TestPyPI, create a pending publisher for the new `sbom-diff-and-risk` project.
@@ -87,7 +87,7 @@ Do these steps only after this workflow is merged.
 4. Do not add a PyPI API token or GitHub secret for publishing.
 5. Run the workflow manually and set `publish_to_testpypi` to `true`.
 
-If the pending publisher is missing or any identity field differs, the upload job should fail instead of silently falling back to a token or pretending the dry-run succeeded.
+If the pending publisher or trusted publisher is missing, or any identity field differs, the upload job should fail instead of silently falling back to a token or pretending the dry-run succeeded.
 
 ## Local validation
 
@@ -130,15 +130,15 @@ With TestPyPI pending publisher configured:
 5. Confirm `publish-testpypi` uses OIDC and publishes to `https://test.pypi.org/legacy/`.
 6. Open `https://test.pypi.org/project/sbom-diff-and-risk/` and confirm the uploaded version appears.
 
-Only after those steps pass can maintainers describe the result as **TestPyPI dry-run completed**.
+After those steps pass, maintainers can describe the result as **TestPyPI dry-run completed**.
 
 ## Production PyPI boundary
 
-Production PyPI remains intentionally out of scope for PR 4.
+Production PyPI remains intentionally separate from the TestPyPI dry-run.
 
-Do not add a production PyPI publish job here. Do not configure production PyPI Trusted Publishing as part of this PR unless it is documented as future preparation only and no upload path is enabled.
+Do not add a production PyPI publish job to the TestPyPI workflow. Do not configure production PyPI Trusted Publishing from the TestPyPI readiness process.
 
-PR 5 should decide:
+PR 5 decides:
 
 - the first production PyPI version
 - whether to use a pending publisher or an existing-project trusted publisher
@@ -146,8 +146,10 @@ PR 5 should decide:
 - the GitHub environment name for production, if any
 - how PyPI distribution provenance should be documented alongside GitHub artifact and release verification
 
+See [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md) for the current production gate.
+
 ## Current decision
 
-PR 4 stops at a clean readiness state unless a maintainer performs the explicit TestPyPI setup and manual upload after merge.
+PR 4 established the TestPyPI readiness workflow and the manual dry-run path. After the external TestPyPI publisher was configured and a maintainer ran the manual upload, the dry-run completed for version `0.4.1`.
 
-Until that happens, the correct status is **Trusted Publishing readiness only; TestPyPI upload blocked by external configuration**.
+Production PyPI remains deferred behind the PR 5 gate.
