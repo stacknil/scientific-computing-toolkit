@@ -95,7 +95,7 @@ jobs:
         run: python -m build
 
       - name: Upload wheel and source distribution artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
           path: |
