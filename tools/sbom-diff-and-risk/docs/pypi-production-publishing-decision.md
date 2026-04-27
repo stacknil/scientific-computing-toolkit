@@ -11,7 +11,7 @@ PR 5 does not add an enabled production publishing workflow and does not publish
 The production gate is intentionally conservative because:
 
 - the production PyPI project does not currently exist under the intended name
-- the package metadata still declares version `0.4.1`
+- the package metadata has moved to `0.5.0` for the GitHub Release, but production PyPI publishing has not been enabled
 - the first production upload should be a deliberate release version, not an old dry-run version
 - the production PyPI pending publisher or trusted publisher has not been configured
 - the production GitHub environment has not yet been confirmed
