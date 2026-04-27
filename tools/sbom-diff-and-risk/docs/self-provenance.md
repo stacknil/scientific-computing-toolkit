@@ -15,7 +15,7 @@ Those two files are uploaded together as the workflow artifact named `sbom-diff-
 
 On version tags matching `v*`, the same workflow also publishes those exact wheel and sdist files as GitHub Release assets for the matching tag. The workflow-artifact attestation story remains the build-provenance source of truth for the files themselves; release verification is an additional GitHub-hosted surface layered on top of those same bytes.
 
-This repository does not currently publish production PyPI Trusted Publishing provenance. The separate TestPyPI readiness workflow is a pre-production validation path and is documented in [pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md). Release verification is separate from workflow-artifact attestations and depends on GitHub immutable releases being enabled for the repository. When immutable releases are enabled, GitHub automatically generates a release attestation covering the published release record and its attached assets.
+This repository does not currently publish production PyPI Trusted Publishing provenance. The separate TestPyPI readiness workflow is a pre-production validation path and is documented in [pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md). The production PyPI decision gate is documented in [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md). Release verification is separate from workflow-artifact attestations and depends on GitHub immutable releases being enabled for the repository. When immutable releases are enabled, GitHub automatically generates a release attestation covering the published release record and its attached assets.
 
 ## Workflow and permissions
 
@@ -104,6 +104,8 @@ If these same wheel or source distribution bytes are attached to a GitHub releas
 - use `gh release verify` and `gh release verify-asset` when you want to verify the GitHub Release record and a downloaded release asset from an immutable release
 
 These flows complement each other. The workflow-artifact attestation answers "were these bytes built by this workflow?", while immutable release verification answers "does this published release and local release asset exactly match GitHub's release attestation?" See [release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md) for the release-specific consumer flow.
+
+Future production PyPI Trusted Publishing provenance will be a third, separate surface. It will answer whether a PyPI distribution was uploaded through the configured GitHub publisher identity, not whether the file is byte-identical to a GitHub workflow artifact or release asset. See [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md) for that boundary.
 
 ## How this complements the tool's own analysis
 
