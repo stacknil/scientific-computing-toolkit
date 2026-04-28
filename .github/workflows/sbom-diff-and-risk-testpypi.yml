@@ -39,7 +39,7 @@ jobs:
         working-directory: tools/sbom-diff-and-risk
     steps:
       - name: Check out repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -59,7 +59,7 @@ jobs:
         run: python -m twine check dist/*
 
       - name: Upload checked distribution artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
           path: |
@@ -79,7 +79,7 @@ jobs:
       id-token: write
     steps:
       - name: Download checked distribution artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
           path: dist
