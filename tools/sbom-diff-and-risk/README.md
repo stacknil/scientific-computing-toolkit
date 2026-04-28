@@ -241,6 +241,7 @@ This repository also records provenance for `sbom-diff-and-risk` itself by gener
 - the attested files are the wheel and source distribution built by `python -m build` from `tools/sbom-diff-and-risk`
 - the build files are uploaded together as the `sbom-diff-and-risk-dist` workflow artifact
 - version-tag runs also publish those same built files as GitHub Release assets for the matching tag
+- releases produced by the updated workflow include `sbom-diff-and-risk-SHA256SUMS.txt` for local SHA256 verification of downloaded wheel and source distribution files
 - only trusted non-PR runs publish the attestation
 - consumers can verify workflow-built artifacts with `gh attestation verify`
 - consumers can verify immutable releases and downloaded release assets with `gh release verify` and `gh release verify-asset`
