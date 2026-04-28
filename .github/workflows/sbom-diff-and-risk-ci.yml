@@ -20,6 +20,7 @@ permissions: {}
 env:
   SBOM_DIFF_RISK_PYTHON_VERSION: "3.11"
   SBOM_DIFF_RISK_DIST_ARTIFACT_NAME: sbom-diff-and-risk-dist
+  SBOM_DIFF_RISK_CHECKSUM_MANIFEST: sbom-diff-and-risk-SHA256SUMS.txt
   SBOM_DIFF_RISK_RELEASE_TITLE_PREFIX: sbom-diff-and-risk
 
 jobs:
@@ -94,22 +95,49 @@ jobs:
       - name: Build distributable artifacts
         run: python -m build
 
-      - name: Upload wheel and source distribution artifact
+      - name: Generate SHA256 checksum manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+
+          cd dist
+          artifacts=( *.tar.gz *.whl )
+          IFS=$'\n'
+          artifacts=( $(printf '%s\n' "${artifacts[@]}" | LC_ALL=C sort) )
+          unset IFS
+
+          if [ "${#artifacts[@]}" -ne 2 ]; then
+            echo "Expected exactly one source distribution and one wheel in dist/." >&2
+            printf 'Found %s artifact(s):\n' "${#artifacts[@]}" >&2
+            printf '  %s\n' "${artifacts[@]}" >&2
+            exit 1
+          fi
+
+          sha256sum "${artifacts[@]}" > "${SBOM_DIFF_RISK_CHECKSUM_MANIFEST}"
+          grep -E '  sbom_diff_and_risk-.+\.tar\.gz$' "${SBOM_DIFF_RISK_CHECKSUM_MANIFEST}"
+          grep -E '  sbom_diff_and_risk-.+\.whl$' "${SBOM_DIFF_RISK_CHECKSUM_MANIFEST}"
+          cat "${SBOM_DIFF_RISK_CHECKSUM_MANIFEST}"
+
+      - name: Upload distribution artifact and checksum manifest
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
           path: |
             tools/sbom-diff-and-risk/dist/*.whl
             tools/sbom-diff-and-risk/dist/*.tar.gz
+            tools/sbom-diff-and-risk/dist/${{ env.SBOM_DIFF_RISK_CHECKSUM_MANIFEST }}
           if-no-files-found: error
 
       - name: Generate artifact attestation for built distributions
         uses: actions/attest@v4
         with:
-          subject-path: ${{ github.workspace }}/tools/sbom-diff-and-risk/dist/*
+          subject-path: |
+            ${{ github.workspace }}/tools/sbom-diff-and-risk/dist/*.whl
+            ${{ github.workspace }}/tools/sbom-diff-and-risk/dist/*.tar.gz
 
   publish-release-assets:
-    # Publish the exact built wheel/sdist bytes from this run as release assets.
+    # Publish the exact built wheel/sdist bytes and checksum manifest from this run.
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     needs: build-and-attest
     runs-on: ubuntu-latest
@@ -121,7 +149,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download built distribution artifact
+      - name: Download built distribution artifact and checksum manifest
         uses: actions/download-artifact@v8
         with:
           name: ${{ env.SBOM_DIFF_RISK_DIST_ARTIFACT_NAME }}
@@ -138,10 +166,26 @@ jobs:
           set -euo pipefail
           shopt -s nullglob
           assets=(release-assets/*.whl release-assets/*.tar.gz)
-          if [ "${#assets[@]}" -eq 0 ]; then
-            echo "No release assets found in release-assets/" >&2
+          IFS=$'\n'
+          assets=( $(printf '%s\n' "${assets[@]}" | LC_ALL=C sort) )
+          unset IFS
+          checksum_manifest="release-assets/${SBOM_DIFF_RISK_CHECKSUM_MANIFEST}"
+
+          if [ "${#assets[@]}" -ne 2 ]; then
+            echo "Expected exactly one wheel and one source distribution in release-assets/." >&2
+            printf 'Found %s artifact(s):\n' "${#assets[@]}" >&2
+            printf '  %s\n' "${assets[@]}" >&2
             exit 1
           fi
+
+          if [ ! -f "${checksum_manifest}" ]; then
+            echo "Missing checksum manifest: ${checksum_manifest}" >&2
+            exit 1
+          fi
+
+          grep -E '  sbom_diff_and_risk-.+\.tar\.gz$' "${checksum_manifest}"
+          grep -E '  sbom_diff_and_risk-.+\.whl$' "${checksum_manifest}"
+          assets+=( "${checksum_manifest}" )
 
           title="${RELEASE_TITLE_PREFIX} ${RELEASE_TAG}"
 
@@ -160,5 +204,5 @@ jobs:
               --notes "Release assets for ${RELEASE_TAG}. See docs/release-provenance.md for provenance verification guidance."
           fi
 
-          gh release upload "${RELEASE_TAG}" "${assets[@]}" --repo "${GH_REPO}" --clobber
+          gh release upload "${RELEASE_TAG}" "${assets[@]}" --repo "${GH_REPO}"
           gh release edit "${RELEASE_TAG}" --repo "${GH_REPO}" --draft=false --title "${title}"

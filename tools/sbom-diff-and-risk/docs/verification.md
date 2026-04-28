@@ -17,6 +17,7 @@ Current boundaries:
 - the workflow name is `sbom-diff-and-risk-ci`
 - the workflow artifact name is `sbom-diff-and-risk-dist`
 - version-tag runs matching `v*` can publish the same built files as GitHub Release assets
+- release assets produced by the updated workflow include `sbom-diff-and-risk-SHA256SUMS.txt` for local SHA256 verification of the wheel and source distribution
 - release verification depends on immutable releases being enabled for the repository
 - the TestPyPI readiness workflow is `sbom-diff-and-risk-testpypi`
 - the TestPyPI Trusted Publishing dry-run has completed for version `0.4.1`
@@ -40,5 +41,6 @@ Current boundaries:
 ## One-line summary
 
 - Verify the tool itself: use `self-provenance.md` or `release-provenance.md`
+- Check downloaded release bytes: use the checksum manifest instructions in `release-provenance.md`
 - Decide whether production PyPI publishing is ready: use `pypi-production-publishing-decision.md`
 - Analyze dependencies with the tool: use the README's dependency provenance sections

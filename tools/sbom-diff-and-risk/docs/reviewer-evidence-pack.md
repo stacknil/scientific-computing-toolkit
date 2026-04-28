@@ -79,6 +79,27 @@ Expected release assets:
 - `sbom_diff_and_risk-0.5.0-py3-none-any.whl`
 - `sbom_diff_and_risk-0.5.0.tar.gz`
 
+Releases produced after the checksum-manifest workflow update also include `sbom-diff-and-risk-SHA256SUMS.txt`. Use it to check local downloaded distribution bytes before or alongside provenance verification:
+
+```powershell
+gh release download <tag> `
+  --repo stacknil/scientific-computing-toolkit `
+  --pattern 'sbom_diff_and_risk-*' `
+  --pattern 'sbom-diff-and-risk-SHA256SUMS.txt' `
+  --dir release-assets
+Set-Location release-assets
+Get-Content .\sbom-diff-and-risk-SHA256SUMS.txt | ForEach-Object {
+  $expected, $file = $_ -split '\s+', 2
+  $actual = ((Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash).ToLowerInvariant()
+  if ($actual -ne $expected) {
+    throw "Checksum mismatch for $file"
+  }
+  "$file OK"
+}
+```
+
+Checksum verification confirms local byte integrity against the release manifest; it does not replace workflow artifact attestations or immutable-release verification. The attestation subject remains the built wheel and source distribution.
+
 For workflow-built artifacts downloaded from a trusted workflow run, verify artifact attestations with the signer workflow:
 
 ```powershell
