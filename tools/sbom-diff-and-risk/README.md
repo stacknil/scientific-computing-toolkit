@@ -1,6 +1,6 @@
 # sbom-diff-and-risk
 
-v0.5.0 is the GitHub Release for the production PyPI decision gate. The TestPyPI dry-run is completed, production PyPI publishing is intentionally deferred, dependency analysis stays local and deterministic by default, and CLI analysis behavior is unchanged.
+v0.5.1 is a release-only maintenance update for the GitHub Release checksum manifest path. It keeps CLI analysis behavior unchanged, keeps dependency analysis local and deterministic by default, preserves the completed TestPyPI dry-run story, and keeps production PyPI publishing intentionally deferred.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
