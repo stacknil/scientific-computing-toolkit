@@ -3,8 +3,9 @@ from __future__ import annotations
 import json
 
 from .enrichment import enrichment_metadata_to_dict, provenance_evidence_to_dict
-from .models import CompareReport, Component, ComponentChange, RiskFinding
+from .models import CompareReport, Component, ComponentChange, ReportEnrichmentMetadata, RiskFinding
 from .presentation import build_policy_report_sections, build_trust_signal_report_sections
+from .policy_models import PolicyEvaluation
 from .scorecard_enrichment import scorecard_evidence_to_dict
 
 
@@ -12,12 +13,7 @@ def render_report_json(report: CompareReport) -> str:
     policy_sections = build_policy_report_sections(report.metadata.policy_evaluation)
     trust_signal_sections = build_trust_signal_report_sections(report)
     payload = {
-        "summary": {
-            "added": report.summary.added,
-            "removed": report.summary.removed,
-            "changed": report.summary.changed,
-            "risk_counts": dict(report.summary.risk_counts),
-        },
+        "summary": _summary_to_dict(report),
         "components": {
             "added": [_component_to_dict(component) for component in report.components.added],
             "removed": [_component_to_dict(component) for component in report.components.removed],
@@ -49,6 +45,69 @@ def render_report_json(report: CompareReport) -> str:
         payload["provenance_policy"] = policy_sections["provenance_policy"]
         payload["provenance_policy_impact"] = policy_sections["provenance_policy_impact"]
     return json.dumps(payload, indent=2) + "\n"
+
+
+def _summary_to_dict(report: CompareReport) -> dict[str, object]:
+    summary: dict[str, object] = {
+        "added": report.summary.added,
+        "removed": report.summary.removed,
+        "changed": report.summary.changed,
+        "risk_counts": dict(report.summary.risk_counts),
+    }
+
+    policy_summary = _policy_summary_to_dict(report.metadata.policy_evaluation)
+    if policy_summary is not None:
+        summary["policy"] = policy_summary
+
+    enrichment_summary = _enrichment_summary_to_dict(report.metadata.enrichment)
+    if enrichment_summary is not None:
+        summary["enrichment"] = enrichment_summary
+
+    return summary
+
+
+def _policy_summary_to_dict(evaluation: PolicyEvaluation | None) -> dict[str, object] | None:
+    if evaluation is None or not evaluation.applied:
+        return None
+
+    blocking = len(evaluation.blocking_violations)
+    warning = len(evaluation.warning_violations)
+    suppressed = len(evaluation.suppressed_violations)
+    status = "fail" if blocking else "warn" if warning else "pass"
+
+    return {
+        "status": status,
+        "blocking": blocking,
+        "warning": warning,
+        "suppressed": suppressed,
+    }
+
+
+def _enrichment_summary_to_dict(metadata: ReportEnrichmentMetadata) -> dict[str, object] | None:
+    if not (metadata.pypi_enabled or metadata.scorecard_enabled):
+        return None
+
+    summary: dict[str, object] = {
+        "status": "used",
+        "mode": metadata.mode,
+    }
+    if metadata.pypi_enabled:
+        summary["pypi"] = {
+            "candidate_components": metadata.candidate_components,
+            "supported_components": metadata.supported_components,
+            "status_counts": _sorted_counts(metadata.status_counts),
+        }
+    if metadata.scorecard_enabled:
+        summary["scorecard"] = {
+            "candidate_components": metadata.scorecard_candidate_components,
+            "supported_components": metadata.scorecard_supported_components,
+            "status_counts": _sorted_counts(metadata.scorecard_status_counts),
+        }
+    return summary
+
+
+def _sorted_counts(counts: dict[str, int]) -> dict[str, int]:
+    return {key: counts[key] for key in sorted(counts)}
 
 
 def _component_to_dict(component: Component) -> dict[str, object]:

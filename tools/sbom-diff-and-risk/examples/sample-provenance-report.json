@@ -11,6 +11,25 @@
       "stale_package": 0,
       "suspicious_source": 0,
       "not_evaluated": 0
+    },
+    "policy": {
+      "status": "fail",
+      "blocking": 2,
+      "warning": 1,
+      "suppressed": 0
+    },
+    "enrichment": {
+      "status": "used",
+      "mode": "opt_in_pypi",
+      "pypi": {
+        "candidate_components": 3,
+        "supported_components": 3,
+        "status_counts": {
+          "attestation_available": 2,
+          "attestation_unavailable": 1,
+          "provenance_available": 2
+        }
+      }
     }
   },
   "components": {

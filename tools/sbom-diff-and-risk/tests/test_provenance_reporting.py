@@ -52,6 +52,25 @@ def test_provenance_report_json_includes_provenance_policy_summary() -> None:
 
     payload = json.loads(render_report_json(report))
 
+    assert payload["summary"]["policy"] == {
+        "status": "fail",
+        "blocking": 2,
+        "warning": 1,
+        "suppressed": 0,
+    }
+    assert payload["summary"]["enrichment"] == {
+        "status": "used",
+        "mode": "opt_in_pypi",
+        "pypi": {
+            "candidate_components": 3,
+            "supported_components": 3,
+            "status_counts": {
+                "attestation_available": 2,
+                "attestation_unavailable": 1,
+                "provenance_available": 2,
+            },
+        },
+    }
     assert payload["provenance_policy"]["configured"] is True
     assert payload["provenance_policy_impact"] == payload["provenance_policy"]
     assert payload["provenance_policy"]["requirements"]["require_attestations_for_new_packages"] is True

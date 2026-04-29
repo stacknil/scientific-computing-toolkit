@@ -36,6 +36,31 @@ def test_scorecard_report_json_matches_golden() -> None:
     assert rendered == expected
 
 
+def test_scorecard_report_json_summary_includes_enrichment_status() -> None:
+    report, _, _ = _build_sample_scorecard_report()
+
+    payload = json.loads(render_report_json(report))
+
+    assert payload["summary"]["policy"] == {
+        "status": "warn",
+        "blocking": 0,
+        "warning": 1,
+        "suppressed": 0,
+    }
+    assert payload["summary"]["enrichment"] == {
+        "status": "used",
+        "mode": "opt_in_scorecard",
+        "scorecard": {
+            "candidate_components": 3,
+            "supported_components": 2,
+            "status_counts": {
+                "repository_unmapped": 1,
+                "scorecard_available": 2,
+            },
+        },
+    }
+
+
 def test_scorecard_report_markdown_matches_golden() -> None:
     report, _, _ = _build_sample_scorecard_report()
 
