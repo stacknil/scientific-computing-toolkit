@@ -11,6 +11,24 @@
       "stale_package": 0,
       "suspicious_source": 0,
       "not_evaluated": 0
+    },
+    "policy": {
+      "status": "warn",
+      "blocking": 0,
+      "warning": 1,
+      "suppressed": 0
+    },
+    "enrichment": {
+      "status": "used",
+      "mode": "opt_in_scorecard",
+      "scorecard": {
+        "candidate_components": 3,
+        "supported_components": 2,
+        "status_counts": {
+          "repository_unmapped": 1,
+          "scorecard_available": 2
+        }
+      }
     }
   },
   "components": {

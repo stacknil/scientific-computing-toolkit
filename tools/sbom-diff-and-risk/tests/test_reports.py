@@ -131,6 +131,20 @@ def test_report_json_offline_enrichment_metadata_is_stable_by_default() -> None:
     payload = json.loads(first)
 
     assert first == second
+    assert payload["summary"] == {
+        "added": 1,
+        "removed": 0,
+        "changed": 1,
+        "risk_counts": {
+            "new_package": 1,
+            "major_upgrade": 0,
+            "version_change_unclassified": 1,
+            "unknown_license": 0,
+            "stale_package": 0,
+            "suspicious_source": 0,
+            "not_evaluated": 2,
+        },
+    }
     assert payload["metadata"]["enrichment"] == {
         "mode": "offline_default",
         "pypi_enabled": False,
@@ -157,6 +171,20 @@ def test_report_json_offline_enrichment_metadata_is_stable_by_default() -> None:
     added_components = payload["components"]["added"]
     assert all("provenance" not in component["evidence"] for component in added_components)
     assert all("scorecard" not in component["evidence"] for component in added_components)
+
+
+def test_report_json_summary_includes_policy_status_when_policy_is_used() -> None:
+    report = _build_report("cdx_before.json", "cdx_after.json", policy_name="policy-minimal.yml")
+
+    payload = json.loads(render_report_json(report))
+
+    assert payload["summary"]["policy"] == {
+        "status": "warn",
+        "blocking": 0,
+        "warning": 1,
+        "suppressed": 0,
+    }
+    assert "enrichment" not in payload["summary"]
 
 
 def test_reports_render_suppressions_when_policy_ignores_findings() -> None:

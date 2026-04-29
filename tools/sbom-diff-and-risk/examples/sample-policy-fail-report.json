@@ -11,6 +11,12 @@
       "stale_package": 0,
       "suspicious_source": 0,
       "not_evaluated": 2
+    },
+    "policy": {
+      "status": "fail",
+      "blocking": 3,
+      "warning": 1,
+      "suppressed": 0
     }
   },
   "components": {
