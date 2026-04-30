@@ -8,9 +8,9 @@ Use this page when you are trying to figure out which provenance or verification
 
 Use the tool provenance docs:
 
-- [self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) if you want to verify the workflow-built wheel or source distribution with `gh attestation verify`
-- [release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md) if you want to verify a GitHub Release or a downloaded release asset with `gh release verify` or `gh release verify-asset`
-- [pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md) if you want to know whether this package is ready for PyPI Trusted Publishing
+- [self-provenance.md](self-provenance.md) if you want to verify the workflow-built wheel or source distribution with `gh attestation verify`
+- [release-provenance.md](release-provenance.md) if you want to verify a GitHub Release or a downloaded release asset with `gh release verify` or `gh release verify-asset`
+- [pypi-trusted-publishing-readiness.md](pypi-trusted-publishing-readiness.md) if you want to know whether this package is ready for PyPI Trusted Publishing
 
 Current boundaries:
 
@@ -21,15 +21,15 @@ Current boundaries:
 - release verification depends on immutable releases being enabled for the repository
 - the TestPyPI readiness workflow is `sbom-diff-and-risk-testpypi`
 - the TestPyPI Trusted Publishing dry-run has completed for version `0.4.1`
-- production PyPI publishing remains deferred behind the gate in [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md)
+- production PyPI publishing remains deferred behind the gate in [pypi-production-publishing-decision.md](pypi-production-publishing-decision.md)
 
 ### 2. "How do I use `sbom-diff-and-risk` to analyze third-party dependency provenance?"
 
 Use the dependency-analysis docs in the README:
 
-- [Dependency provenance analysis](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/README.md#dependency-provenance-analysis-opt-in)
-- [Dependency provenance reporting](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/README.md#dependency-provenance-reporting)
-- [Enforcement mode](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/README.md#enforcement-mode)
+- [Dependency provenance analysis](../README.md#dependency-provenance-analysis-opt-in)
+- [Dependency provenance reporting](../README.md#dependency-provenance-reporting)
+- [Enforcement mode](../README.md#enforcement-mode)
 
 Current boundaries:
 

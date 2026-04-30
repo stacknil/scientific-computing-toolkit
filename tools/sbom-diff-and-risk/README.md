@@ -10,9 +10,9 @@ It uses conservative heuristics for change intelligence. By default it does not 
 
 This project has two different provenance stories:
 
-For a concise reviewer-facing overview, start with [docs/reviewer-brief.md](docs/reviewer-brief.md). For reproducible review evidence and verification commands, use [docs/reviewer-evidence-pack.md](docs/reviewer-evidence-pack.md).
+For a concise reviewer-facing overview, start with [docs/reviewer-brief.md](docs/reviewer-brief.md). For reproducible review evidence and verification commands, use [docs/reviewer-evidence-pack.md](docs/reviewer-evidence-pack.md). For machine-readable JSON output shape, see [docs/report-schema.md](docs/report-schema.md).
 
-1. If you want to verify `sbom-diff-and-risk` itself, start with [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md).
+1. If you want to verify `sbom-diff-and-risk` itself, start with [docs/verification.md](docs/verification.md).
 2. If you want to use `sbom-diff-and-risk` to analyze third-party dependency provenance, start with [Dependency provenance analysis](#dependency-provenance-analysis-opt-in) and [Dependency provenance reporting](#dependency-provenance-reporting).
 
 ## Scope
@@ -228,13 +228,13 @@ sbom-diff-risk compare \
   --out-json outputs/report-scorecard.json
 ```
 
-If you want policy gating, make it explicit with a v3 policy such as [policy-scorecard-minimal.yml](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/policy-scorecard-minimal.yml), which sets `minimum_scorecard_score` and opts into the `scorecard_below_threshold` rule.
+If you want policy gating, make it explicit with a v3 policy such as [policy-scorecard-minimal.yml](examples/policy-scorecard-minimal.yml), which sets `minimum_scorecard_score` and opts into the `scorecard_below_threshold` rule.
 
 Setting `minimum_scorecard_score` alone is advisory metadata for review. It only affects policy outcomes when `scorecard_below_threshold` is configured explicitly in `block_on`, `warn_on`, or `ignore_rules`.
 
 ## Tool Provenance And Verification
 
-This section is about verifying `sbom-diff-and-risk` itself. If you want the shortest path to the right verification instructions, start with [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md).
+This section is about verifying `sbom-diff-and-risk` itself. If you want the shortest path to the right verification instructions, start with [docs/verification.md](docs/verification.md).
 
 This repository also records provenance for `sbom-diff-and-risk` itself by generating GitHub artifact attestations for the wheel and source distribution produced by the `sbom-diff-and-risk-ci` workflow.
 
@@ -249,29 +249,29 @@ This repository also records provenance for `sbom-diff-and-risk` itself by gener
 
 Verification docs:
 
-- [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md) for the quick decision guide
-- [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md) for workflow-artifact attestation
-- [docs/release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md) for release-asset verification and immutable release guidance
-- [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md) for TestPyPI Trusted Publishing readiness and dry-run notes
-- [docs/pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md) for the production PyPI decision gate, publisher identity, future workflow shape, and production prerequisites
+- [docs/verification.md](docs/verification.md) for the quick decision guide
+- [docs/self-provenance.md](docs/self-provenance.md) for workflow-artifact attestation
+- [docs/release-provenance.md](docs/release-provenance.md) for release-asset verification and immutable release guidance
+- [docs/pypi-trusted-publishing-readiness.md](docs/pypi-trusted-publishing-readiness.md) for TestPyPI Trusted Publishing readiness and dry-run notes
+- [docs/pypi-production-publishing-decision.md](docs/pypi-production-publishing-decision.md) for the production PyPI decision gate, publisher identity, future workflow shape, and production prerequisites
 
 ## Examples
 
-The [examples/](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples) directory includes:
+The [examples/](examples/) directory includes:
 
 - before/after inputs for CycloneDX JSON, SPDX JSON, `requirements.txt`, and `pyproject.toml`
 - dependency-group examples at `examples/pyproject_groups_before.toml` and `examples/pyproject_groups_after.toml`
 - example policies at `examples/policy-minimal.yml` and `examples/policy-strict.yml`
 - provenance-aware policy examples at `examples/policy-provenance-minimal.yml` and `examples/policy-provenance-strict.yml`
 - a Scorecard-aware policy example at `examples/policy-scorecard-minimal.yml`
-- a sample pass JSON report at [sample-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.json)
-- a sample pass Markdown report at [sample-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-report.md)
-- sample policy-warn reports at [sample-policy-warn-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.json) and [sample-policy-warn-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-warn-report.md)
-- sample policy-fail reports at [sample-policy-fail-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.json) and [sample-policy-fail-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-policy-fail-report.md)
-- a sample SARIF export at [sample-sarif.sarif](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-sarif.sarif)
-- provenance-aware sample reports at [sample-provenance-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-provenance-report.json), [sample-provenance-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-provenance-report.md), and [sample-provenance-report.sarif](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-provenance-report.sarif)
-- Scorecard-aware sample reports at [sample-scorecard-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-scorecard-report.json), [sample-scorecard-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-scorecard-report.md), and [sample-scorecard-report.sarif](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-scorecard-report.sarif)
-- requirements-based sample reports at [sample-requirements-report.json](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.json) and [sample-requirements-report.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/examples/sample-requirements-report.md)
+- a sample pass JSON report at [sample-report.json](examples/sample-report.json)
+- a sample pass Markdown report at [sample-report.md](examples/sample-report.md)
+- sample policy-warn reports at [sample-policy-warn-report.json](examples/sample-policy-warn-report.json) and [sample-policy-warn-report.md](examples/sample-policy-warn-report.md)
+- sample policy-fail reports at [sample-policy-fail-report.json](examples/sample-policy-fail-report.json) and [sample-policy-fail-report.md](examples/sample-policy-fail-report.md)
+- a sample SARIF export at [sample-sarif.sarif](examples/sample-sarif.sarif)
+- provenance-aware sample reports at [sample-provenance-report.json](examples/sample-provenance-report.json), [sample-provenance-report.md](examples/sample-provenance-report.md), and [sample-provenance-report.sarif](examples/sample-provenance-report.sarif)
+- Scorecard-aware sample reports at [sample-scorecard-report.json](examples/sample-scorecard-report.json), [sample-scorecard-report.md](examples/sample-scorecard-report.md), and [sample-scorecard-report.sarif](examples/sample-scorecard-report.sarif)
+- requirements-based sample reports at [sample-requirements-report.json](examples/sample-requirements-report.json) and [sample-requirements-report.md](examples/sample-requirements-report.md)
 
 ## Enforcement Mode
 
@@ -326,21 +326,21 @@ sbom-diff-risk compare \
   --out-sarif outputs/report.sarif
 ```
 
-For GitHub code scanning integration guidance and a minimal upload workflow, see [docs/github-code-scanning.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/github-code-scanning.md).
+For GitHub code scanning integration guidance and a minimal upload workflow, see [docs/github-code-scanning.md](docs/github-code-scanning.md).
 
-For the shortest path to the tool-verification docs, start with [docs/verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md).
+For the shortest path to the tool-verification docs, start with [docs/verification.md](docs/verification.md).
 
-For details on how this repository attests the tool's own wheel and source distribution artifacts, see [docs/self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md).
+For details on how this repository attests the tool's own wheel and source distribution artifacts, see [docs/self-provenance.md](docs/self-provenance.md).
 
-For details on how version-tag releases publish those same build outputs as release assets, and how consumers can verify immutable releases with GitHub CLI, see [docs/release-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/release-provenance.md).
+For details on how version-tag releases publish those same build outputs as release assets, and how consumers can verify immutable releases with GitHub CLI, see [docs/release-provenance.md](docs/release-provenance.md).
 
-For TestPyPI Trusted Publishing readiness and the completed dry-run path, see [docs/pypi-trusted-publishing-readiness.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md).
+For TestPyPI Trusted Publishing readiness and the completed dry-run path, see [docs/pypi-trusted-publishing-readiness.md](docs/pypi-trusted-publishing-readiness.md).
 
-For the production PyPI decision gate, including the intended package name, first-version rule, publisher identity, future workflow shape, and provenance boundaries, see [docs/pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md).
+For the production PyPI decision gate, including the intended package name, first-version rule, publisher identity, future workflow shape, and provenance boundaries, see [docs/pypi-production-publishing-decision.md](docs/pypi-production-publishing-decision.md).
 
 ## Parser Boundaries
 
-Deterministic local mode intentionally supports a conservative subset of packaging syntax. The detailed matrix lives in [docs/parser-boundaries.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/parser-boundaries.md).
+Deterministic local mode intentionally supports a conservative subset of packaging syntax. The detailed matrix lives in [docs/parser-boundaries.md](docs/parser-boundaries.md).
 
 ### requirements.txt subset
 

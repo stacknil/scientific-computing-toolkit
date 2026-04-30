@@ -29,7 +29,7 @@ For v0.2, the tool is intentionally limited to local-file parsing, normalization
 
 These boundaries are deliberate so the tool can stay deterministic and explicit about what it does and does not parse.
 
-For the detailed supported/unsupported matrix, see [parser-boundaries.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/parser-boundaries.md).
+For the detailed supported/unsupported matrix, see [parser-boundaries.md](parser-boundaries.md).
 
 ## Normalization goals
 
