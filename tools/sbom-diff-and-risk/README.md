@@ -158,6 +158,7 @@ sbom-diff-risk compare \
 - `--after-format cyclonedx-json|spdx-json|requirements-txt|pyproject-toml`
 - `--pyproject-group name`
 - `--out-json path`
+- `--summary-json path`
 - `--out-md path`
 - `--out-sarif path`
 - `--policy path`
@@ -171,6 +172,8 @@ sbom-diff-risk compare \
 - `--source-allowlist pypi.org,files.pythonhosted.org,github.com`
 
 Offline mode remains the default. No network access occurs unless `--enrich-pypi` or `--enrich-scorecard` is set explicitly.
+
+`--summary-json PATH` writes only the stable `report.json["summary"]` object for compact machine consumption. It uses the same summary schema as the full JSON report.
 
 ## Dependency Provenance Analysis (Opt-in)
 

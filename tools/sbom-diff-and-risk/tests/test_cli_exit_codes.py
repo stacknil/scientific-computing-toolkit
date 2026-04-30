@@ -118,6 +118,7 @@ def test_cli_compare_help_mentions_policy_flags_and_exit_codes() -> None:
 
     assert result.returncode == 0
     assert "--out-sarif" in result.stdout
+    assert "--summary-json" in result.stdout
     assert "--pyproject-group" in result.stdout
     assert "--policy" in result.stdout
     assert "--fail-on" in result.stdout

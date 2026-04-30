@@ -47,6 +47,10 @@ def render_report_json(report: CompareReport) -> str:
     return json.dumps(payload, indent=2) + "\n"
 
 
+def render_summary_json(report: CompareReport) -> str:
+    return json.dumps(_summary_to_dict(report), indent=2) + "\n"
+
+
 def _summary_to_dict(report: CompareReport) -> dict[str, object]:
     summary: dict[str, object] = {
         "added": report.summary.added,
