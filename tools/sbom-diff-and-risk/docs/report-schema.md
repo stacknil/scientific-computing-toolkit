@@ -30,7 +30,7 @@ When provenance policy fields are relevant, reports may also include `provenance
 
 ## Summary contract
 
-`summary` is the stable, compact entry point for automation that needs counts without walking the full report.
+`summary` is the stable, compact entry point for automation that needs counts without walking the full report. The `--summary-json PATH` CLI option writes only this stable `report.json["summary"]` object.
 
 Base `summary` fields:
 

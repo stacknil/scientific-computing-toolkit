@@ -13,7 +13,7 @@ from .normalize import SUPPORTED_FORMATS, normalize_input_with_options
 from .policy_evaluator import evaluate_policy
 from .policy_parser import build_policy
 from .presentation import effective_policy_evaluation, summarize_violations_by_rule
-from .report_json import render_report_json
+from .report_json import render_report_json, render_summary_json
 from .report_md import render_report_markdown
 from .report_sarif import render_report_sarif_output
 from .risk import evaluate_risks, summarize_risks
@@ -59,6 +59,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="Select a PEP 735 [dependency-groups] group when a compared input is pyproject.toml.",
     )
     compare.add_argument("--out-json", type=Path, default=None, help="Write a JSON report to this path.")
+    compare.add_argument("--summary-json", type=Path, default=None, help="Write the stable JSON summary object to this path.")
     compare.add_argument("--out-md", type=Path, default=None, help="Write a Markdown report to this path.")
     compare.add_argument(
         "--out-sarif",
@@ -137,8 +138,9 @@ def run_compare(args: argparse.Namespace) -> int:
     pypi_timeout = getattr(args, "pypi_timeout", DEFAULT_PYPI_TIMEOUT_SECONDS)
     scorecard_timeout = getattr(args, "scorecard_timeout", DEFAULT_SCORECARD_TIMEOUT_SECONDS)
 
-    if args.out_json is None and args.out_md is None and args.out_sarif is None:
-        raise ValueError("at least one of --out-json, --out-md, or --out-sarif must be provided")
+    summary_json = getattr(args, "summary_json", None)
+    if args.out_json is None and summary_json is None and args.out_md is None and args.out_sarif is None:
+        raise ValueError("at least one of --out-json, --summary-json, --out-md, or --out-sarif must be provided")
     if pypi_timeout <= 0:
         raise ValueError("--pypi-timeout must be a positive number of seconds.")
     if scorecard_timeout <= 0:
@@ -228,6 +230,8 @@ def run_compare(args: argparse.Namespace) -> int:
 
     if args.out_json is not None:
         _write_text(args.out_json, render_report_json(report))
+    if summary_json is not None:
+        _write_text(summary_json, render_summary_json(report))
     if args.out_md is not None:
         _write_text(args.out_md, render_report_markdown(report))
     if args.out_sarif is not None:
