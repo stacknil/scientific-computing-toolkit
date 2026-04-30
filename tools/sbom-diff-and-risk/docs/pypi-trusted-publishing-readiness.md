@@ -2,7 +2,7 @@
 
 This page documents the PR 4 TestPyPI / Trusted Publishing dry-run path for `sbom-diff-and-risk`.
 
-The PR 5 production PyPI decision gate is documented separately in [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md).
+The PR 5 production PyPI decision gate is documented separately in [pypi-production-publishing-decision.md](pypi-production-publishing-decision.md).
 
 The repository now has a safe GitHub Actions path that always builds and checks the Python distributions, and can publish those already-checked distributions to TestPyPI only when a maintainer explicitly enables the manual upload input. It does not publish to production PyPI.
 
@@ -23,7 +23,7 @@ Current outcome for this PR:
 
 - **Trusted Publishing readiness and TestPyPI dry-run completed** after the external TestPyPI publisher was configured and a maintainer manually enabled upload
 - **No production PyPI publishing**
-- **Production PyPI deferred** to the decision gate in [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md)
+- **Production PyPI deferred** to the decision gate in [pypi-production-publishing-decision.md](pypi-production-publishing-decision.md)
 
 The workflow file is `.github/workflows/sbom-diff-and-risk-testpypi.yml`.
 
@@ -146,7 +146,7 @@ PR 5 decides:
 - the GitHub environment name for production, if any
 - how PyPI distribution provenance should be documented alongside GitHub artifact and release verification
 
-See [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md) for the current production gate.
+See [pypi-production-publishing-decision.md](pypi-production-publishing-decision.md) for the current production gate.
 
 ## Current decision
 

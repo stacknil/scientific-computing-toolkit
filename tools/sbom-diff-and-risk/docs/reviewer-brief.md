@@ -25,6 +25,7 @@ Dependency review often needs evidence that is stable enough for code review, CI
 | --- | --- |
 | What does the tool do? | `README.md`, examples, tests, and generated sample reports. |
 | How can a reviewer reproduce the core evidence? | [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for demo, release, TestPyPI, and SARIF verification paths. |
+| What is the stable JSON shape? | [report-schema.md](report-schema.md) documents the machine-readable report structure and `summary` contract. |
 | Are default runs offline? | CLI docs, tests for no-enrichment behavior, and explicit enrichment flags. |
 | Can code scanning consume the output? | `docs/github-code-scanning.md` and `examples/sample-sarif.sarif`. |
 | Can the tool's own artifacts be verified? | `docs/self-provenance.md` for workflow artifact attestations. |

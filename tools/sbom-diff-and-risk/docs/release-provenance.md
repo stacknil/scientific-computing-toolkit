@@ -7,7 +7,7 @@
 
 This document is about the second surface: verifying a GitHub Release and a downloaded release asset.
 
-This page is only about the `sbom-diff-and-risk` tool's own GitHub Releases. If you want the quick "which verification page do I need?" guide, start with [verification.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/verification.md).
+This page is only about the `sbom-diff-and-risk` tool's own GitHub Releases. If you want the quick "which verification page do I need?" guide, start with [verification.md](verification.md).
 
 Release assets produced by the updated workflow also include a deterministic SHA256 checksum manifest named `sbom-diff-and-risk-SHA256SUMS.txt`. The manifest is written with filenames sorted in a stable order. It is not a separate provenance system; it is a local byte-integrity check that helps reviewers confirm downloaded wheel and source distribution files match the hashes published with the same GitHub Release.
 
@@ -36,7 +36,7 @@ GitHub Release verification is distinct from workflow artifact attestation:
 
 Release verification only works for immutable releases. Per GitHub's release integrity and immutable release documentation, immutable releases automatically generate a release attestation and protect release assets from modification after publication.
 
-If immutable releases are not enabled for the repository, the release may still contain assets, but `gh release verify` and `gh release verify-asset` are not the source of truth. In that case, use the workflow-artifact attestation flow from [self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md).
+If immutable releases are not enabled for the repository, the release may still contain assets, but `gh release verify` and `gh release verify-asset` are not the source of truth. In that case, use the workflow-artifact attestation flow from [self-provenance.md](self-provenance.md).
 
 ## Manual verification for a release
 
@@ -69,7 +69,7 @@ gh release verify-asset <tag> path/to/sbom_diff_and_risk-<version>-py3-none-any.
   --repo stacknil/scientific-computing-toolkit
 ```
 
-If `isImmutable` is `false`, the release asset can still be downloaded, but the supported provenance path for this repository remains the workflow-artifact attestation flow from [self-provenance.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/self-provenance.md).
+If `isImmutable` is `false`, the release asset can still be downloaded, but the supported provenance path for this repository remains the workflow-artifact attestation flow from [self-provenance.md](self-provenance.md).
 
 You can inspect structured output as JSON:
 
@@ -127,4 +127,4 @@ A passing checksum check means the local downloaded wheel and source distributio
 - `sbom-diff-and-risk-SHA256SUMS.txt` checks local file integrity against the release manifest. It does not replace provenance verification.
 - GitHub's generated source-code ZIP and tarball downloads are not covered by `gh release verify-asset`.
 - A successful release verification does not replace the workflow-artifact attestation story; it complements it.
-- This repository now has a separate TestPyPI Trusted Publishing readiness workflow, but production PyPI publishing remains deferred. For the production decision gate, publisher identity, future workflow shape, and provenance boundary, see [pypi-production-publishing-decision.md](D:/OneDrive/Code/scientific-computing-toolkit/tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md).
+- This repository now has a separate TestPyPI Trusted Publishing readiness workflow, but production PyPI publishing remains deferred. For the production decision gate, publisher identity, future workflow shape, and provenance boundary, see [pypi-production-publishing-decision.md](pypi-production-publishing-decision.md).

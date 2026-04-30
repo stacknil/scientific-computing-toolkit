@@ -66,6 +66,8 @@ Compare-Object (Get-Content examples/sample-sarif.sarif) (Get-Content outputs/re
 
 The SARIF sample is intentionally conservative. It covers selected high-signal findings and explicit policy violations, not every enrichment fact.
 
+For consumers of the JSON output, see [report-schema.md](report-schema.md). It documents the stable `summary` contract, including conditional `summary.policy` and `summary.enrichment` fields.
+
 ## Release Verification Path
 
 Start with the GitHub Release for the version under review. For `v0.5.0`, inspect the release and assets:
@@ -185,7 +187,7 @@ Avoid overclaiming:
 
 - Can I identify what the tool does? Read `README.md` and `reviewer-brief.md`.
 - Can I reproduce a deterministic demo? Run the CycloneDX example and compare `outputs/report.*` to `examples/sample-report.*`.
-- Can I see machine-readable security output? Inspect or regenerate `examples/sample-sarif.sarif`.
+- Can I see machine-readable security output? Inspect or regenerate `examples/sample-sarif.sarif`, and read `report-schema.md` for JSON report shape.
 - Can I verify release/distribution evidence? Read `verification.md`, `self-provenance.md`, and `release-provenance.md`.
 - Can I distinguish TestPyPI from production PyPI? Read `pypi-trusted-publishing-readiness.md` and `pypi-production-publishing-decision.md`.
 - Can I state the non-claims? No CVE scanner, no reputation oracle, no dependency safety verdicts, no production PyPI package yet.
