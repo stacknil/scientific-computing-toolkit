@@ -1,6 +1,6 @@
 # sbom-diff-and-risk
 
-v0.5.1 is a release-only maintenance update for the GitHub Release checksum manifest path. It keeps CLI analysis behavior unchanged, keeps dependency analysis local and deterministic by default, preserves the completed TestPyPI dry-run story, and keeps production PyPI publishing intentionally deferred.
+v0.6.0 is the machine-readable report consumption release. It documents the stable JSON `summary` contract, adds report schema guidance, and includes optional `--summary-json PATH` output for consumers that only need `report.json["summary"]`. It keeps CLI analysis behavior unchanged, keeps dependency analysis local and deterministic by default, preserves the completed TestPyPI dry-run story, and keeps production PyPI publishing intentionally deferred.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
