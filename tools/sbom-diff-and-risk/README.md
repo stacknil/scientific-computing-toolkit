@@ -81,6 +81,7 @@ Offline `stale_package` evaluation is intentionally deferred. When enrichment is
 ## Output Formats
 
 - `report.json`
+- `summary.json` when `--summary-json` is provided
 - `report.md`
 - `report.sarif`
 
@@ -100,6 +101,7 @@ sbom-diff-risk compare \
   --after examples/cdx_after.json \
   --format auto \
   --out-json outputs/report.json \
+  --summary-json outputs/summary.json \
   --out-md outputs/report.md
 ```
 
@@ -174,6 +176,8 @@ sbom-diff-risk compare \
 Offline mode remains the default. No network access occurs unless `--enrich-pypi` or `--enrich-scorecard` is set explicitly.
 
 `--summary-json PATH` writes only the stable `report.json["summary"]` object for compact machine consumption. It uses the same summary schema as the full JSON report.
+
+The checked-in [examples/sample-summary.json](examples/sample-summary.json) artifact is generated from the bundled CycloneDX example with `--summary-json outputs/summary.json` and matches the `summary` object in [examples/sample-report.json](examples/sample-report.json).
 
 ## Dependency Provenance Analysis (Opt-in)
 
@@ -268,6 +272,7 @@ The [examples/](examples/) directory includes:
 - provenance-aware policy examples at `examples/policy-provenance-minimal.yml` and `examples/policy-provenance-strict.yml`
 - a Scorecard-aware policy example at `examples/policy-scorecard-minimal.yml`
 - a sample pass JSON report at [sample-report.json](examples/sample-report.json)
+- a sample summary-only JSON artifact at [sample-summary.json](examples/sample-summary.json)
 - a sample pass Markdown report at [sample-report.md](examples/sample-report.md)
 - sample policy-warn reports at [sample-policy-warn-report.json](examples/sample-policy-warn-report.json) and [sample-policy-warn-report.md](examples/sample-policy-warn-report.md)
 - sample policy-fail reports at [sample-policy-fail-report.json](examples/sample-policy-fail-report.json) and [sample-policy-fail-report.md](examples/sample-policy-fail-report.md)
