@@ -1,12 +1,12 @@
-# sbom-diff-and-risk v0.6.0 draft release notes
+# sbom-diff-and-risk v0.6.0
 
-These are draft release notes for the planned `v0.6.0` release. This PR does not tag or publish `v0.6.0`, does not create a GitHub Release, and does not publish to PyPI or TestPyPI.
+`v0.6.0` is the machine-readable report consumption and summary-output usability release.
 
 ## Theme
 
 Machine-readable report consumption and summary-output usability.
 
-`v0.6.0` focuses on making the existing JSON report easier to consume from automation without changing the core dependency diff model, Markdown output, SARIF output, workflows, package version, or publishing status.
+`v0.6.0` focuses on making the existing JSON report easier to consume from automation without changing the core dependency diff model, Markdown output, SARIF output, workflows, or publishing status.
 
 ## Highlights
 
@@ -52,11 +52,11 @@ These surfaces remain distinct: GitHub workflow artifact attestations, GitHub Re
 
 ## Distribution status
 
-- Latest GitHub Release remains `v0.5.1` until a future release PR creates the `v0.6.0` tag and release.
-- This PR does not tag or publish `v0.6.0`.
-- This PR does not create a GitHub Release.
-- This PR does not publish to TestPyPI.
-- This PR does not publish to production PyPI.
+- The `v0.6.0` GitHub Release is expected to be created from the tag-gated release workflow.
+- Release assets are expected to include the wheel, source distribution, and `sbom-diff-and-risk-SHA256SUMS.txt`.
+- TestPyPI Trusted Publishing dry-run validation remains documented as pre-production evidence.
+- This release does not publish to TestPyPI.
+- This release does not publish to production PyPI.
 - Production PyPI remains intentionally deferred.
 
 ## Not in this release
@@ -64,7 +64,6 @@ These surfaces remain distinct: GitHub workflow artifact attestations, GitHub Re
 - No Markdown output behavior changed.
 - No SARIF behavior changed.
 - No workflow behavior changed.
-- No package version bump is included in this draft-notes PR.
 - No production PyPI workflow is added.
 - No hidden network behavior was added.
 - No CVE lookup or CVE resolution was added.
