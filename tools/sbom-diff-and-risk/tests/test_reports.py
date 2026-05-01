@@ -18,7 +18,7 @@ from sbom_diff_risk.policy_evaluator import evaluate_policy
 from sbom_diff_risk.policy_models import PolicyConfig
 from sbom_diff_risk.policy_parser import build_policy
 from sbom_diff_risk.normalize import normalize_input
-from sbom_diff_risk.report_json import render_report_json
+from sbom_diff_risk.report_json import render_report_json, render_summary_json
 from sbom_diff_risk.report_md import render_report_markdown
 from sbom_diff_risk.risk import evaluate_risks, summarize_risks
 
@@ -30,6 +30,16 @@ def test_report_json_matches_cyclonedx_golden_pass() -> None:
     expected = _read_example("sample-report.json")
 
     assert rendered == expected
+
+
+def test_summary_json_matches_cyclonedx_golden_pass() -> None:
+    report = _build_report("cdx_before.json", "cdx_after.json")
+
+    rendered = render_summary_json(report)
+    expected = _read_example("sample-summary.json")
+
+    assert rendered == expected
+    assert json.loads(rendered) == json.loads(_read_example("sample-report.json"))["summary"]
 
 
 def test_report_markdown_matches_cyclonedx_golden_pass() -> None:

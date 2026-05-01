@@ -33,22 +33,27 @@ sbom-diff-risk compare `
   --after examples/cdx_after.json `
   --format auto `
   --out-json outputs/report.json `
+  --summary-json outputs/summary.json `
   --out-md outputs/report.md
 ```
 
 Expected output files:
 
 - `outputs/report.json`
+- `outputs/summary.json`
 - `outputs/report.md`
 
 Compare the outputs against the checked-in sample reports:
 
 ```powershell
 Compare-Object (Get-Content examples/sample-report.json) (Get-Content outputs/report.json)
+Compare-Object (Get-Content examples/sample-summary.json) (Get-Content outputs/summary.json)
 Compare-Object (Get-Content examples/sample-report.md) (Get-Content outputs/report.md)
 ```
 
 No differences means the sample path reproduced the committed example output.
+
+`examples/sample-summary.json` is the summary-only artifact for the same run and is expected to match `examples/sample-report.json`'s `summary` object.
 
 Generate the strict-policy SARIF sample:
 
