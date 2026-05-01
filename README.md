@@ -22,14 +22,14 @@ Scientific and security-oriented engineering often needs small, inspectable tool
 
 | Project | Status | What to review |
 | --- | --- | --- |
-| [`sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md) | Released at `v0.5.0` | Deterministic SBOM/dependency diffing, JSON/Markdown/SARIF output, local policy checks, optional provenance and Scorecard evidence. |
+| [`sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md) | Released at `v0.6.0` | Deterministic SBOM/dependency diffing, JSON/Markdown/SARIF output, local policy checks, optional provenance and Scorecard evidence. |
 
 Useful entry points:
 
 - [`sbom-diff-and-risk` README](tools/sbom-diff-and-risk/README.md)
 - [Reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md)
 - [Reviewer evidence pack](tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md)
-- [v0.5.0 release notes](tools/sbom-diff-and-risk/RELEASE_NOTES_v0.5.0.md)
+- [v0.6.0 release notes](tools/sbom-diff-and-risk/RELEASE_NOTES_v0.6.0.md)
 - [Examples](tools/sbom-diff-and-risk/examples/)
 
 ## Verification And Release Evidence
@@ -57,14 +57,14 @@ The TestPyPI Trusted Publishing dry-run has been validated. Production PyPI publ
 
 1. Read the [`sbom-diff-and-risk` reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md).
 2. Skim the [`sbom-diff-and-risk` README](tools/sbom-diff-and-risk/README.md) for CLI scope and examples.
-3. Check the [v0.5.0 release notes](tools/sbom-diff-and-risk/RELEASE_NOTES_v0.5.0.md).
+3. Check the [v0.6.0 release notes](tools/sbom-diff-and-risk/RELEASE_NOTES_v0.6.0.md).
 4. Use the [verification guide](tools/sbom-diff-and-risk/docs/verification.md) to choose the right provenance check.
 5. Inspect the [examples](tools/sbom-diff-and-risk/examples/) for sample reports and policy files.
 
 ## Status
 
-- Current flagship release: `sbom-diff-and-risk` `v0.5.0`
-- GitHub Release assets: available for `v0.5.0`
+- Current flagship release: `sbom-diff-and-risk` `v0.6.0`
+- GitHub Release assets: available for `v0.6.0`
 - TestPyPI Trusted Publishing dry-run: completed
 - Production PyPI publishing: intentionally deferred
 
