@@ -30,7 +30,7 @@ When provenance policy fields are relevant, reports may also include `provenance
 
 ## Summary contract
 
-`summary` is the stable, compact entry point for automation that needs counts without walking the full report. The `--summary-json PATH` CLI option writes only this stable `report.json["summary"]` object. The checked-in [../examples/sample-summary.json](../examples/sample-summary.json) artifact is the summary-only output for the default CycloneDX example and matches the `summary` object in [../examples/sample-report.json](../examples/sample-report.json).
+`summary` is the stable, compact entry point for automation that needs counts without walking the full report. The `--summary-json PATH` CLI option writes only this stable `report.json["summary"]` object. The checked-in [../examples/sample-summary.json](../examples/sample-summary.json) artifact is the summary-only output for the default CycloneDX example and matches the `summary` object in [../examples/sample-report.json](../examples/sample-report.json). For CI consumption examples, see [summary-json-ci-cookbook.md](summary-json-ci-cookbook.md).
 
 Base `summary` fields:
 

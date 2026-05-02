@@ -10,7 +10,7 @@ It uses conservative heuristics for change intelligence. By default it does not 
 
 This project has two different provenance stories:
 
-For a concise reviewer-facing overview, start with [docs/reviewer-brief.md](docs/reviewer-brief.md). For reproducible review evidence and verification commands, use [docs/reviewer-evidence-pack.md](docs/reviewer-evidence-pack.md). For machine-readable JSON output shape, see [docs/report-schema.md](docs/report-schema.md).
+For a concise reviewer-facing overview, start with [docs/reviewer-brief.md](docs/reviewer-brief.md). For reproducible review evidence and verification commands, use [docs/reviewer-evidence-pack.md](docs/reviewer-evidence-pack.md). For machine-readable JSON output shape, see [docs/report-schema.md](docs/report-schema.md). For CI consumption of summary-only output, see [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
 
 1. If you want to verify `sbom-diff-and-risk` itself, start with [docs/verification.md](docs/verification.md).
 2. If you want to use `sbom-diff-and-risk` to analyze third-party dependency provenance, start with [Dependency provenance analysis](#dependency-provenance-analysis-opt-in) and [Dependency provenance reporting](#dependency-provenance-reporting).
@@ -178,6 +178,8 @@ Offline mode remains the default. No network access occurs unless `--enrich-pypi
 `--summary-json PATH` writes only the stable `report.json["summary"]` object for compact machine consumption. It uses the same summary schema as the full JSON report.
 
 The checked-in [examples/sample-summary.json](examples/sample-summary.json) artifact is generated from the bundled CycloneDX example with `--summary-json outputs/summary.json` and matches the `summary` object in [examples/sample-report.json](examples/sample-report.json).
+
+For CI dashboard, job-summary, and local-threshold examples, see [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
 
 ## Dependency Provenance Analysis (Opt-in)
 

@@ -75,6 +75,8 @@ The SARIF sample is intentionally conservative. It covers selected high-signal f
 
 For consumers of the JSON output, see [report-schema.md](report-schema.md). It documents the stable `summary` contract, including conditional `summary.policy` and `summary.enrichment` fields.
 
+For CI dashboard, job-summary, and local-threshold examples that consume `outputs/summary.json`, see [summary-json-ci-cookbook.md](summary-json-ci-cookbook.md).
+
 ## Release Verification Path
 
 Start with the GitHub Release for the version under review. For `v0.6.0`, inspect the release and assets:
