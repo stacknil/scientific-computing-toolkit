@@ -276,6 +276,7 @@ The [examples/](examples/) directory includes:
 - a Scorecard-aware policy example at `examples/policy-scorecard-minimal.yml`
 - a sample pass JSON report at [sample-report.json](examples/sample-report.json)
 - a sample summary-only JSON artifact at [sample-summary.json](examples/sample-summary.json)
+- a consumer GitHub Actions workflow example at [github-actions-consumer.yml](examples/github-actions-consumer.yml)
 - a sample pass Markdown report at [sample-report.md](examples/sample-report.md)
 - sample policy-warn reports at [sample-policy-warn-report.json](examples/sample-policy-warn-report.json) and [sample-policy-warn-report.md](examples/sample-policy-warn-report.md)
 - sample policy-fail reports at [sample-policy-fail-report.json](examples/sample-policy-fail-report.json) and [sample-policy-fail-report.md](examples/sample-policy-fail-report.md)

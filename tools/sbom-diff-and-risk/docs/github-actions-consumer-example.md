@@ -18,6 +18,9 @@ an explicit local threshold to `summary.json`, and uploads the outputs as CI
 artifacts.
 
 Replace the placeholder input paths with files from the consumer repository.
+The same workflow is also checked in as
+[../examples/github-actions-consumer.yml](../examples/github-actions-consumer.yml)
+for copying into consumer repositories.
 
 ```yaml
 name: Dependency diff review
