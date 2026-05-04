@@ -1,20 +1,15 @@
 # sbom-diff-and-risk v0.7.0
 
-Draft release notes for `v0.7.0`.
-
-Release notes file: `RELEASE_NOTES_v0.7.0.md`.
-
-This PR only drafts release notes. It does not bump package version, create a
-tag, publish a GitHub Release, or publish to PyPI/TestPyPI.
+`v0.7.0` is the consumer integration usability release.
 
 ## Theme
 
 Consumer integration usability.
 
-`v0.7.0` focuses on consumer-facing examples and CI integration guidance for the
-existing machine-readable summary output. It does not change the core dependency
-diff model, CLI behavior, JSON report schema, Markdown output, SARIF output,
-workflows, release tags, or publishing status.
+`v0.7.0` focuses on consumer-facing examples and CI integration guidance for
+the existing machine-readable summary output. It does not change the core
+dependency diff model, CLI behavior, JSON report schema, Markdown output,
+SARIF output, workflows, release tags, or publishing status.
 
 ## Highlights
 
@@ -22,8 +17,8 @@ workflows, release tags, or publishing status.
   [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
 - Added a checked-in summary-only example artifact at
   [examples/sample-summary.json](examples/sample-summary.json).
-- Added a consumer-facing GitHub Actions example in
-  [docs/github-actions-consumer-example.md](docs/github-actions-consumer-example.md).
+- Added a consumer-facing GitHub Actions
+  [consumer example](docs/github-actions-consumer-example.md).
 - Documented explicit local thresholding with `summary.json`.
 - Documented a GitHub Release wheel installation path for consumer workflows.
 - Kept production PyPI intentionally deferred.
@@ -45,8 +40,8 @@ and apply local thresholds chosen by the consuming repository.
 
 The GitHub Actions consumer example shows how another repository can install
 `sbom-diff-risk` from GitHub Release assets instead of production PyPI, run
-`compare`, write JSON, Markdown, summary JSON, and SARIF outputs, and upload the
-generated files as CI artifacts.
+`compare`, write JSON, Markdown, summary JSON, and SARIF outputs, and upload
+the generated files as CI artifacts.
 
 `summary.json` thresholding is a local consumer policy choice. It is not a
 built-in dependency safety verdict.
@@ -67,10 +62,12 @@ built-in dependency safety verdict.
 
 ## Distribution status
 
-- The latest published GitHub Release before this draft is `v0.6.0`.
-- This PR does not tag or publish `v0.7.0`.
-- This PR does not publish to TestPyPI.
-- This PR does not publish to production PyPI.
+- The `v0.7.0` GitHub Release is expected to be created from the tag-gated
+  release workflow.
+- Release assets are expected to include the wheel, source distribution, and
+  `sbom-diff-and-risk-SHA256SUMS.txt`.
+- This release does not publish to TestPyPI.
+- This release does not publish to production PyPI.
 - Production PyPI publishing remains intentionally deferred.
 - The GitHub Actions consumer example installs from GitHub Release assets, not
   production PyPI.
@@ -82,8 +79,6 @@ built-in dependency safety verdict.
 - No Markdown output behavior changes.
 - No SARIF output behavior changes.
 - No workflow changes.
-- No package version bump.
-- No release tag or GitHub Release creation in this PR.
 - No PyPI/TestPyPI publishing.
 - No production PyPI workflow.
 - No CVE lookup or CVE resolution.
