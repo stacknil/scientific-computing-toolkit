@@ -28,25 +28,15 @@ that emphasize:
 
 ## Project Map
 
-<table>
-<thead>
-<tr>
-<th>Project</th>
-<th>Status</th>
-<th>What to review</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="tools/sbom-diff-and-risk/README.md"><code>sbom-diff-and-risk</code></a></td>
-<td>Released at <code>v0.7.0</code></td>
-<td>
+Project:
+[`sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md)
+
+Status:
+Released at `v0.7.0`.
+
+What to review:
 Deterministic SBOM/dependency diffing, JSON/Markdown/SARIF output, local policy
 checks, optional provenance and Scorecard evidence.
-</td>
-</tr>
-</tbody>
-</table>
 
 Useful entry points:
 
@@ -56,58 +46,24 @@ Useful entry points:
 - [v0.7.0 release notes][release-notes-v070]
 - [Examples](tools/sbom-diff-and-risk/examples/)
 
-## Verification And Release Evidence
+## Verification and Release Evidence
 
 `sbom-diff-and-risk` has separate verification surfaces. They are related, but
 they do not prove the same thing.
 
-<table>
-<thead>
-<tr>
-<th>Evidence</th>
-<th>Where to start</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Tool verification guide</td>
-<td>
-<a href="tools/sbom-diff-and-risk/docs/verification.md">
-<code>docs/verification.md</code>
-</a>
-</td>
-</tr>
-<tr>
-<td>GitHub Release asset verification</td>
-<td>
-<a href="tools/sbom-diff-and-risk/docs/release-provenance.md">
-<code>docs/release-provenance.md</code>
-</a>
-</td>
-</tr>
-<tr>
-<td>TestPyPI Trusted Publishing dry-run</td>
-<td>
-<a href="tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md">
-<code>docs/pypi-trusted-publishing-readiness.md</code>
-</a>
-</td>
-</tr>
-<tr>
-<td>Production PyPI decision gate</td>
-<td>
-<a href="tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md">
-<code>docs/pypi-production-publishing-decision.md</code>
-</a>
-</td>
-</tr>
-</tbody>
-</table>
+- Tool verification guide:
+  [`docs/verification.md`](tools/sbom-diff-and-risk/docs/verification.md)
+- GitHub Release asset verification:
+  [`docs/release-provenance.md`](tools/sbom-diff-and-risk/docs/release-provenance.md)
+- TestPyPI Trusted Publishing dry-run:
+  [`docs/pypi-trusted-publishing-readiness.md`](tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md)
+- Production PyPI decision gate:
+  [`docs/pypi-production-publishing-decision.md`](tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md)
 
 The TestPyPI Trusted Publishing dry-run has been validated. Production PyPI
 publishing is intentionally deferred.
 
-## What This Repository Intentionally Does Not Claim
+## What This Repository Does Not Claim
 
 - It does not claim that `sbom-diff-and-risk` is a vulnerability scanner.
 - It does not claim to resolve CVEs, advisories, exploitability, or package
