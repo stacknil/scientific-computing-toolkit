@@ -11,6 +11,7 @@ It uses conservative heuristics for change intelligence. By default it does not 
 This project has two different provenance stories:
 
 For a concise reviewer-facing overview, start with [docs/reviewer-brief.md](docs/reviewer-brief.md). For reproducible review evidence and verification commands, use [docs/reviewer-evidence-pack.md](docs/reviewer-evidence-pack.md). For machine-readable JSON output shape, see [docs/report-schema.md](docs/report-schema.md). For CI consumption of summary-only output, see [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
+For a consumer-facing GitHub Actions example, see [docs/github-actions-consumer-example.md](docs/github-actions-consumer-example.md).
 
 1. If you want to verify `sbom-diff-and-risk` itself, start with [docs/verification.md](docs/verification.md).
 2. If you want to use `sbom-diff-and-risk` to analyze third-party dependency provenance, start with [Dependency provenance analysis](#dependency-provenance-analysis-opt-in) and [Dependency provenance reporting](#dependency-provenance-reporting).
