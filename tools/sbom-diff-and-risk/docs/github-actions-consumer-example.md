@@ -54,7 +54,8 @@ jobs:
 
       - name: Install sbom-diff-risk
         run: |
-          python -m pip install .tooling/sbom-diff-risk/sbom_diff_and_risk-0.6.0-py3-none-any.whl
+          python -m pip install \
+            .tooling/sbom-diff-risk/sbom_diff_and_risk-0.6.0-py3-none-any.whl
 
       - name: Compare dependency evidence
         run: |
@@ -74,7 +75,9 @@ jobs:
           import json
           from pathlib import Path
 
-          summary = json.loads(Path("outputs/summary.json").read_text(encoding="utf-8"))
+          summary = json.loads(
+              Path("outputs/summary.json").read_text(encoding="utf-8")
+          )
           risk_counts = summary["risk_counts"]
 
           max_new_packages = 2
@@ -106,7 +109,8 @@ from that local checkout instead of downloading a release wheel:
 ```yaml
 - name: Install sbom-diff-risk from local checkout
   run: |
-    python -m pip install path/to/scientific-computing-toolkit/tools/sbom-diff-and-risk
+    python -m pip install \
+      path/to/scientific-computing-toolkit/tools/sbom-diff-and-risk
 ```
 
 ## What the example proves
