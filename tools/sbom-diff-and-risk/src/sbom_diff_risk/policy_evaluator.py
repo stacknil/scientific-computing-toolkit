@@ -18,6 +18,12 @@ class ProvenanceAssessment:
     unverified_message: str | None = None
 
 
+@dataclass(slots=True, frozen=True)
+class PolicyRuleDecision:
+    severity: PolicyLevel | None
+    severity_source: str | None
+
+
 def evaluate_policy(
     policy: PolicyConfig | None,
     *,
@@ -36,14 +42,16 @@ def evaluate_policy(
 
     for finding in findings:
         rule_id = finding_rule_id(finding)
-        severity = _severity_for_rule(policy, rule_id)
+        decision = _decision_for_rule(policy, rule_id)
         ignored_checks += _record_violation(
             policy,
-            severity=severity,
-            violation=PolicyViolation(
+            severity=decision.severity,
+            violation=_policy_violation(
                 rule_id=rule_id,
-                level=severity,
+                decision=decision,
                 message=finding.rationale,
+                decision_reason="risk_finding_matched_policy_rule",
+                observed_value=finding.bucket.value,
                 component_key=finding.component_key,
                 component_name=finding.component.name,
                 finding_bucket=finding.bucket.value,
@@ -73,14 +81,16 @@ def evaluate_policy(
         # Keep allow_unattested_packages narrow and explicit: it waives only
         # missing-attestation checks, not complete provenance unavailability.
         if assessment.provenance_unavailable:
-            severity = _severity_for_rule(policy, "provenance_unavailable")
+            decision = _decision_for_rule(policy, "provenance_unavailable")
             ignored_checks += _record_violation(
                 policy,
-                severity=severity,
-                violation=PolicyViolation(
+                severity=decision.severity,
+                violation=_policy_violation(
                     rule_id="provenance_unavailable",
-                    level=severity,
+                    decision=decision,
                     message=assessment.unavailable_message or "PyPI provenance evidence is unavailable.",
+                    decision_reason="provenance_evidence_unavailable",
+                    observed_value="unavailable",
                     component_key=component_key(component),
                     component_name=component.name,
                 ),
@@ -89,14 +99,16 @@ def evaluate_policy(
                 suppressed_violations=suppressed_violations,
             )
         elif not assessment.attestation_available and not package_is_unattested_allowed:
-            severity = _severity_for_rule(policy, "missing_attestation")
+            decision = _decision_for_rule(policy, "missing_attestation")
             ignored_checks += _record_violation(
                 policy,
-                severity=severity,
-                violation=PolicyViolation(
+                severity=decision.severity,
+                violation=_policy_violation(
                     rule_id="missing_attestation",
-                    level=severity,
+                    decision=decision,
                     message="PyPI release metadata was fetched, but no attestations were published for this package release.",
+                    decision_reason="attestation_not_published",
+                    observed_value=False,
                     component_key=component_key(component),
                     component_name=component.name,
                 ),
@@ -106,14 +118,17 @@ def evaluate_policy(
             )
 
         if assessment.attestation_available and not assessment.verified:
-            severity = _severity_for_rule(policy, "unverified_provenance")
+            decision = _decision_for_rule(policy, "unverified_provenance")
             ignored_checks += _record_violation(
                 policy,
-                severity=severity,
-                violation=PolicyViolation(
+                severity=decision.severity,
+                violation=_policy_violation(
                     rule_id="unverified_provenance",
-                    level=severity,
+                    decision=decision,
                     message=assessment.unverified_message or "PyPI provenance could not be verified.",
+                    decision_reason="provenance_publisher_not_verified",
+                    matched_threshold=list(policy.allow_provenance_publishers) or None,
+                    observed_value=list(assessment.publisher_kinds),
                     component_key=component_key(component),
                     component_name=component.name,
                 ),
@@ -138,14 +153,16 @@ def evaluate_policy(
                 package_is_unattested_allowed=package_is_unattested_allowed,
             )
             if requirement_message is not None:
-                severity = _severity_for_rule(policy, "provenance_required", default=PolicyLevel.BLOCK)
+                decision = _decision_for_rule(policy, "provenance_required", default=PolicyLevel.BLOCK)
                 ignored_checks += _record_violation(
                     policy,
-                    severity=severity,
-                    violation=PolicyViolation(
+                    severity=decision.severity,
+                    violation=_policy_violation(
                         rule_id="provenance_required",
-                        level=severity,
+                        decision=decision,
                         message=requirement_message,
+                        decision_reason="required_provenance_not_satisfied",
+                        observed_value=_provenance_observed_value(assessment),
                         component_key=component_key(component),
                         component_name=component.name,
                     ),
@@ -156,14 +173,17 @@ def evaluate_policy(
 
     if policy.max_added_packages is not None and len(added) > policy.max_added_packages:
         rule_id = "max_added_packages"
-        severity = _severity_for_rule(policy, rule_id, default=PolicyLevel.BLOCK)
+        decision = _decision_for_rule(policy, rule_id, default=PolicyLevel.BLOCK)
         ignored_checks += _record_violation(
             policy,
-            severity=severity,
-            violation=PolicyViolation(
+            severity=decision.severity,
+            violation=_policy_violation(
                 rule_id=rule_id,
-                level=severity,
+                decision=decision,
                 message=f"Added package count {len(added)} exceeds max_added_packages={policy.max_added_packages}.",
+                decision_reason="added_package_count_exceeded_threshold",
+                matched_threshold=policy.max_added_packages,
+                observed_value=len(added),
             ),
             blocking_violations=blocking_violations,
             warning_violations=warning_violations,
@@ -177,25 +197,28 @@ def evaluate_policy(
                 continue
 
             rule_id = "allow_sources"
-            severity = _severity_for_rule(policy, rule_id, default=PolicyLevel.BLOCK)
+            decision = _decision_for_rule(policy, rule_id, default=PolicyLevel.BLOCK)
             ignored_checks += _record_violation(
                 policy,
-                severity=severity,
-                violation=PolicyViolation(
+                severity=decision.severity,
+                violation=_policy_violation(
                     rule_id=rule_id,
-                    level=severity,
+                    decision=decision,
                     message=f"Source host {host or 'missing'} is not present in allow_sources.",
+                    decision_reason="source_host_not_allowed",
+                    matched_threshold=list(policy.allow_sources),
+                    observed_value=host or "missing",
                     component_key=component_key(component),
                     component_name=component.name,
                 ),
                 blocking_violations=blocking_violations,
                 warning_violations=warning_violations,
-                    suppressed_violations=suppressed_violations,
-                )
+                suppressed_violations=suppressed_violations,
+            )
 
     if policy.minimum_scorecard_score is not None:
         rule_id = "scorecard_below_threshold"
-        severity = _severity_for_rule(policy, rule_id)
+        decision = _decision_for_rule(policy, rule_id)
         for component in provenance_components:
             scorecard_score = _scorecard_score(component)
             if scorecard_score is None or scorecard_score >= policy.minimum_scorecard_score:
@@ -207,14 +230,17 @@ def evaluate_policy(
             )
             ignored_checks += _record_violation(
                 policy,
-                severity=severity,
-                violation=PolicyViolation(
+                severity=decision.severity,
+                violation=_policy_violation(
                     rule_id=rule_id,
-                    level=severity,
+                    decision=decision,
                     message=(
                         f"Scorecard score {scorecard_score:.1f} is below minimum_scorecard_score="
                         f"{policy.minimum_scorecard_score:.1f} for repository {repository_name}."
                     ),
+                    decision_reason="scorecard_score_below_threshold",
+                    matched_threshold=policy.minimum_scorecard_score,
+                    observed_value=scorecard_score,
                     component_key=component_key(component),
                     component_name=component.name,
                 ),
@@ -246,17 +272,48 @@ def finding_rule_id(finding: RiskFinding) -> str:
     return finding.bucket.value
 
 
-def _severity_for_rule(
+def _decision_for_rule(
     policy: PolicyConfig,
     rule_id: str,
     *,
     default: PolicyLevel | None = None,
-) -> PolicyLevel | None:
+) -> PolicyRuleDecision:
     if rule_id in policy.block_on:
-        return PolicyLevel.BLOCK
+        return PolicyRuleDecision(severity=PolicyLevel.BLOCK, severity_source="block_on")
     if rule_id in policy.warn_on:
-        return PolicyLevel.WARN
-    return default
+        return PolicyRuleDecision(severity=PolicyLevel.WARN, severity_source="warn_on")
+    if default is PolicyLevel.BLOCK:
+        return PolicyRuleDecision(severity=PolicyLevel.BLOCK, severity_source="default_block")
+    if default is PolicyLevel.WARN:
+        return PolicyRuleDecision(severity=PolicyLevel.WARN, severity_source="default_warn")
+    return PolicyRuleDecision(severity=default, severity_source=None)
+
+
+def _policy_violation(
+    *,
+    rule_id: str,
+    decision: PolicyRuleDecision,
+    message: str,
+    decision_reason: str,
+    matched_threshold: object | None = None,
+    observed_value: object | None = None,
+    component_key: str | None = None,
+    component_name: str | None = None,
+    finding_bucket: str | None = None,
+) -> PolicyViolation:
+    return PolicyViolation(
+        rule_id=rule_id,
+        level=decision.severity,
+        message=message,
+        decision_reason=decision_reason,
+        policy_rule=rule_id,
+        severity_source=decision.severity_source,
+        matched_threshold=matched_threshold,
+        observed_value=observed_value,
+        component_key=component_key,
+        component_name=component_name,
+        finding_bucket=finding_bucket,
+    )
 
 
 def _record_violation(
@@ -274,6 +331,11 @@ def _record_violation(
                 rule_id=violation.rule_id,
                 level=severity,
                 message=violation.message,
+                decision_reason=violation.decision_reason,
+                policy_rule=violation.policy_rule,
+                severity_source=violation.severity_source,
+                matched_threshold=violation.matched_threshold,
+                observed_value=violation.observed_value,
                 component_key=violation.component_key,
                 component_name=violation.component_name,
                 finding_bucket=violation.finding_bucket,
@@ -289,6 +351,11 @@ def _record_violation(
             rule_id=violation.rule_id,
             level=severity,
             message=violation.message,
+            decision_reason=violation.decision_reason,
+            policy_rule=violation.policy_rule,
+            severity_source=violation.severity_source,
+            matched_threshold=violation.matched_threshold,
+            observed_value=violation.observed_value,
             component_key=violation.component_key,
             component_name=violation.component_name,
             finding_bucket=violation.finding_bucket,
@@ -424,6 +491,16 @@ def _provenance_requirement_message(
             f"{assessment.unverified_message}"
         )
     return None
+
+
+def _provenance_observed_value(assessment: ProvenanceAssessment) -> str:
+    if assessment.provenance_unavailable:
+        return "provenance_unavailable"
+    if not assessment.attestation_available:
+        return "attestation_missing"
+    if not assessment.verified:
+        return "provenance_unverified"
+    return "provenance_verified"
 
 
 def _source_host(source_url: str | None) -> str | None:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import StrEnum
+from typing import Any
 
 
 class PolicyLevel(StrEnum):
@@ -58,6 +59,11 @@ class PolicyViolation:
     rule_id: str
     level: PolicyLevel | None
     message: str
+    decision_reason: str | None = None
+    policy_rule: str | None = None
+    severity_source: str | None = None
+    matched_threshold: Any | None = None
+    observed_value: Any | None = None
     component_key: str | None = None
     component_name: str | None = None
     finding_bucket: str | None = None

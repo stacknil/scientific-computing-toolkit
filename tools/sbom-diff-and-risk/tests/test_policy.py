@@ -82,6 +82,11 @@ def test_policy_evaluator_blocks_on_finding_bucket() -> None:
     assert len(evaluation.blocking_violations) == 1
     assert evaluation.blocking_violations[0].rule_id == "unknown_license"
     assert evaluation.blocking_violations[0].level is PolicyLevel.BLOCK
+    assert evaluation.blocking_violations[0].decision_reason == "risk_finding_matched_policy_rule"
+    assert evaluation.blocking_violations[0].policy_rule == "unknown_license"
+    assert evaluation.blocking_violations[0].severity_source == "block_on"
+    assert evaluation.blocking_violations[0].matched_threshold is None
+    assert evaluation.blocking_violations[0].observed_value == "unknown_license"
 
 
 def test_policy_evaluator_warns_on_rule_when_configured() -> None:
@@ -110,7 +115,12 @@ def test_policy_evaluator_max_added_packages_blocks() -> None:
     evaluation = evaluate_policy(policy, policy_path="policy.yml", added=added, changed=[], findings=[])
 
     assert evaluation.exit_code == 1
-    assert any(violation.rule_id == "max_added_packages" for violation in evaluation.blocking_violations)
+    violation = next(item for item in evaluation.blocking_violations if item.rule_id == "max_added_packages")
+    assert violation.decision_reason == "added_package_count_exceeded_threshold"
+    assert violation.policy_rule == "max_added_packages"
+    assert violation.severity_source == "default_block"
+    assert violation.matched_threshold == 0
+    assert violation.observed_value == 1
 
 
 def test_policy_evaluator_allow_sources_blocks_unknown_hosts() -> None:
@@ -145,6 +155,9 @@ def test_policy_ignore_rules_suppresses_violations() -> None:
     assert evaluation.ignored_checks == 1
     assert len(evaluation.suppressed_violations) == 1
     assert evaluation.suppressed_violations[0].suppression_reason == "ignored_by_policy"
+    assert evaluation.suppressed_violations[0].decision_reason == "risk_finding_matched_policy_rule"
+    assert evaluation.suppressed_violations[0].policy_rule == "unknown_license"
+    assert evaluation.suppressed_violations[0].severity_source == "block_on"
 
 
 def _example_path(name: str) -> Path:
