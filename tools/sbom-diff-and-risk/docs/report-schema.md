@@ -71,6 +71,9 @@ Explanation fields appear only on policy finding objects. Risk findings in
 policy-decision metadata unless a policy evaluation maps them into policy
 findings.
 
+For reviewer-facing examples and interpretation guidance, see
+[policy-decision-explainability.md](policy-decision-explainability.md).
+
 ## Summary contract
 
 `summary` is the stable, compact entry point for automation that needs counts

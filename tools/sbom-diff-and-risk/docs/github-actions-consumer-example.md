@@ -50,15 +50,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p .tooling/sbom-diff-risk
-          gh release download v0.6.0 \
+          gh release download v0.7.0 \
             --repo stacknil/scientific-computing-toolkit \
-            --pattern "sbom_diff_and_risk-0.6.0-py3-none-any.whl" \
+            --pattern "sbom_diff_and_risk-0.7.0-py3-none-any.whl" \
             --dir .tooling/sbom-diff-risk
 
       - name: Install sbom-diff-risk
         run: |
           python -m pip install \
-            .tooling/sbom-diff-risk/sbom_diff_and_risk-0.6.0-py3-none-any.whl
+            .tooling/sbom-diff-risk/sbom_diff_and_risk-0.7.0-py3-none-any.whl
 
       - name: Compare dependency evidence
         run: |

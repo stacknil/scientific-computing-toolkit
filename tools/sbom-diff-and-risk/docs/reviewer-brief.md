@@ -4,7 +4,7 @@
 
 `sbom-diff-and-risk` is a local CLI for comparing two SBOMs or dependency manifests and producing deterministic review artifacts: JSON, Markdown, and SARIF. It is built for conservative supply-chain review, not for vulnerability scanning or package reputation scoring.
 
-Current released version: `v0.6.0`.
+Current released version: `v0.7.0`.
 
 ## Why this project matters
 
@@ -28,6 +28,7 @@ Dependency review often needs evidence that is stable enough for code review, CI
 | What does the tool do? | `README.md`, examples, tests, and generated sample reports. |
 | How can a reviewer reproduce the core evidence? | [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for demo, release, TestPyPI, and SARIF verification paths. |
 | What is the stable JSON shape? | [report-schema.md](report-schema.md) documents the machine-readable report structure and `summary` contract. |
+| How are policy findings explained? | [policy-decision-explainability.md](policy-decision-explainability.md) documents the policy decision metadata in JSON reports. |
 | Are default runs offline? | CLI docs, tests for no-enrichment behavior, and explicit enrichment flags. |
 | Can code scanning consume the output? | `docs/github-code-scanning.md` and `examples/sample-sarif.sarif`. |
 | Can the tool's own artifacts be verified? | `docs/self-provenance.md` for workflow artifact attestations. |

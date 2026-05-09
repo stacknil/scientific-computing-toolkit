@@ -4,14 +4,21 @@ This page records the PR 5 production PyPI gate for `sbom-diff-and-risk`.
 
 ## PR 5 decision
 
-Production PyPI publishing is **deferred, but conditionally allowed after the prerequisites below are complete**. In short: production PyPI is currently deferred.
+Production PyPI publishing is **deferred, but conditionally allowed after the
+prerequisites below are complete**. In short: production PyPI is currently
+deferred.
 
-PR 5 does not add an enabled production publishing workflow and does not publish to production PyPI. The successful TestPyPI Trusted Publishing dry-run proves that the package metadata can render on TestPyPI and that the TestPyPI OIDC path can work, but it is not automatic proof that production PyPI publishing is ready.
+PR 5 does not add an enabled production publishing workflow and does not publish
+to production PyPI. The successful TestPyPI Trusted Publishing dry-run proves
+that the package metadata can render on TestPyPI and that the TestPyPI OIDC path
+can work, but it is not automatic proof that production PyPI publishing is
+ready.
 
 The production gate is intentionally conservative because:
 
 - the production PyPI project does not currently exist under the intended name
-- the package metadata has moved to `0.5.0` for the GitHub Release, but production PyPI publishing has not been enabled
+- the package metadata has moved beyond the TestPyPI dry-run version, but
+  production PyPI publishing has not been enabled
 - the first production upload should be a deliberate release version, not an old dry-run version
 - the production PyPI pending publisher or trusted publisher has not been configured
 - the production GitHub environment has not yet been confirmed
@@ -26,18 +33,26 @@ As checked on April 26, 2026:
 - `https://test.pypi.org/pypi/sbom-diff-and-risk/json` returned `200`
 - TestPyPI reports `sbom-diff-and-risk` version `0.4.1`
 
-This means the intended production project name is not currently visible on production PyPI, while the TestPyPI dry-run project exists. Treat the production name as available for this decision, but re-check immediately before configuration because PyPI can reserve, prohibit, or receive new projects at any time. The first production upload should use a production PyPI pending publisher unless the project is created by a maintainer before the publishing workflow is enabled.
+This means the intended production project name is not currently visible on
+production PyPI, while the TestPyPI dry-run project exists. Treat the production
+name as available for this decision, but re-check immediately before
+configuration because PyPI can reserve, prohibit, or receive new projects at any
+time. The first production upload should use a production PyPI pending publisher
+unless the project is created by a maintainer before the publishing workflow is
+enabled.
 
 ## First production version
 
 Do not publish `0.4.1` to production PyPI casually.
 
-The first production PyPI version should be `0.5.0` only if v0.5 is approved as the first production package release. Otherwise, defer to a later GitHub release tag.
+The first production PyPI version should be an explicitly approved current or
+future GitHub release tag. Do not backfill an older release casually.
 
 For the first production upload:
 
 - the GitHub tag should be `v<version>`
-- `tools/sbom-diff-and-risk/pyproject.toml` should declare the matching `<version>`
+- `tools/sbom-diff-and-risk/pyproject.toml` should declare the matching
+  `<version>`
 - the GitHub release and release assets should be available for the same tag
 - the production PyPI workflow should run from the matching tag ref
 - the production PyPI upload should use the checked distributions from that workflow run
@@ -55,15 +70,24 @@ Configure the production PyPI publisher to match this identity exactly:
 | Trusted Publisher workflow name field | `sbom-diff-and-risk-pypi.yml` |
 | GitHub environment | `pypi` |
 
-If production PyPI still has no project for this name, configure a pending publisher for a new project. If the project exists by the time production publishing is implemented, add the trusted publisher to the existing project instead.
+If production PyPI still has no project for this name, configure a pending
+publisher for a new project. If the project exists by the time production
+publishing is implemented, add the trusted publisher to the existing project
+instead.
 
-Do not create or document a PyPI API token for this workflow. Production upload should use Trusted Publishing / OIDC only.
+Do not create or document a PyPI API token for this workflow. Production upload
+should use Trusted Publishing / OIDC only.
 
 PyPI-side setup should use these paths:
 
-- for a new production project, create a pending publisher on production PyPI for project `sbom-diff-and-risk` with the owner, repository, workflow, and environment values above
-- for an existing production project, open that project on production PyPI and add a trusted publisher with the same owner, repository, workflow, and environment values
-- leave the environment field as `pypi`; if the PyPI publisher omits the environment, it will not match the future publish job identity
+- for a new production project, create a pending publisher on production PyPI
+  for project `sbom-diff-and-risk` with the owner, repository, workflow, and
+  environment values above
+- for an existing production project, open that project on production PyPI and
+  add a trusted publisher with the same owner, repository, workflow, and
+  environment values
+- leave the environment field as `pypi`; if the PyPI publisher omits the
+  environment, it will not match the future publish job identity
 - do not add a PyPI API token, PyPI password, or GitHub publishing secret as a fallback
 
 ## Prerequisites before enabling production publishing
@@ -71,7 +95,8 @@ PyPI-side setup should use these paths:
 Before adding `.github/workflows/sbom-diff-and-risk-pypi.yml`, maintainers should complete all of these checks:
 
 - confirm the intended production package name still resolves as expected on production PyPI
-- choose the first production version, likely `0.5.0` or a later release tag
+- choose the first production version as an explicitly approved current or
+  future release tag
 - update `pyproject.toml` to that version
 - create or verify the matching GitHub tag and release assets
 - create the GitHub environment named `pypi`
@@ -90,7 +115,7 @@ The future production workflow should:
 - require an explicit boolean input such as `publish_to_pypi`
 - require a confirmation string such as `publish sbom-diff-and-risk to production PyPI`
 - require an expected version input and assert that it matches `pyproject.toml`
-- require the run ref to be a version tag such as `refs/tags/v0.5.0`
+- require the run ref to be a version tag such as `refs/tags/v<version>`
 - build the wheel and source distribution once
 - run `python -m twine check dist/*`
 - upload the checked distributions as a workflow artifact
@@ -99,11 +124,14 @@ The future production workflow should:
 - grant `id-token: write` only to the publish job
 - avoid production upload on ordinary push or pull request events
 
-The publish step should use `pypa/gh-action-pypi-publish@release/v1` without a `repository-url` override so it targets production PyPI.
+The publish step should use `pypa/gh-action-pypi-publish@release/v1` without a
+`repository-url` override so it targets production PyPI.
 
 ## Provenance boundaries
 
-Production PyPI Trusted Publishing provenance, GitHub workflow artifact attestations, and GitHub Release asset verification answer related but different questions.
+Production PyPI Trusted Publishing provenance, GitHub workflow artifact
+attestations, and GitHub Release asset verification answer related but
+different questions.
 
 PyPI Trusted Publishing provenance answers:
 
