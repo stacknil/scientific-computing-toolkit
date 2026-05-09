@@ -197,6 +197,60 @@ def test_report_json_summary_includes_policy_status_when_policy_is_used() -> Non
     assert "enrichment" not in payload["summary"]
 
 
+def test_report_json_policy_findings_include_explanation_fields() -> None:
+    report = _build_report("cdx_before.json", "cdx_after.json", policy_name="policy-minimal.yml")
+
+    payload = json.loads(render_report_json(report))
+    finding = payload["warning_findings"][0]
+
+    assert finding["rule_id"] == "new_package"
+    assert finding["decision_reason"] == "risk_finding_matched_policy_rule"
+    assert finding["policy_rule"] == "new_package"
+    assert finding["severity_source"] == "warn_on"
+    assert finding["matched_threshold"] is None
+    assert finding["observed_value"] == "new_package"
+    assert payload["metadata"]["policy_evaluation"] == payload["policy_evaluation"]
+    assert payload["summary"]["policy"] == {
+        "status": "warn",
+        "blocking": 0,
+        "warning": 1,
+        "suppressed": 0,
+    }
+
+
+def test_report_json_explanation_fields_are_policy_only() -> None:
+    report = _build_report("cdx_before.json", "cdx_after.json")
+
+    payload = json.loads(render_report_json(report))
+
+    assert payload["blocking_findings"] == []
+    assert payload["warning_findings"] == []
+    assert payload["suppressed_findings"] == []
+    assert all("decision_reason" not in finding for finding in payload["risks"])
+    assert "policy" not in payload["summary"]
+
+
+def test_report_json_policy_output_ordering_is_deterministic() -> None:
+    report = _build_report("cdx_before.json", "cdx_after.json", policy_name="policy-strict.yml")
+
+    first = render_report_json(report)
+    second = render_report_json(report)
+    payload = json.loads(first)
+    sort_keys = [
+        (item["rule_id"], item["component_key"] or "", item["component_name"] or "")
+        for item in payload["blocking_findings"]
+    ]
+
+    assert first == second
+    assert sort_keys == sorted(sort_keys)
+    assert payload["summary"]["policy"] == {
+        "status": "fail",
+        "blocking": 3,
+        "warning": 1,
+        "suppressed": 0,
+    }
+
+
 def test_reports_render_suppressions_when_policy_ignores_findings() -> None:
     policy = PolicyConfig(
         version=1,

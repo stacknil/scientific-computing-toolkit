@@ -28,6 +28,22 @@ JSON reports currently use this top-level structure:
 
 When provenance policy fields are relevant, reports may also include `provenance_policy` and `provenance_policy_impact`. Consumers should treat unrecognized top-level fields as additive report data.
 
+## Policy finding explanation fields
+
+Policy findings in `policy_evaluation.blocking_violations`, `policy_evaluation.warning_violations`, `policy_evaluation.suppressed_violations`, `blocking_findings`, `warning_findings`, `suppressed_findings`, and provenance policy impact sections include stable explainability metadata.
+
+These fields describe why a local policy rule produced a block, warning, or suppression. They are policy-decision metadata only; they are not dependency safety verdicts, CVE results, or proof that a package is safe or unsafe.
+
+| Field | Meaning |
+| --- | --- |
+| `decision_reason` | Stable reason code for the policy decision, such as `risk_finding_matched_policy_rule`, `added_package_count_exceeded_threshold`, or `scorecard_score_below_threshold`. |
+| `policy_rule` | Policy rule id that produced the decision. This mirrors `rule_id` for consumers that group explanation data separately. |
+| `severity_source` | Source of the active severity, such as `block_on`, `warn_on`, `default_block`, or `default_warn`; `null` when a policy finding has no active severity. |
+| `matched_threshold` | Configured threshold or allowlist value involved in the decision, when applicable. |
+| `observed_value` | Observed local value that was compared to the policy rule, when applicable. |
+
+Explanation fields appear only on policy finding objects. Risk findings in `risks` remain the analyzer's local heuristic findings and do not receive policy-decision metadata unless a policy evaluation maps them into policy findings.
+
 ## Summary contract
 
 `summary` is the stable, compact entry point for automation that needs counts without walking the full report. The `--summary-json PATH` CLI option writes only this stable `report.json["summary"]` object. The checked-in [../examples/sample-summary.json](../examples/sample-summary.json) artifact is the summary-only output for the default CycloneDX example and matches the `summary` object in [../examples/sample-report.json](../examples/sample-report.json). For CI consumption examples, see [summary-json-ci-cookbook.md](summary-json-ci-cookbook.md).
