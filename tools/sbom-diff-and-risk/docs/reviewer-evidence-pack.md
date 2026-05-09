@@ -6,7 +6,7 @@ This page is a reproducible evidence checklist for reviewing `sbom-diff-and-risk
 
 `sbom-diff-and-risk` is a local-first deterministic CLI for comparing SBOMs and dependency manifests. It is designed to produce stable review evidence for dependency changes.
 
-Current released version: `v0.7.0`.
+Current released version: `v0.8.0`.
 
 Core identity:
 
@@ -89,19 +89,19 @@ For CI dashboard, job-summary, and local-threshold examples that consume
 
 ## Release Verification Path
 
-Start with the GitHub Release for the version under review. For `v0.7.0`,
+Start with the GitHub Release for the version under review. For `v0.8.0`,
 inspect the release and assets:
 
 ```powershell
-gh release view v0.7.0 `
+gh release view v0.8.0 `
   --repo stacknil/scientific-computing-toolkit `
   --json tagName,name,isDraft,isPrerelease,assets,url
 ```
 
 Expected release assets:
 
-- `sbom_diff_and_risk-0.7.0-py3-none-any.whl`
-- `sbom_diff_and_risk-0.7.0.tar.gz`
+- `sbom_diff_and_risk-0.8.0-py3-none-any.whl`
+- `sbom_diff_and_risk-0.8.0.tar.gz`
 - `sbom-diff-and-risk-SHA256SUMS.txt`
 
 The checksum manifest checks local downloaded distribution bytes before or alongside provenance verification:
@@ -132,13 +132,13 @@ For workflow-built artifacts downloaded from a trusted workflow run, verify
 artifact attestations with the signer workflow:
 
 ```powershell
-gh attestation verify path/to/sbom_diff_and_risk-0.7.0-py3-none-any.whl `
+gh attestation verify path/to/sbom_diff_and_risk-0.8.0-py3-none-any.whl `
   --repo stacknil/scientific-computing-toolkit `
   --signer-workflow stacknil/scientific-computing-toolkit/.github/workflows/sbom-diff-and-risk-ci.yml
 ```
 
 ```powershell
-gh attestation verify path/to/sbom_diff_and_risk-0.7.0.tar.gz `
+gh attestation verify path/to/sbom_diff_and_risk-0.8.0.tar.gz `
   --repo stacknil/scientific-computing-toolkit `
   --signer-workflow stacknil/scientific-computing-toolkit/.github/workflows/sbom-diff-and-risk-ci.yml
 ```
@@ -148,15 +148,15 @@ releases. Use them only when the repository release is immutable and GitHub has
 generated release attestations:
 
 ```powershell
-gh release view v0.7.0 --repo stacknil/scientific-computing-toolkit --json isImmutable,assets,url
+gh release view v0.8.0 --repo stacknil/scientific-computing-toolkit --json isImmutable,assets,url
 ```
 
 If `isImmutable` is true, release verification can check the release record and
 downloaded release assets:
 
 ```powershell
-gh release verify v0.7.0 --repo stacknil/scientific-computing-toolkit
-gh release verify-asset v0.7.0 path/to/sbom_diff_and_risk-0.7.0-py3-none-any.whl --repo stacknil/scientific-computing-toolkit
+gh release verify v0.8.0 --repo stacknil/scientific-computing-toolkit
+gh release verify-asset v0.8.0 path/to/sbom_diff_and_risk-0.8.0-py3-none-any.whl --repo stacknil/scientific-computing-toolkit
 ```
 
 If `isImmutable` is false, use the workflow artifact attestation path as the primary artifact verification story.
