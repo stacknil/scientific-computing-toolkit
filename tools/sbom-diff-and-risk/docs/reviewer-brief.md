@@ -4,7 +4,7 @@
 
 `sbom-diff-and-risk` is a local CLI for comparing two SBOMs or dependency manifests and producing deterministic review artifacts: JSON, Markdown, and SARIF. It is built for conservative supply-chain review, not for vulnerability scanning or package reputation scoring.
 
-Current released version: `v0.7.0`.
+Current released version: `v0.8.0`.
 
 ## Why this project matters
 
