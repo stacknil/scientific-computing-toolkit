@@ -1,6 +1,8 @@
 # Policy schema
 
-`sbom-diff-and-risk` supports YAML-only policy schemas in versions `1`, `2`, and `3` for the local, provenance-aware, and optional Scorecard-aware policy flows described here.
+`sbom-diff-and-risk` supports YAML-only policy schemas in versions `1`, `2`,
+and `3` for the local, provenance-aware, and optional Scorecard-aware policy
+flows described here.
 
 The schema is intentionally conservative and fail-closed:
 
@@ -39,9 +41,14 @@ Version `2` supports every version `1` field plus:
 - `require_provenance_for_suspicious_sources: bool`
 - `allow_unattested_packages: [package_name, ...]`
 - `allow_provenance_publishers: [publisher_kind, ...]`
-- `allow_unattested_publishers: [publisher_kind, ...]` as an accepted compatibility alias for `allow_provenance_publishers`
+- `allow_unattested_publishers: [publisher_kind, ...]` as an accepted
+  compatibility alias for `allow_provenance_publishers`
 
-`allow_provenance_publishers` is the canonical publisher override field. The parser also accepts `allow_unattested_publishers` as an alias when teams want a more explicit override-style name in review. Neither field treats missing attestations as trusted; they only constrain which attested publisher kinds count as verified provenance.
+`allow_provenance_publishers` is the canonical publisher override field. The
+parser also accepts `allow_unattested_publishers` as an alias when teams want a
+more explicit override-style name in review. Neither field treats missing
+attestations as trusted; they only constrain which attested publisher kinds
+count as verified provenance.
 
 ## Version 2 supported rule ids
 
@@ -58,7 +65,9 @@ Version `3` supports every version `1` and `2` field plus:
 
 - `minimum_scorecard_score: float`
 
-`minimum_scorecard_score` is advisory by itself. It only affects policy outcomes when you also opt into the `scorecard_below_threshold` rule through `block_on`, `warn_on`, or `ignore_rules`.
+`minimum_scorecard_score` is advisory by itself. It only affects policy outcomes
+when you also opt into the `scorecard_below_threshold` rule through `block_on`,
+`warn_on`, or `ignore_rules`.
 
 ## Version 3 supported rule ids
 
@@ -75,17 +84,27 @@ Version `3` supports every version `1` and `2` rule id plus:
 - `allow_sources` enforces exact host matches against `source_url` hosts for added and changed components.
 - `ignore_rules` suppresses matching rule ids entirely.
 - `missing_attestation` means PyPI release metadata was fetched successfully but no attestations were present.
-- `provenance_unavailable` means the run did not have usable provenance evidence for that package, for example because enrichment was disabled, unsupported, or failed.
-- `unverified_provenance` means attestations were present, but the provenance could not be verified against publisher metadata.
+- `provenance_unavailable` means the run did not have usable provenance
+  evidence for that package, for example because enrichment was disabled,
+  unsupported, or failed.
+- `unverified_provenance` means attestations were present, but the provenance
+  could not be verified against publisher metadata.
 - `provenance_required` is a policy-only rule emitted when an explicit provenance requirement was not satisfied.
 - `require_attestations_for_new_packages` applies only to added PyPI packages.
 - `require_provenance_for_suspicious_sources` applies only when the component also triggered `suspicious_source`.
 - `allow_unattested_packages` is a narrow package-name override for explicit missing-attestation exceptions only.
-- `allow_unattested_packages` does not waive `provenance_unavailable` or `unverified_provenance`; those remain separate, reviewable policy decisions.
-- `allow_provenance_publishers` and `allow_unattested_publishers` apply only when attestations exist and publisher kinds are available to verify.
-- when enrichment is disabled, deterministic local mode is unchanged unless a provenance-aware policy explicitly turns unavailable evidence into a warning or block.
-- `minimum_scorecard_score` does not create alerts or blocks on its own; it only becomes enforceable when `scorecard_below_threshold` is configured explicitly.
-- Scorecard evidence remains an auxiliary trust signal. A high score is not proof of safety, and missing Scorecard data is not proof of risk.
+- `allow_unattested_packages` does not waive `provenance_unavailable` or
+  `unverified_provenance`; those remain separate, reviewable policy decisions.
+- `allow_provenance_publishers` and `allow_unattested_publishers` apply only
+  when attestations exist and publisher kinds are available to verify.
+- when enrichment is disabled, deterministic local mode is unchanged unless a
+  provenance-aware policy explicitly turns unavailable evidence into a warning
+  or block.
+- `minimum_scorecard_score` does not create alerts or blocks on its own; it
+  only becomes enforceable when `scorecard_below_threshold` is configured
+  explicitly.
+- Scorecard evidence remains an auxiliary trust signal. A high score is not
+  proof of safety, and missing Scorecard data is not proof of risk.
 
 ## Version 1 example
 
