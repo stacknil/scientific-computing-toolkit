@@ -83,6 +83,9 @@ For policy finding interpretation, see
 documents the policy decision metadata used to explain local blocks, warnings,
 and suppressions.
 
+For CI job-summary examples that consume policy decision metadata, see
+[policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).
+
 For CI dashboard, job-summary, and local-threshold examples that consume
 `outputs/summary.json`, see
 [summary-json-ci-cookbook.md](summary-json-ci-cookbook.md).

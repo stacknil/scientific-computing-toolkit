@@ -77,9 +77,8 @@ the matching rule was active through `warn_on`.
 ## CI and review usage
 
 Consumers can use these fields to group policy findings by rule, explain why a
-local gate failed, or build small job summaries. For example, a CI step can read
-`blocking_findings`, print each `policy_rule` and `decision_reason`, and fail
-only because the tool already returned a policy failure exit code.
+local gate failed, or build small job summaries. For CI examples, see
+[policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).
 
 Use `summary.policy` for compact counts and status. Use policy finding
 explanation fields when a reviewer needs to inspect why the status was

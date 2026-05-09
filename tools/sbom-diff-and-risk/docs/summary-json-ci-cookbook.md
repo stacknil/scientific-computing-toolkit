@@ -21,6 +21,10 @@ sbom-diff-risk compare \
 The full report remains available at `outputs/report.json`. The compact
 summary-only object is written to `outputs/summary.json`.
 
+For CI examples that consume detailed policy decision explanation fields from
+the full JSON report, see
+[policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).
+
 ## Python consumer
 
 This example reads the summary and applies an explicit local threshold. The

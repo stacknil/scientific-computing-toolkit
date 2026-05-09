@@ -23,6 +23,8 @@ machine-readable JSON output shape, see
 [docs/report-schema.md](docs/report-schema.md). For policy decision
 explainability fields, see
 [docs/policy-decision-explainability.md](docs/policy-decision-explainability.md).
+For CI consumption of policy decision fields, see
+[docs/policy-decision-ci-cookbook.md](docs/policy-decision-ci-cookbook.md).
 For CI consumption of summary-only output, see
 [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
 For a consumer-facing GitHub Actions example, see
