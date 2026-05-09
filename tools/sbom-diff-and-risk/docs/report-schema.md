@@ -72,7 +72,9 @@ policy-decision metadata unless a policy evaluation maps them into policy
 findings.
 
 For reviewer-facing examples and interpretation guidance, see
-[policy-decision-explainability.md](policy-decision-explainability.md).
+[policy-decision-explainability.md](policy-decision-explainability.md). For CI
+consumer snippets, see
+[policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).
 
 ## Summary contract
 
