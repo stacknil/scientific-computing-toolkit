@@ -106,6 +106,10 @@ Version `3` supports every version `1` and `2` rule id plus:
 - Scorecard evidence remains an auxiliary trust signal. A high score is not
   proof of safety, and missing Scorecard data is not proof of risk.
 
+For the JSON policy finding explanation fields emitted after policy evaluation,
+see
+[policy-decision-explainability.md](policy-decision-explainability.md).
+
 ## Version 1 example
 
 ```yaml

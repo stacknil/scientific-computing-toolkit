@@ -6,7 +6,7 @@ This page is a reproducible evidence checklist for reviewing `sbom-diff-and-risk
 
 `sbom-diff-and-risk` is a local-first deterministic CLI for comparing SBOMs and dependency manifests. It is designed to produce stable review evidence for dependency changes.
 
-Current released version: `v0.6.0`.
+Current released version: `v0.7.0`.
 
 Core identity:
 
@@ -53,7 +53,8 @@ Compare-Object (Get-Content examples/sample-report.md) (Get-Content outputs/repo
 
 No differences means the sample path reproduced the committed example output.
 
-`examples/sample-summary.json` is the summary-only artifact for the same run and is expected to match `examples/sample-report.json`'s `summary` object.
+`examples/sample-summary.json` is the summary-only artifact for the same run
+and is expected to match `examples/sample-report.json`'s `summary` object.
 
 Generate the strict-policy SARIF sample:
 
@@ -73,22 +74,34 @@ Compare-Object (Get-Content examples/sample-sarif.sarif) (Get-Content outputs/re
 
 The SARIF sample is intentionally conservative. It covers selected high-signal findings and explicit policy violations, not every enrichment fact.
 
-For consumers of the JSON output, see [report-schema.md](report-schema.md). It documents the stable `summary` contract, including conditional `summary.policy` and `summary.enrichment` fields.
+For consumers of the JSON output, see [report-schema.md](report-schema.md). It
+documents the stable `summary` contract, including conditional
+`summary.policy` and `summary.enrichment` fields.
 
-For CI dashboard, job-summary, and local-threshold examples that consume `outputs/summary.json`, see [summary-json-ci-cookbook.md](summary-json-ci-cookbook.md).
+For policy finding interpretation, see
+[policy-decision-explainability.md](policy-decision-explainability.md). It
+documents the policy decision metadata used to explain local blocks, warnings,
+and suppressions.
+
+For CI dashboard, job-summary, and local-threshold examples that consume
+`outputs/summary.json`, see
+[summary-json-ci-cookbook.md](summary-json-ci-cookbook.md).
 
 ## Release Verification Path
 
-Start with the GitHub Release for the version under review. For `v0.6.0`, inspect the release and assets:
+Start with the GitHub Release for the version under review. For `v0.7.0`,
+inspect the release and assets:
 
 ```powershell
-gh release view v0.6.0 --repo stacknil/scientific-computing-toolkit --json tagName,name,isDraft,isPrerelease,assets,url
+gh release view v0.7.0 `
+  --repo stacknil/scientific-computing-toolkit `
+  --json tagName,name,isDraft,isPrerelease,assets,url
 ```
 
 Expected release assets:
 
-- `sbom_diff_and_risk-0.6.0-py3-none-any.whl`
-- `sbom_diff_and_risk-0.6.0.tar.gz`
+- `sbom_diff_and_risk-0.7.0-py3-none-any.whl`
+- `sbom_diff_and_risk-0.7.0.tar.gz`
 - `sbom-diff-and-risk-SHA256SUMS.txt`
 
 The checksum manifest checks local downloaded distribution bytes before or alongside provenance verification:
@@ -110,33 +123,40 @@ Get-Content .\sbom-diff-and-risk-SHA256SUMS.txt | ForEach-Object {
 }
 ```
 
-Checksum verification confirms local byte integrity against the release manifest; it does not replace workflow artifact attestations or immutable-release verification. The attestation subject remains the built wheel and source distribution.
+Checksum verification confirms local byte integrity against the release
+manifest; it does not replace workflow artifact attestations or
+immutable-release verification. The attestation subject remains the built wheel
+and source distribution.
 
-For workflow-built artifacts downloaded from a trusted workflow run, verify artifact attestations with the signer workflow:
+For workflow-built artifacts downloaded from a trusted workflow run, verify
+artifact attestations with the signer workflow:
 
 ```powershell
-gh attestation verify path/to/sbom_diff_and_risk-0.6.0-py3-none-any.whl `
+gh attestation verify path/to/sbom_diff_and_risk-0.7.0-py3-none-any.whl `
   --repo stacknil/scientific-computing-toolkit `
   --signer-workflow stacknil/scientific-computing-toolkit/.github/workflows/sbom-diff-and-risk-ci.yml
 ```
 
 ```powershell
-gh attestation verify path/to/sbom_diff_and_risk-0.6.0.tar.gz `
+gh attestation verify path/to/sbom_diff_and_risk-0.7.0.tar.gz `
   --repo stacknil/scientific-computing-toolkit `
   --signer-workflow stacknil/scientific-computing-toolkit/.github/workflows/sbom-diff-and-risk-ci.yml
 ```
 
-`gh release verify` and `gh release verify-asset` are conditional on immutable releases. Use them only when the repository release is immutable and GitHub has generated release attestations:
+`gh release verify` and `gh release verify-asset` are conditional on immutable
+releases. Use them only when the repository release is immutable and GitHub has
+generated release attestations:
 
 ```powershell
-gh release view v0.6.0 --repo stacknil/scientific-computing-toolkit --json isImmutable,assets,url
+gh release view v0.7.0 --repo stacknil/scientific-computing-toolkit --json isImmutable,assets,url
 ```
 
-If `isImmutable` is true, release verification can check the release record and downloaded release assets:
+If `isImmutable` is true, release verification can check the release record and
+downloaded release assets:
 
 ```powershell
-gh release verify v0.6.0 --repo stacknil/scientific-computing-toolkit
-gh release verify-asset v0.6.0 path/to/sbom_diff_and_risk-0.6.0-py3-none-any.whl --repo stacknil/scientific-computing-toolkit
+gh release verify v0.7.0 --repo stacknil/scientific-computing-toolkit
+gh release verify-asset v0.7.0 path/to/sbom_diff_and_risk-0.7.0-py3-none-any.whl --repo stacknil/scientific-computing-toolkit
 ```
 
 If `isImmutable` is false, use the workflow artifact attestation path as the primary artifact verification story.
