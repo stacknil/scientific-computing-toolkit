@@ -11,10 +11,6 @@ reports and reviewer documentation. It keeps the dependency diff model,
 existing CLI flags, Markdown output behavior, SARIF output behavior, workflows,
 release tags, and publishing status unchanged.
 
-This file is a draft release note. Drafting this file does not bump the package
-version, create a tag, create a GitHub Release, publish to TestPyPI, or publish
-to production PyPI.
-
 ## Highlights
 
 - Added stable policy decision explanation fields to JSON policy findings.
@@ -85,10 +81,12 @@ production PyPI Trusted Publishing provenance answer different trust questions.
 
 ## Distribution status
 
-- The latest published GitHub Release remains `v0.7.0` until `v0.8.0` is
-  intentionally tagged and released.
-- This draft does not publish to TestPyPI.
-- This draft does not publish to production PyPI.
+- The `v0.8.0` GitHub Release is expected to be created from the tag-gated
+  release workflow.
+- Release assets are expected to include the wheel, source distribution, and
+  `sbom-diff-and-risk-SHA256SUMS.txt`.
+- This release does not publish to TestPyPI.
+- This release does not publish to production PyPI.
 - Production PyPI publishing remains intentionally deferred.
 - No production PyPI workflow is added.
 
@@ -98,8 +96,6 @@ production PyPI Trusted Publishing provenance answer different trust questions.
 - No Markdown output behavior changes.
 - No SARIF output behavior changes.
 - No workflow changes.
-- No package version bump in this draft PR.
-- No tag or GitHub Release in this draft PR.
 - No PyPI/TestPyPI publishing.
 - No production PyPI workflow.
 - No hidden network behavior.
