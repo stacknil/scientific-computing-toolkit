@@ -22,6 +22,9 @@ The strict example policy can make the command return a policy failure exit
 code. In CI, keep the generated `outputs/policy.json` artifact so the policy
 decision metadata remains available for review.
 
+For a checked-in reference artifact generated from this path, see
+[sample-policy.json](../examples/sample-policy.json).
+
 ## Python consumer
 
 This example reads the policy-only JSON sidecar, prints compact policy status,

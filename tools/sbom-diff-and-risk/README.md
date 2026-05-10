@@ -210,6 +210,8 @@ report. It includes `policy_evaluation`, policy finding lists, `rule_catalog`,
 and `summary.policy` when policy evaluation is applied. For CI job-summary
 examples, see
 [docs/policy-decision-ci-cookbook.md](docs/policy-decision-ci-cookbook.md).
+The checked-in [examples/sample-policy.json](examples/sample-policy.json)
+artifact shows the standalone policy sidecar shape.
 
 ## Dependency Provenance Analysis (Opt-in)
 
@@ -309,6 +311,7 @@ The [examples/](examples/) directory includes:
 - a sample pass Markdown report at [sample-report.md](examples/sample-report.md)
 - sample policy-warn reports at [sample-policy-warn-report.json](examples/sample-policy-warn-report.json) and [sample-policy-warn-report.md](examples/sample-policy-warn-report.md)
 - sample policy-fail reports at [sample-policy-fail-report.json](examples/sample-policy-fail-report.json) and [sample-policy-fail-report.md](examples/sample-policy-fail-report.md)
+- a sample policy-only sidecar at [sample-policy.json](examples/sample-policy.json)
 - a sample SARIF export at [sample-sarif.sarif](examples/sample-sarif.sarif)
 - provenance-aware sample reports at [sample-provenance-report.json](examples/sample-provenance-report.json), [sample-provenance-report.md](examples/sample-provenance-report.md), and [sample-provenance-report.sarif](examples/sample-provenance-report.sarif)
 - Scorecard-aware sample reports at [sample-scorecard-report.json](examples/sample-scorecard-report.json), [sample-scorecard-report.md](examples/sample-scorecard-report.md), and [sample-scorecard-report.sarif](examples/sample-scorecard-report.sarif)

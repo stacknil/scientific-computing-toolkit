@@ -1,0 +1,257 @@
+{
+  "policy_evaluation": {
+    "applied": true,
+    "policy_path": "examples/policy-strict.yml",
+    "effective_policy": {
+      "version": 1,
+      "block_on": [
+        "unknown_license",
+        "suspicious_source",
+        "stale_package",
+        "max_added_packages",
+        "allow_sources"
+      ],
+      "warn_on": [
+        "new_package",
+        "major_upgrade"
+      ],
+      "max_added_packages": 0,
+      "allow_sources": [
+        "pypi.org",
+        "files.pythonhosted.org",
+        "github.com"
+      ],
+      "ignore_rules": []
+    },
+    "blocking_violations": [
+      {
+        "rule_id": "max_added_packages",
+        "level": "block",
+        "message": "Added package count 1 exceeds max_added_packages=0.",
+        "decision_reason": "added_package_count_exceeded_threshold",
+        "policy_rule": "max_added_packages",
+        "severity_source": "block_on",
+        "matched_threshold": 0,
+        "observed_value": 1,
+        "component_key": null,
+        "component_name": null,
+        "finding_bucket": null,
+        "suppression_reason": null
+      },
+      {
+        "rule_id": "stale_package",
+        "level": "block",
+        "message": "stale_package was not evaluated because enrichment mode is disabled.",
+        "decision_reason": "risk_finding_matched_policy_rule",
+        "policy_rule": "stale_package",
+        "severity_source": "block_on",
+        "matched_threshold": null,
+        "observed_value": "not_evaluated",
+        "component_key": "purl:pkg:pypi/requests",
+        "component_name": "requests",
+        "finding_bucket": "not_evaluated",
+        "suppression_reason": null
+      },
+      {
+        "rule_id": "stale_package",
+        "level": "block",
+        "message": "stale_package was not evaluated because enrichment mode is disabled.",
+        "decision_reason": "risk_finding_matched_policy_rule",
+        "policy_rule": "stale_package",
+        "severity_source": "block_on",
+        "matched_threshold": null,
+        "observed_value": "not_evaluated",
+        "component_key": "purl:pkg:pypi/urllib3",
+        "component_name": "urllib3",
+        "finding_bucket": "not_evaluated",
+        "suppression_reason": null
+      }
+    ],
+    "warning_violations": [
+      {
+        "rule_id": "new_package",
+        "level": "warn",
+        "message": "Component was not present in the before input.",
+        "decision_reason": "risk_finding_matched_policy_rule",
+        "policy_rule": "new_package",
+        "severity_source": "warn_on",
+        "matched_threshold": null,
+        "observed_value": "new_package",
+        "component_key": "purl:pkg:pypi/urllib3",
+        "component_name": "urllib3",
+        "finding_bucket": "new_package",
+        "suppression_reason": null
+      }
+    ],
+    "suppressed_violations": [],
+    "totals": {
+      "blocking": 3,
+      "warning": 1,
+      "suppressed": 0,
+      "ignored_checks": 0
+    },
+    "exit_code": 1
+  },
+  "blocking_findings": [
+    {
+      "rule_id": "max_added_packages",
+      "level": "block",
+      "message": "Added package count 1 exceeds max_added_packages=0.",
+      "decision_reason": "added_package_count_exceeded_threshold",
+      "policy_rule": "max_added_packages",
+      "severity_source": "block_on",
+      "matched_threshold": 0,
+      "observed_value": 1,
+      "component_key": null,
+      "component_name": null,
+      "finding_bucket": null,
+      "suppression_reason": null
+    },
+    {
+      "rule_id": "stale_package",
+      "level": "block",
+      "message": "stale_package was not evaluated because enrichment mode is disabled.",
+      "decision_reason": "risk_finding_matched_policy_rule",
+      "policy_rule": "stale_package",
+      "severity_source": "block_on",
+      "matched_threshold": null,
+      "observed_value": "not_evaluated",
+      "component_key": "purl:pkg:pypi/requests",
+      "component_name": "requests",
+      "finding_bucket": "not_evaluated",
+      "suppression_reason": null
+    },
+    {
+      "rule_id": "stale_package",
+      "level": "block",
+      "message": "stale_package was not evaluated because enrichment mode is disabled.",
+      "decision_reason": "risk_finding_matched_policy_rule",
+      "policy_rule": "stale_package",
+      "severity_source": "block_on",
+      "matched_threshold": null,
+      "observed_value": "not_evaluated",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component_name": "urllib3",
+      "finding_bucket": "not_evaluated",
+      "suppression_reason": null
+    }
+  ],
+  "warning_findings": [
+    {
+      "rule_id": "new_package",
+      "level": "warn",
+      "message": "Component was not present in the before input.",
+      "decision_reason": "risk_finding_matched_policy_rule",
+      "policy_rule": "new_package",
+      "severity_source": "warn_on",
+      "matched_threshold": null,
+      "observed_value": "new_package",
+      "component_key": "purl:pkg:pypi/urllib3",
+      "component_name": "urllib3",
+      "finding_bucket": "new_package",
+      "suppression_reason": null
+    }
+  ],
+  "suppressed_findings": [],
+  "rule_catalog": {
+    "new_package": {
+      "rule_id": "new_package",
+      "kind": "risk_finding",
+      "description": "Component is present only in the after input.",
+      "finding_buckets": [
+        "new_package"
+      ]
+    },
+    "major_upgrade": {
+      "rule_id": "major_upgrade",
+      "kind": "risk_finding",
+      "description": "Version change is a parseable SemVer major upgrade.",
+      "finding_buckets": [
+        "major_upgrade"
+      ]
+    },
+    "version_change_unclassified": {
+      "rule_id": "version_change_unclassified",
+      "kind": "risk_finding",
+      "description": "Version changed but could not be classified as a reliable major SemVer upgrade.",
+      "finding_buckets": [
+        "version_change_unclassified"
+      ]
+    },
+    "unknown_license": {
+      "rule_id": "unknown_license",
+      "kind": "risk_finding",
+      "description": "License metadata is missing, empty, UNKNOWN, or NOASSERTION.",
+      "finding_buckets": [
+        "unknown_license"
+      ]
+    },
+    "suspicious_source": {
+      "rule_id": "suspicious_source",
+      "kind": "risk_finding",
+      "description": "Source provenance is missing or points to a suspicious scheme, path, or host.",
+      "finding_buckets": [
+        "suspicious_source"
+      ]
+    },
+    "stale_package": {
+      "rule_id": "stale_package",
+      "kind": "risk_finding",
+      "description": "Staleness check result. Offline mode maps this rule to not_evaluated instead of guessing.",
+      "finding_buckets": [
+        "stale_package",
+        "not_evaluated"
+      ]
+    },
+    "max_added_packages": {
+      "rule_id": "max_added_packages",
+      "kind": "policy_check",
+      "description": "Added package count exceeded the configured deterministic threshold.",
+      "finding_buckets": []
+    },
+    "allow_sources": {
+      "rule_id": "allow_sources",
+      "kind": "policy_check",
+      "description": "Component source host was not present in the configured allow_sources list.",
+      "finding_buckets": []
+    },
+    "missing_attestation": {
+      "rule_id": "missing_attestation",
+      "kind": "provenance_signal",
+      "description": "PyPI release metadata was fetched, but no attestations were published for the package release.",
+      "finding_buckets": []
+    },
+    "unverified_provenance": {
+      "rule_id": "unverified_provenance",
+      "kind": "provenance_signal",
+      "description": "PyPI attestations were present, but provenance could not be verified against publisher metadata.",
+      "finding_buckets": []
+    },
+    "provenance_unavailable": {
+      "rule_id": "provenance_unavailable",
+      "kind": "provenance_signal",
+      "description": "PyPI provenance evidence was unavailable because enrichment was disabled, unsupported, or errored.",
+      "finding_buckets": []
+    },
+    "provenance_required": {
+      "rule_id": "provenance_required",
+      "kind": "policy_check",
+      "description": "A configured provenance requirement was not satisfied for the component.",
+      "finding_buckets": []
+    },
+    "scorecard_below_threshold": {
+      "rule_id": "scorecard_below_threshold",
+      "kind": "policy_check",
+      "description": "A mapped repository's OpenSSF Scorecard score was below the configured minimum threshold.",
+      "finding_buckets": []
+    }
+  },
+  "summary": {
+    "policy": {
+      "status": "fail",
+      "blocking": 3,
+      "warning": 1,
+      "suppressed": 0
+    }
+  }
+}
