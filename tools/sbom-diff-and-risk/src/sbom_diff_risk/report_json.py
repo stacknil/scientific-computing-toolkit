@@ -51,6 +51,27 @@ def render_summary_json(report: CompareReport) -> str:
     return json.dumps(_summary_to_dict(report), indent=2) + "\n"
 
 
+def render_policy_json(report: CompareReport) -> str:
+    policy_sections = build_policy_report_sections(report.metadata.policy_evaluation)
+    payload: dict[str, object] = {
+        "policy_evaluation": policy_sections["policy_evaluation"],
+        "blocking_findings": policy_sections["blocking_findings"],
+        "warning_findings": policy_sections["warning_findings"],
+        "suppressed_findings": policy_sections["suppressed_findings"],
+        "rule_catalog": policy_sections["rule_catalog"],
+    }
+
+    policy_summary = _policy_summary_to_dict(report.metadata.policy_evaluation)
+    if policy_summary is not None:
+        payload["summary"] = {"policy": policy_summary}
+
+    if policy_sections["provenance_policy"] is not None:
+        payload["provenance_policy"] = policy_sections["provenance_policy"]
+        payload["provenance_policy_impact"] = policy_sections["provenance_policy_impact"]
+
+    return json.dumps(payload, indent=2) + "\n"
+
+
 def _summary_to_dict(report: CompareReport) -> dict[str, object]:
     summary: dict[str, object] = {
         "added": report.summary.added,

@@ -104,6 +104,7 @@ Offline `stale_package` evaluation is intentionally deferred. When enrichment is
 
 - `report.json`
 - `summary.json` when `--summary-json` is provided
+- `policy.json` when `--policy-json` is provided
 - `report.md`
 - `report.sarif`
 
@@ -183,6 +184,7 @@ sbom-diff-risk compare \
 - `--pyproject-group name`
 - `--out-json path`
 - `--summary-json path`
+- `--policy-json path`
 - `--out-md path`
 - `--out-sarif path`
 - `--policy path`
@@ -202,6 +204,12 @@ Offline mode remains the default. No network access occurs unless `--enrich-pypi
 The checked-in [examples/sample-summary.json](examples/sample-summary.json) artifact is generated from the bundled CycloneDX example with `--summary-json outputs/summary.json` and matches the `summary` object in [examples/sample-report.json](examples/sample-report.json).
 
 For CI dashboard, job-summary, and local-threshold examples, see [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
+
+`--policy-json PATH` writes only policy-related JSON sections from the full
+report. It includes `policy_evaluation`, policy finding lists, `rule_catalog`,
+and `summary.policy` when policy evaluation is applied. For CI job-summary
+examples, see
+[docs/policy-decision-ci-cookbook.md](docs/policy-decision-ci-cookbook.md).
 
 ## Dependency Provenance Analysis (Opt-in)
 

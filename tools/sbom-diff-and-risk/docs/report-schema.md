@@ -76,6 +76,18 @@ For reviewer-facing examples and interpretation guidance, see
 consumer snippets, see
 [policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).
 
+The `--policy-json PATH` CLI option writes a policy-only JSON sidecar using the
+same policy-related sections from the full JSON report:
+
+- `policy_evaluation`
+- `blocking_findings`
+- `warning_findings`
+- `suppressed_findings`
+- `rule_catalog`
+- `summary.policy` when policy evaluation is applied
+- `provenance_policy` and `provenance_policy_impact` when provenance policy
+  fields are relevant
+
 ## Summary contract
 
 `summary` is the stable, compact entry point for automation that needs counts
