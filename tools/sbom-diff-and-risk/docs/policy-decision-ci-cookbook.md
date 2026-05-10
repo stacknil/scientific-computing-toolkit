@@ -1,7 +1,8 @@
 # Policy decision CI cookbook
 
-This page shows how to consume policy decision explanation fields from
-`report.json` in CI without changing the `sbom-diff-risk` analysis model.
+This page shows how to consume policy decision explanation fields from the
+`--policy-json PATH` sidecar in CI without changing the `sbom-diff-risk`
+analysis model.
 
 Use this when a repository wants a small job summary that explains local policy
 blocks, warnings, or suppressions in machine-readable terms.
@@ -13,24 +14,25 @@ sbom-diff-risk compare \
   --before examples/cdx_before.json \
   --after examples/cdx_after.json \
   --policy examples/policy-strict.yml \
-  --out-json outputs/policy-report.json
+  --out-json outputs/report.json \
+  --policy-json outputs/policy.json
 ```
 
 The strict example policy can make the command return a policy failure exit
-code. In CI, keep the generated `outputs/policy-report.json` artifact so the
-policy decision metadata remains available for review.
+code. In CI, keep the generated `outputs/policy.json` artifact so the policy
+decision metadata remains available for review.
 
 ## Python consumer
 
-This example reads the full JSON report, prints compact policy status, and then
-prints the stable explanation fields for blocking and warning findings.
+This example reads the policy-only JSON sidecar, prints compact policy status,
+and then prints the stable explanation fields for blocking and warning findings.
 
 ```python
 import json
 from pathlib import Path
 
 report = json.loads(
-    Path("outputs/policy-report.json").read_text(encoding="utf-8")
+    Path("outputs/policy.json").read_text(encoding="utf-8")
 )
 
 policy = report.get("summary", {}).get("policy")
@@ -73,10 +75,10 @@ tool. The snippet does not create a new package safety verdict.
 ## PowerShell consumer
 
 This example uses `ConvertFrom-Json` to print the same policy status and
-explanation fields.
+explanation fields from the policy-only sidecar.
 
 ```powershell
-$report = Get-Content outputs/policy-report.json -Raw | ConvertFrom-Json
+$report = Get-Content outputs/policy.json -Raw | ConvertFrom-Json
 $policy = $report.summary.policy
 
 if ($null -eq $policy) {

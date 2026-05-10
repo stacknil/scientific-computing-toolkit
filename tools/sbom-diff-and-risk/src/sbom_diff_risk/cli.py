@@ -13,7 +13,7 @@ from .normalize import SUPPORTED_FORMATS, normalize_input_with_options
 from .policy_evaluator import evaluate_policy
 from .policy_parser import build_policy
 from .presentation import effective_policy_evaluation, summarize_violations_by_rule
-from .report_json import render_report_json, render_summary_json
+from .report_json import render_policy_json, render_report_json, render_summary_json
 from .report_md import render_report_markdown
 from .report_sarif import render_report_sarif_output
 from .risk import evaluate_risks, summarize_risks
@@ -31,7 +31,10 @@ def build_parser() -> argparse.ArgumentParser:
         "compare",
         help="Compare two dependency inputs and write JSON and/or Markdown reports.",
         description="Compare two local dependency inputs and emit deterministic reports.",
-        epilog="Exit codes: 0 = success/no blocking violations, 1 = blocking policy violations, 2 = usage/parse/runtime error.",
+        epilog=(
+            "Exit codes: 0 = success/no blocking violations, "
+            "1 = blocking policy violations, 2 = usage/parse/runtime error."
+        ),
     )
     compare.add_argument("--before", type=Path, required=True, help="Path to the before input.")
     compare.add_argument("--after", type=Path, required=True, help="Path to the after input.")
@@ -59,7 +62,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="Select a PEP 735 [dependency-groups] group when a compared input is pyproject.toml.",
     )
     compare.add_argument("--out-json", type=Path, default=None, help="Write a JSON report to this path.")
-    compare.add_argument("--summary-json", type=Path, default=None, help="Write the stable JSON summary object to this path.")
+    compare.add_argument(
+        "--summary-json",
+        type=Path,
+        default=None,
+        help="Write the stable JSON summary object to this path.",
+    )
+    compare.add_argument(
+        "--policy-json",
+        type=Path,
+        default=None,
+        help="Write policy evaluation and policy finding JSON sections to this path.",
+    )
     compare.add_argument("--out-md", type=Path, default=None, help="Write a Markdown report to this path.")
     compare.add_argument(
         "--out-sarif",
@@ -91,7 +105,10 @@ def build_parser() -> argparse.ArgumentParser:
     compare.add_argument(
         "--enrich-pypi",
         action="store_true",
-        help="Opt-in PyPI provenance and integrity enrichment. Default behavior remains offline with no network access.",
+        help=(
+            "Opt-in PyPI provenance and integrity enrichment. "
+            "Default behavior remains offline with no network access."
+        ),
     )
     compare.add_argument(
         "--pypi-timeout",
@@ -139,8 +156,17 @@ def run_compare(args: argparse.Namespace) -> int:
     scorecard_timeout = getattr(args, "scorecard_timeout", DEFAULT_SCORECARD_TIMEOUT_SECONDS)
 
     summary_json = getattr(args, "summary_json", None)
-    if args.out_json is None and summary_json is None and args.out_md is None and args.out_sarif is None:
-        raise ValueError("at least one of --out-json, --summary-json, --out-md, or --out-sarif must be provided")
+    policy_json = getattr(args, "policy_json", None)
+    if (
+        args.out_json is None
+        and summary_json is None
+        and policy_json is None
+        and args.out_md is None
+        and args.out_sarif is None
+    ):
+        raise ValueError(
+            "at least one of --out-json, --summary-json, --policy-json, --out-md, or --out-sarif must be provided"
+        )
     if pypi_timeout <= 0:
         raise ValueError("--pypi-timeout must be a positive number of seconds.")
     if scorecard_timeout <= 0:
@@ -232,6 +258,8 @@ def run_compare(args: argparse.Namespace) -> int:
         _write_text(args.out_json, render_report_json(report))
     if summary_json is not None:
         _write_text(summary_json, render_summary_json(report))
+    if policy_json is not None:
+        _write_text(policy_json, render_policy_json(report))
     if args.out_md is not None:
         _write_text(args.out_md, render_report_markdown(report))
     if args.out_sarif is not None:
