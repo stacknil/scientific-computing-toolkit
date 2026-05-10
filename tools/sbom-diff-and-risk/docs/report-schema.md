@@ -88,6 +88,9 @@ same policy-related sections from the full JSON report:
 - `provenance_policy` and `provenance_policy_impact` when provenance policy
   fields are relevant
 
+The checked-in [sample-policy.json](../examples/sample-policy.json) artifact
+locks the standalone policy sidecar shape for a strict policy example.
+
 ## Summary contract
 
 `summary` is the stable, compact entry point for automation that needs counts

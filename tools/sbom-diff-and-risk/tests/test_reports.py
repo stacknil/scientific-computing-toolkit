@@ -18,7 +18,7 @@ from sbom_diff_risk.policy_evaluator import evaluate_policy
 from sbom_diff_risk.policy_models import PolicyConfig
 from sbom_diff_risk.policy_parser import build_policy
 from sbom_diff_risk.normalize import normalize_input
-from sbom_diff_risk.report_json import render_report_json, render_summary_json
+from sbom_diff_risk.report_json import render_policy_json, render_report_json, render_summary_json
 from sbom_diff_risk.report_md import render_report_markdown
 from sbom_diff_risk.risk import evaluate_risks, summarize_risks
 
@@ -76,6 +76,18 @@ def test_report_json_matches_cyclonedx_policy_fail_golden() -> None:
     expected = _read_example("sample-policy-fail-report.json")
 
     assert rendered == expected
+
+
+def test_policy_json_matches_cyclonedx_policy_fail_golden() -> None:
+    report = _build_report("cdx_before.json", "cdx_after.json", policy_name="policy-strict.yml")
+
+    rendered = render_policy_json(report)
+    expected = _read_example("sample-policy.json")
+
+    assert rendered == expected
+    assert json.loads(rendered) == _policy_sidecar_from_full_report(
+        json.loads(_read_example("sample-policy-fail-report.json"))
+    )
 
 
 def test_report_markdown_matches_cyclonedx_policy_fail_golden() -> None:
@@ -397,3 +409,24 @@ def _build_report(
 def _read_example(name: str) -> str:
     examples = Path(__file__).resolve().parents[1] / "examples"
     return (examples / name).read_text(encoding="utf-8")
+
+
+def _policy_sidecar_from_full_report(report_payload: dict[str, object]) -> dict[str, object]:
+    policy_payload = {
+        "policy_evaluation": report_payload["policy_evaluation"],
+        "blocking_findings": report_payload["blocking_findings"],
+        "warning_findings": report_payload["warning_findings"],
+        "suppressed_findings": report_payload["suppressed_findings"],
+        "rule_catalog": report_payload["rule_catalog"],
+    }
+
+    summary = report_payload["summary"]
+    assert isinstance(summary, dict)
+    if "policy" in summary:
+        policy_payload["summary"] = {"policy": summary["policy"]}
+
+    if "provenance_policy" in report_payload:
+        policy_payload["provenance_policy"] = report_payload["provenance_policy"]
+        policy_payload["provenance_policy_impact"] = report_payload["provenance_policy_impact"]
+
+    return policy_payload
