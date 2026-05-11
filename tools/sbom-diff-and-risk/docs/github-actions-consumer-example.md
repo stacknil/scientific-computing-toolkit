@@ -22,6 +22,10 @@ The same workflow is also checked in as
 [../examples/github-actions-consumer.yml](../examples/github-actions-consumer.yml)
 for copying into consumer repositories.
 
+For a policy-gated variant that writes `outputs/policy.json` with
+`--policy-json PATH`, see
+[../examples/github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml).
+
 ```yaml
 name: Dependency diff review
 
@@ -143,3 +147,5 @@ from that local checkout instead of downloading a release wheel:
 
 For compact summary consumption patterns, see
 [summary-json-ci-cookbook.md](summary-json-ci-cookbook.md).
+For policy sidecar consumption patterns, see
+[policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).

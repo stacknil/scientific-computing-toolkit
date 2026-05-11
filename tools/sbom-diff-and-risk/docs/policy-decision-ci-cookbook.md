@@ -25,6 +25,11 @@ decision metadata remains available for review.
 For a checked-in reference artifact generated from this path, see
 [sample-policy.json](../examples/sample-policy.json).
 
+For a full GitHub Actions consumer workflow example that captures
+`outputs/policy.json`, uploads it even when local policy fails, and then fails
+the job based on `summary.policy`, see
+[github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml).
+
 ## Python consumer
 
 This example reads the policy-only JSON sidecar, prints compact policy status,
