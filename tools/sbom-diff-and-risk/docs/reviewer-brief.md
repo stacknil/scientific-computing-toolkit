@@ -15,7 +15,7 @@ Dependency review often needs evidence that is stable enough for code review, CI
 | Area | What exists |
 | --- | --- |
 | Deterministic local analysis | Compares CycloneDX, SPDX, `requirements.txt`, and conservative `pyproject.toml` inputs without hidden network access by default. |
-| Reviewer output | Produces JSON and Markdown reports for dependency diffs, heuristic risk buckets, and policy outcomes. |
+| Reviewer output | Produces JSON and Markdown reports for dependency diffs, heuristic risk buckets, and policy outcomes. It can also write compact `summary.json` and policy-only `policy.json` sidecars for CI consumers. |
 | Security tooling output | Emits a conservative SARIF subset for selected high-signal findings and explicit policy violations. |
 | Provenance-aware reporting | Optionally records PyPI provenance and integrity evidence when `--enrich-pypi` is enabled. |
 | Scorecard signals | Optionally records OpenSSF Scorecard evidence when `--enrich-scorecard` is enabled and a repository mapping is explicit enough. |
@@ -29,6 +29,7 @@ Dependency review often needs evidence that is stable enough for code review, CI
 | How can a reviewer reproduce the core evidence? | [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for demo, release, TestPyPI, and SARIF verification paths. |
 | What is the stable JSON shape? | [report-schema.md](report-schema.md) documents the machine-readable report structure and `summary` contract. |
 | How are policy findings explained? | [policy-decision-explainability.md](policy-decision-explainability.md) documents the policy decision metadata in JSON reports. |
+| Can CI consume compact policy decisions? | [policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md), [examples/sample-policy.json](../examples/sample-policy.json), and [examples/github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml) show the policy sidecar path. |
 | Are default runs offline? | CLI docs, tests for no-enrichment behavior, and explicit enrichment flags. |
 | Can code scanning consume the output? | `docs/github-code-scanning.md` and `examples/sample-sarif.sarif`. |
 | Can the tool's own artifacts be verified? | `docs/self-provenance.md` for workflow artifact attestations. |

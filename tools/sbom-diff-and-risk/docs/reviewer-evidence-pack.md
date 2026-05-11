@@ -56,6 +56,31 @@ No differences means the sample path reproduced the committed example output.
 `examples/sample-summary.json` is the summary-only artifact for the same run
 and is expected to match `examples/sample-report.json`'s `summary` object.
 
+Generate the strict-policy JSON sidecar:
+
+```powershell
+sbom-diff-risk compare `
+  --before examples/cdx_before.json `
+  --after examples/cdx_after.json `
+  --policy examples/policy-strict.yml `
+  --out-json outputs/policy-report.json `
+  --policy-json outputs/policy.json
+```
+
+The strict policy example returns exit code `1` because it intentionally
+produces blocking local policy findings. The JSON artifacts are still written.
+
+Compare the sidecar output against the checked-in sample:
+
+```powershell
+Compare-Object (Get-Content examples/sample-policy.json) (Get-Content outputs/policy.json)
+```
+
+`examples/sample-policy.json` is expected to match the policy-related sections
+from `outputs/policy-report.json`, including `summary.policy`, policy finding
+lists, and `rule_catalog`. It intentionally omits full report `components` and
+`risks`.
+
 Generate the strict-policy SARIF sample:
 
 ```powershell
@@ -85,6 +110,9 @@ and suppressions.
 
 For CI job-summary examples that consume policy decision metadata, see
 [policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).
+
+For a copyable GitHub Actions example that captures `outputs/policy.json`, see
+[../examples/github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml).
 
 For CI dashboard, job-summary, and local-threshold examples that consume
 `outputs/summary.json`, see
