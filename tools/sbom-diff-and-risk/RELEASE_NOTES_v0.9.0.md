@@ -101,6 +101,6 @@ does not change this repository's GitHub Actions configuration.
 - No production PyPI publishing.
 - No production PyPI workflow.
 
-This PR only drafts release notes. It does not bump package version, create a
-tag, create a GitHub Release, publish to PyPI/TestPyPI, or change runtime
-behavior.
+The v0.9.0 release is prepared for the tag-gated GitHub Release workflow. It
+does not publish to PyPI/TestPyPI and keeps production PyPI intentionally
+deferred.
