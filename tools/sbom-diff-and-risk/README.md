@@ -1,11 +1,10 @@
 # sbom-diff-and-risk
 
-v0.8.0 is the policy decision explainability release. It adds stable
-machine-readable explanation fields for JSON policy findings and reviewer
-documentation for interpreting local policy decisions. It keeps CLI analysis
-behavior unchanged, keeps dependency analysis local and deterministic by
-default, preserves the completed TestPyPI dry-run story, and keeps production
-PyPI publishing intentionally deferred.
+v0.9.0 is the policy JSON sidecar and consumer integration usability release.
+It adds optional `--policy-json PATH` output, checked-in policy sidecar
+examples, and copyable GitHub Actions consumer guidance. It keeps dependency
+analysis local and deterministic by default, preserves the completed TestPyPI
+dry-run story, and keeps production PyPI publishing intentionally deferred.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
