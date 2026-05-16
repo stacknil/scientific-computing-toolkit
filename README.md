@@ -32,7 +32,7 @@ Project:
 [`sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md)
 
 Status:
-Released at `v0.8.0`.
+Released at `v0.9.0`.
 
 What to review:
 Deterministic SBOM/dependency diffing, JSON/Markdown/SARIF output, local policy
@@ -44,7 +44,7 @@ Useful entry points:
 - [`sbom-diff-and-risk` README](tools/sbom-diff-and-risk/README.md)
 - [Reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md)
 - [Reviewer evidence pack](tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md)
-- [v0.8.0 release notes][release-notes-v080]
+- [v0.9.0 release notes][release-notes-v090]
 - [Examples](tools/sbom-diff-and-risk/examples/)
 
 ## Verification and Release Evidence
@@ -80,17 +80,17 @@ publishing is intentionally deferred.
 1. Read the [`sbom-diff-and-risk` reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md).
 2. Skim the [`sbom-diff-and-risk` README](tools/sbom-diff-and-risk/README.md)
    for CLI scope and examples.
-3. Check the [v0.8.0 release notes][release-notes-v080].
+3. Check the [v0.9.0 release notes][release-notes-v090].
 4. Use the [verification guide](tools/sbom-diff-and-risk/docs/verification.md)
    to choose the right provenance check.
 5. Inspect the [examples](tools/sbom-diff-and-risk/examples/) for sample reports and policy files.
 
 ## Status
 
-- Current flagship release: `sbom-diff-and-risk` `v0.8.0`
-- GitHub Release assets: available for `v0.8.0`
+- Current flagship release: `sbom-diff-and-risk` `v0.9.0`
+- GitHub Release assets: available for `v0.9.0`
 - TestPyPI Trusted Publishing dry-run: completed
 - Production PyPI publishing: intentionally deferred
 
-[release-notes-v080]: tools/sbom-diff-and-risk/RELEASE_NOTES_v0.8.0.md
+[release-notes-v090]: tools/sbom-diff-and-risk/RELEASE_NOTES_v0.9.0.md
 
