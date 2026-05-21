@@ -87,17 +87,17 @@
 ## Version changes
 | name | before | after | classification | risk buckets |
 |------|--------|-------|----------------|--------------|
-| requests | 2.31.0 | 2.32.0 | version_changed | not_evaluated, unknown_license, version_change_unclassified |
+| requests | 2.33.0 | 2.34.2 | version_changed | not_evaluated, unknown_license, version_change_unclassified |
 
 ## Risk findings
 | bucket | component | version | rationale |
 |--------|-----------|---------|-----------|
 | new_package | urllib3 | 2.7.0 | Component was not present in the before input. |
-| not_evaluated | requests | 2.32.0 | stale_package was not evaluated because enrichment mode is disabled. |
+| not_evaluated | requests | 2.34.2 | stale_package was not evaluated because enrichment mode is disabled. |
 | not_evaluated | urllib3 | 2.7.0 | stale_package was not evaluated because enrichment mode is disabled. |
-| unknown_license | requests | 2.32.0 | License is missing, empty, UNKNOWN, or NOASSERTION. |
+| unknown_license | requests | 2.34.2 | License is missing, empty, UNKNOWN, or NOASSERTION. |
 | unknown_license | urllib3 | 2.7.0 | License is missing, empty, UNKNOWN, or NOASSERTION. |
-| version_change_unclassified | requests | 2.32.0 | Version changed but did not qualify as a parseable SemVer major upgrade. |
+| version_change_unclassified | requests | 2.34.2 | Version changed but did not qualify as a parseable SemVer major upgrade. |
 
 ## Blocking violations
 | rule id | component | level | message |
