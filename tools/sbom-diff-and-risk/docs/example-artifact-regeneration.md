@@ -28,6 +28,7 @@ The script regenerates these local, deterministic artifacts:
 - `examples/sample-policy-fail-report.md`
 - `examples/sample-requirements-report.json`
 - `examples/sample-requirements-report.md`
+- `examples/sample-sarif.sarif`
 
 The strict-policy example intentionally exits with code `1` because it produces
 blocking local policy findings. The script treats that as expected while still
@@ -47,11 +48,14 @@ policy-sidecar examples fail predictably.
 
 ## Boundaries
 
-The regeneration script covers no-network JSON, Markdown, summary, and policy
-sidecar examples produced through the public CLI.
+The regeneration script covers no-network JSON, Markdown, summary, policy
+sidecar, and strict-policy SARIF examples produced through the public CLI.
 
 It does not perform PyPI or Scorecard enrichment, does not call external
 services, and does not make dependency safety claims. Provenance-aware,
-Scorecard-aware, and SARIF sample artifacts remain covered by their focused
-golden tests because those examples include mocked evidence or normalized SARIF
-metadata.
+Scorecard-aware, and enriched SARIF sample artifacts remain covered by their
+focused golden tests because those examples include mocked evidence.
+
+For `examples/sample-sarif.sarif`, the script normalizes the generated
+`originalUriBaseIds.%SRCROOT%.uri` value to `file:///__PROJECT_ROOT__/` so
+checked-in output does not depend on a maintainer's local checkout path.

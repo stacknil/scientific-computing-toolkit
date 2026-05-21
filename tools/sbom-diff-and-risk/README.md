@@ -320,7 +320,7 @@ The [examples/](examples/) directory includes:
 - requirements-based sample reports at [sample-requirements-report.json](examples/sample-requirements-report.json) and [sample-requirements-report.md](examples/sample-requirements-report.md)
 
 After changing local example inputs, regenerate checked-in deterministic
-examples with:
+JSON, Markdown, summary, policy sidecar, and SARIF examples with:
 
 ```bash
 python scripts/regenerate-example-artifacts.py
