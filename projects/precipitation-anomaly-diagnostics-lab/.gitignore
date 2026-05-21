@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local configs and outputs
+configs/local*.yaml
+outputs/
+figures/
+reports/
+*.log
+
+# Raw or large scientific datasets
+data/raw/
+data/interim/
+*.nc
+*.nc4
+*.grib
+*.grib2
+*.hdf
+*.h5
+*.zarr/
+
+# Course or office artifacts not suitable for public release
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.pdf
+~$*
+
+# Archives and generated binaries
+*.zip
+*.7z
+*.rar
+
+# Notebooks: keep notebooks only if intentionally reviewed and cleared.
+.ipynb_checkpoints/

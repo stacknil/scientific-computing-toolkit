@@ -1,0 +1,50 @@
+project:
+  title: "Precipitation Anomaly Diagnostics Lab"
+  root: ".."
+
+paths:
+  precipitation: "/path/to/gridded_precipitation_jja.nc"
+  climate_index: "/path/to/climate_index_jja.txt"
+  circulation_500hpa: "/path/to/reanalysis_hgt500_jja.nc"
+  sst: "/path/to/sst_jja.nc"
+  output_dir: "outputs"
+
+variables:
+  precipitation: "pre"
+  circulation: "hgt"
+  sst: "sst"
+
+periods:
+  analysis_start: 1961
+  analysis_end: 2022
+  climatology_start: 1981
+  climatology_end: 2010
+  target_year: 2022
+  mca_end: 2017
+
+regions:
+  eastern_domain:
+    lon_min: 105.0
+    lon_max: 140.0
+    lat_min: 15.0
+    lat_max: 55.0
+  regional_mean_box:
+    lon_min: 90.0
+    lon_max: 122.0
+    lat_min: 24.0
+    lat_max: 35.0
+
+indices:
+  year_column: "year"
+  columns: ["GM", "GQ", "GX", "GD"]
+
+composites:
+  positive_years: []
+  negative_years: []
+  alpha: 0.05
+
+diagnostics:
+  eof_modes: 3
+  mca_modes: 2
+  max_lag: 5
+  write_netcdf: false

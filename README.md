@@ -24,6 +24,12 @@ reproducible workflow for precipitation anomaly preprocessing, EOF analysis,
 representative-period selection, composite analysis, and reviewer-friendly
 scientific interpretation.
 
+[`projects/precipitation-anomaly-diagnostics-lab`](projects/precipitation-anomaly-diagnostics-lab/README.md)
+is a companion public-safe climate-diagnostics lab focused on configurable
+precipitation anomaly diagnostics, EOF/PC analysis, composite circulation
+checks, correlation/regression utilities, and explicit data-redistribution
+boundaries.
+
 ## Why This Repository Exists
 
 Scientific and security-oriented engineering often needs small, inspectable
