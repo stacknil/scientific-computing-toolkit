@@ -10,6 +10,14 @@ Scientific and security-oriented review work often needs small deterministic too
 
 The current flagship project is `tools/sbom-diff-and-risk`, a local CLI for comparing two SBOMs or dependency manifests and producing deterministic JSON, Markdown, SARIF, and policy sidecar artifacts.
 
+## Reviewer Evidence
+
+- Reproducible command: `sbom-diff-risk compare --before examples/cdx_before.json --after examples/cdx_after.json --format auto --out-json outputs/report.json --summary-json outputs/summary.json --out-md outputs/report.md`
+- Deterministic outputs: JSON reports, Markdown reports, summary sidecars, policy sidecars, SARIF, and checked-in example artifacts.
+- Tests / CI: local pytest coverage and reviewer evidence docs for regenerating sample artifacts and verification paths.
+- Release evidence: `sbom-diff-and-risk` release notes, GitHub release verification docs, TestPyPI Trusted Publishing dry-run notes, and intentionally deferred production PyPI decision docs.
+- Non-goals: vulnerability scanning, CVE resolution, exploitability scoring, package safety verdicts, hidden enrichment, or production PyPI claims.
+
 ## Quick run
 
 From the repository root:
