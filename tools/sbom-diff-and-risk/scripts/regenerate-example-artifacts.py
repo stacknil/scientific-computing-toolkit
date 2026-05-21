@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -16,6 +17,7 @@ class ExampleArtifactSet:
     base_args: tuple[str, ...]
     outputs: tuple[tuple[str, str], ...]
     expected_exit_codes: tuple[int, ...] = (0,)
+    normalize_sarif_srcroot: bool = False
 
 
 ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
@@ -81,6 +83,22 @@ ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
             ("--out-json", "sample-requirements-report.json"),
             ("--out-md", "sample-requirements-report.md"),
         ),
+    ),
+    ExampleArtifactSet(
+        name="strict-policy SARIF report",
+        base_args=(
+            "--before",
+            "examples/sarif_before.json",
+            "--after",
+            "examples/sarif_after.json",
+            "--policy",
+            "examples/policy-strict.yml",
+        ),
+        outputs=(
+            ("--out-sarif", "sample-sarif.sarif"),
+        ),
+        expected_exit_codes=(1,),
+        normalize_sarif_srcroot=True,
     ),
 )
 
@@ -156,6 +174,14 @@ def _run_artifact_set(project_root: Path, output_root: Path, artifact_set: Examp
             f"{artifact_set.name} exited with {result.returncode}; "
             f"expected {artifact_set.expected_exit_codes}: {detail}"
         )
+    if artifact_set.normalize_sarif_srcroot:
+        _normalize_sarif_srcroot(output_root / artifact_set.outputs[0][1])
+
+
+def _normalize_sarif_srcroot(path: Path) -> None:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["runs"][0]["originalUriBaseIds"]["%SRCROOT%"]["uri"] = "file:///__PROJECT_ROOT__/"
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
