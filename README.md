@@ -11,8 +11,10 @@ current flagship tool. It compares SBOMs and dependency manifests, produces
 JSON, Markdown, and SARIF review artifacts, supports local policy checks, and
 can optionally record PyPI provenance and OpenSSF Scorecard evidence.
 
-For a fast reviewer overview, start with the [`sbom-diff-and-risk` reviewer
-brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md).
+For the clearest reviewer route, start with the
+[`sbom-diff-and-risk` reviewer path](tools/sbom-diff-and-risk/docs/reviewer-path.md);
+it separates orientation, artifact inspection, local reproduction, and release
+evidence.
 
 ## Supporting Spatiotemporal Diagnostics Project
 
@@ -50,6 +52,7 @@ evidence.
 Useful entry points:
 
 - [`sbom-diff-and-risk` README](tools/sbom-diff-and-risk/README.md)
+- [Reviewer path](tools/sbom-diff-and-risk/docs/reviewer-path.md)
 - [Reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md)
 - [Reviewer evidence pack](tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md)
 - [v0.9.0 release notes][release-notes-v090]
@@ -106,13 +109,20 @@ publishing is intentionally deferred.
 
 ## Reviewer Quick Path
 
-1. Read the [`sbom-diff-and-risk` reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md).
-2. Skim the [`sbom-diff-and-risk` README](tools/sbom-diff-and-risk/README.md)
-   for CLI scope and examples.
-3. Check the [v0.9.0 release notes][release-notes-v090].
-4. Use the [verification guide](tools/sbom-diff-and-risk/docs/verification.md)
-   to choose the right provenance check.
-5. Inspect the [examples](tools/sbom-diff-and-risk/examples/) for sample reports and policy files.
+For `sbom-diff-and-risk`, use the
+[reviewer path](tools/sbom-diff-and-risk/docs/reviewer-path.md) and first choose
+the review question:
+
+1. 30 seconds:
+   read the [reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md).
+2. 5 minutes:
+   inspect [sample JSON, summary, policy, Markdown, and SARIF artifacts](tools/sbom-diff-and-risk/examples/).
+3. 15 minutes:
+   run the deterministic example check in
+   [example artifact regeneration](tools/sbom-diff-and-risk/docs/example-artifact-regeneration.md).
+4. Release evidence:
+   use the [verification guide](tools/sbom-diff-and-risk/docs/verification.md)
+   and [release provenance docs](tools/sbom-diff-and-risk/docs/release-provenance.md).
 
 ## Status
 
