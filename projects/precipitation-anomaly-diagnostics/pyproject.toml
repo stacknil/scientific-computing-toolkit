@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "precipitation-anomaly-diagnostics"
 version = "0.1.0"
-description = "A public-safe scientific-computing mini-lab for precipitation anomaly diagnostics."
+description = "A public-safe spatiotemporal diagnostics module for reproducible precipitation anomaly analysis."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

@@ -1,17 +1,22 @@
-# Precipitation Anomaly Diagnostics Lab
+# Precipitation Anomaly Diagnostics
 
-A compact scientific-computing workflow for July precipitation anomaly diagnostics over eastern China.
+A compact spatiotemporal diagnostics module for reproducible precipitation
+anomaly analysis.
 
-This mini-lab demonstrates how to turn gridded precipitation and atmospheric circulation fields into reproducible climate diagnostics:
+This project demonstrates how to turn gridded scientific data into a
+reviewable analysis workflow:
 
-- preprocess monthly precipitation and circulation fields;
-- compute climatology, anomalies, and standardized anomaly indices;
-- apply EOF analysis to identify dominant spatial modes;
-- select representative years from standardized principal components;
-- run circulation composite analysis for positive and negative phases;
-- generate reviewable figures and lightweight Markdown reports.
+- preprocessing and quality-preserving subsetting;
+- climatology, anomaly, and standardized-index construction;
+- dimensionality reduction with EOF analysis;
+- representative-period selection from standardized time coefficients;
+- composite analysis for contrasting phases;
+- reviewable figures and lightweight Markdown reports.
 
-The repository is designed as a reproducible research mini-lab, not as an operational forecast system.
+The repository is designed as a reproducible research mini-lab, not as an
+operational forecast system. Domain-specific choices such as the target month,
+region, and variables are documented as configurable analysis context rather
+than as the public identity of the project.
 
 ## Repository Layout
 
@@ -27,6 +32,7 @@ The repository is designed as a reproducible research mini-lab, not as an operat
 ├─ examples/
 │  ├─ regional_precipitation_summary_1961_2022.csv
 │  └─ sample_metadata.json
+├─ PUBLICATION_BOUNDARIES.md
 ├─ reports/example-report.md
 ├─ scripts/
 │  ├─ run_composite_analysis.py
@@ -39,6 +45,15 @@ The repository is designed as a reproducible research mini-lab, not as an operat
    ├─ plotting.py
    └─ preprocess.py
 ```
+
+## Reviewer Path
+
+1. Read [`docs/data-policy.md`](docs/data-policy.md) for public data boundaries.
+2. Read [`PUBLICATION_BOUNDARIES.md`](PUBLICATION_BOUNDARIES.md) for identity and publication boundaries.
+3. Read [`docs/methodology.md`](docs/methodology.md) for the analysis workflow.
+4. Read [`docs/inference-framework.md`](docs/inference-framework.md) for the reasoning chain.
+5. Skim [`reports/example-report.md`](reports/example-report.md) for the public-facing output.
+6. Inspect [`tests/`](tests/) for synthetic-data behavior checks.
 
 ## Installation
 
@@ -78,7 +93,9 @@ python scripts/run_eof_analysis.py --config configs/example.yaml
 python scripts/run_composite_analysis.py --config configs/example.yaml
 ```
 
-The example CSV under `examples/` is a small derived summary table for demonstration only. It is not a raw dataset.
+The example CSV under `examples/` is a small derived demonstration artifact.
+It is not a raw dataset, a canonical dataset release, or a substitute for
+provider-sourced scientific data.
 
 ## Demonstration Figures
 
