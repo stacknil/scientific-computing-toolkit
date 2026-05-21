@@ -4,7 +4,7 @@ This repository is a portfolio space for scientific-computing infrastructure,
 systems tooling, and supply-chain-security experiments that favor deterministic
 behavior, auditable outputs, and clear release evidence.
 
-## Current Flagship Project
+## Current Flagship Tool
 
 [`tools/sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md) is the
 current flagship tool. It compares SBOMs and dependency manifests, produces
@@ -14,13 +14,13 @@ can optionally record PyPI provenance and OpenSSF Scorecard evidence.
 For a fast reviewer overview, start with the [`sbom-diff-and-risk` reviewer
 brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md).
 
-## Additional Project
+## Supporting Spatiotemporal Diagnostics Project
 
 [`projects/precipitation-anomaly-diagnostics`](projects/precipitation-anomaly-diagnostics/README.md)
-is a public-safe climate diagnostics mini-lab. It demonstrates a reproducible
-workflow for precipitation anomaly preprocessing, EOF analysis, representative
-year selection, circulation composites, and reviewer-friendly scientific
-interpretation.
+is a public-safe scientific-data diagnostics mini-lab. It demonstrates a
+reproducible workflow for precipitation anomaly preprocessing, EOF analysis,
+representative-period selection, composite analysis, and reviewer-friendly
+scientific interpretation.
 
 ## Why This Repository Exists
 
@@ -64,6 +64,9 @@ Public-safe mini-lab.
 What to review:
 Sanitized climate-diagnostics workflow, small derived example artifacts,
 methodology notes, data policy, and synthetic-data tests.
+
+This mini-lab is a supporting scientific-data project and is not part of the
+`sbom-diff-and-risk` release surface.
 
 Useful entry points:
 
