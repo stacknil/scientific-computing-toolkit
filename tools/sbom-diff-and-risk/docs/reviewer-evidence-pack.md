@@ -56,6 +56,16 @@ No differences means the sample path reproduced the committed example output.
 `examples/sample-summary.json` is the summary-only artifact for the same run
 and is expected to match `examples/sample-report.json`'s `summary` object.
 
+Maintainers can also verify checked-in no-network JSON, Markdown, summary, and
+policy sidecar examples in one pass:
+
+```powershell
+python scripts/regenerate-example-artifacts.py --check
+```
+
+For the exact regeneration scope, see
+[example-artifact-regeneration.md](example-artifact-regeneration.md).
+
 Generate the strict-policy JSON sidecar:
 
 ```powershell
