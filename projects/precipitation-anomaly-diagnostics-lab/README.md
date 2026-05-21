@@ -13,11 +13,19 @@ The project is maintained under the pseudonymous technical identity `stacknil`. 
 5. Run one or more analysis scripts from `scripts/`.
 6. Review generated figures and tables in `outputs/`.
 
+## Reviewer Path
+
+1. Start with [`docs/data-policy.md`](docs/data-policy.md) to understand what data is intentionally excluded.
+2. Read [`docs/methodology.md`](docs/methodology.md) for the workflow and diagnostic boundaries.
+3. Use [`docs/calculation-methods.md`](docs/calculation-methods.md) for formulas and implementation details.
+4. Use [`docs/inference-analysis.md`](docs/inference-analysis.md) for how to reason from the outputs without overclaiming.
+5. Run `python -m unittest discover -s tests` for lightweight synthetic-data checks.
+
 ## Repository Structure
 
 ```text
 configs/                 Example configuration with placeholder paths
-docs/                    Method notes, data policy, and reproducibility checklist
+docs/                    Method notes, formulas, inference guidance, data policy
 scripts/                 Command-line workflows for each diagnostic
 src/climate_diagnostics/ Shared utilities for gridded climate analysis
 tests/                   Synthetic-data checks for core diagnostics
@@ -52,6 +60,22 @@ python scripts/run_eof.py --config configs/local.yaml
 python scripts/run_composite_circulation.py --config configs/local.yaml
 ```
 
+## Synthetic Demonstration
+
+The repository includes a deterministic synthetic figure generator for reviewers who want to inspect the expected chart style without downloading climate datasets:
+
+```powershell
+python examples/generate_synthetic_demo_assets.py
+```
+
+The committed demonstration figures are synthetic and do not represent real climate findings.
+
+![Synthetic target-year precipitation anomaly](assets/synthetic-figures/synthetic-precipitation-anomaly-map.png)
+
+![Synthetic regional precipitation anomaly index](assets/synthetic-figures/synthetic-regional-anomaly-series.png)
+
+The companion [`examples/synthetic-inference-report.md`](examples/synthetic-inference-report.md) shows how to translate the charts into cautious diagnostic language.
+
 ## Expected Inputs
 
 - Gridded precipitation data as NetCDF, with a time, latitude, and longitude dimension.
@@ -64,6 +88,33 @@ The example configuration uses placeholders only. Users must obtain datasets fro
 ## Generated Outputs
 
 Scripts write derived figures and compact tables to `outputs/` by default, including anomaly maps, climatology fields, standardized regional time series, EOF maps, PC time series, composite-difference maps, correlation maps, and diagnostic CSV files. Raw datasets and large generated NetCDF files are ignored by default.
+
+## Methods At A Glance
+
+- Climatology: gridpoint mean over the configured baseline period.
+- Anomaly: target field minus climatology; percentage anomaly masks zero-climatology cells.
+- Regional mean: cosine-latitude weighted box mean.
+- Representative years: low, high, and near-normal rankings from standardized regional anomalies.
+- Correlation maps: gridpoint Pearson correlation with pointwise t-test p-values.
+- EOF/PC: SVD of standardized, optionally latitude-weighted anomalies.
+- Composites: group mean differences with pointwise Welch two-sample t-tests.
+- MCA: SVD of the precipitation-SST cross-covariance matrix.
+
+Detailed formulas are in [`docs/calculation-methods.md`](docs/calculation-methods.md).
+
+## Inference At A Glance
+
+The strongest public-safe interpretation pattern is:
+
+```text
+baseline departure
+-> standardized regional unusualness
+-> recurring EOF/PC structure
+-> transparent representative-year composites
+-> physically cautious circulation or coupled-field hypothesis
+```
+
+The workflow supports diagnostic hypotheses. It does not claim causal attribution, field-significant map testing, operational predictability, or production readiness.
 
 ## Limitations
 

@@ -42,6 +42,18 @@ For data-backed validation, run the target scripts against local data and compar
 - Output file names.
 - Whether figures and CSVs are regenerated without manual edits.
 
+For interpretation review, compare the generated outputs against:
+
+- [`methodology.md`](methodology.md) for workflow intent.
+- [`calculation-methods.md`](calculation-methods.md) for formulas.
+- [`inference-analysis.md`](inference-analysis.md) for interpretation boundaries.
+
+To regenerate the committed synthetic demonstration charts, run:
+
+```powershell
+python examples/generate_synthetic_demo_assets.py
+```
+
 ## Final Public-Release Checklist
 
 - [ ] No raw datasets included.
