@@ -17,9 +17,9 @@
     "added": [
       {
         "name": "urllib3",
-        "version": "2.2.1",
+        "version": "2.7.0",
         "ecosystem": "pypi",
-        "purl": "pkg:pypi/urllib3@2.2.1",
+        "purl": "pkg:pypi/urllib3@2.7.0",
         "license_id": null,
         "supplier": null,
         "source_url": null,
@@ -28,8 +28,8 @@
         "evidence": {
           "source_format": "requirements-txt",
           "line_number": 2,
-          "raw_requirement": "urllib3==2.2.1",
-          "specifier": "==2.2.1",
+          "raw_requirement": "urllib3==2.7.0",
+          "specifier": "==2.7.0",
           "marker": null,
           "extras": [],
           "url": null
@@ -90,9 +90,9 @@
       "component_key": "purl:pkg:pypi/urllib3",
       "component": {
         "name": "urllib3",
-        "version": "2.2.1",
+        "version": "2.7.0",
         "ecosystem": "pypi",
-        "purl": "pkg:pypi/urllib3@2.2.1",
+        "purl": "pkg:pypi/urllib3@2.7.0",
         "license_id": null,
         "supplier": null,
         "source_url": null,
@@ -101,8 +101,8 @@
         "evidence": {
           "source_format": "requirements-txt",
           "line_number": 2,
-          "raw_requirement": "urllib3==2.2.1",
-          "specifier": "==2.2.1",
+          "raw_requirement": "urllib3==2.7.0",
+          "specifier": "==2.7.0",
           "marker": null,
           "extras": [],
           "url": null
@@ -140,9 +140,9 @@
       "component_key": "purl:pkg:pypi/urllib3",
       "component": {
         "name": "urllib3",
-        "version": "2.2.1",
+        "version": "2.7.0",
         "ecosystem": "pypi",
-        "purl": "pkg:pypi/urllib3@2.2.1",
+        "purl": "pkg:pypi/urllib3@2.7.0",
         "license_id": null,
         "supplier": null,
         "source_url": null,
@@ -151,8 +151,8 @@
         "evidence": {
           "source_format": "requirements-txt",
           "line_number": 2,
-          "raw_requirement": "urllib3==2.2.1",
-          "specifier": "==2.2.1",
+          "raw_requirement": "urllib3==2.7.0",
+          "specifier": "==2.7.0",
           "marker": null,
           "extras": [],
           "url": null
@@ -190,9 +190,9 @@
       "component_key": "purl:pkg:pypi/urllib3",
       "component": {
         "name": "urllib3",
-        "version": "2.2.1",
+        "version": "2.7.0",
         "ecosystem": "pypi",
-        "purl": "pkg:pypi/urllib3@2.2.1",
+        "purl": "pkg:pypi/urllib3@2.7.0",
         "license_id": null,
         "supplier": null,
         "source_url": null,
@@ -201,8 +201,8 @@
         "evidence": {
           "source_format": "requirements-txt",
           "line_number": 2,
-          "raw_requirement": "urllib3==2.2.1",
-          "specifier": "==2.2.1",
+          "raw_requirement": "urllib3==2.7.0",
+          "specifier": "==2.7.0",
           "marker": null,
           "extras": [],
           "url": null
