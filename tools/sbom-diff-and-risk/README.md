@@ -327,6 +327,9 @@ python scripts/regenerate-example-artifacts.py
 python scripts/regenerate-example-artifacts.py --check
 ```
 
+Use `python scripts/regenerate-example-artifacts.py --list` and `--only SLUG`
+for focused checks such as `--only requirements`.
+
 ## Enforcement Mode
 
 Policy enforcement is optional and deterministic. Exit codes are stable:

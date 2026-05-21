@@ -46,6 +46,20 @@ python scripts/regenerate-example-artifacts.py --check
 The test suite runs this check mode so stale local JSON, Markdown, summary, or
 policy-sidecar examples fail predictably.
 
+Use `--list` to see the available artifact set slugs:
+
+```powershell
+python scripts/regenerate-example-artifacts.py --list
+```
+
+Use `--only SLUG` to regenerate or check a focused subset:
+
+```powershell
+python scripts/regenerate-example-artifacts.py --check --only requirements
+```
+
+`--only` can be repeated when a change affects more than one artifact set.
+
 ## Boundaries
 
 The regeneration script covers no-network JSON, Markdown, summary, policy

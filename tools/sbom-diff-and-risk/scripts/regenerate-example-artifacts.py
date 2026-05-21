@@ -13,6 +13,7 @@ from typing import Sequence
 
 @dataclass(frozen=True)
 class ExampleArtifactSet:
+    slug: str
     name: str
     base_args: tuple[str, ...]
     outputs: tuple[tuple[str, str], ...]
@@ -22,6 +23,7 @@ class ExampleArtifactSet:
 
 ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
     ExampleArtifactSet(
+        slug="cyclonedx",
         name="cyclonedx report, summary, and markdown",
         base_args=(
             "--before",
@@ -38,6 +40,7 @@ ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
         ),
     ),
     ExampleArtifactSet(
+        slug="policy-warn",
         name="warn-only policy report",
         base_args=(
             "--before",
@@ -53,6 +56,7 @@ ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
         ),
     ),
     ExampleArtifactSet(
+        slug="policy-fail",
         name="blocking policy report and sidecar",
         base_args=(
             "--before",
@@ -70,6 +74,7 @@ ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
         expected_exit_codes=(1,),
     ),
     ExampleArtifactSet(
+        slug="requirements",
         name="requirements report",
         base_args=(
             "--before",
@@ -85,6 +90,7 @@ ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
         ),
     ),
     ExampleArtifactSet(
+        slug="sarif",
         name="strict-policy SARIF report",
         base_args=(
             "--before",
@@ -112,28 +118,73 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="store_true",
         help="Generate artifacts into a temporary directory and fail if checked-in examples are stale.",
     )
+    parser.add_argument(
+        "--list",
+        action="store_true",
+        help="List available artifact set slugs and exit.",
+    )
+    parser.add_argument(
+        "--only",
+        action="append",
+        default=[],
+        metavar="SLUG",
+        help="Regenerate or check only one artifact set slug. Repeat to select multiple sets.",
+    )
     args = parser.parse_args(argv)
 
     project_root = Path(__file__).resolve().parents[1]
+    artifact_sets = _select_artifact_sets(args.only, parser)
+    if args.list:
+        _print_artifact_sets(artifact_sets)
+        return 0
     if args.check:
         with tempfile.TemporaryDirectory(prefix="sbom-diff-risk-examples-") as temp_dir:
-            return _check_artifacts(project_root, Path(temp_dir))
-    return _write_artifacts(project_root, project_root / "examples")
+            return _check_artifacts(project_root, Path(temp_dir), artifact_sets)
+    return _write_artifacts(project_root, project_root / "examples", artifact_sets)
 
 
-def _write_artifacts(project_root: Path, output_root: Path) -> int:
-    for artifact_set in ARTIFACT_SETS:
+def _select_artifact_sets(
+    selected_slugs: Sequence[str],
+    parser: argparse.ArgumentParser,
+) -> tuple[ExampleArtifactSet, ...]:
+    if not selected_slugs:
+        return ARTIFACT_SETS
+
+    by_slug = {artifact_set.slug: artifact_set for artifact_set in ARTIFACT_SETS}
+    unknown = [slug for slug in selected_slugs if slug not in by_slug]
+    if unknown:
+        parser.error(f"unknown artifact set slug: {unknown[0]}")
+
+    return tuple(by_slug[slug] for slug in selected_slugs)
+
+
+def _print_artifact_sets(artifact_sets: Sequence[ExampleArtifactSet]) -> None:
+    for artifact_set in artifact_sets:
+        outputs = ", ".join(output_name for _, output_name in artifact_set.outputs)
+        print(f"{artifact_set.slug}: {artifact_set.name} ({outputs})")
+
+
+def _write_artifacts(
+    project_root: Path,
+    output_root: Path,
+    artifact_sets: Sequence[ExampleArtifactSet],
+) -> int:
+    for artifact_set in artifact_sets:
         _run_artifact_set(project_root, output_root, artifact_set)
-        print(f"generated: {artifact_set.name}")
+        print(f"generated: {artifact_set.slug}")
     return 0
 
 
-def _check_artifacts(project_root: Path, output_root: Path) -> int:
-    _write_artifacts(project_root, output_root)
+def _check_artifacts(
+    project_root: Path,
+    output_root: Path,
+    artifact_sets: Sequence[ExampleArtifactSet],
+) -> int:
+    _write_artifacts(project_root, output_root, artifact_sets)
 
     examples_dir = project_root / "examples"
     stale_files: list[str] = []
-    for artifact_set in ARTIFACT_SETS:
+    for artifact_set in artifact_sets:
         for _, output_name in artifact_set.outputs:
             expected = (examples_dir / output_name).read_text(encoding="utf-8")
             generated = (output_root / output_name).read_text(encoding="utf-8")
