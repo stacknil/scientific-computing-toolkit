@@ -20,6 +20,7 @@ configs/                 Example configuration with placeholder paths
 docs/                    Method notes, data policy, and reproducibility checklist
 scripts/                 Command-line workflows for each diagnostic
 src/climate_diagnostics/ Shared utilities for gridded climate analysis
+tests/                   Synthetic-data checks for core diagnostics
 SANITIZATION_REPORT.md   Local cleanup summary for this public-safe export
 ```
 
@@ -33,6 +34,12 @@ python -m pip install -e .
 ```
 
 On macOS/Linux, activate the environment with `source .venv/bin/activate`.
+
+Run the lightweight synthetic-data checks with:
+
+```powershell
+python -m unittest discover -s tests
+```
 
 ## Example Usage
 

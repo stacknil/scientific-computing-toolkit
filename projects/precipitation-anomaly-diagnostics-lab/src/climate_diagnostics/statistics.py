@@ -21,13 +21,19 @@ def representative_years(years: np.ndarray, values: np.ndarray, count_each: int 
     """Select low, high, and near-normal representative years from a series."""
     values = np.asarray(values, dtype=float)
     years = np.asarray(years, dtype=int)
+    if count_each < 1:
+        raise ValueError("count_each must be at least 1.")
     mask = np.isfinite(values)
     values = values[mask]
     years = years[mask]
     if values.size == 0:
         return pd.DataFrame(columns=["category", "rank", "year", "value", "z_score"])
 
-    z = (values - values.mean()) / values.std(ddof=0)
+    std = values.std(ddof=0)
+    if not np.isfinite(std) or std == 0:
+        z = np.zeros_like(values, dtype=float)
+    else:
+        z = (values - values.mean()) / std
     order_low = np.argsort(z)[:count_each]
     order_high = np.argsort(z)[-count_each:][::-1]
     order_near = np.argsort(np.abs(z))[:count_each]
@@ -79,11 +85,16 @@ def partial_corr_matrix(values: np.ndarray, columns: Sequence[str]) -> tuple[pd.
     x = np.asarray(values, dtype=float)
     if x.ndim != 2 or x.shape[1] < 3:
         raise ValueError("Partial correlation requires a 2D array with at least 3 columns.")
+    if len(columns) != x.shape[1]:
+        raise ValueError("Number of column names must match the number of data columns.")
+    x = x[np.isfinite(x).all(axis=1)]
+    df = x.shape[0] - x.shape[1]
+    if df <= 0:
+        raise ValueError("Partial correlation requires more complete rows than variables.")
     corr = np.corrcoef(x, rowvar=False)
     precision = np.linalg.pinv(corr)
     pcorr = np.eye(x.shape[1], dtype=float)
     pvals = np.zeros_like(pcorr)
-    df = x.shape[0] - x.shape[1]
     for i in range(x.shape[1]):
         for j in range(i + 1, x.shape[1]):
             denom = np.sqrt(precision[i, i] * precision[j, j])
@@ -99,6 +110,10 @@ def autocorr_table(x: np.ndarray, max_lag: int) -> pd.DataFrame:
     """Autocorrelation table for lags 1..max_lag."""
     rows = []
     arr = np.asarray(x, dtype=float)
+    if max_lag < 1:
+        raise ValueError("max_lag must be at least 1.")
+    if arr.size <= max_lag:
+        raise ValueError("Series length must be greater than max_lag.")
     for lag in range(1, max_lag + 1):
         r, p = stats.pearsonr(arr[lag:], arr[:-lag])
         rows.append({"lag": lag, "r": float(r), "p": float(p), "n": int(arr.size - lag)})
@@ -109,6 +124,12 @@ def crosscorr_table(x: np.ndarray, y: np.ndarray, max_lag: int) -> pd.DataFrame:
     """Cross-correlation table using Corr(X_t, Y_{t+lag})."""
     x = np.asarray(x, dtype=float)
     y = np.asarray(y, dtype=float)
+    if x.size != y.size:
+        raise ValueError("Cross-correlation inputs must have the same length.")
+    if max_lag < 0:
+        raise ValueError("max_lag must be non-negative.")
+    if x.size <= max_lag:
+        raise ValueError("Series length must be greater than max_lag.")
     rows = []
     for lag in range(-max_lag, max_lag + 1):
         if lag == 0:
@@ -153,6 +174,8 @@ def north_error(eigvals: np.ndarray, n: int) -> np.ndarray:
 
 def eof_svd(field: xr.DataArray, nmodes: int, weight_lat: bool = True) -> tuple[xr.DataArray, xr.DataArray, np.ndarray, np.ndarray]:
     """EOF decomposition with optional square-root cosine-latitude weighting."""
+    if nmodes < 1:
+        raise ValueError("nmodes must be at least 1.")
     x = field.stack(space=("latitude", "longitude")).transpose("time", "space").dropna("space", how="all")
     weights = np.sqrt(np.cos(np.deg2rad(x["latitude"]))) if weight_lat else xr.ones_like(x["latitude"])
     xw = (x * weights).values.astype(float)
@@ -164,6 +187,9 @@ def eof_svd(field: xr.DataArray, nmodes: int, weight_lat: bool = True) -> tuple[
     n_time = xw.shape[0]
     if n_time < 3:
         raise ValueError("EOF analysis requires at least 3 time steps.")
+    max_modes = min(xw.shape)
+    if nmodes > max_modes:
+        raise ValueError(f"Requested {nmodes} EOF modes, but only {max_modes} modes are available.")
 
     u, s, vt = np.linalg.svd(xw, full_matrices=False)
     eigvals = (s**2) / (n_time - 1)
@@ -192,11 +218,13 @@ def ols_with_intercept(x: np.ndarray, y: np.ndarray) -> dict[str, np.ndarray | f
     y = y[mask]
     n = y.size
     xd = np.column_stack([np.ones(n), x])
+    p = x.shape[1]
+    df = n - p - 1
+    if df <= 0:
+        raise ValueError("OLS requires more complete observations than parameters.")
     beta, *_ = np.linalg.lstsq(xd, y, rcond=None)
     fitted = xd @ beta
     resid = y - fitted
-    p = x.shape[1]
-    df = n - p - 1
     sse = float(np.sum(resid**2))
     sst = float(np.sum((y - y.mean()) ** 2))
     r2 = 1.0 - sse / sst if sst > 0 else np.nan

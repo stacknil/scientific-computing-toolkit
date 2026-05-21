@@ -31,6 +31,7 @@ At minimum, run:
 
 ```powershell
 python -m compileall src scripts
+python -m unittest discover -s tests
 ```
 
 For data-backed validation, run the target scripts against local data and compare:
@@ -48,5 +49,5 @@ For data-backed validation, run the target scripts against local data and compar
 - [ ] No school identifiers.
 - [ ] No local paths.
 - [ ] No course submission artifacts.
-- [ ] No secrets or credentials.
+- [ ] No credential material.
 - [ ] No generated binary artifacts with unknown metadata.
