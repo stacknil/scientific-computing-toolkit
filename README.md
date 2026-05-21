@@ -19,16 +19,25 @@ evidence.
 ## Supporting Spatiotemporal Diagnostics Project
 
 [`projects/precipitation-anomaly-diagnostics`](projects/precipitation-anomaly-diagnostics/README.md)
-is a public-safe scientific-data diagnostics mini-lab. It demonstrates a
-reproducible workflow for precipitation anomaly preprocessing, EOF analysis,
-representative-period selection, composite analysis, and reviewer-friendly
-scientific interpretation.
+is the compact reviewer-facing mini-lab. It demonstrates a reproducible workflow
+for precipitation anomaly preprocessing, EOF analysis, representative-period
+selection, composite analysis, and reviewer-friendly scientific interpretation.
 
 [`projects/precipitation-anomaly-diagnostics-lab`](projects/precipitation-anomaly-diagnostics-lab/README.md)
-is a companion public-safe climate-diagnostics lab focused on configurable
-precipitation anomaly diagnostics, EOF/PC analysis, composite circulation
-checks, correlation/regression utilities, and explicit data-redistribution
-boundaries.
+is the extended lab variant with configurable diagnostics utilities. It expands
+the workflow with EOF/PC analysis, composite circulation checks,
+correlation/regression utilities, MCA-style coupled-field diagnostics, synthetic
+demonstration charts, and explicit data-redistribution boundaries.
+
+## Scope Boundary
+
+`sbom-diff-and-risk` remains the flagship release-facing tool in this repository.
+
+The precipitation diagnostics projects are supporting scientific-data mini-labs.
+They demonstrate reproducible analysis workflows, data-policy boundaries, and
+reviewer-friendly interpretation, but they are not part of the
+`sbom-diff-and-risk` release surface and should not be read as a separate
+meteorology portfolio.
 
 ## Why This Repository Exists
 
@@ -68,7 +77,7 @@ Project:
 [`precipitation-anomaly-diagnostics`](projects/precipitation-anomaly-diagnostics/README.md)
 
 Status:
-Public-safe mini-lab.
+Public-safe compact reviewer-facing mini-lab.
 
 What to review:
 Sanitized climate-diagnostics workflow, small derived example artifacts,
@@ -84,6 +93,26 @@ Useful entry points:
 - [Methodology](projects/precipitation-anomaly-diagnostics/docs/methodology.md)
 - [Inference framework](projects/precipitation-anomaly-diagnostics/docs/inference-framework.md)
 - [Example report](projects/precipitation-anomaly-diagnostics/reports/example-report.md)
+
+Project:
+[`precipitation-anomaly-diagnostics-lab`](projects/precipitation-anomaly-diagnostics-lab/README.md)
+
+Status:
+Public-safe extended lab variant with configurable diagnostics utilities.
+
+What to review:
+Detailed calculation methods, inference boundaries, configurable analysis
+scripts, synthetic chart generation, and a synthetic inference report.
+
+This extended lab is a supporting scientific-data project and is not part of
+the `sbom-diff-and-risk` release surface.
+
+Useful entry points:
+
+- [`precipitation-anomaly-diagnostics-lab` README](projects/precipitation-anomaly-diagnostics-lab/README.md)
+- [Calculation methods](projects/precipitation-anomaly-diagnostics-lab/docs/calculation-methods.md)
+- [Inference analysis](projects/precipitation-anomaly-diagnostics-lab/docs/inference-analysis.md)
+- [Synthetic inference report](projects/precipitation-anomaly-diagnostics-lab/examples/synthetic-inference-report.md)
 
 ## Verification and Release Evidence
 
