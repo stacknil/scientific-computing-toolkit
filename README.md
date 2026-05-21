@@ -14,6 +14,14 @@ can optionally record PyPI provenance and OpenSSF Scorecard evidence.
 For a fast reviewer overview, start with the [`sbom-diff-and-risk` reviewer
 brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md).
 
+## Additional Project
+
+[`projects/precipitation-anomaly-diagnostics`](projects/precipitation-anomaly-diagnostics/README.md)
+is a public-safe climate diagnostics mini-lab. It demonstrates a reproducible
+workflow for precipitation anomaly preprocessing, EOF analysis, representative
+year selection, circulation composites, and reviewer-friendly scientific
+interpretation.
+
 ## Why This Repository Exists
 
 Scientific and security-oriented engineering often needs small, inspectable
@@ -46,6 +54,24 @@ Useful entry points:
 - [Reviewer evidence pack](tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md)
 - [v0.9.0 release notes][release-notes-v090]
 - [Examples](tools/sbom-diff-and-risk/examples/)
+
+Project:
+[`precipitation-anomaly-diagnostics`](projects/precipitation-anomaly-diagnostics/README.md)
+
+Status:
+Public-safe mini-lab.
+
+What to review:
+Sanitized climate-diagnostics workflow, small derived example artifacts,
+methodology notes, data policy, and synthetic-data tests.
+
+Useful entry points:
+
+- [`precipitation-anomaly-diagnostics` README](projects/precipitation-anomaly-diagnostics/README.md)
+- [Data policy](projects/precipitation-anomaly-diagnostics/docs/data-policy.md)
+- [Methodology](projects/precipitation-anomaly-diagnostics/docs/methodology.md)
+- [Inference framework](projects/precipitation-anomaly-diagnostics/docs/inference-framework.md)
+- [Example report](projects/precipitation-anomaly-diagnostics/reports/example-report.md)
 
 ## Verification and Release Evidence
 

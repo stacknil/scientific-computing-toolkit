@@ -8,6 +8,11 @@ updates:
       - "examples/**"
       - "tests/fixtures/**"
 
+  - package-ecosystem: "pip"
+    directory: "/projects/precipitation-anomaly-diagnostics"
+    schedule:
+      interval: "weekly"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

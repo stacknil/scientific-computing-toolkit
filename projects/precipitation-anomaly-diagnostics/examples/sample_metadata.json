@@ -1,0 +1,9 @@
+{
+  "project": "precipitation-anomaly-diagnostics",
+  "domain": "scientific computing / climate diagnostics",
+  "region": "eastern China, east of 105E and south of 42.5N",
+  "period": "1961-2022",
+  "month": "July",
+  "raw_data_redistributed": false,
+  "notes": "Example CSV and figures are derived demonstration artifacts; raw datasets must be obtained from original providers."
+}
