@@ -28,6 +28,8 @@ For CI consumption of summary-only output, see
 [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
 For a consumer-facing GitHub Actions example, see
 [docs/github-actions-consumer-example.md](docs/github-actions-consumer-example.md).
+For regenerating checked-in local example outputs, see
+[docs/example-artifact-regeneration.md](docs/example-artifact-regeneration.md).
 
 1. If you want to verify `sbom-diff-and-risk` itself, start with
    [docs/verification.md](docs/verification.md).
@@ -316,6 +318,14 @@ The [examples/](examples/) directory includes:
 - provenance-aware sample reports at [sample-provenance-report.json](examples/sample-provenance-report.json), [sample-provenance-report.md](examples/sample-provenance-report.md), and [sample-provenance-report.sarif](examples/sample-provenance-report.sarif)
 - Scorecard-aware sample reports at [sample-scorecard-report.json](examples/sample-scorecard-report.json), [sample-scorecard-report.md](examples/sample-scorecard-report.md), and [sample-scorecard-report.sarif](examples/sample-scorecard-report.sarif)
 - requirements-based sample reports at [sample-requirements-report.json](examples/sample-requirements-report.json) and [sample-requirements-report.md](examples/sample-requirements-report.md)
+
+After changing local example inputs, regenerate checked-in deterministic
+examples with:
+
+```bash
+python scripts/regenerate-example-artifacts.py
+python scripts/regenerate-example-artifacts.py --check
+```
 
 ## Enforcement Mode
 
