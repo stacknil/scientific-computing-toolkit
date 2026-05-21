@@ -12,9 +12,14 @@ It uses conservative heuristics for change intelligence. By default it does not 
 
 ## Start Here
 
+For the clearest reviewer route, start with
+[docs/reviewer-path.md](docs/reviewer-path.md). It gives a 30-second,
+5-minute, and 15-minute path through the project, plus separate release
+evidence and deep-review routes.
+
 This project has two different provenance stories:
 
-For a concise reviewer-facing overview, start with
+For a concise reviewer-facing overview after choosing the review route, use
 [docs/reviewer-brief.md](docs/reviewer-brief.md). For reproducible review
 evidence and verification commands, use
 [docs/reviewer-evidence-pack.md](docs/reviewer-evidence-pack.md). For

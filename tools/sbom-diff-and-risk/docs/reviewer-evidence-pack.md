@@ -2,6 +2,9 @@
 
 This page is a reproducible evidence checklist for reviewing `sbom-diff-and-risk`. It focuses on what can be verified from the repository, examples, GitHub release assets, and TestPyPI dry-run documentation. It does not introduce new CLI behavior.
 
+For the shortest ordered route through these materials, start with
+[reviewer-path.md](reviewer-path.md).
+
 ## Project Identity
 
 `sbom-diff-and-risk` is a local-first deterministic CLI for comparing SBOMs and dependency manifests. It is designed to produce stable review evidence for dependency changes.

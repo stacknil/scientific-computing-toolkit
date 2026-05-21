@@ -6,6 +6,9 @@
 
 Current released version: `v0.9.0`.
 
+For the shortest ordered review route, use
+[reviewer-path.md](reviewer-path.md).
+
 ## Why this project matters
 
 Dependency review often needs evidence that is stable enough for code review, CI, and audit trails. This project turns dependency changes into repeatable findings, optional policy outcomes, and machine-readable security output while keeping default analysis offline and file-based.
@@ -39,13 +42,14 @@ Dependency review often needs evidence that is stable enough for code review, CI
 
 ## Quick verification path
 
-1. Read this brief for the 30-second project shape.
-2. Read [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for reproducible commands and evidence paths.
-3. Read `README.md` for CLI scope, supported inputs, and examples.
-4. Read `docs/verification.md` to choose the right verification path.
-5. Use `docs/self-provenance.md` when verifying workflow-built wheel or source distribution artifacts.
-6. Use `docs/release-provenance.md` when verifying GitHub Release assets.
-7. Use `docs/pypi-production-publishing-decision.md` before making any production PyPI publishing decision.
+1. Use [reviewer-path.md](reviewer-path.md) as the ordered route.
+2. Read this brief for the 30-second project shape.
+3. Read [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for reproducible commands and evidence paths.
+4. Read `README.md` for CLI scope, supported inputs, and examples.
+5. Read `docs/verification.md` to choose the right verification path.
+6. Use `docs/self-provenance.md` when verifying workflow-built wheel or source distribution artifacts.
+7. Use `docs/release-provenance.md` when verifying GitHub Release assets.
+8. Use `docs/pypi-production-publishing-decision.md` before making any production PyPI publishing decision.
 
 ## What this project intentionally does not claim
 
