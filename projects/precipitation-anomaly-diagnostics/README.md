@@ -3,6 +3,12 @@
 A compact spatiotemporal diagnostics module for reproducible precipitation
 anomaly analysis.
 
+Repository role:
+This is the compact reviewer-facing precipitation diagnostics mini-lab. It is a
+supporting scientific-data project inside `scientific-computing-toolkit`, not
+part of the `sbom-diff-and-risk` release surface and not a separate meteorology
+portfolio.
+
 This project demonstrates how to turn gridded scientific data into a
 reviewable analysis workflow:
 

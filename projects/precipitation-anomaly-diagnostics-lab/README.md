@@ -2,6 +2,14 @@
 
 This repository is a public-safe scientific-computing mini-lab for gridded climate diagnostics. It focuses on precipitation anomaly analysis, climatology and standard deviation fields, representative-year selection, EOF/PC diagnostics, composite circulation analysis, correlation and regression checks, trend diagnostics, and MCA-style coupled-field analysis.
 
+Repository role:
+This is the extended precipitation diagnostics lab variant with configurable
+diagnostics utilities. It is a supporting scientific-data project inside
+`scientific-computing-toolkit`, not part of the `sbom-diff-and-risk` release
+surface and not a separate meteorology portfolio. For the compact
+reviewer-facing version, see
+[`projects/precipitation-anomaly-diagnostics`](../precipitation-anomaly-diagnostics/README.md).
+
 The project is maintained under the pseudonymous technical identity `stacknil`. It is not an official institutional project and does not include raw course materials, restricted datasets, or personal identifiers.
 
 ## Workflow
