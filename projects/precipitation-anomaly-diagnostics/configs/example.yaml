@@ -1,0 +1,32 @@
+project:
+  name: precipitation-anomaly-diagnostics
+
+paths:
+  precipitation_file: /path/to/monthly_precipitation.nc
+  circulation_dir: /path/to/reanalysis_fields/
+  output_dir: outputs/
+
+variables:
+  precipitation: pre
+  u_wind: uwnd
+  v_wind: vwnd
+  geopotential_height: hgt
+  omega: omega
+
+analysis:
+  month: 7
+  climatology_period: [1961, 2022]
+  region:
+    lon_min: 105.0
+    lon_max: 140.25
+    lat_min: 14.75
+    lat_max: 42.5
+  eof:
+    n_modes: 10
+    typical_year_threshold: 0.9
+    monte_carlo_iterations: 1000
+    monte_carlo_quantile: 0.95
+    random_seed: 2026
+
+notes:
+  raw_data_policy: Raw datasets must be obtained from original providers and are not redistributed by this repository.

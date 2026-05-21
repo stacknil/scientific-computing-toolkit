@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configs and outputs
+configs/local*.yaml
+data/
+raw/
+intermediate/
+outputs/
+tmp/
+scratch/
+
+# Large climate data
+*.nc
+*.nc4
+*.grib
+*.grb
+*.hdf
+*.h5
+*.zarr/
+
+# Private / course artifacts
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.pdf
+*.rar
+*.zip
+*.7z
+
+# Secrets and local environment
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*token*
+*secret*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
