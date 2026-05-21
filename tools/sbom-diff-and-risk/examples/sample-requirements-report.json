@@ -43,9 +43,9 @@
         "classification": "version_changed",
         "before": {
           "name": "requests",
-          "version": "2.31.0",
+          "version": "2.33.0",
           "ecosystem": "pypi",
-          "purl": "pkg:pypi/requests@2.31.0",
+          "purl": "pkg:pypi/requests@2.33.0",
           "license_id": null,
           "supplier": null,
           "source_url": null,
@@ -54,8 +54,8 @@
           "evidence": {
             "source_format": "requirements-txt",
             "line_number": 1,
-            "raw_requirement": "requests==2.31.0",
-            "specifier": "==2.31.0",
+            "raw_requirement": "requests==2.33.0",
+            "specifier": "==2.33.0",
             "marker": null,
             "extras": [],
             "url": null
@@ -63,9 +63,9 @@
         },
         "after": {
           "name": "requests",
-          "version": "2.32.0",
+          "version": "2.34.2",
           "ecosystem": "pypi",
-          "purl": "pkg:pypi/requests@2.32.0",
+          "purl": "pkg:pypi/requests@2.34.2",
           "license_id": null,
           "supplier": null,
           "source_url": null,
@@ -74,8 +74,8 @@
           "evidence": {
             "source_format": "requirements-txt",
             "line_number": 1,
-            "raw_requirement": "requests==2.32.0",
-            "specifier": "==2.32.0",
+            "raw_requirement": "requests==2.34.2",
+            "specifier": "==2.34.2",
             "marker": null,
             "extras": [],
             "url": null
@@ -115,9 +115,9 @@
       "component_key": "purl:pkg:pypi/requests",
       "component": {
         "name": "requests",
-        "version": "2.32.0",
+        "version": "2.34.2",
         "ecosystem": "pypi",
-        "purl": "pkg:pypi/requests@2.32.0",
+        "purl": "pkg:pypi/requests@2.34.2",
         "license_id": null,
         "supplier": null,
         "source_url": null,
@@ -126,8 +126,8 @@
         "evidence": {
           "source_format": "requirements-txt",
           "line_number": 1,
-          "raw_requirement": "requests==2.32.0",
-          "specifier": "==2.32.0",
+          "raw_requirement": "requests==2.34.2",
+          "specifier": "==2.34.2",
           "marker": null,
           "extras": [],
           "url": null
@@ -165,9 +165,9 @@
       "component_key": "purl:pkg:pypi/requests",
       "component": {
         "name": "requests",
-        "version": "2.32.0",
+        "version": "2.34.2",
         "ecosystem": "pypi",
-        "purl": "pkg:pypi/requests@2.32.0",
+        "purl": "pkg:pypi/requests@2.34.2",
         "license_id": null,
         "supplier": null,
         "source_url": null,
@@ -176,8 +176,8 @@
         "evidence": {
           "source_format": "requirements-txt",
           "line_number": 1,
-          "raw_requirement": "requests==2.32.0",
-          "specifier": "==2.32.0",
+          "raw_requirement": "requests==2.34.2",
+          "specifier": "==2.34.2",
           "marker": null,
           "extras": [],
           "url": null
@@ -215,9 +215,9 @@
       "component_key": "purl:pkg:pypi/requests",
       "component": {
         "name": "requests",
-        "version": "2.32.0",
+        "version": "2.34.2",
         "ecosystem": "pypi",
-        "purl": "pkg:pypi/requests@2.32.0",
+        "purl": "pkg:pypi/requests@2.34.2",
         "license_id": null,
         "supplier": null,
         "source_url": null,
@@ -226,8 +226,8 @@
         "evidence": {
           "source_format": "requirements-txt",
           "line_number": 1,
-          "raw_requirement": "requests==2.32.0",
-          "specifier": "==2.32.0",
+          "raw_requirement": "requests==2.34.2",
+          "specifier": "==2.34.2",
           "marker": null,
           "extras": [],
           "url": null
