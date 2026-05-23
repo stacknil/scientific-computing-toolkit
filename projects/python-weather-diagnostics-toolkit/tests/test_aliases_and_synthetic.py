@@ -23,6 +23,14 @@ def test_get_data_array_accepts_known_variable_aliases():
     assert float(da.values[0]) == 273.15
 
 
+def test_get_data_array_accepts_specific_humidity_alias():
+    ds = xr.Dataset(data_vars={"q": (("x",), [0.012])})
+
+    da = get_data_array(ds, "specific_humidity")
+
+    assert float(da.values[0]) == 0.012
+
+
 def test_synthetic_dataset_is_tiny_and_labeled_synthetic():
     ds = make_synthetic_weather_dataset()
 

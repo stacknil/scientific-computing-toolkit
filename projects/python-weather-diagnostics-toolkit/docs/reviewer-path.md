@@ -20,6 +20,8 @@ Inspect:
 - [`docs/methodology.md`](methodology.md)
 - [`docs/calculation-methods.md`](calculation-methods.md)
 - [`docs/diagnostic-analysis.md`](diagnostic-analysis.md)
+- [`docs/station-precipitation-workflows.md`](station-precipitation-workflows.md)
+- [`docs/climate-statistical-diagnostics.md`](climate-statistical-diagnostics.md)
 - [`docs/data-policy.md`](data-policy.md)
 - [`examples/synthetic-weather-diagnostics-report.md`](../examples/synthetic-weather-diagnostics-report.md)
 - [`examples/sample_metadata.json`](../examples/sample_metadata.json)
@@ -32,6 +34,8 @@ Questions to answer:
 - Are field aliases separated from scientific calculations?
 - Are dewpoint, vorticity, advection, regional means, and ensemble summaries
   described with equations or explicit numerical assumptions?
+- Are station interpolation, precipitation accumulation conversion, and
+  climate-statistics helpers documented with missing-data behavior?
 - Are synthetic examples clearly labeled as synthetic?
 - Are forecast-skill claims avoided unless real validation data are supplied?
 
@@ -45,6 +49,8 @@ python -m pytest
 python -m compileall src scripts
 python scripts/run_thermodynamic_check.py --help
 python scripts/run_dynamics_summary.py --help
+python scripts/run_precipitation_workflow.py --help
+python scripts/run_climate_statistics.py --help
 python scripts/run_synthetic_ensemble.py --help
 ```
 
@@ -82,10 +88,15 @@ For a deeper review, read the project in this order:
 2. `src/python_weather_diagnostics_toolkit/thermodynamics.py` and
    `docs/calculation-methods.md` for dewpoint formulas and round-trip checks.
 3. `src/python_weather_diagnostics_toolkit/dynamics.py` for grid spacing,
-   vorticity, and advection.
-4. `src/python_weather_diagnostics_toolkit/features.py` for cosine-latitude
+   vorticity, advection, and moisture flux divergence.
+4. `src/python_weather_diagnostics_toolkit/precipitation.py` and
+   `src/python_weather_diagnostics_toolkit/interpolation.py` for station and
+   precipitation preparation helpers.
+5. `src/python_weather_diagnostics_toolkit/climate.py` for anomaly,
+   composite, and correlation helpers.
+6. `src/python_weather_diagnostics_toolkit/features.py` for cosine-latitude
    regional means and time-ordered baseline modeling.
-5. `src/python_weather_diagnostics_toolkit/ensemble.py` for deterministic
+7. `src/python_weather_diagnostics_toolkit/ensemble.py` for deterministic
    synthetic plume summaries.
 
 This route should make the project reviewable as code, not just as a

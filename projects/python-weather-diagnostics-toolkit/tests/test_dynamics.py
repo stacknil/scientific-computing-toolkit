@@ -4,6 +4,7 @@ import pytest
 from python_weather_diagnostics_toolkit.dynamics import (
     gradient_on_latlon,
     horizontal_advection,
+    moisture_flux_divergence,
     relative_vorticity,
 )
 
@@ -52,3 +53,15 @@ def test_horizontal_advection_rejects_mismatched_wind_shape():
 
     with pytest.raises(ValueError, match="u_wind shape"):
         horizontal_advection(scalar, u, v, lat, lon)
+
+
+def test_uniform_moisture_flux_has_zero_divergence():
+    lat = np.linspace(30.0, 35.0, 5)
+    lon = np.linspace(100.0, 105.0, 6)
+    q = np.ones((lat.size, lon.size)) * 0.01
+    u = np.ones_like(q) * 5.0
+    v = np.ones_like(q) * -2.0
+
+    divergence = moisture_flux_divergence(q, u, v, lat, lon)
+
+    np.testing.assert_allclose(divergence, 0.0, atol=1e-15)

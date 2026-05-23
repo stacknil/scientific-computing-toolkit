@@ -58,6 +58,38 @@ The baseline is useful as a workflow sanity check. It should not be described
 as operational forecast skill without independent validation, comparison
 baselines, and real-data provenance.
 
+## Station And Precipitation Workflow
+
+The synthetic station workflow replaces a missing-value sentinel, interpolates
+finite station values to a small grid, converts accumulated precipitation to
+step rates, and counts threshold exceedance points.
+
+Command:
+
+```bash
+python scripts/run_precipitation_workflow.py
+```
+
+Interpretation:
+This checks the mechanics of a station-to-grid and accumulation-conversion
+pipeline. It does not redistribute station observations, forecast products, or
+official threshold definitions.
+
+## Climate Statistics
+
+The climate-statistics example computes anomalies, standardized anomalies,
+event-mask composites, and grid-point correlations on synthetic arrays.
+
+Command:
+
+```bash
+python scripts/run_climate_statistics.py
+```
+
+Interpretation:
+The output demonstrates how to structure exploratory climate statistics. It
+does not establish causation, event attribution, or forecast skill.
+
 ## Synthetic Ensemble
 
 The Nino-style ensemble example summarizes deterministic synthetic plume data:

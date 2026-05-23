@@ -20,6 +20,7 @@ VARIABLE_ALIASES: dict[str, tuple[str, ...]] = {
     "v10": ("v10", "10m_v_component_of_wind", "10v"),
     "tp": ("tp", "total_precipitation"),
     "temperature": ("t", "temperature"),
+    "specific_humidity": ("q", "specific_humidity"),
     "relative_humidity": ("r", "relative_humidity"),
     "u": ("u", "u_component_of_wind"),
     "v": ("v", "v_component_of_wind"),

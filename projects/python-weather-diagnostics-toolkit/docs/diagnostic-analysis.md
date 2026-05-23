@@ -109,6 +109,28 @@ fluxes, and analysis increments. The public project keeps the default
 calculation narrow so it remains reproducible and testable without heavy
 external data.
 
+## Moisture Transport And Heavy Precipitation
+
+For heavy-precipitation case studies, the toolkit supports horizontal moisture
+flux divergence:
+
+```text
+d(q u)/dx + d(q v)/dy
+```
+
+Interpretation pattern:
+
+```text
+moisture convergence + sustained lift + favorable circulation -> plausible rainfall support
+```
+
+Care points:
+
+- moisture convergence is not rainfall by itself
+- vertically integrated transport may be more appropriate than one pressure level
+- precipitation totals should be checked against observation or reanalysis products
+- terrain, convection, and microphysics are outside this compact diagnostic
+
 ## Regional Temperature Baseline
 
 The baseline model is intentionally simple:
@@ -158,6 +180,41 @@ probability shifts over lead time -> changing member consensus
 In the deterministic synthetic example, the ensemble starts warm, becomes
 mixed near lead month 12, and shifts cold by lead month 24. This is an example
 of interpreting an artificial plume, not a statement about the real ocean.
+
+## Station, Precipitation, And Extremes
+
+Station observations and gridded precipitation require an explicit quality
+control chain before interpretation:
+
+```text
+missing sentinel -> finite-value mask -> interpolation or event total -> threshold check
+```
+
+Threshold exceedance should be described according to the threshold source:
+
+- absolute threshold: value meets a fixed user-supplied amount
+- percentile threshold: value exceeds a local historical percentile
+- standardized anomaly: value exceeds a baseline-relative spread multiple
+
+The public toolkit provides mechanics for these checks. It does not define
+official warnings or redistribute station records.
+
+## Climate Statistics
+
+Anomaly, composite, and correlation outputs are exploratory diagnostics.
+
+Interpretation pattern:
+
+```text
+well-defined baseline + transparent event mask + sufficient samples -> interpretable statistic
+```
+
+Care points:
+
+- correlation is not causation
+- composite masks should be selected before interpreting the resulting field
+- undefined baselines or zero-variance points should remain visible as `NaN`
+- prediction workflows should keep time-ordered validation
 
 ## Reviewer Questions
 
