@@ -44,6 +44,7 @@ The dynamic calculations operate on regular latitude/longitude grids:
 geopotential height = geopotential / g0
 relative vorticity = dv/dx - du/dy
 horizontal advection = -(u dS/dx + v dS/dy)
+dry temperature tendency ~= -u dT/dx - v dT/dy - omega dT/dp + kappa T omega / p
 ```
 
 Grid spacing is approximated from spherical Earth geometry:
@@ -110,6 +111,10 @@ the result reproducible. Metrics include RMSE, MAE, bias, and correlation.
 
 The baseline is included for workflow demonstration only. It is not a claim of
 forecast skill.
+
+For focused model review, an alpha grid can be evaluated with the same
+time-ordered split. This gives a compact view of regularization sensitivity
+without random temporal leakage.
 
 ## 8. Synthetic Ensemble Summary
 

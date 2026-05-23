@@ -109,6 +109,30 @@ fluxes, and analysis increments. The public project keeps the default
 calculation narrow so it remains reproducible and testable without heavy
 external data.
 
+## Temperature-Tendency Decomposition
+
+The focused case-study abstraction needs a fuller tendency view than one
+horizontal advection map. The dry pressure-coordinate decomposition separates:
+
+- zonal temperature advection
+- meridional temperature advection
+- vertical temperature advection
+- adiabatic compression or expansion
+
+Interpretation pattern:
+
+```text
+dominant negative horizontal term + synoptic cold-air pathway -> cold-advection support
+vertical/adiabatic terms of opposite sign -> partial compensation or reinforcement
+```
+
+Care points:
+
+- signs depend on coordinate conventions and pressure-level ordering
+- terms are K/s unless rescaled for display
+- diabatic heating is not diagnosed by this compact helper
+- a real case should compare term sums with observed or analyzed temperature change
+
 ## Moisture Transport And Heavy Precipitation
 
 For heavy-precipitation case studies, the toolkit supports horizontal moisture
@@ -153,6 +177,10 @@ large residual tails -> weak extreme-event handling
 The current public implementation does not claim skill because it does not
 bundle a real validation dataset or persistence comparison. It provides the
 calculation structure needed for such a review.
+
+The alpha-grid helper adds a small model-selection surface. It is useful for
+checking whether the baseline is sensitive to regularization strength, while
+preserving time order in the train/test split.
 
 ## Ensemble Plume Interpretation
 

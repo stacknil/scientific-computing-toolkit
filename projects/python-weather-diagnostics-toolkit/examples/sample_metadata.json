@@ -10,9 +10,11 @@
     "thermodynamic dewpoint checks",
     "relative-vorticity diagnostics",
     "temperature-advection diagnostics",
+    "dry temperature-tendency decomposition",
     "station interpolation and precipitation accumulation conversion",
     "climate anomaly, composite, and correlation diagnostics",
     "time-ordered baseline evaluation",
+    "ridge alpha-grid metric review",
     "synthetic ensemble summaries"
   ]
 }

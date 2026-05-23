@@ -4,6 +4,7 @@ import pytest
 from python_weather_diagnostics_toolkit.features import (
     area_mean,
     regression_metrics,
+    ridge_alpha_grid,
     ridge_regression_fit_predict,
 )
 
@@ -37,6 +38,17 @@ def test_ridge_baseline_returns_predictions_and_metrics():
     assert metrics["rmse"] < 0.05
 
 
+def test_ridge_alpha_grid_returns_sorted_metric_table():
+    x = np.column_stack([np.arange(30.0), np.sin(np.arange(30.0))])
+    y = 1.0 + x[:, 0] * 0.2 + x[:, 1] * 0.5
+
+    table = ridge_alpha_grid(x, y, [10.0, 0.0, 1.0], train_fraction=0.7)
+
+    assert set(["alpha", "rmse", "mae", "bias", "correlation"]).issubset(table.columns)
+    assert table["rmse"].is_monotonic_increasing
+    assert sorted(table["alpha"].tolist()) == [0.0, 1.0, 10.0]
+
+
 def test_ridge_baseline_rejects_non_finite_training_values():
     x = np.column_stack([np.arange(20.0), np.arange(20.0) * 0.5])
     y = np.arange(20.0)
@@ -49,3 +61,11 @@ def test_ridge_baseline_rejects_non_finite_training_values():
 def test_regression_metrics_reject_empty_inputs():
     with pytest.raises(ValueError, match="at least one sample"):
         regression_metrics(np.array([]), np.array([]))
+
+
+def test_ridge_alpha_grid_rejects_negative_alpha():
+    x = np.column_stack([np.arange(20.0), np.arange(20.0) * 0.5])
+    y = np.arange(20.0)
+
+    with pytest.raises(ValueError, match="non-negative"):
+        ridge_alpha_grid(x, y, [1.0, -0.1])

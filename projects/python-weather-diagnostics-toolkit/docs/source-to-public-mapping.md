@@ -20,6 +20,7 @@ not a submitted report archive.
 | 500 hPa height and vorticity maps | `dynamics.py`, `diagnostic-analysis.md`, tests | map-specific code converted to numerical fields |
 | 850 hPa temperature advection | `dynamics.py`, `run_dynamics_summary.py` | calculation made dependency-light and synthetic-testable |
 | moisture transport diagnostics | `dynamics.py`, `diagnostic-analysis.md` | water-vapor process reframed as flux-divergence calculation |
+| focused cold-season case-study report | `focused-case-abstraction.md`, `dynamics.py`, `features.py` | report structure abstracted into tendency decomposition and alpha-grid review |
 | station observation cleaning and interpolation | `precipitation.py`, `interpolation.py`, `station-precipitation-workflows.md` | sentinel handling and IDW interpolation made synthetic-testable |
 | accumulated precipitation conversion | `precipitation.py`, `station-precipitation-workflows.md` | forecast accumulations converted without redistributing products |
 | anomaly, composite, and correlation exercises | `climate.py`, `climate-statistical-diagnostics.md` | statistical methods separated from local datasets |
@@ -50,11 +51,13 @@ Preserved:
 - humidity and dewpoint diagnostics
 - geopotential-height conversion
 - relative-vorticity and advection calculations
+- dry temperature-tendency term decomposition
 - moisture flux divergence
 - station interpolation and precipitation accumulation conversion
 - anomaly, composite, and correlation helpers
 - regional feature engineering
 - time-ordered baseline modeling
+- ridge alpha-grid metric review
 - ensemble summary interpretation
 
 Not preserved:
