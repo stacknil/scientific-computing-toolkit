@@ -53,6 +53,7 @@ jobs:
         run: |
           python scripts/run_thermodynamic_check.py --help
           python scripts/run_dynamics_summary.py --help
+          python scripts/run_focused_case_summary.py --help
           python scripts/run_precipitation_workflow.py --help
           python scripts/run_climate_statistics.py --help
           python scripts/run_synthetic_ensemble.py --help

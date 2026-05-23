@@ -40,6 +40,23 @@ The report also used regularized linear modeling with explicit metric review.
 The toolkit now includes `ridge_alpha_grid`, which evaluates a small alpha grid
 with the same time-ordered split used by the baseline model.
 
+## Synthetic Runner
+
+The public runner `scripts/run_focused_case_summary.py` connects the two halves
+of the arc:
+
+```text
+synthetic pressure-level fields
+-> temperature-tendency terms at a selected level
+-> synthetic physics-informed features
+-> ridge alpha-grid review
+-> residual diagnostics
+-> persistence-baseline comparison
+```
+
+The output is JSON so it can be read in CI logs or redirected into downstream
+review artifacts without carrying figures or source datasets.
+
 ## Interpretation Boundary
 
 The public project should say:
@@ -48,6 +65,8 @@ The public project should say:
   contributions under dry pressure-coordinate assumptions
 - the ridge alpha grid is a reproducible model-selection surface for a compact
   baseline
+- residual diagnostics and persistence comparison help frame the baseline as a
+  benchmark rather than a standalone forecast claim
 - synthetic examples demonstrate mechanics only
 
 The public project should not say:

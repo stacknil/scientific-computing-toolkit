@@ -53,6 +53,16 @@ diagnosis is driven by zonal flow, meridional flow, vertical motion, or dry
 adiabatic effects. The synthetic examples do not include diabatic heating or a
 real event.
 
+Command:
+
+```bash
+python scripts/run_focused_case_summary.py
+```
+
+The focused summary reports area-mean tendency terms, ridge alpha selection,
+residual diagnostics, and a persistence-baseline comparison from synthetic
+arrays.
+
 ## Baseline Prediction
 
 The ridge-regression baseline uses region-mean features and a time-ordered
