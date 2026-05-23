@@ -3,7 +3,9 @@ import pytest
 
 from python_weather_diagnostics_toolkit.features import (
     area_mean,
+    persistence_baseline,
     regression_metrics,
+    residual_diagnostics,
     ridge_alpha_grid,
     ridge_regression_fit_predict,
 )
@@ -69,3 +71,20 @@ def test_ridge_alpha_grid_rejects_negative_alpha():
 
     with pytest.raises(ValueError, match="non-negative"):
         ridge_alpha_grid(x, y, [1.0, -0.1])
+
+
+def test_persistence_baseline_aligns_future_truth_with_current_prediction():
+    series = np.array([10.0, 12.0, 15.0, 14.0])
+
+    baseline = persistence_baseline(series, lead_steps=1)
+
+    np.testing.assert_allclose(baseline["y_true"], np.array([12.0, 15.0, 14.0]))
+    np.testing.assert_allclose(baseline["y_pred"], np.array([10.0, 12.0, 15.0]))
+
+
+def test_residual_diagnostics_summarize_error_shape():
+    summary = residual_diagnostics(np.array([1.0, 2.0, 3.0]), np.array([1.5, 1.5, 3.0]))
+
+    assert summary["max_abs_residual"] == 0.5
+    assert summary["overprediction_fraction"] == 1 / 3
+    assert summary["underprediction_fraction"] == 1 / 3

@@ -12,7 +12,14 @@ from .dynamics import (
     temperature_tendency_terms,
 )
 from .ensemble import ensemble_summary, make_synthetic_nino_ensemble
-from .features import area_mean, regression_metrics, ridge_alpha_grid, ridge_regression_fit_predict
+from .features import (
+    area_mean,
+    persistence_baseline,
+    regression_metrics,
+    residual_diagnostics,
+    ridge_alpha_grid,
+    ridge_regression_fit_predict,
+)
 from .interpolation import idw_interpolate_station_to_grid
 from .precipitation import (
     cumulative_to_increment,
@@ -43,8 +50,10 @@ __all__ = [
     "make_synthetic_nino_ensemble",
     "mark_missing_sentinel",
     "moisture_flux_divergence",
+    "persistence_baseline",
     "pearson_correlation_field",
     "regression_metrics",
+    "residual_diagnostics",
     "relative_humidity_from_dewpoint",
     "relative_vorticity",
     "ridge_alpha_grid",

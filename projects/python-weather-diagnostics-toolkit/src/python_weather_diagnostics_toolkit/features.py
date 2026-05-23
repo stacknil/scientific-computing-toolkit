@@ -141,6 +141,24 @@ def ridge_alpha_grid(
     return pd.DataFrame(rows).sort_values(["rmse", "alpha"]).reset_index(drop=True)
 
 
+def persistence_baseline(series, *, lead_steps: int = 1) -> dict[str, np.ndarray]:
+    """Create a persistence baseline for a one-dimensional time series."""
+
+    values = np.asarray(series, dtype=float)
+    if values.ndim != 1:
+        raise ValueError("series must be one-dimensional")
+    if lead_steps <= 0:
+        raise ValueError("lead_steps must be positive")
+    if values.size <= lead_steps:
+        raise ValueError("series must contain more samples than lead_steps")
+    if not np.isfinite(values).all():
+        raise ValueError("series must contain only finite values")
+    return {
+        "y_true": values[lead_steps:],
+        "y_pred": values[:-lead_steps],
+    }
+
+
 def regression_metrics(y_true, y_pred) -> dict[str, float]:
     """Return RMSE, MAE, bias, and Pearson correlation."""
 
@@ -163,4 +181,27 @@ def regression_metrics(y_true, y_pred) -> dict[str, float]:
         "mae": float(np.mean(np.abs(err))),
         "bias": float(np.mean(err)),
         "correlation": corr,
+    }
+
+
+def residual_diagnostics(y_true, y_pred) -> dict[str, float]:
+    """Return residual summary diagnostics for model review."""
+
+    true = np.asarray(y_true, dtype=float)
+    pred = np.asarray(y_pred, dtype=float)
+    if true.shape != pred.shape:
+        raise ValueError("y_true and y_pred must have matching shapes")
+    if true.size == 0:
+        raise ValueError("residual diagnostics require at least one sample")
+    if not np.isfinite(true).all() or not np.isfinite(pred).all():
+        raise ValueError("residual diagnostics require finite values")
+
+    residual = pred - true
+    return {
+        "mean_residual": float(np.mean(residual)),
+        "median_residual": float(np.median(residual)),
+        "residual_std": float(np.std(residual, ddof=0)),
+        "max_abs_residual": float(np.max(np.abs(residual))),
+        "overprediction_fraction": float(np.mean(residual > 0.0)),
+        "underprediction_fraction": float(np.mean(residual < 0.0)),
     }

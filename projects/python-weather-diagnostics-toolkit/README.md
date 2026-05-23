@@ -49,6 +49,7 @@ python-weather-diagnostics-toolkit/
 |   +-- synthetic-weather-diagnostics-report.md
 +-- scripts/
 |   +-- run_dynamics_summary.py
+|   +-- run_focused_case_summary.py
 |   +-- run_precipitation_workflow.py
 |   +-- run_climate_statistics.py
 |   +-- run_synthetic_ensemble.py
@@ -86,6 +87,7 @@ Inspect the public CLI surfaces:
 ```bash
 python scripts/run_thermodynamic_check.py --help
 python scripts/run_dynamics_summary.py --help
+python scripts/run_focused_case_summary.py --help
 python scripts/run_precipitation_workflow.py --help
 python scripts/run_climate_statistics.py --help
 python scripts/run_synthetic_ensemble.py --help
@@ -95,6 +97,12 @@ Generate a synthetic ensemble summary:
 
 ```bash
 python scripts/run_synthetic_ensemble.py --out outputs/synthetic_ensemble_summary.csv
+```
+
+Run the focused synthetic case path:
+
+```bash
+python scripts/run_focused_case_summary.py
 ```
 
 ## Scientific Computing Surface
@@ -133,6 +141,7 @@ Statistical layer:
 - constructs time-ordered forecast tables from regional features
 - fits a deterministic ridge-regression baseline without random shuffling
 - evaluates ridge alpha grids with the same time-ordered split
+- compares residual diagnostics and a persistence baseline for focused reviews
 - reports RMSE, MAE, bias, and correlation as workflow diagnostics
 - summarizes synthetic ensemble spread, quantiles, and threshold probabilities
 
