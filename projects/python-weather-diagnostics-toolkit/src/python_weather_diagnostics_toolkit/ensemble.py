@@ -34,11 +34,18 @@ def make_synthetic_nino_ensemble(
 def ensemble_summary(df: pd.DataFrame) -> pd.DataFrame:
     """Summarize an ensemble by lead month."""
 
+    if df.empty or df.shape[1] == 0:
+        raise ValueError("ensemble summary requires at least one member and one lead")
+
+    values = df.astype(float)
+    if not np.isfinite(values.to_numpy()).all():
+        raise ValueError("ensemble summary requires finite member values")
+
     summary = pd.DataFrame(index=df.index)
-    summary["mean"] = df.mean(axis=1)
-    summary["spread"] = df.std(axis=1)
-    summary["p10"] = df.quantile(0.10, axis=1)
-    summary["p90"] = df.quantile(0.90, axis=1)
-    summary["warm_probability"] = (df >= 0.5).mean(axis=1)
-    summary["cold_probability"] = (df <= -0.5).mean(axis=1)
+    summary["mean"] = values.mean(axis=1)
+    summary["spread"] = values.std(axis=1, ddof=0)
+    summary["p10"] = values.quantile(0.10, axis=1)
+    summary["p90"] = values.quantile(0.90, axis=1)
+    summary["warm_probability"] = (values >= 0.5).mean(axis=1)
+    summary["cold_probability"] = (values <= -0.5).mean(axis=1)
     return summary

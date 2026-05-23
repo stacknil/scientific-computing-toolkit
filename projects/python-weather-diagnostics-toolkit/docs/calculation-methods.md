@@ -146,7 +146,9 @@ area_mean = sum(field * weight) / sum(valid_weight)
 
 This avoids treating all latitude rows as equal-area rows. The implementation
 supports arrays with time or pressure dimensions before the final
-latitude/longitude dimensions.
+latitude/longitude dimensions. If a reduction window contains no finite values,
+the result is `NaN`; this keeps missing-data coverage explicit instead of
+converting an empty region into a numerical zero.
 
 ## Time-Ordered Baseline Model
 
@@ -203,15 +205,18 @@ fixed seed. It then computes:
 
 ```text
 mean = ensemble mean
-spread = ensemble standard deviation
+spread = ensemble population standard deviation
 p10 = 10th percentile
 p90 = 90th percentile
 warm_probability = fraction(member >= 0.5)
 cold_probability = fraction(member <= -0.5)
 ```
 
-These calculations demonstrate ensemble-summary mechanics without embedding
-real forecast products.
+The summary requires finite member values. The spread uses the population
+standard deviation (`ddof=0`), so a one-member reviewer fixture has spread `0`
+instead of an undefined sample standard deviation. These calculations
+demonstrate ensemble-summary mechanics without embedding real forecast
+products.
 
 Example synthetic summary rows:
 

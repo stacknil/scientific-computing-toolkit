@@ -60,11 +60,18 @@ def relative_vorticity(u_wind, v_wind, latitude, longitude) -> np.ndarray:
     return dv_dx - du_dy
 
 
+def _matching_field(name: str, field, expected_shape: tuple[int, int]) -> np.ndarray:
+    values = np.asarray(field, dtype=float)
+    if values.shape != expected_shape:
+        raise ValueError(f"{name} shape must match scalar field shape: {values.shape} != {expected_shape}")
+    return values
+
+
 def horizontal_advection(scalar, u_wind, v_wind, latitude, longitude) -> np.ndarray:
     """Compute horizontal advection, -(u dS/dx + v dS/dy)."""
 
+    scalar_values = np.asarray(scalar, dtype=float)
     dscalar_dy, dscalar_dx = gradient_on_latlon(scalar, latitude, longitude)
-    return -(
-        np.asarray(u_wind, dtype=float) * dscalar_dx
-        + np.asarray(v_wind, dtype=float) * dscalar_dy
-    )
+    u_values = _matching_field("u_wind", u_wind, scalar_values.shape)
+    v_values = _matching_field("v_wind", v_wind, scalar_values.shape)
+    return -(u_values * dscalar_dx + v_values * dscalar_dy)

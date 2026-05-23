@@ -17,6 +17,8 @@ def area_mean(field, latitude) -> np.ndarray:
     """Area-weight a field over its final two latitude/longitude dimensions."""
 
     values = np.asarray(field, dtype=float)
+    if values.ndim < 2:
+        raise ValueError("field must have at least latitude and longitude dimensions")
     weights = latitude_weights(latitude)
     if values.shape[-2] != weights.size:
         raise ValueError("latitude length must match the second-to-last field dimension")
@@ -24,7 +26,9 @@ def area_mean(field, latitude) -> np.ndarray:
     weights_2d = weights.reshape(reshape)
     numerator = np.nansum(values * weights_2d, axis=(-2, -1))
     denominator = np.nansum(np.isfinite(values) * weights_2d, axis=(-2, -1))
-    return numerator / denominator
+    with np.errstate(divide="ignore", invalid="ignore"):
+        mean = numerator / denominator
+    return np.where(denominator > 0.0, mean, np.nan)
 
 
 def build_forecast_frame(
@@ -66,8 +70,12 @@ def ridge_regression_fit_predict(
         raise ValueError("features must be a two-dimensional array")
     if y.ndim != 1 or y.size != x.shape[0]:
         raise ValueError("target must be one-dimensional and aligned with features")
+    if not np.isfinite(x).all() or not np.isfinite(y).all():
+        raise ValueError("features and target must contain only finite values")
     if not 0.0 < train_fraction < 1.0:
         raise ValueError("train_fraction must be between 0 and 1")
+    if alpha < 0.0:
+        raise ValueError("alpha must be non-negative")
 
     split = int(x.shape[0] * train_fraction)
     if split <= 0 or split >= x.shape[0]:
@@ -78,7 +86,7 @@ def ridge_regression_fit_predict(
 
     mean = x_train.mean(axis=0)
     scale = x_train.std(axis=0)
-    scale = np.where(scale == 0.0, 1.0, scale)
+    scale = np.where(np.isclose(scale, 0.0), 1.0, scale)
     x_train_scaled = (x_train - mean) / scale
     x_test_scaled = (x_test - mean) / scale
 
@@ -106,6 +114,10 @@ def regression_metrics(y_true, y_pred) -> dict[str, float]:
     pred = np.asarray(y_pred, dtype=float)
     if true.shape != pred.shape:
         raise ValueError("y_true and y_pred must have matching shapes")
+    if true.size == 0:
+        raise ValueError("metrics require at least one sample")
+    if not np.isfinite(true).all() or not np.isfinite(pred).all():
+        raise ValueError("metrics require finite values")
 
     err = pred - true
     if true.size < 2 or np.allclose(true.std(), 0.0) or np.allclose(pred.std(), 0.0):
