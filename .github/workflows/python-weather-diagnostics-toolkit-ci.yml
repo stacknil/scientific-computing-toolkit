@@ -43,6 +43,9 @@ jobs:
       - name: Run tests
         run: python -m pytest
 
+      - name: Run lint
+        run: python -m ruff check .
+
       - name: Compile modules and scripts
         run: python -m compileall src scripts
 

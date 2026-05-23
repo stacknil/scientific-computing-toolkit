@@ -142,6 +142,11 @@ members:
 - quantiles show an uncertainty envelope
 - threshold probabilities translate members into categorical risk-like summaries
 
+The public implementation treats missing or infinite ensemble values as input
+quality problems. Synthetic fixtures are deliberately complete, which makes
+review outputs deterministic and keeps missing-data policy separate from
+forecast interpretation.
+
 Interpretation pattern:
 
 ```text

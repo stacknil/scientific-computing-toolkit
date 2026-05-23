@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from python_weather_diagnostics_toolkit.dynamics import (
     gradient_on_latlon,
@@ -40,3 +41,14 @@ def test_zonal_gradient_masks_exact_pole_rows_without_infinity():
     assert np.isnan(d_dx[0]).all()
     assert np.isnan(d_dx[-1]).all()
     assert np.isfinite(d_dx[1:-1]).all()
+
+
+def test_horizontal_advection_rejects_mismatched_wind_shape():
+    lat = np.linspace(30.0, 35.0, 5)
+    lon = np.linspace(100.0, 105.0, 6)
+    scalar = np.ones((lat.size, lon.size))
+    u = np.ones((lat.size, lon.size - 1))
+    v = np.ones_like(scalar)
+
+    with pytest.raises(ValueError, match="u_wind shape"):
+        horizontal_advection(scalar, u, v, lat, lon)
