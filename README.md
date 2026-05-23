@@ -16,18 +16,16 @@ For the clearest reviewer route, start with the
 it separates orientation, artifact inspection, local reproduction, and release
 evidence.
 
-## Supporting Spatiotemporal Diagnostics Project
+## Supporting Diagnostics Projects
 
-[`projects/precipitation-anomaly-diagnostics`](projects/precipitation-anomaly-diagnostics/README.md)
-is the compact reviewer-facing mini-lab. It demonstrates a reproducible workflow
-for precipitation anomaly preprocessing, EOF analysis, representative-period
-selection, composite analysis, and reviewer-friendly scientific interpretation.
+These projects are internal supporting material for reviewer depth. They are
+not the repository's flagship release surface.
 
-[`projects/precipitation-anomaly-diagnostics-lab`](projects/precipitation-anomaly-diagnostics-lab/README.md)
-is the extended lab variant with configurable diagnostics utilities. It expands
-the workflow with EOF/PC analysis, composite circulation checks,
-correlation/regression utilities, MCA-style coupled-field diagnostics, synthetic
-demonstration charts, and explicit data-redistribution boundaries.
+| Supporting project | Role | Review value |
+| --- | --- | --- |
+| [`precipitation-anomaly-diagnostics`](projects/precipitation-anomaly-diagnostics/README.md) | Compact case study | End-to-end spatiotemporal anomaly workflow |
+| [`precipitation-anomaly-diagnostics-lab`](projects/precipitation-anomaly-diagnostics-lab/README.md) | Extended lab | More detailed climate diagnostics and synthetic reports |
+| [`python-weather-diagnostics-toolkit`](projects/python-weather-diagnostics-toolkit/README.md) | Reusable toolkit | General weather-field calculation utilities |
 
 ## Scope Boundary
 
@@ -38,17 +36,6 @@ scientific-data mini-labs. They demonstrate reproducible analysis workflows,
 data-policy boundaries, and reviewer-friendly interpretation, but they are not
 part of the `sbom-diff-and-risk` release surface and should not be read as a
 separate meteorology portfolio.
-
-## Supporting Weather Diagnostics Project
-
-[`projects/python-weather-diagnostics-toolkit`](projects/python-weather-diagnostics-toolkit/README.md)
-is a public-safe Python weather-diagnostics mini-lab. It demonstrates reusable
-diagnostics for ERA5-style gridded fields, including coordinate/variable
-normalization, dewpoint checks, vorticity and advection diagnostics,
-time-ordered baseline modeling, and synthetic ensemble summaries.
-
-This toolkit is a supporting atmospheric diagnostics module and is not part of
-the `sbom-diff-and-risk` release surface.
 
 ## Why This Repository Exists
 
