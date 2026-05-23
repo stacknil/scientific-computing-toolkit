@@ -1,0 +1,25 @@
+# Raw and restricted data should stay local.
+data/
+raw_data/
+downloads/
+*.nc
+*.grib
+*.grb
+*.hdf
+*.h5
+*.tif
+
+# Generated outputs are reproducible from scripts.
+outputs/
+figures/
+*.png
+*.pdf
+
+# Local credentials and caches.
+.cdsapirc
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/

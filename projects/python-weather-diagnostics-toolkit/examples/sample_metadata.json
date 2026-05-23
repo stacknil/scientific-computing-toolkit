@@ -1,0 +1,16 @@
+{
+  "project": "python-weather-diagnostics-toolkit",
+  "identity": "stacknil",
+  "data_status": "synthetic reviewer-safe examples only",
+  "real_data_required_for_research": true,
+  "raw_data_included": false,
+  "course_materials_included": false,
+  "local_paths_included": false,
+  "example_domains": [
+    "thermodynamic dewpoint checks",
+    "relative-vorticity diagnostics",
+    "temperature-advection diagnostics",
+    "time-ordered baseline evaluation",
+    "synthetic ensemble summaries"
+  ]
+}

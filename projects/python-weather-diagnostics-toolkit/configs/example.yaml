@@ -1,0 +1,34 @@
+# Copy this file locally and replace placeholders with paths to data you are
+# allowed to use. Do not commit raw data paths or provider access material.
+
+project:
+  name: python-weather-diagnostics-toolkit
+  role: supporting atmospheric diagnostics module
+
+data:
+  single_level_pattern: "/path/to/era5/single-level/*.nc"
+  pressure_level_pattern: "/path/to/era5/pressure-level/*.nc"
+  output_dir: "outputs"
+
+domain:
+  longitude_min: 70.0
+  longitude_max: 140.0
+  latitude_min: 15.0
+  latitude_max: 55.0
+
+diagnostics:
+  surface_temperature: true
+  dewpoint_roundtrip: true
+  geopotential_height_500hpa: true
+  vorticity_500hpa: true
+  temperature_advection_850hpa: true
+  ridge_temperature_baseline: true
+
+baseline_model:
+  lead_steps: 24
+  train_fraction: 0.8
+  ridge_alpha: 1.0
+
+plotting:
+  quiver_skip: 5
+  figure_dpi: 200

@@ -33,11 +33,22 @@ demonstration charts, and explicit data-redistribution boundaries.
 
 `sbom-diff-and-risk` remains the flagship release-facing tool in this repository.
 
-The precipitation diagnostics projects are supporting scientific-data mini-labs.
-They demonstrate reproducible analysis workflows, data-policy boundaries, and
-reviewer-friendly interpretation, but they are not part of the
-`sbom-diff-and-risk` release surface and should not be read as a separate
-meteorology portfolio.
+The precipitation and weather diagnostics projects are supporting
+scientific-data mini-labs. They demonstrate reproducible analysis workflows,
+data-policy boundaries, and reviewer-friendly interpretation, but they are not
+part of the `sbom-diff-and-risk` release surface and should not be read as a
+separate meteorology portfolio.
+
+## Supporting Weather Diagnostics Project
+
+[`projects/python-weather-diagnostics-toolkit`](projects/python-weather-diagnostics-toolkit/README.md)
+is a public-safe Python weather-diagnostics mini-lab. It demonstrates reusable
+diagnostics for ERA5-style gridded fields, including coordinate/variable
+normalization, dewpoint checks, vorticity and advection diagnostics,
+time-ordered baseline modeling, and synthetic ensemble summaries.
+
+This toolkit is a supporting atmospheric diagnostics module and is not part of
+the `sbom-diff-and-risk` release surface.
 
 ## Why This Repository Exists
 
@@ -113,6 +124,31 @@ Useful entry points:
 - [Calculation methods](projects/precipitation-anomaly-diagnostics-lab/docs/calculation-methods.md)
 - [Inference analysis](projects/precipitation-anomaly-diagnostics-lab/docs/inference-analysis.md)
 - [Synthetic inference report](projects/precipitation-anomaly-diagnostics-lab/examples/synthetic-inference-report.md)
+
+Project:
+[`python-weather-diagnostics-toolkit`](projects/python-weather-diagnostics-toolkit/README.md)
+
+Status:
+Public-safe supporting atmospheric diagnostics module.
+
+What to review:
+Reusable Python weather-field diagnostics, synthetic examples, data-policy
+boundaries, and deterministic tests for thermodynamic, dynamic, ensemble, and
+baseline-model utilities.
+
+This toolkit is a supporting scientific-data project and is not part of the
+`sbom-diff-and-risk` release surface.
+
+Useful entry points:
+
+- [`python-weather-diagnostics-toolkit` README](projects/python-weather-diagnostics-toolkit/README.md)
+- [Reviewer path](projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md)
+- [Calculation methods](projects/python-weather-diagnostics-toolkit/docs/calculation-methods.md)
+- [Diagnostic analysis](projects/python-weather-diagnostics-toolkit/docs/diagnostic-analysis.md)
+- [Source-to-public mapping](projects/python-weather-diagnostics-toolkit/docs/source-to-public-mapping.md)
+- [Methodology](projects/python-weather-diagnostics-toolkit/docs/methodology.md)
+- [Data policy](projects/python-weather-diagnostics-toolkit/docs/data-policy.md)
+- [Synthetic report](projects/python-weather-diagnostics-toolkit/examples/synthetic-weather-diagnostics-report.md)
 
 ## Verification and Release Evidence
 

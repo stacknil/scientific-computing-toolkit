@@ -1,0 +1,53 @@
+name: python-weather-diagnostics-toolkit-ci
+run-name: python weather diagnostics toolkit ci / ${{ github.event_name }} / ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/python-weather-diagnostics-toolkit-ci.yml"
+      - "projects/python-weather-diagnostics-toolkit/**"
+  pull_request:
+    paths:
+      - ".github/workflows/python-weather-diagnostics-toolkit-ci.yml"
+      - "projects/python-weather-diagnostics-toolkit/**"
+
+permissions: {}
+
+env:
+  PYTHON_WEATHER_DIAGNOSTICS_VERSION: "3.11"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: projects/python-weather-diagnostics-toolkit
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_WEATHER_DIAGNOSTICS_VERSION }}
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install project
+        run: python -m pip install -e .[dev]
+
+      - name: Run tests
+        run: python -m pytest
+
+      - name: Compile modules and scripts
+        run: python -m compileall src scripts
+
+      - name: CLI help smoke tests
+        run: |
+          python scripts/run_thermodynamic_check.py --help
+          python scripts/run_dynamics_summary.py --help
+          python scripts/run_synthetic_ensemble.py --help

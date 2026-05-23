@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-weather-diagnostics-toolkit"
+version = "0.1.0"
+description = "A public-safe Python mini-lab for reproducible weather-field diagnostics."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "stacknil" }]
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "xarray>=2023.1",
+  "pyyaml>=6.0"
+]
+
+[project.optional-dependencies]
+meteo = ["matplotlib>=3.7", "metpy>=1.6", "cartopy>=0.22"]
+download = ["cdsapi>=0.7"]
+dev = ["pytest>=7.0", "ruff>=0.4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
