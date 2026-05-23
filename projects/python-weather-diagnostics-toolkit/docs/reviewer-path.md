@@ -1,0 +1,92 @@
+# Reviewer Path
+
+## 30-second orientation
+
+Read the README first. Confirm this is a sanitized Python weather-diagnostics
+mini-lab, not a course archive, not a raw-data mirror, and not an operational
+forecast system.
+
+Check the first screen for the project role:
+
+- supporting atmospheric diagnostics module
+- public-safe scientific-computing workflow
+- not part of the `sbom-diff-and-risk` release surface
+- not a separate meteorology portfolio
+
+## 5-minute workflow review
+
+Inspect:
+
+- [`docs/methodology.md`](methodology.md)
+- [`docs/calculation-methods.md`](calculation-methods.md)
+- [`docs/diagnostic-analysis.md`](diagnostic-analysis.md)
+- [`docs/data-policy.md`](data-policy.md)
+- [`examples/synthetic-weather-diagnostics-report.md`](../examples/synthetic-weather-diagnostics-report.md)
+- [`examples/sample_metadata.json`](../examples/sample_metadata.json)
+
+This pass should show how local weather-analysis scripts were converted into
+reusable calculation modules and reviewer-safe examples.
+
+Questions to answer:
+
+- Are field aliases separated from scientific calculations?
+- Are dewpoint, vorticity, advection, regional means, and ensemble summaries
+  described with equations or explicit numerical assumptions?
+- Are synthetic examples clearly labeled as synthetic?
+- Are forecast-skill claims avoided unless real validation data are supplied?
+
+## 15-minute reproducibility review
+
+Run:
+
+```bash
+python -m pip install -e .[dev]
+python -m pytest
+python -m compileall src scripts
+python scripts/run_thermodynamic_check.py --help
+python scripts/run_dynamics_summary.py --help
+python scripts/run_synthetic_ensemble.py --help
+```
+
+Then run one synthetic path:
+
+```bash
+python scripts/run_synthetic_ensemble.py --out outputs/synthetic_ensemble_summary.csv
+```
+
+Expected result:
+
+- tests pass without raw ERA5, ECMWF, station, or course files
+- CLI help surfaces are available
+- the ensemble command writes a small CSV under ignored `outputs/`
+- no generated caches or output files need to be committed
+
+## Boundaries
+
+Read:
+
+- [`docs/data-policy.md`](data-policy.md)
+- [`PUBLICATION_BOUNDARIES.md`](../PUBLICATION_BOUNDARIES.md)
+- [`SANITIZATION_REPORT.md`](../SANITIZATION_REPORT.md)
+- [`docs/source-to-public-mapping.md`](source-to-public-mapping.md)
+
+This project is portfolio evidence for Python scientific-computing structure,
+not a public redistribution of raw weather data or course material.
+
+## Technical Deep-Dive Route
+
+For a deeper review, read the project in this order:
+
+1. `src/python_weather_diagnostics_toolkit/aliases.py` for input-name
+   normalization.
+2. `src/python_weather_diagnostics_toolkit/thermodynamics.py` and
+   `docs/calculation-methods.md` for dewpoint formulas and round-trip checks.
+3. `src/python_weather_diagnostics_toolkit/dynamics.py` for grid spacing,
+   vorticity, and advection.
+4. `src/python_weather_diagnostics_toolkit/features.py` for cosine-latitude
+   regional means and time-ordered baseline modeling.
+5. `src/python_weather_diagnostics_toolkit/ensemble.py` for deterministic
+   synthetic plume summaries.
+
+This route should make the project reviewable as code, not just as a
+documentation wrapper.
