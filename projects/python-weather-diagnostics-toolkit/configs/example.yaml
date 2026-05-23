@@ -22,11 +22,13 @@ diagnostics:
   geopotential_height_500hpa: true
   vorticity_500hpa: true
   temperature_advection_850hpa: true
+  temperature_tendency_terms_850hpa: true
   moisture_flux_divergence_850hpa: true
   station_interpolation: false
   precipitation_event_total: false
   climate_statistics: false
   ridge_temperature_baseline: true
+  ridge_alpha_grid_review: true
 
 baseline_model:
   lead_steps: 24

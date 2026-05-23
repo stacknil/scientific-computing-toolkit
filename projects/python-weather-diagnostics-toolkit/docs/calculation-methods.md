@@ -135,6 +135,43 @@ warming tendency. In a full thermodynamic budget, this is only one term. The
 public mini-lab intentionally keeps the default implementation to horizontal
 advection so that tests remain small and dependency-light.
 
+The toolkit also exposes component terms:
+
+```text
+zonal_advection = -u dS/dx
+meridional_advection = -v dS/dy
+horizontal_advection = zonal_advection + meridional_advection
+```
+
+This makes it possible to identify whether an east-west or north-south flow
+component dominates a synthetic tendency diagnosis.
+
+## Dry Temperature-Tendency Terms
+
+For pressure-level fields, the focused case-study abstraction uses a dry
+pressure-coordinate decomposition:
+
+```text
+dT/dt ~= -u dT/dx - v dT/dy - omega dT/dp + kappa T omega / p
+kappa = Rd / Cp
+```
+
+The public function reports:
+
+```text
+zonal_advection
+meridional_advection
+horizontal_advection
+vertical_advection
+adiabatic_compression
+dry_dynamic_tendency
+```
+
+Inputs are temperature in kelvin, wind in m/s, pressure vertical velocity
+`omega` in Pa/s, and pressure in hPa. Returned terms are in K/s. This dry
+diagnostic excludes diabatic heating and analysis increments; those should be
+handled as residual or externally supplied terms in a real budget study.
+
 ## Moisture Flux Divergence
 
 For lower-tropospheric precipitation diagnostics, the toolkit includes a
@@ -198,6 +235,11 @@ minimize ||X beta - y||^2 + alpha ||beta||^2
 
 Features are standardized using the training partition only. The intercept is
 not penalized.
+
+For compact model-selection reviews, `ridge_alpha_grid` evaluates multiple
+alpha values with the same time-ordered split and returns a metric table sorted
+by RMSE. This is a reproducible diagnostic surface, not nested cross-validation
+or proof of forecast skill.
 
 ## Evaluation Metrics
 

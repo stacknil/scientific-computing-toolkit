@@ -21,6 +21,7 @@ artifacts. It focuses on:
 - Magnus-formula dewpoint diagnostics and round-trip humidity checks
 - geopotential-height conversion
 - relative-vorticity, horizontal-advection, and moisture-flux diagnostics
+- dry pressure-coordinate temperature-tendency decomposition
 - station-to-grid interpolation and precipitation accumulation conversion
 - anomaly, composite, and grid-point correlation helpers
 - cosine-latitude regional means
@@ -38,6 +39,7 @@ python-weather-diagnostics-toolkit/
 |   +-- diagnostic-analysis.md
 |   +-- station-precipitation-workflows.md
 |   +-- climate-statistical-diagnostics.md
+|   +-- focused-case-abstraction.md
 |   +-- methodology.md
 |   +-- reproducibility.md
 |   +-- reviewer-path.md
@@ -112,6 +114,8 @@ Dynamic layer:
 - estimates latitude/longitude grid spacing from spherical Earth geometry
 - computes relative vorticity as `dv/dx - du/dy`
 - computes horizontal scalar advection as `-(u dS/dx + v dS/dy)`
+- decomposes dry temperature tendency into zonal, meridional, vertical, and
+  adiabatic terms
 - computes moisture flux divergence as `d(q u)/dx + d(q v)/dy`
 - keeps finite-difference assumptions explicit for reviewer inspection
 
@@ -128,6 +132,7 @@ Statistical layer:
 - computes anomalies, standardized anomalies, composites, and grid-point correlations
 - constructs time-ordered forecast tables from regional features
 - fits a deterministic ridge-regression baseline without random shuffling
+- evaluates ridge alpha grids with the same time-ordered split
 - reports RMSE, MAE, bias, and correlation as workflow diagnostics
 - summarizes synthetic ensemble spread, quantiles, and threshold probabilities
 
@@ -208,7 +213,8 @@ The more detailed technical route is:
 2. [`docs/diagnostic-analysis.md`](docs/diagnostic-analysis.md)
 3. [`docs/station-precipitation-workflows.md`](docs/station-precipitation-workflows.md)
 4. [`docs/climate-statistical-diagnostics.md`](docs/climate-statistical-diagnostics.md)
-5. [`docs/source-to-public-mapping.md`](docs/source-to-public-mapping.md)
+5. [`docs/focused-case-abstraction.md`](docs/focused-case-abstraction.md)
+6. [`docs/source-to-public-mapping.md`](docs/source-to-public-mapping.md)
 
 ## Privacy-Safe Scope
 

@@ -41,6 +41,18 @@ warmer or colder air across the toy domain. In real analysis, this inference
 would need unit checks, map-domain checks, temporal context, and source-data
 quality control.
 
+## Temperature-Tendency Terms
+
+The focused case abstraction decomposes dry pressure-coordinate temperature
+tendency into horizontal advection, vertical advection, and adiabatic
+compression terms.
+
+Interpretation:
+This makes the tendency budget auditable: a reviewer can see whether the
+diagnosis is driven by zonal flow, meridional flow, vertical motion, or dry
+adiabatic effects. The synthetic examples do not include diabatic heating or a
+real event.
+
 ## Baseline Prediction
 
 The ridge-regression baseline uses region-mean features and a time-ordered
@@ -57,6 +69,11 @@ Interpretation:
 The baseline is useful as a workflow sanity check. It should not be described
 as operational forecast skill without independent validation, comparison
 baselines, and real-data provenance.
+
+Alpha-grid review:
+The ridge alpha-grid helper evaluates candidate regularization strengths with
+the same time-ordered split. It is a compact model-selection diagnostic, not a
+substitute for independent forecast validation.
 
 ## Station And Precipitation Workflow
 

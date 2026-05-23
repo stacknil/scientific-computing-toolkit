@@ -107,6 +107,40 @@ def ridge_regression_fit_predict(
     }
 
 
+def ridge_alpha_grid(
+    features,
+    target,
+    alphas,
+    *,
+    train_fraction: float = 0.7,
+) -> pd.DataFrame:
+    """Evaluate ridge alpha values with the same time-ordered split."""
+
+    alpha_values = np.asarray(list(alphas), dtype=float)
+    if alpha_values.ndim != 1 or alpha_values.size == 0:
+        raise ValueError("alphas must contain at least one value")
+    if not np.isfinite(alpha_values).all() or np.any(alpha_values < 0.0):
+        raise ValueError("alphas must be finite non-negative values")
+
+    rows = []
+    for alpha in alpha_values:
+        result = ridge_regression_fit_predict(
+            features,
+            target,
+            train_fraction=train_fraction,
+            alpha=float(alpha),
+        )
+        metrics = regression_metrics(result["y_test"], result["y_pred"])
+        rows.append(
+            {
+                "alpha": float(alpha),
+                "split_index": result["split_index"],
+                **metrics,
+            }
+        )
+    return pd.DataFrame(rows).sort_values(["rmse", "alpha"]).reset_index(drop=True)
+
+
 def regression_metrics(y_true, y_pred) -> dict[str, float]:
     """Return RMSE, MAE, bias, and Pearson correlation."""
 
