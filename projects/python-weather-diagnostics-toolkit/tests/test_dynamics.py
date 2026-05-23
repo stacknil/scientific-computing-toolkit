@@ -1,6 +1,10 @@
 import numpy as np
 
-from python_weather_diagnostics_toolkit.dynamics import horizontal_advection, relative_vorticity
+from python_weather_diagnostics_toolkit.dynamics import (
+    gradient_on_latlon,
+    horizontal_advection,
+    relative_vorticity,
+)
 
 
 def test_constant_flow_has_zero_relative_vorticity():
@@ -24,3 +28,15 @@ def test_eastward_flow_advects_eastward_increasing_scalar_negatively():
     adv = horizontal_advection(scalar, u, v, lat, lon)
 
     assert np.all(adv < 0.0)
+
+
+def test_zonal_gradient_masks_exact_pole_rows_without_infinity():
+    lat = np.array([-90.0, -45.0, 0.0, 45.0, 90.0])
+    lon = np.linspace(0.0, 3.0, 4)
+    field = np.tile(lon, (lat.size, 1))
+
+    _, d_dx = gradient_on_latlon(field, lat, lon)
+
+    assert np.isnan(d_dx[0]).all()
+    assert np.isnan(d_dx[-1]).all()
+    assert np.isfinite(d_dx[1:-1]).all()

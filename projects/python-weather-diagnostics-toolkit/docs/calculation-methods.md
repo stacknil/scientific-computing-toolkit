@@ -97,6 +97,12 @@ is sufficient for reviewer-safe synthetic tests and first-pass diagnostics. For
 formal research, users should validate map projection assumptions, grid
 staggering, resolution, and polar behavior.
 
+At exact pole rows, `cos(phi)` is effectively zero and the zonal derivative is
+not well defined on a regular longitude grid. The implementation masks those
+`d/dx` rows as `NaN` instead of returning infinite or spuriously amplified
+values. Downstream regional reductions use finite-value weighting, so non-polar
+rows remain usable while the polar boundary is explicit.
+
 ## Relative Vorticity
 
 Relative vorticity is computed as:

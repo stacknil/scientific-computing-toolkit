@@ -6,6 +6,7 @@ import numpy as np
 
 EARTH_RADIUS_M = 6_371_000.0
 STANDARD_GRAVITY = 9.80665
+POLAR_COSINE_TOLERANCE = 1e-12
 
 
 def geopotential_to_height(geopotential) -> np.ndarray:
@@ -25,7 +26,9 @@ def _spacing_m(latitude, longitude) -> tuple[np.ndarray, np.ndarray]:
     dlat = np.gradient(np.deg2rad(lat))
     dlon = np.gradient(np.deg2rad(lon))
     dy = EARTH_RADIUS_M * dlat
-    dx = EARTH_RADIUS_M * np.cos(np.deg2rad(lat))[:, None] * dlon[None, :]
+    cos_lat = np.cos(np.deg2rad(lat))
+    cos_lat = np.where(np.abs(cos_lat) <= POLAR_COSINE_TOLERANCE, np.nan, cos_lat)
+    dx = EARTH_RADIUS_M * cos_lat[:, None] * dlon[None, :]
     return dy[:, None], dx
 
 
@@ -45,7 +48,8 @@ def gradient_on_latlon(field, latitude, longitude) -> tuple[np.ndarray, np.ndarr
 
     d_dindex_y = np.gradient(values, axis=0)
     d_dindex_x = np.gradient(values, axis=1)
-    return d_dindex_y / dy, d_dindex_x / dx
+    with np.errstate(divide="ignore", invalid="ignore"):
+        return d_dindex_y / dy, d_dindex_x / dx
 
 
 def relative_vorticity(u_wind, v_wind, latitude, longitude) -> np.ndarray:
