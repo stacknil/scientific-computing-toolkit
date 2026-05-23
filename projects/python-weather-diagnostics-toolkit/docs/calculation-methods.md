@@ -135,6 +135,21 @@ warming tendency. In a full thermodynamic budget, this is only one term. The
 public mini-lab intentionally keeps the default implementation to horizontal
 advection so that tests remain small and dependency-light.
 
+## Moisture Flux Divergence
+
+For lower-tropospheric precipitation diagnostics, the toolkit includes a
+horizontal specific-humidity flux divergence:
+
+```text
+div(qV) = d(q u)/dx + d(q v)/dy
+```
+
+where `q` is specific humidity, `u` is zonal wind, and `v` is meridional wind.
+Negative values are often read as moisture-flux convergence under the chosen
+coordinate and unit assumptions. This diagnostic should be interpreted with
+precipitation, vertical motion, and synoptic context rather than as a complete
+rainfall budget.
+
 ## Area-Weighted Regional Mean
 
 Regional features use cosine-latitude weighting:
@@ -230,3 +245,45 @@ Example synthetic summary rows:
 
 These values are synthetic. They are useful for verifying table generation and
 reviewer interpretation, not for climate diagnosis.
+
+## Station And Precipitation Utilities
+
+The precipitation helpers cover common data-preparation steps:
+
+```text
+missing sentinel -> NaN
+accumulated precipitation -> per-step amount
+per-step amount -> mm/day-equivalent rate
+event total -> sum over finite event samples
+threshold exceedance -> finite value >= configured threshold
+```
+
+Accumulated precipitation is required to be non-decreasing along the selected
+lead axis. A decreasing finite sequence raises an error because it usually
+indicates mixed forecast cycles, an incorrect lead dimension, or an unhandled
+product reset.
+
+Station-to-grid examples use inverse-distance weighting:
+
+```text
+weight = 1 / distance**power
+grid_value = sum(weight * station_value) / sum(weight)
+```
+
+This is a transparent interpolation baseline, not a claim that IDW is optimal
+for every terrain, network density, or precipitation regime.
+
+## Climate Statistics
+
+Climate-statistics helpers include anomalies, standardized anomalies,
+composites, and grid-point correlations:
+
+```text
+anomaly = value - climatology_mean
+standardized = anomaly / climatology_std
+composite = mean(field[event_mask])
+r = cov(index, field_point) / (std(index) * std(field_point))
+```
+
+Zero-spread baselines, too-small samples, and zero-variance correlation points
+return `NaN` so review surfaces show where the statistic is undefined.

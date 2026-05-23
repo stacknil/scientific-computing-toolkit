@@ -75,3 +75,22 @@ def horizontal_advection(scalar, u_wind, v_wind, latitude, longitude) -> np.ndar
     u_values = _matching_field("u_wind", u_wind, scalar_values.shape)
     v_values = _matching_field("v_wind", v_wind, scalar_values.shape)
     return -(u_values * dscalar_dx + v_values * dscalar_dy)
+
+
+def moisture_flux_divergence(
+    specific_humidity,
+    u_wind,
+    v_wind,
+    latitude,
+    longitude,
+) -> np.ndarray:
+    """Compute horizontal divergence of specific-humidity flux."""
+
+    q_values = np.asarray(specific_humidity, dtype=float)
+    if q_values.ndim != 2:
+        raise ValueError("specific_humidity must be a two-dimensional latitude/longitude array")
+    u_values = _matching_field("u_wind", u_wind, q_values.shape)
+    v_values = _matching_field("v_wind", v_wind, q_values.shape)
+    _, dqu_dx = gradient_on_latlon(q_values * u_values, latitude, longitude)
+    dqv_dy, _ = gradient_on_latlon(q_values * v_values, latitude, longitude)
+    return dqu_dx + dqv_dy

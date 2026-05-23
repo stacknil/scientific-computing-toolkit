@@ -20,7 +20,9 @@ artifacts. It focuses on:
 - 2 m temperature, 10 m wind, 500 hPa height, and 850 hPa wind/temperature fields
 - Magnus-formula dewpoint diagnostics and round-trip humidity checks
 - geopotential-height conversion
-- relative-vorticity and horizontal-advection diagnostics
+- relative-vorticity, horizontal-advection, and moisture-flux diagnostics
+- station-to-grid interpolation and precipitation accumulation conversion
+- anomaly, composite, and grid-point correlation helpers
 - cosine-latitude regional means
 - a deterministic time-ordered ridge-regression baseline for 24-hour temperature prediction
 - synthetic ensemble summaries for Nino-style forecast-plume interpretation
@@ -34,6 +36,8 @@ python-weather-diagnostics-toolkit/
 |   +-- data-policy.md
 |   +-- calculation-methods.md
 |   +-- diagnostic-analysis.md
+|   +-- station-precipitation-workflows.md
+|   +-- climate-statistical-diagnostics.md
 |   +-- methodology.md
 |   +-- reproducibility.md
 |   +-- reviewer-path.md
@@ -43,6 +47,8 @@ python-weather-diagnostics-toolkit/
 |   +-- synthetic-weather-diagnostics-report.md
 +-- scripts/
 |   +-- run_dynamics_summary.py
+|   +-- run_precipitation_workflow.py
+|   +-- run_climate_statistics.py
 |   +-- run_synthetic_ensemble.py
 |   +-- run_thermodynamic_check.py
 +-- src/python_weather_diagnostics_toolkit/
@@ -78,6 +84,8 @@ Inspect the public CLI surfaces:
 ```bash
 python scripts/run_thermodynamic_check.py --help
 python scripts/run_dynamics_summary.py --help
+python scripts/run_precipitation_workflow.py --help
+python scripts/run_climate_statistics.py --help
 python scripts/run_synthetic_ensemble.py --help
 ```
 
@@ -104,11 +112,20 @@ Dynamic layer:
 - estimates latitude/longitude grid spacing from spherical Earth geometry
 - computes relative vorticity as `dv/dx - du/dy`
 - computes horizontal scalar advection as `-(u dS/dx + v dS/dy)`
+- computes moisture flux divergence as `d(q u)/dx + d(q v)/dy`
 - keeps finite-difference assumptions explicit for reviewer inspection
+
+Station and precipitation layer:
+
+- replaces sentinel-coded missing values with `NaN`
+- interpolates station values to a target grid with inverse-distance weighting
+- converts accumulated precipitation into per-step amounts and rates
+- summarizes event totals and threshold exceedance masks
 
 Statistical layer:
 
 - reduces gridded fields to cosine-latitude area means
+- computes anomalies, standardized anomalies, composites, and grid-point correlations
 - constructs time-ordered forecast tables from regional features
 - fits a deterministic ridge-regression baseline without random shuffling
 - reports RMSE, MAE, bias, and correlation as workflow diagnostics
@@ -150,8 +167,9 @@ For real analysis, users provide their own local ERA5-style NetCDF files through
 `configs/example.yaml`. The toolkit expects common variables such as:
 
 - single-level fields: `t2m`, `d2m`, `u10`, `v10`, `tp`, or their long ERA5 names
-- pressure-level fields: `t`, `u`, `v`, `z`, `r`, `w`, `vo`, or their long ERA5 names
+- pressure-level fields: `t`, `u`, `v`, `z`, `r`, `q`, `w`, `vo`, or their long ERA5 names
 - coordinates: `time` or `valid_time`, `latitude`, `longitude`, and optionally `pressure_level`
+- optional station tables supplied locally with longitude, latitude, and value columns
 
 ## Generated Outputs
 
@@ -188,7 +206,9 @@ The more detailed technical route is:
 
 1. [`docs/calculation-methods.md`](docs/calculation-methods.md)
 2. [`docs/diagnostic-analysis.md`](docs/diagnostic-analysis.md)
-3. [`docs/source-to-public-mapping.md`](docs/source-to-public-mapping.md)
+3. [`docs/station-precipitation-workflows.md`](docs/station-precipitation-workflows.md)
+4. [`docs/climate-statistical-diagnostics.md`](docs/climate-statistical-diagnostics.md)
+5. [`docs/source-to-public-mapping.md`](docs/source-to-public-mapping.md)
 
 ## Privacy-Safe Scope
 

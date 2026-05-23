@@ -51,6 +51,10 @@ The public project preserves the reusable calculation ideas:
 - geopotential-height conversion
 - relative-vorticity calculation
 - horizontal temperature-advection diagnostics
+- moisture flux divergence diagnostics
+- station missing-value handling and lightweight station-to-grid interpolation
+- accumulated precipitation conversion and event-total summaries
+- anomaly, standardized-anomaly, composite, and correlation-field diagnostics
 - cosine-latitude regional means
 - time-ordered ridge-regression baseline evaluation
 - synthetic ensemble summary mechanics

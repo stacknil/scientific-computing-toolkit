@@ -19,6 +19,10 @@ not a submitted report archive.
 | dewpoint verification | `thermodynamics.py`, `run_thermodynamic_check.py`, tests | formula isolated and tested with synthetic values |
 | 500 hPa height and vorticity maps | `dynamics.py`, `diagnostic-analysis.md`, tests | map-specific code converted to numerical fields |
 | 850 hPa temperature advection | `dynamics.py`, `run_dynamics_summary.py` | calculation made dependency-light and synthetic-testable |
+| moisture transport diagnostics | `dynamics.py`, `diagnostic-analysis.md` | water-vapor process reframed as flux-divergence calculation |
+| station observation cleaning and interpolation | `precipitation.py`, `interpolation.py`, `station-precipitation-workflows.md` | sentinel handling and IDW interpolation made synthetic-testable |
+| accumulated precipitation conversion | `precipitation.py`, `station-precipitation-workflows.md` | forecast accumulations converted without redistributing products |
+| anomaly, composite, and correlation exercises | `climate.py`, `climate-statistical-diagnostics.md` | statistical methods separated from local datasets |
 | regional feature construction | `features.py` | area weighting and target shifting made explicit |
 | simple temperature prediction baseline | `features.py`, `diagnostic-analysis.md` | baseline framed as workflow sanity check, not forecast skill |
 | ensemble plume exercises | `ensemble.py`, `run_synthetic_ensemble.py` | real or teaching data replaced by deterministic synthetic data |
@@ -46,6 +50,9 @@ Preserved:
 - humidity and dewpoint diagnostics
 - geopotential-height conversion
 - relative-vorticity and advection calculations
+- moisture flux divergence
+- station interpolation and precipitation accumulation conversion
+- anomaly, composite, and correlation helpers
 - regional feature engineering
 - time-ordered baseline modeling
 - ensemble summary interpretation

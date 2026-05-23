@@ -68,7 +68,35 @@ table can include:
 - current 2 m temperature
 - future 2 m temperature target shifted by a configured lead
 
-## 5. Baseline Prediction
+## 5. Station And Precipitation Preparation
+
+Station and precipitation workflows start with quality control:
+
+```text
+sentinel-coded missing values -> NaN
+station observations -> finite station rows -> IDW grid
+forecast accumulations -> per-step precipitation -> rate or event total
+```
+
+The public implementation uses small NumPy helpers rather than provider-specific
+download code. This keeps the method reviewable while leaving data access,
+licensing, and provenance to the user.
+
+## 6. Climate Statistics
+
+Climate diagnostics use explicit baselines and event masks:
+
+```text
+anomaly = value - climatology_mean
+standardized anomaly = anomaly / climatology_std
+composite = mean(selected event samples)
+correlation field = corr(index, grid point)
+```
+
+Undefined or under-sampled statistics return `NaN` instead of a misleading
+number.
+
+## 7. Baseline Prediction
 
 The included baseline is a transparent ridge regression:
 
@@ -83,7 +111,7 @@ the result reproducible. Metrics include RMSE, MAE, bias, and correlation.
 The baseline is included for workflow demonstration only. It is not a claim of
 forecast skill.
 
-## 6. Synthetic Ensemble Summary
+## 8. Synthetic Ensemble Summary
 
 The synthetic Nino-style ensemble utility creates deterministic plume data with
 a fixed random seed. It demonstrates:
@@ -96,7 +124,7 @@ a fixed random seed. It demonstrates:
 The generated values are synthetic and should be read only as an example of
 summary mechanics.
 
-## 7. Interpretation Boundaries
+## 9. Interpretation Boundaries
 
 A public interpretation should say what was computed and what the diagnostic
 suggests, while avoiding unsupported claims. For example:

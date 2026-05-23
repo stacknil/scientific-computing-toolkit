@@ -10,6 +10,8 @@
     "thermodynamic dewpoint checks",
     "relative-vorticity diagnostics",
     "temperature-advection diagnostics",
+    "station interpolation and precipitation accumulation conversion",
+    "climate anomaly, composite, and correlation diagnostics",
     "time-ordered baseline evaluation",
     "synthetic ensemble summaries"
   ]
