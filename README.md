@@ -16,6 +16,11 @@ For the clearest reviewer route, start with the
 it separates orientation, artifact inspection, local reproduction, and release
 evidence.
 
+For a repository-level reviewer overview, use the
+[root reviewer brief](docs/reviewer-brief.md). It distinguishes the flagship
+SBOM tool from the supporting diagnostics projects and points reviewers to
+the right evidence path.
+
 ## Supporting Diagnostics Projects
 
 These projects are internal supporting material for reviewer depth. They are
@@ -64,6 +69,7 @@ evidence.
 
 Useful entry points:
 
+- [Root reviewer brief](docs/reviewer-brief.md)
 - [`sbom-diff-and-risk` README](tools/sbom-diff-and-risk/README.md)
 - [Reviewer path](tools/sbom-diff-and-risk/docs/reviewer-path.md)
 - [Reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md)
