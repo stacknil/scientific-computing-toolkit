@@ -70,6 +70,9 @@ services, and does not make dependency safety claims. Provenance-aware,
 Scorecard-aware, and enriched SARIF sample artifacts remain covered by their
 focused golden tests because those examples include mocked evidence.
 
+For reviewer-facing interpretation of each checked-in example artifact, see
+[reviewer-path.md#artifact-evidence-map](reviewer-path.md#artifact-evidence-map).
+
 For `examples/sample-sarif.sarif`, the script normalizes the generated
 `originalUriBaseIds.%SRCROOT%.uri` value to `file:///__PROJECT_ROOT__/` so
 checked-in output does not depend on a maintainer's local checkout path.

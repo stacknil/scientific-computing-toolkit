@@ -49,7 +49,7 @@ Inspect the checked-in examples in this order:
 
 | Step | Artifact | What it proves |
 | --- | --- | --- |
-| 1 | [sample-report.json](../examples/sample-report.json) | Full machine-readable diff, risk, policy, and metadata shape. |
+| 1 | [sample-report.json](../examples/sample-report.json) | Default machine-readable diff, risk, and metadata shape. |
 | 2 | [sample-summary.json](../examples/sample-summary.json) | Compact CI-facing `summary` contract. |
 | 3 | [sample-policy.json](../examples/sample-policy.json) | Policy-only sidecar for CI consumers. |
 | 4 | [sample-report.md](../examples/sample-report.md) | Human-readable reviewer report. |
@@ -72,6 +72,31 @@ Look for these reviewer anchors:
 - SARIF is intentionally narrow and does not mirror every report finding
 
 Stop here if you need to understand the review outputs without running code.
+
+## Artifact evidence map
+
+Use this map before interpreting checked-in examples. The example directory
+contains deterministic no-network artifacts, mocked enrichment snapshots, and
+consumer workflow templates. They answer different review questions.
+
+| Evidence type | Artifacts | How they are produced | Network status | Reviewer use |
+| --- | --- | --- | --- | --- |
+| Default diff output | [sample-report.json](../examples/sample-report.json), [sample-summary.json](../examples/sample-summary.json), [sample-report.md](../examples/sample-report.md) | `scripts/regenerate-example-artifacts.py` with the CycloneDX example inputs | No network | Verify the default report, compact summary, and Markdown shapes. |
+| Policy output | [sample-policy-warn-report.json](../examples/sample-policy-warn-report.json), [sample-policy-fail-report.json](../examples/sample-policy-fail-report.json), [sample-policy.json](../examples/sample-policy.json) | `scripts/regenerate-example-artifacts.py` with local policy files | No network | Review warning, blocking, and policy-only sidecar semantics. |
+| Requirements output | [sample-requirements-report.json](../examples/sample-requirements-report.json), [sample-requirements-report.md](../examples/sample-requirements-report.md) | `scripts/regenerate-example-artifacts.py --only requirements` | No network | Verify the `requirements.txt` parser path and report shape. |
+| Strict-policy SARIF | [sample-sarif.sarif](../examples/sample-sarif.sarif) | `scripts/regenerate-example-artifacts.py --only sarif` with normalized source root | No network | Inspect conservative code-scanning output for selected findings. |
+| PyPI provenance snapshot | [sample-provenance-report.json](../examples/sample-provenance-report.json), [sample-provenance-report.md](../examples/sample-provenance-report.md), [sample-provenance-report.sarif](../examples/sample-provenance-report.sarif) | Focused golden tests with constructed provenance evidence | No live lookup while testing | Review opt-in provenance rendering and policy semantics, not current PyPI package truth. |
+| OpenSSF Scorecard snapshot | [sample-scorecard-report.json](../examples/sample-scorecard-report.json), [sample-scorecard-report.md](../examples/sample-scorecard-report.md), [sample-scorecard-report.sarif](../examples/sample-scorecard-report.sarif) | Focused golden tests with constructed Scorecard evidence | No live lookup while testing | Review opt-in Scorecard rendering and explicit policy gating, not current repository reputation. |
+| Consumer workflows | [github-actions-consumer.yml](../examples/github-actions-consumer.yml), [github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml) | Checked-in examples | Not executed by this repository | Copy or inspect CI consumption patterns. |
+
+Reviewer rule:
+
+- no-network generated examples prove deterministic local output still matches
+  the code
+- mocked enrichment snapshots prove report rendering and policy interpretation
+  for opt-in evidence shapes
+- release verification docs prove distribution evidence for the tool itself
+- none of these artifacts prove that a third-party dependency is safe
 
 ## 15-minute reproduction check
 

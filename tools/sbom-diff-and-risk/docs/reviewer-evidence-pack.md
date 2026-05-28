@@ -5,6 +5,11 @@ This page is a reproducible evidence checklist for reviewing `sbom-diff-and-risk
 For the shortest ordered route through these materials, start with
 [reviewer-path.md](reviewer-path.md).
 
+For interpreting checked-in examples, use the
+[artifact evidence map](reviewer-path.md#artifact-evidence-map). It separates
+deterministic no-network examples, mocked enrichment snapshots, and consumer
+workflow templates.
+
 ## Project Identity
 
 `sbom-diff-and-risk` is a local-first deterministic CLI for comparing SBOMs and dependency manifests. It is designed to produce stable review evidence for dependency changes.
@@ -68,6 +73,11 @@ python scripts/regenerate-example-artifacts.py --check
 
 For the exact regeneration scope, see
 [example-artifact-regeneration.md](example-artifact-regeneration.md).
+
+This check covers deterministic no-network examples only. Provenance-aware and
+Scorecard-aware checked-in examples are focused rendering snapshots built by
+golden tests with constructed evidence; they are not live PyPI or Scorecard
+lookups.
 
 Generate the strict-policy JSON sidecar:
 
