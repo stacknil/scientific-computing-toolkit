@@ -156,6 +156,8 @@ they do not prove the same thing.
   [`docs/pypi-trusted-publishing-readiness.md`](tools/sbom-diff-and-risk/docs/pypi-trusted-publishing-readiness.md)
 - Production PyPI decision gate:
   [`docs/pypi-production-publishing-decision.md`](tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md)
+- Reviewer route contract:
+  [`scripts/validate-reviewer-routes.py`](scripts/validate-reviewer-routes.py)
 
 The TestPyPI Trusted Publishing dry-run has been validated. Production PyPI
 publishing is intentionally deferred.

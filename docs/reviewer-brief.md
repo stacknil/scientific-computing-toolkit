@@ -28,6 +28,7 @@ workflows, but they are not part of the `sbom-diff-and-risk` release surface.
 | What should I review for the SBOM tool? | The SBOM [reviewer path](../tools/sbom-diff-and-risk/docs/reviewer-path.md). | You have chosen the right 30-second, 5-minute, 15-minute, release, or deep-review route. |
 | Can the SBOM examples be reproduced? | The SBOM [example artifact regeneration guide](../tools/sbom-diff-and-risk/docs/example-artifact-regeneration.md). | `python scripts/regenerate-example-artifacts.py --check` passes. |
 | Can the released SBOM artifacts be verified? | The SBOM [verification guide](../tools/sbom-diff-and-risk/docs/verification.md). | You know whether to use checksums, release verification, or workflow artifact attestations. |
+| Are the reviewer routes still valid? | The repository [reviewer route contract](../scripts/validate-reviewer-routes.py). | `python scripts/validate-reviewer-routes.py` passes. |
 | What are the supporting diagnostics projects? | The supporting project entry points below and the root [README](../README.md). | You can state their data-policy boundaries and that they are separate from the SBOM release surface. |
 
 ## Supporting diagnostics entry points
