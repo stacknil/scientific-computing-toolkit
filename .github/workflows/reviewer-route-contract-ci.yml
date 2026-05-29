@@ -1,0 +1,47 @@
+name: reviewer-route-contract-ci
+run-name: reviewer route contract ci / ${{ github.event_name }} / ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/reviewer-route-contract-ci.yml"
+      - "README.md"
+      - "docs/**"
+      - "projects/**"
+      - "scripts/validate-reviewer-routes.py"
+      - "tools/sbom-diff-and-risk/README.md"
+      - "tools/sbom-diff-and-risk/docs/**"
+      - "tools/sbom-diff-and-risk/examples/**"
+  pull_request:
+    paths:
+      - ".github/workflows/reviewer-route-contract-ci.yml"
+      - "README.md"
+      - "docs/**"
+      - "projects/**"
+      - "scripts/validate-reviewer-routes.py"
+      - "tools/sbom-diff-and-risk/README.md"
+      - "tools/sbom-diff-and-risk/docs/**"
+      - "tools/sbom-diff-and-risk/examples/**"
+
+permissions: {}
+
+env:
+  REVIEWER_ROUTE_CONTRACT_PYTHON_VERSION: "3.11"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.REVIEWER_ROUTE_CONTRACT_PYTHON_VERSION }}
+
+      - name: Validate reviewer route contract
+        run: python scripts/validate-reviewer-routes.py
