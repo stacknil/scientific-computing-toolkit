@@ -2,9 +2,9 @@
 
 ## 30-second orientation
 
-Read the README first. Confirm this is a sanitized Python weather-diagnostics
-mini-lab, not a course archive, not a raw-data mirror, and not an operational
-forecast system.
+Read the project [README](../README.md) first. Confirm this is a sanitized
+Python weather-diagnostics mini-lab, not a course archive, not a raw-data
+mirror, and not an operational forecast system.
 
 Check the first screen for the project role:
 
