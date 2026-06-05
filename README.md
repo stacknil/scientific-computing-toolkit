@@ -93,6 +93,7 @@ This mini-lab is a supporting scientific-data project and is not part of the
 Useful entry points:
 
 - [`precipitation-anomaly-diagnostics` README](projects/precipitation-anomaly-diagnostics/README.md)
+- [Reviewer path](projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md)
 - [Data policy](projects/precipitation-anomaly-diagnostics/docs/data-policy.md)
 - [Methodology](projects/precipitation-anomaly-diagnostics/docs/methodology.md)
 - [Inference framework](projects/precipitation-anomaly-diagnostics/docs/inference-framework.md)
@@ -114,6 +115,7 @@ the `sbom-diff-and-risk` release surface.
 Useful entry points:
 
 - [`precipitation-anomaly-diagnostics-lab` README](projects/precipitation-anomaly-diagnostics-lab/README.md)
+- [Reviewer path](projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md)
 - [Calculation methods](projects/precipitation-anomaly-diagnostics-lab/docs/calculation-methods.md)
 - [Inference analysis](projects/precipitation-anomaly-diagnostics-lab/docs/inference-analysis.md)
 - [Synthetic inference report](projects/precipitation-anomaly-diagnostics-lab/examples/synthetic-inference-report.md)

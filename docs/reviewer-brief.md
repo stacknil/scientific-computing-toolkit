@@ -35,8 +35,8 @@ workflows, but they are not part of the `sbom-diff-and-risk` release surface.
 
 | Project | Role | Start here |
 | --- | --- | --- |
-| `precipitation-anomaly-diagnostics` | Compact reviewer-facing mini-lab | [README](../projects/precipitation-anomaly-diagnostics/README.md) |
-| `precipitation-anomaly-diagnostics-lab` | Extended climate diagnostics lab | [README](../projects/precipitation-anomaly-diagnostics-lab/README.md) |
+| `precipitation-anomaly-diagnostics` | Compact reviewer-facing mini-lab | [Reviewer path](../projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md) |
+| `precipitation-anomaly-diagnostics-lab` | Extended climate diagnostics lab | [Reviewer path](../projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md) |
 | `python-weather-diagnostics-toolkit` | Reusable weather-field diagnostics toolkit | [Reviewer path](../projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md) |
 
 ## Reviewer evidence

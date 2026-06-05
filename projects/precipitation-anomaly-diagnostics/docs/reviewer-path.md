@@ -4,7 +4,9 @@ This reviewer path is a lightweight guide for reading the compact precipitation 
 
 ## 30-second orientation
 
-Read the project README first. Confirm this is a sanitized scientific-computing mini-lab, not a course archive and not an operational forecast system.
+Read the project [README](../README.md) first. Confirm this is a sanitized
+scientific-computing mini-lab, not a course archive and not an operational
+forecast system.
 
 Check the first screen for the project role:
 

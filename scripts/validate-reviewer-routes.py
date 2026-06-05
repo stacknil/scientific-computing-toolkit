@@ -12,6 +12,9 @@ DOCS_TO_VALIDATE = (
     Path("README.md"),
     Path("docs/reviewer-brief.md"),
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"),
+    Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"),
+    Path("projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md"),
+    Path("projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md"),
 )
 
 REQUIRED_LINK_TARGETS = {
@@ -19,12 +22,16 @@ REQUIRED_LINK_TARGETS = {
         "docs/reviewer-brief.md",
         "tools/sbom-diff-and-risk/docs/reviewer-path.md",
         "tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md",
+        "projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md",
+        "projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md",
         "projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md",
     },
     Path("docs/reviewer-brief.md"): {
         "README.md",
         "tools/sbom-diff-and-risk/docs/reviewer-path.md",
         "tools/sbom-diff-and-risk/docs/example-artifact-regeneration.md",
+        "projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md",
+        "projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md",
         "projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md",
     },
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): {
@@ -35,6 +42,54 @@ REQUIRED_LINK_TARGETS = {
         "tools/sbom-diff-and-risk/examples/sample-summary.json",
         "tools/sbom-diff-and-risk/examples/sample-policy.json",
         "tools/sbom-diff-and-risk/examples/sample-sarif.sarif",
+    },
+    Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"): {
+        "projects/precipitation-anomaly-diagnostics/README.md",
+        "projects/precipitation-anomaly-diagnostics/docs/data-policy.md",
+        "projects/precipitation-anomaly-diagnostics/docs/inference-framework.md",
+        "projects/precipitation-anomaly-diagnostics/docs/methodology.md",
+        "projects/precipitation-anomaly-diagnostics/examples/sample_metadata.json",
+        "projects/precipitation-anomaly-diagnostics/PUBLICATION_BOUNDARIES.md",
+        "projects/precipitation-anomaly-diagnostics/reports/example-report.md",
+    },
+    Path("projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md"): {
+        "projects/precipitation-anomaly-diagnostics-lab/README.md",
+        "projects/precipitation-anomaly-diagnostics-lab/docs/calculation-methods.md",
+        "projects/precipitation-anomaly-diagnostics-lab/docs/data-policy.md",
+        "projects/precipitation-anomaly-diagnostics-lab/docs/inference-analysis.md",
+        "projects/precipitation-anomaly-diagnostics-lab/docs/methodology.md",
+        "projects/precipitation-anomaly-diagnostics-lab/docs/reproducibility.md",
+        "projects/precipitation-anomaly-diagnostics-lab/examples/synthetic-inference-report.md",
+        "projects/precipitation-anomaly-diagnostics-lab/examples/generate_synthetic_demo_assets.py",
+        "projects/precipitation-anomaly-diagnostics-lab/scripts/run_composite_circulation.py",
+        "projects/precipitation-anomaly-diagnostics-lab/scripts/run_eof.py",
+        "projects/precipitation-anomaly-diagnostics-lab/scripts/run_index_correlations.py",
+        "projects/precipitation-anomaly-diagnostics-lab/scripts/run_lag_diagnostics.py",
+        "projects/precipitation-anomaly-diagnostics-lab/scripts/run_mca.py",
+        "projects/precipitation-anomaly-diagnostics-lab/scripts/run_precipitation_anomalies.py",
+        "projects/precipitation-anomaly-diagnostics-lab/scripts/run_regression.py",
+        "projects/precipitation-anomaly-diagnostics-lab/scripts/run_trend_diagnostics.py",
+        "projects/precipitation-anomaly-diagnostics-lab/src/climate_diagnostics/config.py",
+        "projects/precipitation-anomaly-diagnostics-lab/src/climate_diagnostics/grids.py",
+        "projects/precipitation-anomaly-diagnostics-lab/src/climate_diagnostics/io.py",
+        "projects/precipitation-anomaly-diagnostics-lab/src/climate_diagnostics/plotting.py",
+        "projects/precipitation-anomaly-diagnostics-lab/src/climate_diagnostics/statistics.py",
+        "projects/precipitation-anomaly-diagnostics-lab/SANITIZATION_REPORT.md",
+    },
+    Path("projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md"): {
+        "projects/python-weather-diagnostics-toolkit/README.md",
+        "projects/python-weather-diagnostics-toolkit/docs/calculation-methods.md",
+        "projects/python-weather-diagnostics-toolkit/docs/climate-statistical-diagnostics.md",
+        "projects/python-weather-diagnostics-toolkit/docs/data-policy.md",
+        "projects/python-weather-diagnostics-toolkit/docs/diagnostic-analysis.md",
+        "projects/python-weather-diagnostics-toolkit/docs/focused-case-abstraction.md",
+        "projects/python-weather-diagnostics-toolkit/docs/methodology.md",
+        "projects/python-weather-diagnostics-toolkit/docs/source-to-public-mapping.md",
+        "projects/python-weather-diagnostics-toolkit/docs/station-precipitation-workflows.md",
+        "projects/python-weather-diagnostics-toolkit/examples/sample_metadata.json",
+        "projects/python-weather-diagnostics-toolkit/examples/synthetic-weather-diagnostics-report.md",
+        "projects/python-weather-diagnostics-toolkit/PUBLICATION_BOUNDARIES.md",
+        "projects/python-weather-diagnostics-toolkit/SANITIZATION_REPORT.md",
     },
 }
 
@@ -56,10 +111,31 @@ REQUIRED_TEXT = {
         "not current repository reputation",
         "It does not decide whether a dependency is safe.",
     ),
+    Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"): (
+        "supporting scientific-data project inside `scientific-computing-toolkit`",
+        "not part of the `sbom-diff-and-risk` release surface",
+        "not a separate meteorology portfolio",
+        "This review does not require raw climate datasets.",
+    ),
+    Path("projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md"): (
+        "supporting scientific-data project inside `scientific-computing-toolkit`",
+        "not part of the `sbom-diff-and-risk` release surface",
+        "not a separate meteorology portfolio",
+        "without requiring raw climate datasets or private local materials",
+        "does not claim causal attribution",
+    ),
+    Path("projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md"): (
+        "supporting atmospheric diagnostics module",
+        "not part of the `sbom-diff-and-risk` release surface",
+        "not a separate meteorology portfolio",
+        "not a public redistribution of raw weather data or course material",
+    ),
 }
 
 REQUIRED_REVIEWER_PATHS = (
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"),
+    Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"),
+    Path("projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md"),
     Path("projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md"),
 )
 
