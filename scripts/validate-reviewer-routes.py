@@ -35,6 +35,7 @@ REQUIRED_LINK_TARGETS = {
         "projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md",
     },
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): {
+        "scripts/validate-reviewer-routes.py",
         "tools/sbom-diff-and-risk/docs/reviewer-brief.md",
         "tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md",
         "tools/sbom-diff-and-risk/docs/verification.md",
@@ -106,6 +107,8 @@ REQUIRED_TEXT = {
     ),
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): (
         "Artifact evidence map",
+        "Reviewer route contract",
+        "python scripts/validate-reviewer-routes.py",
         "No network",
         "not current PyPI package truth",
         "not current repository reputation",

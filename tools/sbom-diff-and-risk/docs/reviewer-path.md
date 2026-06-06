@@ -12,6 +12,7 @@ where to find it, and what it does not prove.
 | What artifacts does it produce? | [5-minute artifact review](#5-minute-artifact-review) | You can point to JSON, summary, policy, Markdown, and SARIF examples. |
 | Can the examples be reproduced locally? | [15-minute reproduction check](#15-minute-reproduction-check) | `regenerate-example-artifacts.py --check` passes without enrichment. |
 | Can the released tool artifacts be verified? | [Release evidence](#release-evidence) | You can choose the correct GitHub release, checksum, or attestation path. |
+| Are the reviewer routes still valid? | [Reviewer route contract](#reviewer-route-contract) | `python scripts/validate-reviewer-routes.py` passes from the repository root. |
 | Is this enough for a full review? | [Deep review](#deep-review) | You have followed the reproducible checklist in the evidence pack. |
 
 ## 30-second orientation
@@ -121,6 +122,33 @@ For the exact regeneration scope, read
 
 Stop here if you need reproducible local evidence that the examples still match
 the code.
+
+## Reviewer route contract
+
+From the repository root, run:
+
+```powershell
+python scripts/validate-reviewer-routes.py
+```
+
+This checks that the repository reviewer route still has the expected local
+links, markdown anchors, reviewer-path documents, supporting-project boundary
+files, and required non-claim phrases.
+
+Use this when you change reviewer-facing docs, examples, or supporting project
+entry points. The contract lives in
+[`scripts/validate-reviewer-routes.py`](../../../scripts/validate-reviewer-routes.py)
+and is also enforced by the repository reviewer-route CI workflow.
+
+Expected result:
+
+- the SBOM reviewer path still links to the required evidence surfaces
+- local markdown anchors resolve
+- supporting project reviewer paths and boundary files still exist
+- required non-claims remain present in reviewer-facing docs
+
+Stop here if your review question is whether the reviewer route itself is
+still coherent after documentation changes.
 
 ## Release evidence
 
