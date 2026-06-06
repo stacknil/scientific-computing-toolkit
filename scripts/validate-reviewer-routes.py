@@ -164,6 +164,9 @@ INLINE_LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 REFERENCE_LINK_RE = re.compile(r"^\[[^\]]+\]:\s+(\S+)", re.MULTILINE)
 URI_RE = re.compile(r"^[a-z][a-z0-9+.-]*:", re.IGNORECASE)
 WHITESPACE_RE = re.compile(r"\s+")
+HEADING_RE = re.compile(r"^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$")
+HTML_TAG_RE = re.compile(r"<[^>]+>")
+SLUG_PUNCTUATION_RE = re.compile(r"[^\w\s-]")
 
 
 def repo_relative(path: Path) -> str:
@@ -178,7 +181,7 @@ def normalized_text(text: str) -> str:
     return WHITESPACE_RE.sub(" ", text)
 
 
-def local_link_target(markdown_path: Path, raw_target: str) -> Path | None:
+def split_link_target(raw_target: str) -> tuple[str, str | None] | None:
     target = raw_target.strip()
     if target.startswith("<") and ">" in target:
         target = target[1 : target.index(">")]
@@ -186,14 +189,61 @@ def local_link_target(markdown_path: Path, raw_target: str) -> Path | None:
         target = target.split()[0]
 
     target = unquote(target)
-    if not target or target.startswith("#") or URI_RE.match(target):
+    if not target or URI_RE.match(target):
         return None
 
-    path_part = target.split("#", 1)[0]
-    if not path_part:
+    path_part, separator, anchor = target.partition("#")
+    return path_part, anchor if separator else None
+
+
+def local_link_target(markdown_path: Path, raw_target: str) -> Path | None:
+    parsed_target = split_link_target(raw_target)
+    if parsed_target is None:
         return None
+
+    path_part, _anchor = parsed_target
+    if not path_part:
+        return (REPO_ROOT / markdown_path).resolve()
 
     return (REPO_ROOT / markdown_path.parent / path_part).resolve()
+
+
+def local_link_anchor(raw_target: str) -> str | None:
+    parsed_target = split_link_target(raw_target)
+    if parsed_target is None:
+        return None
+
+    _path_part, anchor = parsed_target
+    return anchor
+
+
+def heading_slug(heading: str) -> str:
+    text = heading.strip().strip("#").strip()
+    text = re.sub(r"`([^`]*)`", r"\1", text)
+    text = HTML_TAG_RE.sub("", text)
+    text = SLUG_PUNCTUATION_RE.sub("", text.lower())
+    return WHITESPACE_RE.sub("-", text.strip())
+
+
+def markdown_anchors(path: Path) -> set[str]:
+    text = path.read_text(encoding="utf-8")
+    anchors: set[str] = set()
+    seen: dict[str, int] = {}
+
+    for line in text.splitlines():
+        match = HEADING_RE.match(line)
+        if not match:
+            continue
+
+        slug = heading_slug(match.group(1))
+        if not slug:
+            continue
+
+        count = seen.get(slug, 0)
+        seen[slug] = count + 1
+        anchors.add(slug if count == 0 else f"{slug}-{count}")
+
+    return anchors
 
 
 def iter_local_links(markdown_path: Path) -> set[str]:
@@ -236,6 +286,21 @@ def validate_existing_links(markdown_path: Path, errors: list[str]) -> None:
 
         if not target.exists():
             errors.append(f"{markdown_path}: missing local link target: {raw_target}")
+            continue
+
+        anchor = local_link_anchor(raw_target)
+        if anchor is None:
+            continue
+
+        if target.suffix.lower() != ".md":
+            continue
+
+        expected_anchor = anchor.lower()
+        if expected_anchor not in markdown_anchors(target):
+            errors.append(
+                f"{markdown_path}: missing markdown anchor in "
+                f"{repo_relative(target)}: #{anchor}"
+            )
 
 
 def validate_required_links(markdown_path: Path, errors: list[str]) -> None:
