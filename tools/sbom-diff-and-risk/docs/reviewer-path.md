@@ -138,7 +138,8 @@ files, and required non-claim phrases.
 Use this when you change reviewer-facing docs, examples, or supporting project
 entry points. The contract lives in
 [`scripts/validate-reviewer-routes.py`](../../../scripts/validate-reviewer-routes.py)
-and is also enforced by the repository reviewer-route CI workflow.
+and is also enforced by the
+[repository reviewer-route CI workflow](../../../.github/workflows/reviewer-route-contract-ci.yml).
 
 Expected result:
 

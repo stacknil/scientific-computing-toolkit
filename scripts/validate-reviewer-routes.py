@@ -35,6 +35,7 @@ REQUIRED_LINK_TARGETS = {
         "projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md",
     },
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): {
+        ".github/workflows/reviewer-route-contract-ci.yml",
         "scripts/validate-reviewer-routes.py",
         "tools/sbom-diff-and-risk/docs/reviewer-brief.md",
         "tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md",
