@@ -17,6 +17,13 @@ DOCS_TO_VALIDATE = (
     Path("projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md"),
 )
 
+REVIEWER_SURFACE_ROOTS = (
+    Path("README.md"),
+    Path("docs"),
+    Path("tools/sbom-diff-and-risk"),
+    Path("projects"),
+)
+
 REQUIRED_LINK_TARGETS = {
     Path("README.md"): {
         "docs/reviewer-brief.md",
@@ -109,6 +116,7 @@ REQUIRED_TEXT = {
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): (
         "Artifact evidence map",
         "Reviewer route contract",
+        "Markdown links across the reviewer surface resolve",
         "python scripts/validate-reviewer-routes.py",
         "No network",
         "not current PyPI package truth",
@@ -250,6 +258,32 @@ def markdown_anchors(path: Path) -> set[str]:
     return anchors
 
 
+def iter_reviewer_surface_markdown(errors: list[str]) -> tuple[Path, ...]:
+    markdown_paths: list[Path] = []
+    seen: set[Path] = set()
+
+    for root in REVIEWER_SURFACE_ROOTS:
+        absolute_root = REPO_ROOT / root
+        if not absolute_root.exists():
+            errors.append(f"missing reviewer surface root: {root.as_posix()}")
+            continue
+
+        if absolute_root.is_file():
+            candidates = (absolute_root,) if absolute_root.suffix.lower() == ".md" else ()
+        else:
+            candidates = sorted(absolute_root.rglob("*.md"))
+
+        for absolute_path in candidates:
+            relative_path = absolute_path.relative_to(REPO_ROOT)
+            if relative_path in seen:
+                continue
+
+            seen.add(relative_path)
+            markdown_paths.append(relative_path)
+
+    return tuple(markdown_paths)
+
+
 def iter_local_links(markdown_path: Path) -> set[str]:
     text = read_markdown(markdown_path)
     raw_targets = INLINE_LINK_RE.findall(text)
@@ -336,13 +370,16 @@ def validate_required_paths(errors: list[str]) -> None:
 
 def main() -> int:
     errors: list[str] = []
+    reviewer_surface_markdown = iter_reviewer_surface_markdown(errors)
+
+    for markdown_path in reviewer_surface_markdown:
+        validate_existing_links(markdown_path, errors)
 
     for markdown_path in DOCS_TO_VALIDATE:
         if not (REPO_ROOT / markdown_path).is_file():
             errors.append(f"missing reviewer document: {markdown_path.as_posix()}")
             continue
 
-        validate_existing_links(markdown_path, errors)
         validate_required_links(markdown_path, errors)
         validate_required_text(markdown_path, errors)
 
@@ -357,7 +394,9 @@ def main() -> int:
     print(
         "Reviewer route validation passed: "
         f"{len(DOCS_TO_VALIDATE)} documents and "
-        f"{len(REQUIRED_REVIEWER_PATHS)} reviewer paths checked."
+        f"{len(REQUIRED_REVIEWER_PATHS)} reviewer paths checked; "
+        f"{len(reviewer_surface_markdown)} reviewer-surface markdown files "
+        "link-checked."
     )
     return 0
 
