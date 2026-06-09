@@ -134,7 +134,8 @@ python scripts/validate-reviewer-routes.py
 This checks that the repository reviewer route still has the expected local
 links, markdown anchors, reviewer-path documents, supporting-project boundary
 files, and required non-claim phrases. It also checks that Markdown links
-across the reviewer surface resolve.
+across the reviewer surface resolve and that workflow path filters cover
+reviewer-surface changes.
 
 Use this when you change reviewer-facing docs, examples, or supporting project
 entry points. The contract lives in
@@ -147,6 +148,7 @@ Expected result:
 - the SBOM reviewer path still links to the required evidence surfaces
 - local markdown anchors resolve
 - Markdown links across the reviewer surface resolve
+- workflow path filters cover reviewer-surface changes
 - supporting project reviewer paths and boundary files still exist
 - required non-claims remain present in reviewer-facing docs
 
