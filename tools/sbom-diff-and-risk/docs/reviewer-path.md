@@ -13,6 +13,7 @@ where to find it, and what it does not prove.
 | Can the examples be reproduced locally? | [15-minute reproduction check](#15-minute-reproduction-check) | `regenerate-example-artifacts.py --check` passes without enrichment. |
 | Can the released tool artifacts be verified? | [Release evidence](#release-evidence) | You can choose the correct GitHub release, checksum, or attestation path. |
 | Are the reviewer routes still valid? | [Reviewer route contract](#reviewer-route-contract) | `python scripts/validate-reviewer-routes.py` passes from the repository root. |
+| What can I safely say in review? | [Reviewer outcome statements](#reviewer-outcome-statements) | Your summary separates verified evidence from non-claims. |
 | Is this enough for a full review? | [Deep review](#deep-review) | You have followed the reproducible checklist in the evidence pack. |
 
 ## 30-second orientation
@@ -135,7 +136,8 @@ This checks that the repository reviewer route still has the expected local
 links, markdown anchors, reviewer-path documents, supporting-project boundary
 files, and required non-claim phrases. It also checks that Markdown links
 across the reviewer surface resolve and that workflow path filters cover
-reviewer-surface changes.
+reviewer-surface changes, including whether every tracked reviewer-surface
+Markdown file is covered by those filters.
 
 Use this when you change reviewer-facing docs, examples, or supporting project
 entry points. The contract lives in
@@ -149,11 +151,38 @@ Expected result:
 - local markdown anchors resolve
 - Markdown links across the reviewer surface resolve
 - workflow path filters cover reviewer-surface changes
+- every tracked reviewer-surface Markdown file is covered by the workflow path filters
 - supporting project reviewer paths and boundary files still exist
 - required non-claims remain present in reviewer-facing docs
 
 Stop here if your review question is whether the reviewer route itself is
 still coherent after documentation changes.
+
+## Reviewer outcome statements
+
+Use this wording when you need a concise review summary. Each statement maps to
+the evidence path that supports it.
+
+| Review result | Safe statement |
+| --- | --- |
+| 30-second orientation completed | `sbom-diff-and-risk` is a local deterministic SBOM/dependency diff CLI with JSON, Markdown, SARIF, summary, and policy-sidecar outputs. |
+| Artifact review completed | The checked-in examples show the default report shape, summary contract, policy sidecar, Markdown report, SARIF output, mocked enrichment snapshots, and CI workflow templates. |
+| Local reproduction completed | The no-network checked-in examples are up to date with the current code according to `scripts/regenerate-example-artifacts.py --check`. |
+| Route contract completed | The reviewer route still has required local links, anchors, path filters, boundary files, and non-claim phrases according to `scripts/validate-reviewer-routes.py`. |
+| Release evidence reviewed | The tool's release artifacts have separate checksum, release-verification, workflow-attestation, and TestPyPI evidence paths. |
+
+Do not write:
+
+- `sbom-diff-and-risk` is a vulnerability scanner
+- the checked-in examples prove a third-party dependency is safe
+- mocked provenance or Scorecard snapshots represent current live package or
+  repository truth
+- TestPyPI validation means production PyPI publishing is enabled
+- GitHub Release checksums, workflow artifact attestations, and PyPI Trusted
+  Publishing prove the same thing
+
+Stop here if you need reviewer-safe wording for a PR description, review note,
+or project summary.
 
 ## Release evidence
 
