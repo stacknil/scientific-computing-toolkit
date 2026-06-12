@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from fnmatch import fnmatchcase
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote
@@ -129,8 +131,13 @@ REQUIRED_TEXT = {
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): (
         "Artifact evidence map",
         "Reviewer route contract",
+        "Reviewer outcome statements",
+        "What can I safely say in review?",
+        "Your summary separates verified evidence from non-claims.",
+        "Do not write:",
         "Markdown links across the reviewer surface resolve",
         "workflow path filters cover reviewer-surface changes",
+        "every tracked reviewer-surface Markdown file is covered",
         "python scripts/validate-reviewer-routes.py",
         "No network",
         "not current PyPI package truth",
@@ -280,20 +287,37 @@ def iter_reviewer_surface_markdown(errors: list[str]) -> tuple[Path, ...]:
         absolute_root = REPO_ROOT / root
         if not absolute_root.exists():
             errors.append(f"missing reviewer surface root: {root.as_posix()}")
+
+    tracked_paths = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(REPO_ROOT),
+            "ls-files",
+            "--",
+            *(root.as_posix() for root in REVIEWER_SURFACE_ROOTS),
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if tracked_paths.returncode != 0:
+        errors.append(
+            "failed to list tracked reviewer surface files: "
+            f"{tracked_paths.stderr.strip()}"
+        )
+        return tuple()
+
+    for raw_path in tracked_paths.stdout.splitlines():
+        relative_path = Path(raw_path)
+        if relative_path.suffix.lower() != ".md":
             continue
 
-        if absolute_root.is_file():
-            candidates = (absolute_root,) if absolute_root.suffix.lower() == ".md" else ()
-        else:
-            candidates = sorted(absolute_root.rglob("*.md"))
+        if relative_path in seen:
+            continue
 
-        for absolute_path in candidates:
-            relative_path = absolute_path.relative_to(REPO_ROOT)
-            if relative_path in seen:
-                continue
-
-            seen.add(relative_path)
-            markdown_paths.append(relative_path)
+        seen.add(relative_path)
+        markdown_paths.append(relative_path)
 
     return tuple(markdown_paths)
 
@@ -336,6 +360,21 @@ def workflow_path_filters(workflow_path: Path, event_name: str, errors: list[str
         filters.add(raw_filter.strip("\"'"))
 
     return filters
+
+
+def path_filter_matches(path_filter: str, path: Path) -> bool:
+    path_text = path.as_posix()
+    filter_text = path_filter.strip("/")
+
+    if filter_text.endswith("/**"):
+        prefix = filter_text.removesuffix("/**")
+        return path_text == prefix or path_text.startswith(f"{prefix}/")
+
+    parent_filter, separator, name_filter = filter_text.rpartition("/")
+    if separator and any(character in name_filter for character in "*?[]"):
+        return path.parent.as_posix() == parent_filter and fnmatchcase(path.name, name_filter)
+
+    return path_text == filter_text
 
 
 def iter_local_links(markdown_path: Path) -> set[str]:
@@ -422,7 +461,9 @@ def validate_required_paths(errors: list[str]) -> None:
                 errors.append(f"missing supporting-project boundary file: {path.as_posix()}")
 
 
-def validate_workflow_path_filters(errors: list[str]) -> None:
+def validate_workflow_path_filters(
+    reviewer_surface_markdown: tuple[Path, ...], errors: list[str]
+) -> None:
     for event_name in WORKFLOW_EVENTS_WITH_PATH_FILTERS:
         filters = workflow_path_filters(WORKFLOW_PATH, event_name, errors)
         if not filters:
@@ -434,6 +475,13 @@ def validate_workflow_path_filters(errors: list[str]) -> None:
                 errors.append(
                     f"{WORKFLOW_PATH}: {event_name} is missing path filter "
                     f"{required_filter!r}"
+                )
+
+        for markdown_path in reviewer_surface_markdown:
+            if not any(path_filter_matches(path_filter, markdown_path) for path_filter in filters):
+                errors.append(
+                    f"{WORKFLOW_PATH}: {event_name} path filters do not cover "
+                    f"{markdown_path.as_posix()}"
                 )
 
 
@@ -453,7 +501,7 @@ def main() -> int:
         validate_required_text(markdown_path, errors)
 
     validate_required_paths(errors)
-    validate_workflow_path_filters(errors)
+    validate_workflow_path_filters(reviewer_surface_markdown, errors)
 
     if errors:
         print("Reviewer route validation failed:", file=sys.stderr)
@@ -466,7 +514,7 @@ def main() -> int:
         f"{len(DOCS_TO_VALIDATE)} documents and "
         f"{len(REQUIRED_REVIEWER_PATHS)} reviewer paths checked; "
         f"{len(reviewer_surface_markdown)} reviewer-surface markdown files "
-        "link-checked; workflow path filters checked."
+        "link-checked; workflow path filters and coverage checked."
     )
     return 0
 
