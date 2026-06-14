@@ -21,6 +21,9 @@ For a repository-level reviewer overview, use the
 SBOM tool from the supporting diagnostics projects and points reviewers to
 the right evidence path.
 
+For the shortest boundary check before adding or reviewing new material, use
+the [repository scope map](docs/repo-scope-map.md).
+
 ## Supporting Diagnostics Projects
 
 These projects are internal supporting material for reviewer depth. They are
@@ -160,6 +163,8 @@ they do not prove the same thing.
   [`docs/pypi-production-publishing-decision.md`](tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md)
 - Reviewer route contract:
   [`scripts/validate-reviewer-routes.py`](scripts/validate-reviewer-routes.py)
+- Repository scope map:
+  [`docs/repo-scope-map.md`](docs/repo-scope-map.md)
 
 The TestPyPI Trusted Publishing dry-run has been validated. Production PyPI
 publishing is intentionally deferred.

@@ -13,6 +13,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 DOCS_TO_VALIDATE = (
     Path("README.md"),
     Path("docs/reviewer-brief.md"),
+    Path("docs/repo-scope-map.md"),
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"),
     Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"),
     Path("projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md"),
@@ -42,6 +43,7 @@ REQUIRED_WORKFLOW_PATH_FILTERS = (
 REQUIRED_LINK_TARGETS = {
     Path("README.md"): {
         "docs/reviewer-brief.md",
+        "docs/repo-scope-map.md",
         "tools/sbom-diff-and-risk/docs/reviewer-path.md",
         "tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md",
         "projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md",
@@ -50,12 +52,14 @@ REQUIRED_LINK_TARGETS = {
     },
     Path("docs/reviewer-brief.md"): {
         "README.md",
+        "docs/repo-scope-map.md",
         "tools/sbom-diff-and-risk/docs/reviewer-path.md",
         "tools/sbom-diff-and-risk/docs/example-artifact-regeneration.md",
         "projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md",
         "projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md",
         "projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md",
     },
+    Path("docs/repo-scope-map.md"): set(),
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): {
         ".github/workflows/reviewer-route-contract-ci.yml",
         "scripts/validate-reviewer-routes.py",
@@ -127,6 +131,19 @@ REQUIRED_TEXT = {
         "The current flagship project is",
         "supporting diagnostics projects",
         "production PyPI publishing remains intentionally deferred",
+    ),
+    Path("docs/repo-scope-map.md"): (
+        "Flagship",
+        "sbom-diff-and-risk",
+        "Supporting diagnostics",
+        "precipitation-anomaly-diagnostics",
+        "precipitation-anomaly-diagnostics-lab",
+        "python-weather-diagnostics-toolkit",
+        "What this repo does not claim",
+        "not a climate portfolio",
+        "not a vulnerability scanner",
+        "not a CVE resolver",
+        "not a production PyPI release claim",
     ),
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): (
         "Artifact evidence map",
