@@ -1,0 +1,18 @@
+{
+  "example_type": "policy-decision-example",
+  "review_decision": "needs-review",
+  "decision_source": "consumer_interpretation",
+  "summary": {},
+  "policy_findings": [],
+  "human_review_reason": "No summary.policy status is present, so the consumer cannot honestly call the local policy result pass, warn, or fail.",
+  "reviewer_interpretation": {
+    "safe_statement": "The available policy surface is insufficient for an automated pass, warn, or fail statement.",
+    "next_action": "Route the change to human review or rerun with an explicit local policy.",
+    "non_claims": [
+      "not a runtime summary.policy.status value",
+      "not a CVE result",
+      "not a dependency safety verdict",
+      "not a production PyPI release claim"
+    ]
+  }
+}

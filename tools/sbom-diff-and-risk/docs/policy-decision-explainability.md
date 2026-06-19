@@ -84,6 +84,10 @@ Use `summary.policy` for compact counts and status. Use policy finding
 explanation fields when a reviewer needs to inspect why the status was
 `warn` or `fail`.
 
+For small reviewer-facing decision fixtures covering `pass`, `warn`, `fail`,
+and consumer-side `needs-review`, see
+[examples/policy-decisions](../examples/policy-decisions/README.md).
+
 ## Compatibility notes
 
 - The fields are additive JSON metadata for policy findings.

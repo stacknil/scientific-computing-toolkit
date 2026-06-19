@@ -1,0 +1,23 @@
+{
+  "example_type": "policy-decision-example",
+  "review_decision": "pass",
+  "decision_source": "summary.policy",
+  "summary": {
+    "policy": {
+      "status": "pass",
+      "blocking": 0,
+      "warning": 0,
+      "suppressed": 0
+    }
+  },
+  "policy_findings": [],
+  "reviewer_interpretation": {
+    "safe_statement": "Local policy ran and produced no blocking or warning findings.",
+    "next_action": "Continue normal review of the underlying dependency diff.",
+    "non_claims": [
+      "not a CVE result",
+      "not a dependency safety verdict",
+      "not a production PyPI release claim"
+    ]
+  }
+}

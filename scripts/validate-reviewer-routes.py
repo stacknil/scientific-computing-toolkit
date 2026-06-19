@@ -66,6 +66,7 @@ REQUIRED_LINK_TARGETS = {
         "tools/sbom-diff-and-risk/docs/reviewer-brief.md",
         "tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md",
         "tools/sbom-diff-and-risk/docs/verification.md",
+        "tools/sbom-diff-and-risk/examples/policy-decisions/README.md",
         "tools/sbom-diff-and-risk/examples/sample-report.json",
         "tools/sbom-diff-and-risk/examples/sample-summary.json",
         "tools/sbom-diff-and-risk/examples/sample-policy.json",
