@@ -1,0 +1,34 @@
+{
+  "example_type": "policy-decision-example",
+  "review_decision": "warn",
+  "decision_source": "summary.policy",
+  "summary": {
+    "policy": {
+      "status": "warn",
+      "blocking": 0,
+      "warning": 1,
+      "suppressed": 0
+    }
+  },
+  "policy_findings": [
+    {
+      "rule_id": "new_package",
+      "level": "warn",
+      "decision_reason": "risk_finding_matched_policy_rule",
+      "policy_rule": "new_package",
+      "severity_source": "warn_on",
+      "matched_threshold": null,
+      "observed_value": "new_package",
+      "component_name": "urllib3"
+    }
+  ],
+  "reviewer_interpretation": {
+    "safe_statement": "Local policy ran and produced warning findings, but no blocking findings.",
+    "next_action": "Review the warning findings before treating the change as acceptable.",
+    "non_claims": [
+      "not a CVE result",
+      "not a dependency safety verdict",
+      "not a production PyPI release claim"
+    ]
+  }
+}

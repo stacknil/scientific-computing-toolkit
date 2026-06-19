@@ -25,6 +25,10 @@ decision metadata remains available for review.
 For a checked-in reference artifact generated from this path, see
 [sample-policy.json](../examples/sample-policy.json).
 
+For compact consumer examples that distinguish `pass`, `warn`, `fail`, and
+`needs-review` review outcomes, see
+[examples/policy-decisions](../examples/policy-decisions/README.md).
+
 For a full GitHub Actions consumer workflow example that captures
 `outputs/policy.json`, uploads it even when local policy fails, and then fails
 the job based on `summary.policy`, see

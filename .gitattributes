@@ -1,4 +1,6 @@
 /.gitattributes text eol=lf
 .github/workflows/*.yml text eol=lf
+*.json text eol=lf
 *.md text eol=lf
+*.py text eol=lf
 scripts/validate-reviewer-routes.py text eol=lf

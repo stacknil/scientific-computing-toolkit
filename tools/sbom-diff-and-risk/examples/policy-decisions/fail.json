@@ -1,0 +1,34 @@
+{
+  "example_type": "policy-decision-example",
+  "review_decision": "fail",
+  "decision_source": "summary.policy",
+  "summary": {
+    "policy": {
+      "status": "fail",
+      "blocking": 1,
+      "warning": 0,
+      "suppressed": 0
+    }
+  },
+  "policy_findings": [
+    {
+      "rule_id": "max_added_packages",
+      "level": "block",
+      "decision_reason": "added_package_count_exceeded_threshold",
+      "policy_rule": "max_added_packages",
+      "severity_source": "block_on",
+      "matched_threshold": 0,
+      "observed_value": 1,
+      "component_name": null
+    }
+  ],
+  "reviewer_interpretation": {
+    "safe_statement": "Local policy ran and produced blocking findings.",
+    "next_action": "Treat the CI gate as failed until the local policy finding is resolved or the policy is intentionally changed.",
+    "non_claims": [
+      "not a CVE result",
+      "not a dependency safety verdict",
+      "not a production PyPI release claim"
+    ]
+  }
+}
