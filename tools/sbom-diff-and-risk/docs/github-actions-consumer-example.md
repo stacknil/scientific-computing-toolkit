@@ -1,7 +1,9 @@
-# GitHub Actions consumer example
+# GitHub Actions policy consumer demo
 
-This page shows how another repository could run `sbom-diff-risk` from GitHub
-Actions and upload the generated review artifacts.
+This page documents the minimal GitHub Actions consumer workflow for
+`sbom-diff-risk`. The workflow runs the tool with a local policy, uploads
+`outputs/policy.json`, and then passes or fails based on the tool's policy exit
+code.
 
 It is documentation only. It is not a workflow for this repository, and it does
 not change the `sbom-diff-risk` CLI or publishing model.
@@ -10,24 +12,15 @@ Production PyPI publishing is intentionally deferred, so consumers should not
 install `sbom-diff-and-risk` from production PyPI. Use a GitHub Release asset or
 a local checkout instead.
 
-## Example workflow
+## Minimal policy workflow
 
-This example downloads the released wheel from the public GitHub Release, runs a
-local comparison, writes JSON, Markdown, summary JSON, and SARIF outputs, applies
-an explicit local threshold to `summary.json`, and uploads the outputs as CI
-artifacts.
-
-Replace the placeholder input paths with files from the consumer repository.
-The same workflow is also checked in as
-[../examples/github-actions-consumer.yml](../examples/github-actions-consumer.yml)
+Replace the placeholder input and policy paths with files from the consumer
+repository. The same workflow is checked in as
+[../examples/github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml)
 for copying into consumer repositories.
 
-For a policy-gated variant that writes `outputs/policy.json` with
-`--policy-json PATH`, see
-[../examples/github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml).
-
 ```yaml
-name: Dependency diff review
+name: Dependency policy review
 
 on:
   pull_request:
@@ -37,7 +30,7 @@ permissions:
   contents: read
 
 jobs:
-  dependency-diff:
+  dependency-policy:
     runs-on: ubuntu-latest
 
     steps:
@@ -64,49 +57,41 @@ jobs:
           python -m pip install \
             .tooling/sbom-diff-risk/sbom_diff_and_risk-0.9.0-py3-none-any.whl
 
-      - name: Compare dependency evidence
+      - name: Run dependency policy
+        id: compare
+        shell: bash
         run: |
           mkdir -p outputs
+          set +e
           sbom-diff-risk compare \
             --before path/to/before-sbom.json \
             --after path/to/after-sbom.json \
             --format auto \
-            --out-json outputs/report.json \
-            --out-md outputs/report.md \
-            --summary-json outputs/summary.json \
-            --out-sarif outputs/report.sarif
+            --policy path/to/policy.yml \
+            --policy-json outputs/policy.json
+          status=$?
+          set -e
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
 
-      - name: Apply local summary threshold
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          summary = json.loads(
-              Path("outputs/summary.json").read_text(encoding="utf-8")
-          )
-          risk_counts = summary["risk_counts"]
-
-          max_new_packages = 2
-          new_package_count = risk_counts.get("new_package", 0)
-          print(f"new_package={new_package_count}")
-
-          if new_package_count > max_new_packages:
-              raise SystemExit(
-                  f"new_package count exceeds local threshold: {max_new_packages}"
-              )
-          PY
-
-      - name: Upload dependency diff outputs
+      - name: Upload policy JSON
+        if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: dependency-diff-outputs
-          path: |
-            outputs/report.json
-            outputs/report.md
-            outputs/summary.json
-            outputs/report.sarif
+          name: dependency-policy-json
+          path: outputs/policy.json
+          if-no-files-found: error
+
+      - name: Pass or fail based on local policy
+        run: exit "${{ steps.compare.outputs.exit_code }}"
 ```
+
+The upload step runs before the final pass/fail step, so reviewers can inspect
+`outputs/policy.json` even when the local policy blocks the job. The final step
+uses the tool's own exit code:
+
+- `0`: report written and local policy passed
+- `1`: report written and local policy produced blocking findings
+- `2`: usage, parse, or runtime error before a successful policy decision
 
 ## Local checkout variant
 
@@ -120,17 +105,14 @@ from that local checkout instead of downloading a release wheel:
       path/to/scientific-computing-toolkit/tools/sbom-diff-and-risk
 ```
 
-## What the example proves
+## What the demo proves
 
-- The consumer workflow runs deterministic local diff analysis over files the
+- The consumer workflow runs deterministic local policy analysis over files the
   consumer repository provides.
-- `outputs/report.json` contains the full machine-readable report.
-- `outputs/report.md` contains the human-readable review report.
-- `outputs/summary.json` contains the same object as `report.json["summary"]`.
-- `outputs/report.sarif` can be uploaded or inspected by consumers that want
-  SARIF output.
-- The threshold step is a local consumer policy choice, not a built-in security
-  verdict.
+- `outputs/policy.json` contains policy status, blocking/warning/suppressed
+  findings, and rule metadata.
+- CI pass/fail is based on the `sbom-diff-risk compare` exit code.
+- The workflow does not invent a second policy decision after the tool runs.
 
 ## Boundaries
 
@@ -145,7 +127,5 @@ from that local checkout instead of downloading a release wheel:
 - Replace all placeholder input paths with non-private paths from the consumer
   repository.
 
-For compact summary consumption patterns, see
-[summary-json-ci-cookbook.md](summary-json-ci-cookbook.md).
 For policy sidecar consumption patterns, see
 [policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).

@@ -29,9 +29,9 @@ For compact consumer examples that distinguish `pass`, `warn`, `fail`, and
 `needs-review` review outcomes, see
 [examples/policy-decisions](../examples/policy-decisions/README.md).
 
-For a full GitHub Actions consumer workflow example that captures
-`outputs/policy.json`, uploads it even when local policy fails, and then fails
-the job based on `summary.policy`, see
+For a minimal GitHub Actions consumer workflow example that captures
+`outputs/policy.json`, uploads it before the final pass/fail step, and then
+uses the tool's exit code as the CI result, see
 [github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml).
 
 ## Python consumer
