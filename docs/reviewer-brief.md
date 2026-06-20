@@ -26,6 +26,7 @@ workflows, but they are not part of the `sbom-diff-and-risk` release surface.
 | --- | --- | --- |
 | What is the repository shape? | This brief, the root [README](../README.md), and the [repository scope map](repo-scope-map.md). | You can distinguish the flagship SBOM tool from the supporting diagnostics projects. |
 | What should I review for the SBOM tool? | The SBOM [reviewer path](../tools/sbom-diff-and-risk/docs/reviewer-path.md). | You have chosen the right 30-second, 5-minute, 15-minute, release, or deep-review route. |
+| What does the SBOM risk model actually use? | The [risk model boundary](risk-model-boundary.md). | You can separate risk inputs from context-only fields and non-claims. |
 | Can the SBOM examples be reproduced? | The SBOM [example artifact regeneration guide](../tools/sbom-diff-and-risk/docs/example-artifact-regeneration.md). | `python scripts/regenerate-example-artifacts.py --check` passes. |
 | Can the released SBOM artifacts be verified? | The SBOM [verification guide](../tools/sbom-diff-and-risk/docs/verification.md). | You know whether to use checksums, release verification, or workflow artifact attestations. |
 | Are the reviewer routes still valid? | The repository [reviewer route contract](../scripts/validate-reviewer-routes.py). | `python scripts/validate-reviewer-routes.py` passes. |
@@ -52,6 +53,9 @@ workflows, but they are not part of the `sbom-diff-and-risk` release surface.
   intentionally deferred production PyPI decision docs.
 - Scope map: `docs/repo-scope-map.md` keeps the flagship/supporting split and
   repository non-claims explicit.
+- Risk model boundary: `docs/risk-model-boundary.md` states which fields affect
+  risk classification, which fields are context only, and what the model never
+  infers.
 - Non-goals: vulnerability scanning, CVE resolution, exploitability scoring,
   package safety verdicts, hidden enrichment, or production PyPI claims.
 

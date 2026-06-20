@@ -24,6 +24,11 @@ the right evidence path.
 For the shortest boundary check before adding or reviewing new material, use
 the [repository scope map](docs/repo-scope-map.md).
 
+For the SBOM tool's risk-model boundary, use
+[`docs/risk-model-boundary.md`](docs/risk-model-boundary.md). It states which
+fields affect risk buckets, which fields are context only, and which claims the
+model never infers.
+
 ## Supporting Diagnostics Projects
 
 These projects are internal supporting material for reviewer depth. They are
@@ -165,6 +170,8 @@ they do not prove the same thing.
   [`scripts/validate-reviewer-routes.py`](scripts/validate-reviewer-routes.py)
 - Repository scope map:
   [`docs/repo-scope-map.md`](docs/repo-scope-map.md)
+- Risk model boundary:
+  [`docs/risk-model-boundary.md`](docs/risk-model-boundary.md)
 
 The TestPyPI Trusted Publishing dry-run has been validated. Production PyPI
 publishing is intentionally deferred.
@@ -205,4 +212,3 @@ the review question:
 - Production PyPI publishing: intentionally deferred
 
 [release-notes-v090]: tools/sbom-diff-and-risk/RELEASE_NOTES_v0.9.0.md
-
