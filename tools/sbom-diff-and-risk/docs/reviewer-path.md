@@ -68,6 +68,8 @@ Then read:
 Look for these reviewer anchors:
 
 - `summary` is the compact machine-readable entry point
+- `summary.evidence_confidence` labels the highest evidence level represented
+  by the report
 - `summary.policy` appears only when policy evaluation runs
 - `summary.enrichment` appears only when enrichment evidence exists
 - policy findings explain `decision_reason`, `policy_rule`,

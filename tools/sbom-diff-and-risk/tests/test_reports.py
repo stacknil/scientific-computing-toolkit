@@ -7,6 +7,7 @@ from sbom_diff_risk.diffing import diff_components
 from sbom_diff_risk.models import (
     CompareReport,
     Component,
+    EvidenceConfidence,
     ProvenanceEvidence,
     ProvenanceFileEvidence,
     ProvenanceStatus,
@@ -124,6 +125,7 @@ def test_report_json_keeps_legacy_sections() -> None:
 
     assert set(payload) >= {
         "summary",
+        "evidence_confidence",
         "components",
         "risks",
         "policy_evaluation",
@@ -141,6 +143,8 @@ def test_report_json_keeps_legacy_sections() -> None:
     }
     assert payload["metadata"]["policy_evaluation"] == payload["policy_evaluation"]
     assert payload["metadata"]["enrichment"] == payload["enrichment_metadata"]
+    assert payload["metadata"]["evidence_confidence"] == payload["evidence_confidence"]
+    assert payload["summary"]["evidence_confidence"] == payload["evidence_confidence"]
     assert "provenance_policy" not in payload
     assert "provenance_policy_impact" not in payload
 
@@ -166,6 +170,7 @@ def test_report_json_offline_enrichment_metadata_is_stable_by_default() -> None:
             "suspicious_source": 0,
             "not_evaluated": 2,
         },
+        "evidence_confidence": "sbom_present",
     }
     assert payload["metadata"]["enrichment"] == {
         "mode": "offline_default",
@@ -206,6 +211,7 @@ def test_report_json_summary_includes_policy_status_when_policy_is_used() -> Non
         "warning": 1,
         "suppressed": 0,
     }
+    assert payload["summary"]["evidence_confidence"] == "policy_matched"
     assert "enrichment" not in payload["summary"]
 
 
@@ -318,6 +324,7 @@ def test_reports_include_provenance_policy_details_for_v2_policy() -> None:
             strict=False,
             stub=False,
             policy_evaluation=policy_evaluation,
+            evidence_confidence=EvidenceConfidence.ENRICHMENT_MOCKED,
         ),
         notes=["PyPI provenance enrichment was requested explicitly."],
     )

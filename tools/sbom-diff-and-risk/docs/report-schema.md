@@ -15,7 +15,8 @@ JSON reports currently use this top-level structure:
 
 | Field | Description |
 | --- | --- |
-| `summary` | Compact count-only run summary for deterministic machine consumption. |
+| `summary` | Compact run summary for deterministic machine consumption. |
+| `evidence_confidence` | Highest evidence-confidence level represented by this report. |
 | `components` | Added, removed, and changed component records. |
 | `risks` | Heuristic risk findings generated from the diff. |
 | `policy_evaluation` | Policy evaluation details when policy state is represented in the report. |
@@ -28,7 +29,7 @@ JSON reports currently use this top-level structure:
 | `scorecard_summary` | OpenSSF Scorecard evidence summary when available from report presentation. |
 | `enrichment_metadata` | Top-level enrichment metadata used by trust-signal report sections. |
 | `trust_signal_notes` | Review notes for provenance and Scorecard trust signals. |
-| `metadata` | Run metadata such as input formats, generation time, strict mode, policy state, and enrichment state. |
+| `metadata` | Run metadata such as input formats, generation time, strict mode, policy state, evidence confidence, and enrichment state. |
 | `notes` | Additional report notes. |
 
 When provenance policy fields are relevant, reports may also include
@@ -94,8 +95,9 @@ locks the standalone policy sidecar shape for a strict policy example.
 ## Summary contract
 
 `summary` is the stable, compact entry point for automation that needs counts
-without walking the full report. The `--summary-json PATH` CLI option writes
-only this stable `report.json["summary"]` object.
+and evidence-level labels without walking the full report. The
+`--summary-json PATH` CLI option writes only this stable
+`report.json["summary"]` object.
 
 The checked-in [../examples/sample-summary.json](../examples/sample-summary.json)
 artifact is the summary-only output for the default CycloneDX example and
@@ -112,10 +114,24 @@ Base `summary` fields:
 | `removed` | Number of components present only in the before input. |
 | `changed` | Number of components present in both inputs with a detected change. |
 | `risk_counts` | Map of risk bucket name to count. |
+| `evidence_confidence` | Highest evidence-confidence level represented by this report. |
 
 There is intentionally no `unchanged` field. The current diff model does not
 track unchanged components, so reporting an unchanged count would imply a model
 guarantee that does not exist.
+
+`evidence_confidence` is a reviewer-facing evidence label. It explains what
+kind of evidence the report contains; it is not a package safety verdict and is
+not a CVE result. The same value appears at top level, in `summary`, and in
+`metadata.evidence_confidence`.
+
+| Value | Meaning |
+| --- | --- |
+| `local_manifest_only` | The report was produced from local manifest-style inputs without SBOM input, policy matches, or enrichment evidence. |
+| `sbom_present` | At least one input is an SBOM format such as CycloneDX JSON or SPDX JSON. |
+| `policy_matched` | Local policy evaluation produced at least one blocking, warning, or suppressed policy match. |
+| `enrichment_mocked` | Enrichment-shaped evidence is present without recorded live network access, or the report explicitly marks constructed snapshot evidence as mocked. |
+| `enrichment_live` | Opt-in enrichment recorded live network access for PyPI provenance or OpenSSF Scorecard evidence. |
 
 `summary.policy` appears only when a policy is applied. Absence of
 `summary.policy` means policy was not used, not that policy evaluation failed.
@@ -153,7 +169,9 @@ stable for tests and downstream consumers.
 - The schema is conservative and additive where possible.
 - Missing `summary.policy` means policy was not applied.
 - Missing `summary.enrichment` means PyPI and Scorecard enrichment were not used.
-- Runtime details remain in the fuller report fields; `summary` stays count-only.
+- Runtime details remain in the fuller report fields; `summary` stays compact.
+- `evidence_confidence` describes evidence source level only; it does not rank
+  dependency safety.
 
 ## Non-claims
 

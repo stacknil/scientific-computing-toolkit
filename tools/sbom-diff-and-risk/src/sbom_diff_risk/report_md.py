@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .diffing import component_key
+from .evidence_confidence import evidence_confidence_value
 from .models import CompareReport
 from .presentation import (
     build_trust_signal_report_sections,
@@ -30,6 +31,7 @@ def render_report_markdown(report: CompareReport) -> str:
         f"- Added: {report.summary.added}",
         f"- Removed: {report.summary.removed}",
         f"- Version changes: {report.summary.changed}",
+        f"- Evidence confidence: {evidence_confidence_value(report)}",
         "",
         "## Risk buckets",
     ]

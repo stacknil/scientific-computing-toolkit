@@ -11,8 +11,10 @@
       "stale_package": 0,
       "suspicious_source": 0,
       "not_evaluated": 2
-    }
+    },
+    "evidence_confidence": "local_manifest_only"
   },
+  "evidence_confidence": "local_manifest_only",
   "components": {
     "added": [
       {
@@ -416,6 +418,7 @@
       },
       "exit_code": 0
     },
+    "evidence_confidence": "local_manifest_only",
     "enrichment": {
       "mode": "offline_default",
       "pypi_enabled": false,

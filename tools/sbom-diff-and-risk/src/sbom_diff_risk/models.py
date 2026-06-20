@@ -18,6 +18,14 @@ class RiskBucket(StrEnum):
     NOT_EVALUATED = "not_evaluated"
 
 
+class EvidenceConfidence(StrEnum):
+    LOCAL_MANIFEST_ONLY = "local_manifest_only"
+    SBOM_PRESENT = "sbom_present"
+    POLICY_MATCHED = "policy_matched"
+    ENRICHMENT_MOCKED = "enrichment_mocked"
+    ENRICHMENT_LIVE = "enrichment_live"
+
+
 class ProvenanceStatus(StrEnum):
     PROVENANCE_AVAILABLE = "provenance_available"
     ATTESTATION_AVAILABLE = "attestation_available"
@@ -178,6 +186,7 @@ class ReportMetadata:
     strict: bool = False
     stub: bool = True
     policy_evaluation: PolicyEvaluation | None = None
+    evidence_confidence: EvidenceConfidence | None = None
     enrichment: ReportEnrichmentMetadata = field(default_factory=ReportEnrichmentMetadata)
 
 

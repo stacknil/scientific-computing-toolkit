@@ -40,9 +40,11 @@ added = summary["added"]
 removed = summary["removed"]
 changed = summary["changed"]
 risk_counts = summary["risk_counts"]
+evidence_confidence = summary["evidence_confidence"]
 
 print(f"added={added} removed={removed} changed={changed}")
 print(f"risk_counts={risk_counts}")
+print(f"evidence_confidence={evidence_confidence}")
 
 max_new_packages = 2
 if risk_counts.get("new_package", 0) > max_new_packages:
@@ -61,9 +63,11 @@ $added = $summary.added
 $removed = $summary.removed
 $changed = $summary.changed
 $newPackageCount = $summary.risk_counts.new_package
+$evidenceConfidence = $summary.evidence_confidence
 
 Write-Output "added=$added removed=$removed changed=$changed"
 Write-Output "new_package=$newPackageCount"
+Write-Output "evidence_confidence=$evidenceConfidence"
 
 $maxNewPackages = 2
 if ($newPackageCount -gt $maxNewPackages) {
@@ -75,6 +79,9 @@ if ($newPackageCount -gt $maxNewPackages) {
 
 - `summary.policy` appears only when policy evaluation is applied.
 - `summary.enrichment` appears only when PyPI or Scorecard enrichment is used.
+- `summary.evidence_confidence` is always present and can be
+  `local_manifest_only`, `sbom_present`, `policy_matched`,
+  `enrichment_mocked`, or `enrichment_live`.
 - `unchanged` is absent because unchanged components are not modeled.
 - Absence of `summary.policy` or `summary.enrichment` means the feature was
   not used, not that it failed.

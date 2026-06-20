@@ -6,6 +6,7 @@
 - Added: 1
 - Removed: 0
 - Version changes: 1
+- Evidence confidence: local_manifest_only
 
 ## Risk buckets
 - new_package: 1

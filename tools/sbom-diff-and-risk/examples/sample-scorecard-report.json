@@ -12,6 +12,7 @@
       "suspicious_source": 0,
       "not_evaluated": 0
     },
+    "evidence_confidence": "enrichment_mocked",
     "policy": {
       "status": "warn",
       "blocking": 0,
@@ -31,6 +32,7 @@
       }
     }
   },
+  "evidence_confidence": "enrichment_mocked",
   "components": {
     "added": [
       {
@@ -573,6 +575,7 @@
       },
       "exit_code": 0
     },
+    "evidence_confidence": "enrichment_mocked",
     "enrichment": {
       "mode": "opt_in_scorecard",
       "pypi_enabled": false,
