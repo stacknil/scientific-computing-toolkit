@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 
+from .evidence_confidence import evidence_confidence_value
 from .enrichment import enrichment_metadata_to_dict, provenance_evidence_to_dict
 from .models import CompareReport, Component, ComponentChange, ReportEnrichmentMetadata, RiskFinding
 from .presentation import build_policy_report_sections, build_trust_signal_report_sections
@@ -12,8 +13,10 @@ from .scorecard_enrichment import scorecard_evidence_to_dict
 def render_report_json(report: CompareReport) -> str:
     policy_sections = build_policy_report_sections(report.metadata.policy_evaluation)
     trust_signal_sections = build_trust_signal_report_sections(report)
+    evidence_confidence = evidence_confidence_value(report)
     payload = {
         "summary": _summary_to_dict(report),
+        "evidence_confidence": evidence_confidence,
         "components": {
             "added": [_component_to_dict(component) for component in report.components.added],
             "removed": [_component_to_dict(component) for component in report.components.removed],
@@ -37,6 +40,7 @@ def render_report_json(report: CompareReport) -> str:
             "strict": report.metadata.strict,
             "stub": report.metadata.stub,
             "policy_evaluation": policy_sections["policy_evaluation"],
+            "evidence_confidence": evidence_confidence,
             "enrichment": enrichment_metadata_to_dict(report.metadata.enrichment),
         },
         "notes": list(report.notes),
@@ -78,6 +82,7 @@ def _summary_to_dict(report: CompareReport) -> dict[str, object]:
         "removed": report.summary.removed,
         "changed": report.summary.changed,
         "risk_counts": dict(report.summary.risk_counts),
+        "evidence_confidence": evidence_confidence_value(report),
     }
 
     policy_summary = _policy_summary_to_dict(report.metadata.policy_evaluation)

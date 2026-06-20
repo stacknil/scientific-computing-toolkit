@@ -6,6 +6,7 @@
 - Added: 1
 - Removed: 0
 - Version changes: 1
+- Evidence confidence: sbom_present
 
 ## Risk buckets
 - new_package: 1

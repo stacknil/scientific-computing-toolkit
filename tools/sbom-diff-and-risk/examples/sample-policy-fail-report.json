@@ -12,6 +12,7 @@
       "suspicious_source": 0,
       "not_evaluated": 2
     },
+    "evidence_confidence": "policy_matched",
     "policy": {
       "status": "fail",
       "blocking": 3,
@@ -19,6 +20,7 @@
       "suppressed": 0
     }
   },
+  "evidence_confidence": "policy_matched",
   "components": {
     "added": [
       {
@@ -700,6 +702,7 @@
       },
       "exit_code": 1
     },
+    "evidence_confidence": "policy_matched",
     "enrichment": {
       "mode": "offline_default",
       "pypi_enabled": false,

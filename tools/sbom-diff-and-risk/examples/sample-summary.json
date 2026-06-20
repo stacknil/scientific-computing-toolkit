@@ -10,5 +10,6 @@
     "stale_package": 0,
     "suspicious_source": 0,
     "not_evaluated": 2
-  }
+  },
+  "evidence_confidence": "sbom_present"
 }

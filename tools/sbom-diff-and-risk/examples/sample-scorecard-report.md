@@ -6,6 +6,7 @@
 - Added: 2
 - Removed: 0
 - Version changes: 1
+- Evidence confidence: enrichment_mocked
 
 ## Risk buckets
 - new_package: 2

@@ -59,6 +59,9 @@ def test_compare_stays_offline_and_deterministic_without_enrichment_flags(
     assert payload["metadata"]["enrichment"]["mode"] == "offline_default"
     assert payload["metadata"]["enrichment"]["pypi_enabled"] is False
     assert payload["metadata"]["enrichment"]["network_access_performed"] is False
+    assert payload["evidence_confidence"] == "local_manifest_only"
+    assert payload["summary"]["evidence_confidence"] == "local_manifest_only"
+    assert payload["metadata"]["evidence_confidence"] == "local_manifest_only"
     assert payload["trust_signal_notes"] == [
         "PyPI components are present, but provenance enrichment was not enabled for this run."
     ]
@@ -128,6 +131,7 @@ def test_compare_runs_pypi_enrichment_only_when_requested(
     assert payload["metadata"]["enrichment"]["mode"] == "opt_in_pypi"
     assert payload["metadata"]["enrichment"]["pypi_enabled"] is True
     assert payload["metadata"]["enrichment"]["pypi_timeout_seconds"] == 2.5
+    assert payload["evidence_confidence"] == "enrichment_mocked"
     assert payload["notes"][1] == "PyPI provenance enrichment was requested explicitly."
     assert payload["trust_signal_notes"] == []
 
@@ -196,4 +200,5 @@ def test_compare_runs_scorecard_enrichment_only_when_requested(
     assert payload["metadata"]["enrichment"]["mode"] == "opt_in_scorecard"
     assert payload["metadata"]["enrichment"]["scorecard_enabled"] is True
     assert payload["metadata"]["enrichment"]["scorecard_timeout_seconds"] == 4.25
+    assert payload["evidence_confidence"] == "enrichment_mocked"
     assert payload["notes"][1] == "OpenSSF Scorecard enrichment was requested explicitly."

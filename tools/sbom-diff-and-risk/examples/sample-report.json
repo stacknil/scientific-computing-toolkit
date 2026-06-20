@@ -11,8 +11,10 @@
       "stale_package": 0,
       "suspicious_source": 0,
       "not_evaluated": 2
-    }
+    },
+    "evidence_confidence": "sbom_present"
   },
+  "evidence_confidence": "sbom_present",
   "components": {
     "added": [
       {
@@ -480,6 +482,7 @@
       },
       "exit_code": 0
     },
+    "evidence_confidence": "sbom_present",
     "enrichment": {
       "mode": "offline_default",
       "pypi_enabled": false,

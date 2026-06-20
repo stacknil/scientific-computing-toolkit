@@ -39,6 +39,7 @@ def test_cli_summary_json_writes_summary_only_file(tmp_path: Path) -> None:
             "suspicious_source": 0,
             "not_evaluated": 2,
         },
+        "evidence_confidence": "sbom_present",
     }
     assert "unchanged" not in payload
     assert summary_path.read_text(encoding="utf-8").endswith("\n")
@@ -97,6 +98,7 @@ def test_cli_summary_json_includes_policy_summary_when_policy_is_used(tmp_path: 
         "warning": 1,
         "suppressed": 0,
     }
+    assert payload["evidence_confidence"] == "policy_matched"
     assert "enrichment" not in payload
 
 
@@ -159,6 +161,7 @@ def test_cli_summary_json_includes_enrichment_summary_when_enrichment_is_used(
             },
         },
     }
+    assert payload["evidence_confidence"] == "enrichment_mocked"
     assert "policy" not in payload
 
 
@@ -221,6 +224,7 @@ def test_cli_summary_json_includes_scorecard_enrichment_summary_when_scorecard_i
             },
         },
     }
+    assert payload["evidence_confidence"] == "enrichment_mocked"
     assert "policy" not in payload
 
 
