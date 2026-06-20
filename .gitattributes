@@ -1,5 +1,6 @@
 /.gitattributes text eol=lf
 .github/workflows/*.yml text eol=lf
+tools/sbom-diff-and-risk/examples/*.yml text eol=lf
 *.json text eol=lf
 *.md text eol=lf
 *.py text eol=lf

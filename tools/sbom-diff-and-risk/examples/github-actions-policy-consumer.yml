@@ -1,8 +1,6 @@
-# Example only.
-# Copy this file into a consumer repository under .github/workflows/ if useful.
-# This repository does not run this file as a workflow.
-# Production PyPI publishing for sbom-diff-and-risk is intentionally deferred;
-# install from a GitHub Release asset or local checkout instead.
+# Example only. Copy this file into a consumer repository under
+# .github/workflows/ if useful. This repository does not run this file as a
+# workflow.
 
 name: Dependency policy review
 
@@ -41,8 +39,9 @@ jobs:
           python -m pip install \
             .tooling/sbom-diff-risk/sbom_diff_and_risk-0.9.0-py3-none-any.whl
 
-      - name: Compare dependency evidence with local policy
+      - name: Run dependency policy
         id: compare
+        shell: bash
         run: |
           mkdir -p outputs
           set +e
@@ -51,67 +50,18 @@ jobs:
             --after path/to/after-sbom.json \
             --format auto \
             --policy path/to/policy.yml \
-            --out-json outputs/report.json \
-            --out-md outputs/report.md \
-            --policy-json outputs/policy.json \
-            --out-sarif outputs/report.sarif
+            --policy-json outputs/policy.json
           status=$?
           set -e
-          echo "$status" > outputs/policy-exit-code.txt
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
 
-      - name: Summarize local policy decision
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          policy_report = json.loads(
-              Path("outputs/policy.json").read_text(encoding="utf-8")
-          )
-          policy = policy_report.get("summary", {}).get("policy")
-
-          if policy is None:
-              print("policy=not-used")
-              raise SystemExit(0)
-
-          print(
-              "policy="
-              f"{policy['status']} "
-              f"blocking={policy['blocking']} "
-              f"warning={policy['warning']} "
-              f"suppressed={policy['suppressed']}"
-          )
-
-          findings = (
-              policy_report.get("blocking_findings", [])
-              + policy_report.get("warning_findings", [])
-              + policy_report.get("suppressed_findings", [])
-          )
-
-          for finding in findings:
-              print(
-                  "policy-finding "
-                  f"level={finding.get('level')} "
-                  f"rule={finding.get('policy_rule')} "
-                  f"reason={finding.get('decision_reason')} "
-                  f"severity_source={finding.get('severity_source')} "
-                  f"observed={finding.get('observed_value')} "
-                  f"threshold={finding.get('matched_threshold')}"
-              )
-
-          if policy["status"] == "fail":
-              raise SystemExit("local policy failed")
-          PY
-
-      - name: Upload dependency policy outputs
+      - name: Upload policy JSON
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: dependency-policy-outputs
-          path: |
-            outputs/report.json
-            outputs/report.md
-            outputs/policy.json
-            outputs/policy-exit-code.txt
-            outputs/report.sarif
+          name: dependency-policy-json
+          path: outputs/policy.json
+          if-no-files-found: error
+
+      - name: Pass or fail based on local policy
+        run: exit "${{ steps.compare.outputs.exit_code }}"
