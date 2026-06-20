@@ -14,6 +14,7 @@ DOCS_TO_VALIDATE = (
     Path("README.md"),
     Path("docs/reviewer-brief.md"),
     Path("docs/repo-scope-map.md"),
+    Path("docs/why-scientific-computing-background-helps.md"),
     Path("docs/risk-model-boundary.md"),
     Path("tools/sbom-diff-and-risk/docs/report-schema.md"),
     Path("tools/sbom-diff-and-risk/docs/github-actions-consumer-example.md"),
@@ -47,6 +48,7 @@ REQUIRED_LINK_TARGETS = {
     Path("README.md"): {
         "docs/reviewer-brief.md",
         "docs/repo-scope-map.md",
+        "docs/why-scientific-computing-background-helps.md",
         "docs/risk-model-boundary.md",
         "tools/sbom-diff-and-risk/docs/reviewer-path.md",
         "tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md",
@@ -57,6 +59,7 @@ REQUIRED_LINK_TARGETS = {
     Path("docs/reviewer-brief.md"): {
         "README.md",
         "docs/repo-scope-map.md",
+        "docs/why-scientific-computing-background-helps.md",
         "docs/risk-model-boundary.md",
         "tools/sbom-diff-and-risk/docs/reviewer-path.md",
         "tools/sbom-diff-and-risk/docs/example-artifact-regeneration.md",
@@ -65,6 +68,7 @@ REQUIRED_LINK_TARGETS = {
         "projects/python-weather-diagnostics-toolkit/docs/reviewer-path.md",
     },
     Path("docs/repo-scope-map.md"): set(),
+    Path("docs/why-scientific-computing-background-helps.md"): set(),
     Path("docs/risk-model-boundary.md"): {
         "tools/sbom-diff-and-risk/docs/dependency-risk-heuristics.md",
         "tools/sbom-diff-and-risk/src/sbom_diff_risk/diffing.py",
@@ -150,11 +154,13 @@ REQUIRED_TEXT = {
     Path("README.md"): (
         "current flagship tool",
         "not part of the `sbom-diff-and-risk` release surface",
+        "why the scientific-computing background helps",
         "Production PyPI publishing: intentionally deferred",
     ),
     Path("docs/reviewer-brief.md"): (
         "The current flagship project is",
         "supporting diagnostics projects",
+        "scientific-computing background note",
         "production PyPI publishing remains intentionally deferred",
     ),
     Path("docs/repo-scope-map.md"): (
@@ -169,6 +175,18 @@ REQUIRED_TEXT = {
         "not a vulnerability scanner",
         "not a CVE resolver",
         "not a production PyPI release claim",
+    ),
+    Path("docs/why-scientific-computing-background-helps.md"): (
+        "Reproducibility",
+        "Data Pipeline",
+        "Uncertainty Boundary",
+        "not a domain identity claim",
+        "not a reason to expand repository scope",
+        "checked-in fixtures instead of private source material",
+        "Each stage should have a clear input and output.",
+        "missing evidence should stay visible as missing evidence",
+        "not a package safety verdict",
+        "Do not use it as a reason to add unrelated project surfaces",
     ),
     Path("docs/risk-model-boundary.md"): (
         "Fields that affect risk classification",
@@ -240,6 +258,16 @@ REQUIRED_TEXT = {
         "not part of the `sbom-diff-and-risk` release surface",
         "not a separate meteorology portfolio",
         "not a public redistribution of raw weather data or course material",
+    ),
+}
+
+FORBIDDEN_TEXT = {
+    Path("docs/why-scientific-computing-background-helps.md"): (
+        "meteorology",
+        "weather",
+        "climate",
+        "atmospheric",
+        "precipitation",
     ),
 }
 
@@ -527,6 +555,13 @@ def validate_required_text(markdown_path: Path, errors: list[str]) -> None:
             errors.append(f"{markdown_path}: missing reviewer contract phrase: {phrase!r}")
 
 
+def validate_forbidden_text(markdown_path: Path, errors: list[str]) -> None:
+    text = read_markdown(markdown_path).lower()
+    for phrase in FORBIDDEN_TEXT.get(markdown_path, ()):
+        if phrase.lower() in text:
+            errors.append(f"{markdown_path}: forbidden scope phrase present: {phrase!r}")
+
+
 def validate_required_paths(errors: list[str]) -> None:
     for path in REQUIRED_REVIEWER_PATHS:
         if not (REPO_ROOT / path).is_file():
@@ -577,6 +612,7 @@ def main() -> int:
 
         validate_required_links(markdown_path, errors)
         validate_required_text(markdown_path, errors)
+        validate_forbidden_text(markdown_path, errors)
 
     validate_required_paths(errors)
     validate_workflow_path_filters(reviewer_surface_markdown, errors)

@@ -24,6 +24,10 @@ the right evidence path.
 For the shortest boundary check before adding or reviewing new material, use
 the [repository scope map](docs/repo-scope-map.md).
 
+For why the scientific-computing background helps this repository's review
+style without widening its scope, use
+[`docs/why-scientific-computing-background-helps.md`](docs/why-scientific-computing-background-helps.md).
+
 For the SBOM tool's risk-model boundary, use
 [`docs/risk-model-boundary.md`](docs/risk-model-boundary.md). It states which
 fields affect risk buckets, which fields are context only, and which claims the
@@ -170,6 +174,8 @@ they do not prove the same thing.
   [`scripts/validate-reviewer-routes.py`](scripts/validate-reviewer-routes.py)
 - Repository scope map:
   [`docs/repo-scope-map.md`](docs/repo-scope-map.md)
+- Scientific-computing background note:
+  [`docs/why-scientific-computing-background-helps.md`](docs/why-scientific-computing-background-helps.md)
 - Risk model boundary:
   [`docs/risk-model-boundary.md`](docs/risk-model-boundary.md)
 
