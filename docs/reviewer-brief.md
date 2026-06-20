@@ -25,6 +25,7 @@ workflows, but they are not part of the `sbom-diff-and-risk` release surface.
 | Review question | Start here | Stop when |
 | --- | --- | --- |
 | What is the repository shape? | This brief, the root [README](../README.md), and the [repository scope map](repo-scope-map.md). | You can distinguish the flagship SBOM tool from the supporting diagnostics projects. |
+| Why does scientific-computing background help review? | The [scientific-computing background note](why-scientific-computing-background-helps.md). | You can explain reproducibility, data-pipeline, and uncertainty-boundary habits without widening repository scope. |
 | What should I review for the SBOM tool? | The SBOM [reviewer path](../tools/sbom-diff-and-risk/docs/reviewer-path.md). | You have chosen the right 30-second, 5-minute, 15-minute, release, or deep-review route. |
 | What does the SBOM risk model actually use? | The [risk model boundary](risk-model-boundary.md). | You can separate risk inputs from context-only fields and non-claims. |
 | Can the SBOM examples be reproduced? | The SBOM [example artifact regeneration guide](../tools/sbom-diff-and-risk/docs/example-artifact-regeneration.md). | `python scripts/regenerate-example-artifacts.py --check` passes. |
@@ -53,6 +54,10 @@ workflows, but they are not part of the `sbom-diff-and-risk` release surface.
   intentionally deferred production PyPI decision docs.
 - Scope map: `docs/repo-scope-map.md` keeps the flagship/supporting split and
   repository non-claims explicit.
+- Scientific-computing background note:
+  `docs/why-scientific-computing-background-helps.md` explains
+  reproducibility, data-pipeline, and uncertainty-boundary habits without
+  widening repository scope.
 - Risk model boundary: `docs/risk-model-boundary.md` states which fields affect
   risk classification, which fields are context only, and what the model never
   infers.
