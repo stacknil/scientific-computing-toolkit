@@ -62,6 +62,7 @@ Then read:
 
 - [report-schema.md](report-schema.md)
 - [policy-decision-explainability.md](policy-decision-explainability.md)
+- [risk-model-boundary.md](../../../docs/risk-model-boundary.md)
 - [github-code-scanning.md](github-code-scanning.md)
 
 Look for these reviewer anchors:
@@ -71,6 +72,8 @@ Look for these reviewer anchors:
 - `summary.enrichment` appears only when enrichment evidence exists
 - policy findings explain `decision_reason`, `policy_rule`,
   `matched_threshold`, and `observed_value`
+- the risk model boundary separates risk inputs from context-only fields and
+  non-claims
 - SARIF is intentionally narrow and does not mirror every report finding
 
 Stop here if you need to understand the review outputs without running code.
