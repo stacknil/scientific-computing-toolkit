@@ -166,6 +166,7 @@ REQUIRED_TEXT = {
         "current flagship tool",
         "not part of the `sbom-diff-and-risk` release surface",
         "why the scientific-computing background helps",
+        "GitHub Latest may still show `v0.9.0` because `v1.0-rc.1` is a release candidate.",
         "Production PyPI publishing: intentionally deferred",
     ),
     Path("docs/reviewer-brief.md"): (
@@ -267,6 +268,7 @@ REQUIRED_TEXT = {
         "runs the tool, uploads `policy.json`, and fails or passes from the policy exit code",
         "not current PyPI package truth",
         "not current repository reputation",
+        "GitHub Latest may still show `v0.9.0` because `v1.0-rc.1` is a release candidate.",
         "It does not decide whether a dependency is safe.",
     ),
     Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"): (
