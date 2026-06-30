@@ -8,6 +8,17 @@ conclusions the tool must never infer.
 The model is a deterministic local heuristic layer. It is not a vulnerability
 scanner, not a CVE resolver, and not a dependency safety verdict.
 
+## Explicit non-claims
+
+The risk model has three deliberate product boundaries:
+
+- **Not a CVE scanner.** It does not query vulnerability databases, resolve
+  advisories against affected version ranges, or determine exploitability.
+- **Not a malware scanner.** It does not inspect package contents, source code,
+  signatures, or runtime behavior for malicious payloads.
+- **Not a package safety verdict engine.** Risk buckets and policy decisions
+  identify evidence for review; they do not certify a package as safe or unsafe.
+
 Implementation references:
 
 - [`risk.py`](../tools/sbom-diff-and-risk/src/sbom_diff_risk/risk.py)
