@@ -14,7 +14,7 @@ workflow templates.
 
 `sbom-diff-and-risk` is a local-first deterministic CLI for comparing SBOMs and dependency manifests. It is designed to produce stable review evidence for dependency changes.
 
-Current released version: `v0.9.0`.
+Current released version: `v1.0-rc.1` release candidate.
 
 Core identity:
 
@@ -131,6 +131,12 @@ For policy finding interpretation, see
 documents the policy decision metadata used to explain local blocks, warnings,
 and suppressions.
 
+For a fixed one-page policy warning case, see
+[policy-warning-reviewer-case.md](policy-warning-reviewer-case.md). It traces
+the checked-in CycloneDX example pair and `policy-minimal.yml` from added
+dependency to `new_package` warning without turning the warning into a package
+safety verdict.
+
 For CI job-summary examples that consume policy decision metadata, see
 [policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).
 
@@ -143,20 +149,22 @@ For CI dashboard, job-summary, and local-threshold examples that consume
 
 ## Release Verification Path
 
-Start with the GitHub Release for the version under review. For `v0.9.0`,
+Start with the GitHub Release for the version under review. For `v1.0-rc.1`,
 inspect the release and assets:
 
 ```powershell
-gh release view v0.9.0 `
+gh release view v1.0-rc.1 `
   --repo stacknil/scientific-computing-toolkit `
   --json tagName,name,isDraft,isPrerelease,assets,url
 ```
 
 Expected release assets:
 
-- `sbom_diff_and_risk-0.9.0-py3-none-any.whl`
-- `sbom_diff_and_risk-0.9.0.tar.gz`
+- `sbom_diff_and_risk-1.0rc1-py3-none-any.whl`
+- `sbom_diff_and_risk-1.0rc1.tar.gz`
 - `sbom-diff-and-risk-SHA256SUMS.txt`
+
+For this rc, `isPrerelease` should be `true`.
 
 The checksum manifest checks local downloaded distribution bytes before or alongside provenance verification:
 
@@ -186,13 +194,13 @@ For workflow-built artifacts downloaded from a trusted workflow run, verify
 artifact attestations with the signer workflow:
 
 ```powershell
-gh attestation verify path/to/sbom_diff_and_risk-0.9.0-py3-none-any.whl `
+gh attestation verify path/to/sbom_diff_and_risk-1.0rc1-py3-none-any.whl `
   --repo stacknil/scientific-computing-toolkit `
   --signer-workflow stacknil/scientific-computing-toolkit/.github/workflows/sbom-diff-and-risk-ci.yml
 ```
 
 ```powershell
-gh attestation verify path/to/sbom_diff_and_risk-0.9.0.tar.gz `
+gh attestation verify path/to/sbom_diff_and_risk-1.0rc1.tar.gz `
   --repo stacknil/scientific-computing-toolkit `
   --signer-workflow stacknil/scientific-computing-toolkit/.github/workflows/sbom-diff-and-risk-ci.yml
 ```
@@ -202,15 +210,15 @@ releases. Use them only when the repository release is immutable and GitHub has
 generated release attestations:
 
 ```powershell
-gh release view v0.9.0 --repo stacknil/scientific-computing-toolkit --json isImmutable,assets,url
+gh release view v1.0-rc.1 --repo stacknil/scientific-computing-toolkit --json isImmutable,assets,url
 ```
 
 If `isImmutable` is true, release verification can check the release record and
 downloaded release assets:
 
 ```powershell
-gh release verify v0.9.0 --repo stacknil/scientific-computing-toolkit
-gh release verify-asset v0.9.0 path/to/sbom_diff_and_risk-0.9.0-py3-none-any.whl --repo stacknil/scientific-computing-toolkit
+gh release verify v1.0-rc.1 --repo stacknil/scientific-computing-toolkit
+gh release verify-asset v1.0-rc.1 path/to/sbom_diff_and_risk-1.0rc1-py3-none-any.whl --repo stacknil/scientific-computing-toolkit
 ```
 
 If `isImmutable` is false, use the workflow artifact attestation path as the primary artifact verification story.
@@ -275,4 +283,3 @@ Avoid overclaiming:
 - Can I verify release/distribution evidence? Read `verification.md`, `self-provenance.md`, and `release-provenance.md`.
 - Can I distinguish TestPyPI from production PyPI? Read `pypi-trusted-publishing-readiness.md` and `pypi-production-publishing-decision.md`.
 - Can I state the non-claims? No CVE scanner, no reputation oracle, no dependency safety verdicts, no production PyPI package yet.
-

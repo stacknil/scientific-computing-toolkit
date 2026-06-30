@@ -170,6 +170,7 @@ jobs:
           assets=( $(printf '%s\n' "${assets[@]}" | LC_ALL=C sort) )
           unset IFS
           checksum_manifest="release-assets/${SBOM_DIFF_RISK_CHECKSUM_MANIFEST}"
+          notes_file="tools/sbom-diff-and-risk/RELEASE_NOTES_${RELEASE_TAG}.md"
 
           if [ "${#assets[@]}" -ne 2 ]; then
             echo "Expected exactly one wheel and one source distribution in release-assets/." >&2
@@ -188,6 +189,19 @@ jobs:
           assets+=( "${checksum_manifest}" )
 
           title="${RELEASE_TITLE_PREFIX} ${RELEASE_TAG}"
+          create_args=(--draft --verify-tag --title "${title}")
+          edit_args=(--draft=false --title "${title}")
+          notes_args=(--notes "Release assets for ${RELEASE_TAG}. See docs/release-provenance.md for provenance verification guidance.")
+
+          if [[ "${RELEASE_TAG}" == *"rc"* ]]; then
+            create_args+=(--prerelease --latest=false)
+            edit_args+=(--prerelease)
+          fi
+
+          if [ -f "${notes_file}" ]; then
+            notes_args=(--notes-file "${notes_file}")
+            edit_args+=(--notes-file "${notes_file}")
+          fi
 
           if gh release view "${RELEASE_TAG}" --repo "${GH_REPO}" >/dev/null 2>&1; then
             is_draft="$(gh release view "${RELEASE_TAG}" --repo "${GH_REPO}" --json isDraft -q .isDraft)"
@@ -198,11 +212,9 @@ jobs:
           else
             gh release create "${RELEASE_TAG}" \
               --repo "${GH_REPO}" \
-              --draft \
-              --verify-tag \
-              --title "${title}" \
-              --notes "Release assets for ${RELEASE_TAG}. See docs/release-provenance.md for provenance verification guidance."
+              "${create_args[@]}" \
+              "${notes_args[@]}"
           fi
 
           gh release upload "${RELEASE_TAG}" "${assets[@]}" --repo "${GH_REPO}"
-          gh release edit "${RELEASE_TAG}" --repo "${GH_REPO}" --draft=false --title "${title}"
+          gh release edit "${RELEASE_TAG}" --repo "${GH_REPO}" "${edit_args[@]}"

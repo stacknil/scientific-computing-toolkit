@@ -11,6 +11,7 @@ where to find it, and what it does not prove.
 | What is this tool? | [30-second orientation](#30-second-orientation) | You can state the tool's scope and non-claims. |
 | What artifacts does it produce? | [5-minute artifact review](#5-minute-artifact-review) | You can point to JSON, summary, policy, Markdown, and SARIF examples. |
 | Can the examples be reproduced locally? | [15-minute reproduction check](#15-minute-reproduction-check) | `regenerate-example-artifacts.py --check` passes without enrichment. |
+| How does a dependency diff trigger a policy warning? | [Policy warning reviewer case](policy-warning-reviewer-case.md) | You can trace `urllib3` from added dependency to `new_package` warning without overclaiming. |
 | Can the released tool artifacts be verified? | [Release evidence](#release-evidence) | You can choose the correct GitHub release, checksum, or attestation path. |
 | Are the reviewer routes still valid? | [Reviewer route contract](#reviewer-route-contract) | `python scripts/validate-reviewer-routes.py` passes from the repository root. |
 | What can I safely say in review? | [Reviewer outcome statements](#reviewer-outcome-statements) | Your summary separates verified evidence from non-claims. |
@@ -90,6 +91,7 @@ consumer workflow templates. They answer different review questions.
 | --- | --- | --- | --- | --- |
 | Default diff output | [sample-report.json](../examples/sample-report.json), [sample-summary.json](../examples/sample-summary.json), [sample-report.md](../examples/sample-report.md) | `scripts/regenerate-example-artifacts.py` with the CycloneDX example inputs | No network | Verify the default report, compact summary, and Markdown shapes. |
 | Policy output | [sample-policy-warn-report.json](../examples/sample-policy-warn-report.json), [sample-policy-fail-report.json](../examples/sample-policy-fail-report.json), [sample-policy.json](../examples/sample-policy.json) | `scripts/regenerate-example-artifacts.py` with local policy files | No network | Review warning, blocking, and policy-only sidecar semantics. |
+| Fixed policy warning case | [policy-warning-reviewer-case.md](policy-warning-reviewer-case.md) | Checked-in CycloneDX inputs, `policy-minimal.yml`, and sample policy-warn outputs | No network | Trace one added dependency from diff to local `new_package` policy warning with fixed input, output, explanation, and boundary. |
 | Policy decision examples | [policy-decisions](../examples/policy-decisions/README.md) | Checked-in consumer examples | No network | Review `pass`, `warn`, `fail`, and consumer-side `needs-review` interpretations without treating them as dependency safety verdicts. |
 | Requirements output | [sample-requirements-report.json](../examples/sample-requirements-report.json), [sample-requirements-report.md](../examples/sample-requirements-report.md) | `scripts/regenerate-example-artifacts.py --only requirements` | No network | Verify the `requirements.txt` parser path and report shape. |
 | Strict-policy SARIF | [sample-sarif.sarif](../examples/sample-sarif.sarif) | `scripts/regenerate-example-artifacts.py --only sarif` with normalized source root | No network | Inspect conservative code-scanning output for selected findings. |
@@ -224,6 +226,7 @@ Use [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for the full
 reproducible checklist, including:
 
 - local demo commands
+- fixed one-page policy warning case
 - release asset inspection
 - checksum verification
 - artifact attestation verification

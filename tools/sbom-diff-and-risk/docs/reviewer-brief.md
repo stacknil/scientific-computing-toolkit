@@ -4,7 +4,7 @@
 
 `sbom-diff-and-risk` is a local CLI for comparing two SBOMs or dependency manifests and producing deterministic review artifacts: JSON, Markdown, and SARIF. It is built for conservative supply-chain review, not for vulnerability scanning or package reputation scoring.
 
-Current released version: `v0.9.0`.
+Current released version: `v1.0-rc.1` release candidate.
 
 For the shortest ordered review route, use
 [reviewer-path.md](reviewer-path.md).
@@ -32,6 +32,7 @@ Dependency review often needs evidence that is stable enough for code review, CI
 | How can a reviewer reproduce the core evidence? | [reviewer-evidence-pack.md](reviewer-evidence-pack.md) for demo, release, TestPyPI, and SARIF verification paths. |
 | What is the stable JSON shape? | [report-schema.md](report-schema.md) documents the machine-readable report structure and `summary` contract. |
 | How are policy findings explained? | [policy-decision-explainability.md](policy-decision-explainability.md) documents the policy decision metadata in JSON reports. |
+| How does one dependency diff trigger a policy warning? | [policy-warning-reviewer-case.md](policy-warning-reviewer-case.md) fixes the input, output, explanation, and boundary for a `new_package` warning. |
 | Can CI consume compact policy decisions? | [policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md), [examples/sample-policy.json](../examples/sample-policy.json), and [examples/github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml) show the policy sidecar path. |
 | Are default runs offline? | CLI docs, tests for no-enrichment behavior, and explicit enrichment flags. |
 | Can code scanning consume the output? | `docs/github-code-scanning.md` and `examples/sample-sarif.sarif`. |
@@ -64,4 +65,3 @@ Dependency review often needs evidence that is stable enough for code review, CI
 ## Resume / application wording
 
 Built `sbom-diff-and-risk`, a deterministic SBOM and dependency diff CLI that produces JSON, Markdown, and SARIF review artifacts; supports local policy checks and optional provenance/Scorecard evidence; and documents a release verification story covering GitHub artifact attestations, GitHub Release assets, TestPyPI Trusted Publishing validation, and intentionally deferred production PyPI publishing.
-

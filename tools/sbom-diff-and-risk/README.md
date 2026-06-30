@@ -1,10 +1,11 @@
 # sbom-diff-and-risk
 
-v0.9.0 is the policy JSON sidecar and consumer integration usability release.
-It adds optional `--policy-json PATH` output, checked-in policy sidecar
-examples, and copyable GitHub Actions consumer guidance. It keeps dependency
-analysis local and deterministic by default, preserves the completed TestPyPI
-dry-run story, and keeps production PyPI publishing intentionally deferred.
+v1.0-rc.1 is the Policy Evidence release candidate. It fixes the reviewer path
+for policy decision examples, evidence-confidence labels, a one-page policy
+warning case, and copyable GitHub Actions consumer guidance. It keeps
+dependency analysis local and deterministic by default, preserves the completed
+TestPyPI dry-run story, and keeps production PyPI publishing intentionally
+deferred.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
@@ -29,6 +30,9 @@ explainability fields, see
 [docs/policy-decision-explainability.md](docs/policy-decision-explainability.md).
 For CI consumption of policy decision fields, see
 [docs/policy-decision-ci-cookbook.md](docs/policy-decision-ci-cookbook.md).
+For a fixed one-page case showing how a dependency diff triggers a policy
+warning, see
+[docs/policy-warning-reviewer-case.md](docs/policy-warning-reviewer-case.md).
 For CI consumption of summary-only output, see
 [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
 For a consumer-facing GitHub Actions example, see
@@ -319,6 +323,7 @@ The [examples/](examples/) directory includes:
 - sample policy-fail reports at [sample-policy-fail-report.json](examples/sample-policy-fail-report.json) and [sample-policy-fail-report.md](examples/sample-policy-fail-report.md)
 - a sample policy-only sidecar at [sample-policy.json](examples/sample-policy.json)
 - compact policy-decision examples at [examples/policy-decisions](examples/policy-decisions/README.md)
+- a one-page policy warning reviewer case at [docs/policy-warning-reviewer-case.md](docs/policy-warning-reviewer-case.md)
 - a sample SARIF export at [sample-sarif.sarif](examples/sample-sarif.sarif)
 - provenance-aware sample reports at [sample-provenance-report.json](examples/sample-provenance-report.json), [sample-provenance-report.md](examples/sample-provenance-report.md), and [sample-provenance-report.sarif](examples/sample-provenance-report.sarif)
 - Scorecard-aware sample reports at [sample-scorecard-report.json](examples/sample-scorecard-report.json), [sample-scorecard-report.md](examples/sample-scorecard-report.md), and [sample-scorecard-report.sarif](examples/sample-scorecard-report.sarif)
