@@ -9,10 +9,11 @@ def evidence_confidence_for_report(report: CompareReport) -> EvidenceConfidence:
     if report.metadata.evidence_confidence is not None:
         return report.metadata.evidence_confidence
 
-    if _has_enrichment_evidence(report):
-        if _has_live_enrichment(report):
-            return EvidenceConfidence.ENRICHMENT_LIVE
-        return EvidenceConfidence.ENRICHMENT_MOCKED
+    if _has_provenance_record(report):
+        return EvidenceConfidence.PROVENANCE_RECORDED
+
+    if _has_enrichment_record(report):
+        return EvidenceConfidence.ENRICHMENT_RECORDED
 
     if _has_policy_match(report):
         return EvidenceConfidence.POLICY_MATCHED
@@ -27,21 +28,20 @@ def evidence_confidence_value(report: CompareReport) -> str:
     return evidence_confidence_for_report(report).value
 
 
-def _has_enrichment_evidence(report: CompareReport) -> bool:
+def _has_provenance_record(report: CompareReport) -> bool:
     metadata = report.metadata.enrichment
-    if metadata.pypi_enabled or metadata.scorecard_enabled:
+    if metadata.pypi_enabled:
         return True
 
-    return any(component.provenance is not None or component.scorecard is not None for component in _all_components(report))
+    return any(component.provenance is not None for component in _all_components(report))
 
 
-def _has_live_enrichment(report: CompareReport) -> bool:
+def _has_enrichment_record(report: CompareReport) -> bool:
     metadata = report.metadata.enrichment
-    return (
-        metadata.network_access_performed
-        or metadata.pypi_network_access_performed
-        or metadata.scorecard_network_access_performed
-    )
+    if metadata.scorecard_enabled:
+        return True
+
+    return any(component.scorecard is not None for component in _all_components(report))
 
 
 def _has_policy_match(report: CompareReport) -> bool:

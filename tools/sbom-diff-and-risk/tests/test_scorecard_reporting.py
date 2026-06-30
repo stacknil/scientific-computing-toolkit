@@ -48,7 +48,7 @@ def test_scorecard_report_json_summary_includes_enrichment_status() -> None:
         "warning": 1,
         "suppressed": 0,
     }
-    assert payload["summary"]["evidence_confidence"] == "enrichment_mocked"
+    assert payload["summary"]["evidence_confidence"] == "enrichment_recorded"
     assert payload["summary"]["enrichment"] == {
         "status": "used",
         "mode": "opt_in_scorecard",
@@ -238,7 +238,7 @@ def _build_sample_scorecard_report() -> tuple[CompareReport, Path, Path]:
             strict=False,
             stub=False,
             policy_evaluation=policy_evaluation,
-            evidence_confidence=EvidenceConfidence.ENRICHMENT_MOCKED,
+            evidence_confidence=EvidenceConfidence.ENRICHMENT_RECORDED,
             enrichment=ReportEnrichmentMetadata(
                 mode="opt_in_scorecard",
                 scorecard_enabled=True,

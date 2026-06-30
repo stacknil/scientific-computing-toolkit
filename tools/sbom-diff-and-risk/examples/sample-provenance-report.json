@@ -12,7 +12,7 @@
       "suspicious_source": 0,
       "not_evaluated": 0
     },
-    "evidence_confidence": "enrichment_mocked",
+    "evidence_confidence": "provenance_recorded",
     "policy": {
       "status": "fail",
       "blocking": 2,
@@ -33,7 +33,7 @@
       }
     }
   },
-  "evidence_confidence": "enrichment_mocked",
+  "evidence_confidence": "provenance_recorded",
   "components": {
     "added": [
       {
@@ -746,7 +746,7 @@
       },
       "exit_code": 1
     },
-    "evidence_confidence": "enrichment_mocked",
+    "evidence_confidence": "provenance_recorded",
     "enrichment": {
       "mode": "opt_in_pypi",
       "pypi_enabled": true,

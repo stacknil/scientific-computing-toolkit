@@ -130,8 +130,8 @@ not a CVE result. The same value appears at top level, in `summary`, and in
 | `local_manifest_only` | The report was produced from local manifest-style inputs without SBOM input, policy matches, or enrichment evidence. |
 | `sbom_present` | At least one input is an SBOM format such as CycloneDX JSON or SPDX JSON. |
 | `policy_matched` | Local policy evaluation produced at least one blocking, warning, or suppressed policy match. |
-| `enrichment_mocked` | Enrichment-shaped evidence is present without recorded live network access, or the report explicitly marks constructed snapshot evidence as mocked. |
-| `enrichment_live` | Opt-in enrichment recorded live network access for PyPI provenance or OpenSSF Scorecard evidence. |
+| `enrichment_recorded` | Optional non-provenance enrichment evidence, such as OpenSSF Scorecard evidence, was recorded for the report. |
+| `provenance_recorded` | PyPI provenance evidence or provenance-enrichment metadata was recorded for the report. |
 
 `summary.policy` appears only when a policy is applied. Absence of
 `summary.policy` means policy was not used, not that policy evaluation failed.
