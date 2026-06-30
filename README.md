@@ -214,6 +214,7 @@ the review question:
 
 - Current flagship release candidate: `sbom-diff-and-risk` `v1.0-rc.1`
 - GitHub Release assets: available for `v1.0-rc.1`
+- GitHub Latest may still show `v0.9.0` because `v1.0-rc.1` is a release candidate.
 - TestPyPI Trusted Publishing dry-run: completed
 - Production PyPI publishing: intentionally deferred
 
