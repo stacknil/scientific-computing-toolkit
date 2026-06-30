@@ -72,7 +72,7 @@ Project:
 [`sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md)
 
 Status:
-Released at `v0.9.0`.
+Released at `v1.0-rc.1` as a release candidate.
 
 What to review:
 Deterministic SBOM/dependency diffing, JSON/Markdown/SARIF output, local policy
@@ -86,7 +86,7 @@ Useful entry points:
 - [Reviewer path](tools/sbom-diff-and-risk/docs/reviewer-path.md)
 - [Reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md)
 - [Reviewer evidence pack](tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md)
-- [v0.9.0 release notes][release-notes-v090]
+- [v1.0-rc.1 release notes][release-notes-v10rc1]
 - [Examples](tools/sbom-diff-and-risk/examples/)
 
 Project:
@@ -212,9 +212,9 @@ the review question:
 
 ## Status
 
-- Current flagship release: `sbom-diff-and-risk` `v0.9.0`
-- GitHub Release assets: available for `v0.9.0`
+- Current flagship release candidate: `sbom-diff-and-risk` `v1.0-rc.1`
+- GitHub Release assets: available for `v1.0-rc.1`
 - TestPyPI Trusted Publishing dry-run: completed
 - Production PyPI publishing: intentionally deferred
 
-[release-notes-v090]: tools/sbom-diff-and-risk/RELEASE_NOTES_v0.9.0.md
+[release-notes-v10rc1]: tools/sbom-diff-and-risk/RELEASE_NOTES_v1.0-rc.1.md
