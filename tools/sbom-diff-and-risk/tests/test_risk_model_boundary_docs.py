@@ -38,6 +38,9 @@ def test_risk_model_boundary_names_inputs_and_nonclaims() -> None:
         "not a vulnerability scanner",
         "not a CVE resolver",
         "not a dependency safety verdict",
+        "Not a CVE scanner",
+        "Not a malware scanner",
+        "Not a package safety verdict engine",
         "hidden network enrichment",
     ):
         assert phrase in text or _normalized_text(phrase) in normalized
