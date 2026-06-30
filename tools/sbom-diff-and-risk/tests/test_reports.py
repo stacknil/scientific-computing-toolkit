@@ -324,7 +324,7 @@ def test_reports_include_provenance_policy_details_for_v2_policy() -> None:
             strict=False,
             stub=False,
             policy_evaluation=policy_evaluation,
-            evidence_confidence=EvidenceConfidence.ENRICHMENT_MOCKED,
+            evidence_confidence=EvidenceConfidence.PROVENANCE_RECORDED,
         ),
         notes=["PyPI provenance enrichment was requested explicitly."],
     )

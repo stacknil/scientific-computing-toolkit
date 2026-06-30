@@ -59,7 +59,7 @@ def test_provenance_report_json_includes_provenance_policy_summary() -> None:
         "warning": 1,
         "suppressed": 0,
     }
-    assert payload["summary"]["evidence_confidence"] == "enrichment_mocked"
+    assert payload["summary"]["evidence_confidence"] == "provenance_recorded"
     assert payload["summary"]["enrichment"] == {
         "status": "used",
         "mode": "opt_in_pypi",
@@ -405,7 +405,7 @@ def _build_sample_provenance_report() -> tuple[CompareReport, Path, Path]:
             strict=False,
             stub=False,
             policy_evaluation=policy_evaluation,
-            evidence_confidence=EvidenceConfidence.ENRICHMENT_MOCKED,
+            evidence_confidence=EvidenceConfidence.PROVENANCE_RECORDED,
             enrichment=ReportEnrichmentMetadata(
                 mode="opt_in_pypi",
                 pypi_enabled=True,

@@ -81,7 +81,7 @@ if ($newPackageCount -gt $maxNewPackages) {
 - `summary.enrichment` appears only when PyPI or Scorecard enrichment is used.
 - `summary.evidence_confidence` is always present and can be
   `local_manifest_only`, `sbom_present`, `policy_matched`,
-  `enrichment_mocked`, or `enrichment_live`.
+  `enrichment_recorded`, or `provenance_recorded`.
 - `unchanged` is absent because unchanged components are not modeled.
 - Absence of `summary.policy` or `summary.enrichment` means the feature was
   not used, not that it failed.

@@ -161,7 +161,7 @@ def test_cli_summary_json_includes_enrichment_summary_when_enrichment_is_used(
             },
         },
     }
-    assert payload["evidence_confidence"] == "enrichment_mocked"
+    assert payload["evidence_confidence"] == "provenance_recorded"
     assert "policy" not in payload
 
 
@@ -224,7 +224,7 @@ def test_cli_summary_json_includes_scorecard_enrichment_summary_when_scorecard_i
             },
         },
     }
-    assert payload["evidence_confidence"] == "enrichment_mocked"
+    assert payload["evidence_confidence"] == "enrichment_recorded"
     assert "policy" not in payload
 
 

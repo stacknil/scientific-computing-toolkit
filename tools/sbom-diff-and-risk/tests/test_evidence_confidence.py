@@ -13,6 +13,16 @@ from sbom_diff_risk.models import (
 from sbom_diff_risk.policy_models import PolicyEvaluation, PolicyLevel, PolicyViolation
 
 
+def test_evidence_confidence_values_are_release_facing_labels() -> None:
+    assert {item.value for item in EvidenceConfidence} == {
+        "local_manifest_only",
+        "sbom_present",
+        "policy_matched",
+        "enrichment_recorded",
+        "provenance_recorded",
+    }
+
+
 def test_evidence_confidence_defaults_to_local_manifest_only() -> None:
     report = _minimal_report(before_format="requirements-txt", after_format="requirements-txt")
 
@@ -43,7 +53,7 @@ def test_evidence_confidence_marks_policy_matched() -> None:
     assert evidence_confidence_for_report(report) is EvidenceConfidence.POLICY_MATCHED
 
 
-def test_evidence_confidence_marks_mocked_enrichment_without_network() -> None:
+def test_evidence_confidence_marks_provenance_recorded_when_pypi_enrichment_is_used() -> None:
     report = _minimal_report(
         before_format="requirements-txt",
         after_format="requirements-txt",
@@ -55,13 +65,29 @@ def test_evidence_confidence_marks_mocked_enrichment_without_network() -> None:
         ),
     )
 
-    assert evidence_confidence_for_report(report) is EvidenceConfidence.ENRICHMENT_MOCKED
+    assert evidence_confidence_for_report(report) is EvidenceConfidence.PROVENANCE_RECORDED
 
 
-def test_evidence_confidence_marks_live_enrichment_when_network_access_was_performed() -> None:
+def test_evidence_confidence_marks_enrichment_recorded_when_scorecard_enrichment_is_used() -> None:
     report = _minimal_report(
         before_format="requirements-txt",
         after_format="requirements-txt",
+        enrichment=ReportEnrichmentMetadata(
+            mode="opt_in_scorecard",
+            scorecard_enabled=True,
+            scorecard_network_access_performed=True,
+            network_access_performed=True,
+        ),
+    )
+
+    assert evidence_confidence_for_report(report) is EvidenceConfidence.ENRICHMENT_RECORDED
+
+
+def test_evidence_confidence_allows_explicit_recorded_override_for_constructed_snapshots() -> None:
+    report = _minimal_report(
+        before_format="requirements-txt",
+        after_format="requirements-txt",
+        evidence_confidence=EvidenceConfidence.PROVENANCE_RECORDED,
         enrichment=ReportEnrichmentMetadata(
             mode="opt_in_pypi",
             pypi_enabled=True,
@@ -70,23 +96,7 @@ def test_evidence_confidence_marks_live_enrichment_when_network_access_was_perfo
         ),
     )
 
-    assert evidence_confidence_for_report(report) is EvidenceConfidence.ENRICHMENT_LIVE
-
-
-def test_evidence_confidence_allows_explicit_mock_override_for_constructed_snapshots() -> None:
-    report = _minimal_report(
-        before_format="requirements-txt",
-        after_format="requirements-txt",
-        evidence_confidence=EvidenceConfidence.ENRICHMENT_MOCKED,
-        enrichment=ReportEnrichmentMetadata(
-            mode="opt_in_pypi",
-            pypi_enabled=True,
-            pypi_network_access_performed=True,
-            network_access_performed=True,
-        ),
-    )
-
-    assert evidence_confidence_for_report(report) is EvidenceConfidence.ENRICHMENT_MOCKED
+    assert evidence_confidence_for_report(report) is EvidenceConfidence.PROVENANCE_RECORDED
 
 
 def _minimal_report(
