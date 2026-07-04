@@ -7,8 +7,8 @@
         "driver": {
           "name": "sbom-diff-risk",
           "fullName": "sbom-diff-risk",
-          "version": "1.0rc1",
-          "semanticVersion": "1.0rc1",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
           "rules": [
             {
               "id": "sdr.major_upgrade",
@@ -21,6 +21,25 @@
               },
               "defaultConfiguration": {
                 "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "sbom"
+                ]
+              }
+            },
+            {
+              "id": "sdr.new_package",
+              "name": "new_package",
+              "shortDescription": {
+                "text": "Component is present only in the after input."
+              },
+              "fullDescription": {
+                "text": "Component is present only in the after input."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
               },
               "properties": {
                 "tags": [
@@ -125,8 +144,8 @@
       "properties": {
         "sbom_diff_risk": {
           "result_limit": 5000,
-          "total_candidate_results": 5,
-          "emitted_results": 5,
+          "total_candidate_results": 6,
+          "emitted_results": 6,
           "omitted_results": 0,
           "truncated": false,
           "prioritization": "error results first, then warning, then note; direct mapped findings before policy-only checks; stable rule priority and component key tie-breakers.",
@@ -161,8 +180,11 @@
             "component_key": "purl:pkg:pypi/mystery-lib",
             "component_name": "mystery-lib",
             "finding_bucket": "suspicious_source",
+            "policy_matched": true,
             "policy_blocking": true,
             "result_kind": "risk_finding",
+            "policy_rule_id": "suspicious_source",
+            "policy_level": "block",
             "blocking_rule_id": "suspicious_source"
           }
         },
@@ -193,8 +215,11 @@
             "component_key": "purl:pkg:pypi/mystery-lib",
             "component_name": "mystery-lib",
             "finding_bucket": "unknown_license",
+            "policy_matched": true,
             "policy_blocking": true,
             "result_kind": "risk_finding",
+            "policy_rule_id": "unknown_license",
+            "policy_level": "block",
             "blocking_rule_id": "unknown_license"
           }
         },
@@ -260,9 +285,9 @@
         },
         {
           "ruleId": "sdr.major_upgrade",
-          "level": "note",
+          "level": "warning",
           "message": {
-            "text": "Version changed from 1.9.0 to 2.0.0 with a higher major version."
+            "text": "Policy warning: Version changed from 1.9.0 to 2.0.0 with a higher major version."
           },
           "locations": [
             {
@@ -285,8 +310,45 @@
             "component_key": "purl:pkg:pypi/requests",
             "component_name": "requests",
             "finding_bucket": "major_upgrade",
+            "policy_matched": true,
             "policy_blocking": false,
-            "result_kind": "risk_finding"
+            "result_kind": "risk_finding",
+            "policy_rule_id": "major_upgrade",
+            "policy_level": "warn"
+          }
+        },
+        {
+          "ruleId": "sdr.new_package",
+          "level": "warning",
+          "message": {
+            "text": "Policy warning: Component was not present in the before input."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/sarif_after.json",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.new_package",
+            "componentKey": "purl:pkg:pypi/mystery-lib"
+          },
+          "properties": {
+            "component_key": "purl:pkg:pypi/mystery-lib",
+            "component_name": "mystery-lib",
+            "finding_bucket": "new_package",
+            "policy_matched": true,
+            "policy_blocking": false,
+            "result_kind": "risk_finding",
+            "policy_rule_id": "new_package",
+            "policy_level": "warn"
           }
         }
       ],

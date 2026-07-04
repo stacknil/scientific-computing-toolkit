@@ -18,8 +18,8 @@ def test_evidence_confidence_values_are_release_facing_labels() -> None:
         "local_manifest_only",
         "sbom_present",
         "policy_matched",
-        "enrichment_recorded",
         "provenance_recorded",
+        "scorecard_recorded",
     }
 
 
@@ -68,7 +68,7 @@ def test_evidence_confidence_marks_provenance_recorded_when_pypi_enrichment_is_u
     assert evidence_confidence_for_report(report) is EvidenceConfidence.PROVENANCE_RECORDED
 
 
-def test_evidence_confidence_marks_enrichment_recorded_when_scorecard_enrichment_is_used() -> None:
+def test_evidence_confidence_marks_scorecard_recorded_when_scorecard_enrichment_is_used() -> None:
     report = _minimal_report(
         before_format="requirements-txt",
         after_format="requirements-txt",
@@ -80,7 +80,24 @@ def test_evidence_confidence_marks_enrichment_recorded_when_scorecard_enrichment
         ),
     )
 
-    assert evidence_confidence_for_report(report) is EvidenceConfidence.ENRICHMENT_RECORDED
+    assert evidence_confidence_for_report(report) is EvidenceConfidence.SCORECARD_RECORDED
+
+
+def test_evidence_confidence_prefers_scorecard_when_both_enrichments_are_recorded() -> None:
+    report = _minimal_report(
+        before_format="requirements-txt",
+        after_format="requirements-txt",
+        enrichment=ReportEnrichmentMetadata(
+            mode="opt_in_pypi_and_scorecard",
+            pypi_enabled=True,
+            scorecard_enabled=True,
+            pypi_network_access_performed=True,
+            scorecard_network_access_performed=True,
+            network_access_performed=True,
+        ),
+    )
+
+    assert evidence_confidence_for_report(report) is EvidenceConfidence.SCORECARD_RECORDED
 
 
 def test_evidence_confidence_allows_explicit_recorded_override_for_constructed_snapshots() -> None:

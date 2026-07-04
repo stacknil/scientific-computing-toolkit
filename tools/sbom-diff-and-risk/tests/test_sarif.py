@@ -34,12 +34,30 @@ def test_render_report_sarif_matches_golden() -> None:
 
 
 def test_sarif_rule_ids_are_stable() -> None:
+    assert sarif_rule_id_for_risk_bucket(RiskBucket.NEW_PACKAGE) == "sdr.new_package"
     assert sarif_rule_id_for_risk_bucket(RiskBucket.UNKNOWN_LICENSE) == "sdr.unknown_license"
     assert sarif_rule_id_for_risk_bucket(RiskBucket.SUSPICIOUS_SOURCE) == "sdr.suspicious_source"
     assert sarif_rule_id_for_risk_bucket(RiskBucket.MAJOR_UPGRADE) == "sdr.major_upgrade"
     assert sarif_rule_id_for_policy_violation("max_added_packages") == "sdr.policy_violation.max_added_packages"
     assert sarif_rule_id_for_policy_violation("allow_sources") == "sdr.policy_violation.allow_sources"
     assert sarif_rule_id_for_policy_violation("stale_package") is None
+
+
+def test_new_package_sarif_requires_a_policy_match() -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    report, before_path, after_path = _build_report("cdx_before.json", "cdx_after.json")
+
+    payload = json.loads(
+        render_report_sarif(
+            report,
+            before_path=before_path,
+            after_path=after_path,
+            base_dir=project_root,
+        )
+    )
+
+    rule_ids = {result["ruleId"] for result in payload["runs"][0]["results"]}
+    assert "sdr.new_package" not in rule_ids
 
 
 def test_sarif_structure_and_mapping_are_github_compatible() -> None:
@@ -63,6 +81,7 @@ def test_sarif_structure_and_mapping_are_github_compatible() -> None:
     rules = {rule["id"] for rule in run["tool"]["driver"]["rules"]}
     assert rules == {
         "sdr.major_upgrade",
+        "sdr.new_package",
         "sdr.policy_violation.allow_sources",
         "sdr.policy_violation.max_added_packages",
         "sdr.suspicious_source",
@@ -76,6 +95,7 @@ def test_sarif_structure_and_mapping_are_github_compatible() -> None:
         "sdr.policy_violation.allow_sources",
         "sdr.policy_violation.max_added_packages",
         "sdr.major_upgrade",
+        "sdr.new_package",
     ]
     assert any(result["level"] == "error" for result in results)
     assert all(result["locations"][0]["physicalLocation"]["artifactLocation"]["uri"] == "examples/sarif_after.json" for result in results)
@@ -108,9 +128,9 @@ def test_sarif_truncation_is_deterministic_and_recorded_in_metadata() -> None:
 
     assert first.content == second.content
     assert first.metadata.truncated is True
-    assert first.metadata.total_candidate_results == 5
+    assert first.metadata.total_candidate_results == 6
     assert first.metadata.emitted_results == 2
-    assert first.metadata.omitted_results == 3
+    assert first.metadata.omitted_results == 4
     assert first.metadata.warning_message is not None
 
     payload = json.loads(first.content)

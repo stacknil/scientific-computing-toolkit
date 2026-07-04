@@ -41,7 +41,7 @@ ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
     ),
     ExampleArtifactSet(
         slug="policy-warn",
-        name="warn-only policy report",
+        name="warn-only policy JSON, Markdown, and SARIF report",
         base_args=(
             "--before",
             "examples/cdx_before.json",
@@ -53,7 +53,9 @@ ARTIFACT_SETS: tuple[ExampleArtifactSet, ...] = (
         outputs=(
             ("--out-json", "sample-policy-warn-report.json"),
             ("--out-md", "sample-policy-warn-report.md"),
+            ("--out-sarif", "sample-policy-warn-report.sarif"),
         ),
+        normalize_sarif_srcroot=True,
     ),
     ExampleArtifactSet(
         slug="policy-fail",
@@ -226,7 +228,9 @@ def _run_artifact_set(project_root: Path, output_root: Path, artifact_set: Examp
             f"expected {artifact_set.expected_exit_codes}: {detail}"
         )
     if artifact_set.normalize_sarif_srcroot:
-        _normalize_sarif_srcroot(output_root / artifact_set.outputs[0][1])
+        for flag, output_name in artifact_set.outputs:
+            if flag == "--out-sarif":
+                _normalize_sarif_srcroot(output_root / output_name)
 
 
 def _normalize_sarif_srcroot(path: Path) -> None:

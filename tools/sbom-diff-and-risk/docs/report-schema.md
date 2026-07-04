@@ -130,8 +130,13 @@ not a CVE result. The same value appears at top level, in `summary`, and in
 | `local_manifest_only` | The report was produced from local manifest-style inputs without SBOM input, policy matches, or enrichment evidence. |
 | `sbom_present` | At least one input is an SBOM format such as CycloneDX JSON or SPDX JSON. |
 | `policy_matched` | Local policy evaluation produced at least one blocking, warning, or suppressed policy match. |
-| `enrichment_recorded` | Optional non-provenance enrichment evidence, such as OpenSSF Scorecard evidence, was recorded for the report. |
 | `provenance_recorded` | PyPI provenance evidence or provenance-enrichment metadata was recorded for the report. |
+| `scorecard_recorded` | OpenSSF Scorecard evidence or Scorecard-enrichment metadata was recorded for the report. |
+
+When both provenance and Scorecard evidence are recorded, the single summary
+label is deterministically `scorecard_recorded`. This precedence keeps the
+field stable; it does not rank package safety or claim that one evidence source
+is universally stronger than another.
 
 `summary.policy` appears only when a policy is applied. Absence of
 `summary.policy` means policy was not used, not that policy evaluation failed.

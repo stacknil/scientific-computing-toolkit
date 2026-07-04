@@ -17,7 +17,8 @@ sbom-diff-risk compare `
   --after examples/cdx_after.json `
   --policy examples/policy-minimal.yml `
   --out-json outputs/policy-warn-report.json `
-  --out-md outputs/policy-warn-report.md
+  --out-md outputs/policy-warn-report.md `
+  --out-sarif outputs/policy-warn-report.sarif
 ```
 
 Reference inputs and policy:
@@ -42,6 +43,7 @@ The checked-in reference outputs are:
 
 - [`examples/sample-policy-warn-report.json`](../examples/sample-policy-warn-report.json)
 - [`examples/sample-policy-warn-report.md`](../examples/sample-policy-warn-report.md)
+- [`examples/sample-policy-warn-report.sarif`](../examples/sample-policy-warn-report.sarif)
 
 The fixed JSON facts for this case are:
 
@@ -59,6 +61,16 @@ The fixed JSON facts for this case are:
 | `warning_findings[0].severity_source` | `warn_on` |
 | `warning_findings[0].observed_value` | `new_package` |
 
+The fixed SARIF facts for the same decision are:
+
+| Field | Value |
+| --- | --- |
+| `runs[0].results[0].ruleId` | `sdr.new_package` |
+| `runs[0].results[0].level` | `warning` |
+| `runs[0].results[0].properties.component_name` | `urllib3` |
+| `runs[0].results[0].properties.policy_matched` | `true` |
+| `runs[0].results[0].properties.policy_level` | `warn` |
+
 ## Explanation
 
 The after input contains `urllib3` `2.2.1`, which is not present in the before
@@ -73,10 +85,12 @@ source of this policy warning. It receives `version_change_unclassified` and
 `not_evaluated` findings in offline mode, and the minimal policy does not warn
 or block on either rule.
 
-## Fixed boundary
+## Bounded decision
 
 This case proves that local policy matching can explain why a dependency diff
-triggered a warning.
+triggered a warning and can preserve that decision in Markdown and SARIF. The
+bounded decision is: review the added dependency under local policy; do not
+convert the warning into a security verdict.
 
 It does not prove:
 

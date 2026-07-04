@@ -134,8 +134,8 @@ and suppressions.
 For a fixed one-page policy warning case, see
 [policy-warning-reviewer-case.md](policy-warning-reviewer-case.md). It traces
 the checked-in CycloneDX example pair and `policy-minimal.yml` from added
-dependency to `new_package` warning without turning the warning into a package
-safety verdict.
+dependency to a `new_package` warning in JSON, Markdown, and SARIF without
+turning the warning into a package safety verdict.
 
 For CI job-summary examples that consume policy decision metadata, see
 [policy-decision-ci-cookbook.md](policy-decision-ci-cookbook.md).
@@ -255,6 +255,7 @@ The SARIF output is designed for GitHub code scanning consumption. Start with:
 The SARIF renderer intentionally emits a conservative subset:
 
 - selected heuristic findings such as suspicious source, unknown license, and major upgrade
+- policy-matched `new_package` warnings with explicit policy metadata
 - explicit blocking policy decisions
 - selected provenance or Scorecard policy violations when policy turns them into findings
 

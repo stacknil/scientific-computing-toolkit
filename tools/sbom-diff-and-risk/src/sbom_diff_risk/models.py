@@ -22,8 +22,8 @@ class EvidenceConfidence(StrEnum):
     LOCAL_MANIFEST_ONLY = "local_manifest_only"
     SBOM_PRESENT = "sbom_present"
     POLICY_MATCHED = "policy_matched"
-    ENRICHMENT_RECORDED = "enrichment_recorded"
     PROVENANCE_RECORDED = "provenance_recorded"
+    SCORECARD_RECORDED = "scorecard_recorded"
 
 
 class ProvenanceStatus(StrEnum):

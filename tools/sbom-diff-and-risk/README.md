@@ -1,15 +1,19 @@
 # sbom-diff-and-risk
 
-v1.0-rc.1 is the Policy Evidence release candidate. It fixes the reviewer path
-for policy decision examples, evidence-confidence labels, a one-page policy
-warning case, and copyable GitHub Actions consumer guidance. It keeps
-dependency analysis local and deterministic by default, preserves the completed
-TestPyPI dry-run story, and keeps production PyPI publishing intentionally
-deferred.
+Main is the `v1.0.0` Policy Evidence final candidate. The currently published
+release remains `v1.0-rc.1` until the final tag is explicitly approved and
+created. The selected release policy is a stable GitHub `v1.0.0` release while
+production PyPI publishing remains intentionally deferred.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
 It uses conservative heuristics for change intelligence. By default it does not resolve CVEs, does not act as a reputation oracle, and does not perform hidden network enrichment.
+
+## Supply-chain non-claims
+
+- not a CVE scanner
+- not a malware scanner
+- not a package safety verdict engine
 
 ## Start Here
 

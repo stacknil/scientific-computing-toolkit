@@ -57,7 +57,8 @@ Inspect the checked-in examples in this order:
 | 3 | [sample-policy.json](../examples/sample-policy.json) | Policy-only sidecar for CI consumers. |
 | 4 | [sample-report.md](../examples/sample-report.md) | Human-readable reviewer report. |
 | 5 | [sample-sarif.sarif](../examples/sample-sarif.sarif) | Conservative code-scanning output for selected high-signal findings. |
-| 6 | [github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml) | Copyable consumer path for capturing policy JSON in GitHub Actions. |
+| 6 | [sample-policy-warn-report.sarif](../examples/sample-policy-warn-report.sarif) | The fixed `new_package` policy warning represented as SARIF. |
+| 7 | [github-actions-policy-consumer.yml](../examples/github-actions-policy-consumer.yml) | Copyable consumer path for capturing policy JSON in GitHub Actions. |
 
 Then read:
 
@@ -201,6 +202,10 @@ dependency safety.
 Release status note: GitHub Latest may still show `v0.9.0` because
 `v1.0-rc.1` is a release candidate. Reviewers checking the current release
 candidate should open the explicit `v1.0-rc.1` release page.
+
+Main is prepared as the `v1.0.0` final candidate. The selected policy is a
+stable GitHub final release with production PyPI still deferred; this is not a
+claim that the final tag already exists.
 
 | Evidence surface | Use when | Read |
 | --- | --- | --- |
