@@ -41,6 +41,9 @@ For the SBOM tool's risk-model boundary, use
 fields affect risk buckets, which fields are context only, and which claims the
 model never infers.
 
+For a short external case study, read
+[SBOM Diff as a Bounded Policy Review Artifact](tools/sbom-diff-and-risk/docs/case-study-bounded-policy-review.md).
+
 ## Supporting Diagnostics Projects
 
 These projects are internal supporting material for reviewer depth. They are
