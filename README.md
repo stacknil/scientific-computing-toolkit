@@ -43,6 +43,7 @@ model never infers.
 
 For a short external case study, read
 [SBOM Diff as a Bounded Policy Review Artifact](tools/sbom-diff-and-risk/docs/case-study-bounded-policy-review.md).
+For near-term flagship review boundaries, see [`ROADMAP.md`](ROADMAP.md).
 
 ## Supporting Diagnostics Projects
 
