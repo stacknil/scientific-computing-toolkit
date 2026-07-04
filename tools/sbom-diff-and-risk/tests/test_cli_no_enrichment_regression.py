@@ -200,5 +200,5 @@ def test_compare_runs_scorecard_enrichment_only_when_requested(
     assert payload["metadata"]["enrichment"]["mode"] == "opt_in_scorecard"
     assert payload["metadata"]["enrichment"]["scorecard_enabled"] is True
     assert payload["metadata"]["enrichment"]["scorecard_timeout_seconds"] == 4.25
-    assert payload["evidence_confidence"] == "enrichment_recorded"
+    assert payload["evidence_confidence"] == "scorecard_recorded"
     assert payload["notes"][1] == "OpenSSF Scorecard enrichment was requested explicitly."

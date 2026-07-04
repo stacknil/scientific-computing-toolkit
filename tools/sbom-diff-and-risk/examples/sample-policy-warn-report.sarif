@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "sbom-diff-risk",
+          "fullName": "sbom-diff-risk",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
+          "rules": [
+            {
+              "id": "sdr.new_package",
+              "name": "new_package",
+              "shortDescription": {
+                "text": "Component is present only in the after input."
+              },
+              "fullDescription": {
+                "text": "Component is present only in the after input."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "supply-chain",
+                  "sbom"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "examples/cdx_before.json",
+            "uriBaseId": "%SRCROOT%"
+          }
+        },
+        {
+          "location": {
+            "uri": "examples/cdx_after.json",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
+      "properties": {
+        "sbom_diff_risk": {
+          "result_limit": 5000,
+          "total_candidate_results": 1,
+          "emitted_results": 1,
+          "omitted_results": 0,
+          "truncated": false,
+          "prioritization": "error results first, then warning, then note; direct mapped findings before policy-only checks; stable rule priority and component key tie-breakers.",
+          "warning": null
+        }
+      },
+      "results": [
+        {
+          "ruleId": "sdr.new_package",
+          "level": "warning",
+          "message": {
+            "text": "Policy warning: Component was not present in the before input."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/cdx_after.json",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "ruleId": "sdr.new_package",
+            "componentKey": "purl:pkg:pypi/urllib3"
+          },
+          "properties": {
+            "component_key": "purl:pkg:pypi/urllib3",
+            "component_name": "urllib3",
+            "finding_bucket": "new_package",
+            "policy_matched": true,
+            "policy_blocking": false,
+            "result_kind": "risk_finding",
+            "policy_rule_id": "new_package",
+            "policy_level": "warn"
+          }
+        }
+      ],
+      "originalUriBaseIds": {
+        "%SRCROOT%": {
+          "uri": "file:///__PROJECT_ROOT__/"
+        }
+      }
+    }
+  ]
+}

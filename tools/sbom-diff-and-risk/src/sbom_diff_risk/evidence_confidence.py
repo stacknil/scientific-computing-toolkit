@@ -9,11 +9,11 @@ def evidence_confidence_for_report(report: CompareReport) -> EvidenceConfidence:
     if report.metadata.evidence_confidence is not None:
         return report.metadata.evidence_confidence
 
+    if _has_scorecard_record(report):
+        return EvidenceConfidence.SCORECARD_RECORDED
+
     if _has_provenance_record(report):
         return EvidenceConfidence.PROVENANCE_RECORDED
-
-    if _has_enrichment_record(report):
-        return EvidenceConfidence.ENRICHMENT_RECORDED
 
     if _has_policy_match(report):
         return EvidenceConfidence.POLICY_MATCHED
@@ -36,7 +36,7 @@ def _has_provenance_record(report: CompareReport) -> bool:
     return any(component.provenance is not None for component in _all_components(report))
 
 
-def _has_enrichment_record(report: CompareReport) -> bool:
+def _has_scorecard_record(report: CompareReport) -> bool:
     metadata = report.metadata.enrichment
     if metadata.scorecard_enabled:
         return True

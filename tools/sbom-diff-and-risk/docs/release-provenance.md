@@ -9,6 +9,20 @@ This document is about the second surface: verifying a GitHub Release and a down
 
 This page is only about the `sbom-diff-and-risk` tool's own GitHub Releases. If you want the quick "which verification page do I need?" guide, start with [verification.md](verification.md).
 
+## v1.0 release policy
+
+Chosen policy: publish `v1.0.0` as the stable GitHub Release contract while
+keeping production PyPI publishing deferred.
+
+For `v1.0.0`, stability applies to the CLI, report schemas, policy decision
+examples, evidence-confidence labels, reviewer case, and GitHub Release asset
+verification path. It does not claim production PyPI availability. Until the
+final tag is explicitly approved and created, `v1.0-rc.1` remains the current
+published release candidate.
+
+The tag workflow marks rc tags as prereleases and not Latest. It explicitly
+marks a final tag such as `v1.0.0` as GitHub Latest.
+
 Release assets produced by the updated workflow also include a deterministic SHA256 checksum manifest named `sbom-diff-and-risk-SHA256SUMS.txt`. The manifest is written with filenames sorted in a stable order. It is not a separate provenance system; it is a local byte-integrity check that helps reviewers confirm downloaded wheel and source distribution files match the hashes published with the same GitHub Release.
 
 ## What the release workflow now does

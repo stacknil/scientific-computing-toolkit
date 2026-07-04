@@ -17,6 +17,7 @@ SARIF_PRIORITIZATION_DESCRIPTION = (
 )
 
 _SARIF_SUPPORTED_RISK_BUCKETS = {
+    RiskBucket.NEW_PACKAGE,
     RiskBucket.SUSPICIOUS_SOURCE,
     RiskBucket.UNKNOWN_LICENSE,
     RiskBucket.MAJOR_UPGRADE,
@@ -44,12 +45,13 @@ _RULE_PRIORITY = {
     "sdr.suspicious_source": 0,
     "sdr.unknown_license": 1,
     "sdr.major_upgrade": 2,
-    "sdr.policy_violation.provenance_required": 3,
-    "sdr.policy_violation.unverified_provenance": 4,
-    "sdr.policy_violation.missing_attestation": 5,
-    "sdr.policy_violation.allow_sources": 6,
-    "sdr.policy_violation.max_added_packages": 7,
-    "sdr.policy_violation.scorecard_below_threshold": 8,
+    "sdr.new_package": 3,
+    "sdr.policy_violation.provenance_required": 4,
+    "sdr.policy_violation.unverified_provenance": 5,
+    "sdr.policy_violation.missing_attestation": 6,
+    "sdr.policy_violation.allow_sources": 7,
+    "sdr.policy_violation.max_added_packages": 8,
+    "sdr.policy_violation.scorecard_below_threshold": 9,
 }
 
 
@@ -111,7 +113,8 @@ def render_report_sarif_output(
 
     resolved_base_dir = base_dir.resolve() if base_dir is not None else None
     policy_evaluation = effective_policy_evaluation(report.metadata.policy_evaluation)
-    blocking_map = _blocking_violation_map(policy_evaluation.blocking_violations)
+    blocking_map = _policy_violation_map(policy_evaluation.blocking_violations)
+    warning_map = _policy_violation_map(policy_evaluation.warning_violations)
     provenance_required_levels = _provenance_required_levels(policy_evaluation)
     emitted_blocking_keys: set[tuple[str, str | None]] = set()
 
@@ -125,11 +128,14 @@ def render_report_sarif_output(
 
         policy_rule_id = _policy_rule_id_for_bucket(finding.bucket)
         blocking_violation = blocking_map.get((policy_rule_id, finding.component_key))
+        policy_violation = blocking_violation or warning_map.get((policy_rule_id, finding.component_key))
+        if finding.bucket is RiskBucket.NEW_PACKAGE and policy_violation is None:
+            continue
         result = _risk_finding_to_result(
             finding,
             after_path=after_path,
             base_dir=resolved_base_dir,
-            blocking_violation=blocking_violation,
+            policy_violation=policy_violation,
         )
         candidate_results.append(result)
         if blocking_violation is not None:
@@ -223,16 +229,16 @@ def _risk_finding_to_result(
     *,
     after_path: Path,
     base_dir: Path | None,
-    blocking_violation: PolicyViolation | None,
+    policy_violation: PolicyViolation | None,
 ) -> dict[str, Any]:
     rule_id = sarif_rule_id_for_risk_bucket(finding.bucket)
     assert rule_id is not None
 
     result: dict[str, Any] = {
         "ruleId": rule_id,
-        "level": _risk_result_level(finding.bucket, blocking_violation),
+        "level": _risk_result_level(finding.bucket, policy_violation),
         "message": {
-            "text": _risk_result_message(finding, blocking_violation),
+            "text": _risk_result_message(finding, policy_violation),
         },
         "locations": [_file_location(after_path, base_dir)],
         "partialFingerprints": {
@@ -243,12 +249,16 @@ def _risk_finding_to_result(
             "component_key": finding.component_key,
             "component_name": finding.component.name,
             "finding_bucket": finding.bucket.value,
-            "policy_blocking": blocking_violation is not None,
+            "policy_matched": policy_violation is not None,
+            "policy_blocking": policy_violation is not None and policy_violation.level is PolicyLevel.BLOCK,
             "result_kind": "risk_finding",
         },
     }
-    if blocking_violation is not None:
-        result["properties"]["blocking_rule_id"] = blocking_violation.rule_id
+    if policy_violation is not None:
+        result["properties"]["policy_rule_id"] = policy_violation.rule_id
+        result["properties"]["policy_level"] = policy_violation.level.value
+        if policy_violation.level is PolicyLevel.BLOCK:
+            result["properties"]["blocking_rule_id"] = policy_violation.rule_id
     return result
 
 
@@ -281,15 +291,17 @@ def _policy_violation_to_result(
     }
 
 
-def _risk_result_level(bucket: RiskBucket, blocking_violation: PolicyViolation | None) -> str:
-    if blocking_violation is not None:
-        return "error"
+def _risk_result_level(bucket: RiskBucket, policy_violation: PolicyViolation | None) -> str:
+    if policy_violation is not None:
+        if policy_violation.level is PolicyLevel.BLOCK:
+            return "error"
+        return "warning"
     if bucket is RiskBucket.MAJOR_UPGRADE:
         return "note"
     return "warning"
 
 
-def _risk_result_message(finding: RiskFinding, blocking_violation: PolicyViolation | None) -> str:
+def _risk_result_message(finding: RiskFinding, policy_violation: PolicyViolation | None) -> str:
     component_label = _component_label(finding.component.name, finding.component.version)
     if finding.bucket is RiskBucket.UNKNOWN_LICENSE:
         base_message = f"{component_label} has missing or unknown license metadata."
@@ -300,9 +312,11 @@ def _risk_result_message(finding: RiskFinding, blocking_violation: PolicyViolati
     else:
         base_message = finding.rationale
 
-    if blocking_violation is None:
+    if policy_violation is None:
         return base_message
-    return f"Blocked by policy: {base_message}"
+    if policy_violation.level is PolicyLevel.BLOCK:
+        return f"Blocked by policy: {base_message}"
+    return f"Policy warning: {base_message}"
 
 
 def _policy_result_message(violation: PolicyViolation) -> str:
@@ -376,7 +390,7 @@ def _provenance_requirement_context(message: str) -> str | None:
     return normalized or None
 
 
-def _blocking_violation_map(violations: list[PolicyViolation]) -> dict[tuple[str, str | None], PolicyViolation]:
+def _policy_violation_map(violations: list[PolicyViolation]) -> dict[tuple[str, str | None], PolicyViolation]:
     return {
         (violation.rule_id, violation.component_key): violation
         for violation in violations

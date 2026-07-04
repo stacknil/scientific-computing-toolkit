@@ -19,6 +19,7 @@ DOCS_TO_VALIDATE = (
     Path("tools/sbom-diff-and-risk/docs/report-schema.md"),
     Path("tools/sbom-diff-and-risk/docs/github-actions-consumer-example.md"),
     Path("tools/sbom-diff-and-risk/docs/policy-warning-reviewer-case.md"),
+    Path("tools/sbom-diff-and-risk/docs/release-provenance.md"),
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"),
     Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"),
     Path("projects/precipitation-anomaly-diagnostics-lab/docs/reviewer-path.md"),
@@ -95,6 +96,11 @@ REQUIRED_LINK_TARGETS = {
         "tools/sbom-diff-and-risk/examples/policy-minimal.yml",
         "tools/sbom-diff-and-risk/examples/sample-policy-warn-report.json",
         "tools/sbom-diff-and-risk/examples/sample-policy-warn-report.md",
+        "tools/sbom-diff-and-risk/examples/sample-policy-warn-report.sarif",
+    },
+    Path("tools/sbom-diff-and-risk/docs/release-provenance.md"): {
+        "tools/sbom-diff-and-risk/docs/pypi-production-publishing-decision.md",
+        "tools/sbom-diff-and-risk/docs/verification.md",
     },
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): {
         ".github/workflows/reviewer-route-contract-ci.yml",
@@ -109,6 +115,7 @@ REQUIRED_LINK_TARGETS = {
         "tools/sbom-diff-and-risk/examples/sample-report.json",
         "tools/sbom-diff-and-risk/examples/sample-summary.json",
         "tools/sbom-diff-and-risk/examples/sample-policy.json",
+        "tools/sbom-diff-and-risk/examples/sample-policy-warn-report.sarif",
         "tools/sbom-diff-and-risk/examples/sample-sarif.sarif",
     },
     Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"): {
@@ -164,6 +171,9 @@ REQUIRED_LINK_TARGETS = {
 REQUIRED_TEXT = {
     Path("README.md"): (
         "current flagship tool",
+        "not a CVE scanner",
+        "not a malware scanner",
+        "not a package safety verdict engine",
         "not part of the `sbom-diff-and-risk` release surface",
         "why the scientific-computing background helps",
         "GitHub Latest may still show `v0.9.0` because `v1.0-rc.1` is a release candidate.",
@@ -223,8 +233,8 @@ REQUIRED_TEXT = {
         "local_manifest_only",
         "sbom_present",
         "policy_matched",
-        "enrichment_recorded",
         "provenance_recorded",
+        "scorecard_recorded",
         "not a package safety verdict",
         "not a CVE result",
     ),
@@ -248,9 +258,18 @@ REQUIRED_TEXT = {
         "risk_finding_matched_policy_rule",
         "severity_source",
         "warn_on",
+        "sample-policy-warn-report.sarif",
+        "sdr.new_package",
+        "policy_level",
         "not a package safety verdict",
         "any CVE result",
         "any malware verdict",
+    ),
+    Path("tools/sbom-diff-and-risk/docs/release-provenance.md"): (
+        "publish `v1.0.0` as the stable GitHub Release contract",
+        "production PyPI publishing deferred",
+        "marks a final tag such as `v1.0.0` as GitHub Latest",
+        "workflow artifact attestation",
     ),
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): (
         "Artifact evidence map",

@@ -69,7 +69,8 @@ python scripts/regenerate-example-artifacts.py --check --only requirements
 ## Boundaries
 
 The regeneration script covers no-network JSON, Markdown, summary, policy
-sidecar, and strict-policy SARIF examples produced through the public CLI.
+sidecar, policy-warning SARIF, and strict-policy SARIF examples produced
+through the public CLI.
 
 It does not perform PyPI or Scorecard enrichment, does not call external
 services, and does not make dependency safety claims. Provenance-aware,

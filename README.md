@@ -1,8 +1,8 @@
 # scientific-computing-toolkit
 
-This repository is a portfolio space for scientific-computing infrastructure,
-systems tooling, and supply-chain-security experiments that favor deterministic
-behavior, auditable outputs, and clear release evidence.
+This repository centers on a release-facing supply-chain review tool that
+favors deterministic behavior, auditable outputs, and clear release evidence.
+The scientific diagnostics projects remain bounded supporting material.
 
 ## Current Flagship Tool
 
@@ -10,6 +10,14 @@ behavior, auditable outputs, and clear release evidence.
 current flagship tool. It compares SBOMs and dependency manifests, produces
 JSON, Markdown, and SARIF review artifacts, supports local policy checks, and
 can optionally record PyPI provenance and OpenSSF Scorecard evidence.
+
+### Supply-chain non-claims
+
+- not a CVE scanner
+- not a malware scanner
+- not a package safety verdict engine
+
+These boundaries apply to the CLI, its reports, and its policy decisions.
 
 For the clearest reviewer route, start with the
 [`sbom-diff-and-risk` reviewer path](tools/sbom-diff-and-risk/docs/reviewer-path.md);
@@ -72,7 +80,8 @@ Project:
 [`sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md)
 
 Status:
-Released at `v1.0-rc.1` as a release candidate.
+Main is the `v1.0.0` final candidate. The currently published release remains
+`v1.0-rc.1` until the final tag is explicitly approved and created.
 
 What to review:
 Deterministic SBOM/dependency diffing, JSON/Markdown/SARIF output, local policy
@@ -86,6 +95,7 @@ Useful entry points:
 - [Reviewer path](tools/sbom-diff-and-risk/docs/reviewer-path.md)
 - [Reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md)
 - [Reviewer evidence pack](tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md)
+- [v1.0.0 release notes draft][release-notes-v100]
 - [v1.0-rc.1 release notes][release-notes-v10rc1]
 - [Examples](tools/sbom-diff-and-risk/examples/)
 
@@ -212,10 +222,13 @@ the review question:
 
 ## Status
 
-- Current flagship release candidate: `sbom-diff-and-risk` `v1.0-rc.1`
+- Current published flagship release candidate: `sbom-diff-and-risk` `v1.0-rc.1`
 - GitHub Release assets: available for `v1.0-rc.1`
 - GitHub Latest may still show `v0.9.0` because `v1.0-rc.1` is a release candidate.
+- Next release policy: GitHub `v1.0.0` final, with production PyPI still deferred
+- Main package metadata: `1.0.0` final candidate
 - TestPyPI Trusted Publishing dry-run: completed
 - Production PyPI publishing: intentionally deferred
 
+[release-notes-v100]: tools/sbom-diff-and-risk/RELEASE_NOTES_v1.0.0.md
 [release-notes-v10rc1]: tools/sbom-diff-and-risk/RELEASE_NOTES_v1.0-rc.1.md

@@ -224,7 +224,7 @@ def test_cli_summary_json_includes_scorecard_enrichment_summary_when_scorecard_i
             },
         },
     }
-    assert payload["evidence_confidence"] == "enrichment_recorded"
+    assert payload["evidence_confidence"] == "scorecard_recorded"
     assert "policy" not in payload
 
 
