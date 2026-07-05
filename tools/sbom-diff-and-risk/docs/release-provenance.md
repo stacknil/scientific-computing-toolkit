@@ -11,30 +11,36 @@ This page is only about the `sbom-diff-and-risk` tool's own GitHub Releases. If 
 
 ## v1.0 release policy
 
-Chosen policy: publish `v1.0.0` as the stable GitHub Release contract while
-keeping production PyPI publishing deferred.
+`v1.0.0` is the stable GitHub Release contract and is marked GitHub Latest.
+Production PyPI publishing remains deferred as a separate contract.
 
 For `v1.0.0`, stability applies to the CLI, report schemas, policy decision
 examples, evidence-confidence labels, reviewer case, and GitHub Release asset
-verification path. It does not claim production PyPI availability. Until the
-final tag is explicitly approved and created, `v1.0-rc.1` remains the current
-published release candidate.
+verification path. It does not claim production PyPI availability.
 
 The tag workflow marks rc tags as prereleases and not Latest. It explicitly
-marks a final tag such as `v1.0.0` as GitHub Latest.
+marks final tags such as `v1.0.0` as GitHub Latest.
 
 Release assets produced by the updated workflow also include a deterministic SHA256 checksum manifest named `sbom-diff-and-risk-SHA256SUMS.txt`. The manifest is written with filenames sorted in a stable order. It is not a separate provenance system; it is a local byte-integrity check that helps reviewers confirm downloaded wheel and source distribution files match the hashes published with the same GitHub Release.
+
+For repeat builds of the same commit, the workflow sets `SOURCE_DATE_EPOCH` to
+the tagged commit timestamp. It also normalizes gzip and tar timestamps in the
+source distribution before checksums and attestations are generated. This
+removes build-clock variance from the wheel and source distribution while
+preserving package contents.
 
 ## What the release workflow now does
 
 For version tags matching `v*`, the `sbom-diff-and-risk-ci` workflow:
 
-1. builds the wheel and source distribution in `build-and-attest`
-2. generates `dist/sbom-diff-and-risk-SHA256SUMS.txt` with SHA256 hashes for the built `.whl` and `.tar.gz`
-3. uploads the distributions and checksum manifest as the workflow artifact `sbom-diff-and-risk-dist`
-4. generates a workflow artifact attestation for the built distribution files
-5. downloads that same workflow artifact in `publish-release-assets`
-6. publishes those exact `.whl` and `.tar.gz` files plus the checksum manifest as GitHub Release assets for the matching tag
+1. sets `SOURCE_DATE_EPOCH` from the tagged commit timestamp
+2. builds the wheel and source distribution in `build-and-attest`
+3. normalizes source-distribution gzip and tar timestamps
+4. generates `dist/sbom-diff-and-risk-SHA256SUMS.txt` with SHA256 hashes for the built `.whl` and `.tar.gz`
+5. uploads the distributions and checksum manifest as the workflow artifact `sbom-diff-and-risk-dist`
+6. generates a workflow artifact attestation for the built distribution files
+7. downloads that same workflow artifact in `publish-release-assets`
+8. publishes those exact `.whl` and `.tar.gz` files plus the checksum manifest as GitHub Release assets for the matching tag
 
 This intentionally reuses the same workflow-built bytes for both the workflow artifact and the release asset surfaces. It does not add PyPI publishing or a separate rebuild-only release pipeline.
 

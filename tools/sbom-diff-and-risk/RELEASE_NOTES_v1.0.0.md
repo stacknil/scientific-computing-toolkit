@@ -31,22 +31,34 @@ A stable, bounded release surface for dependency diff and local policy evidence.
 - The TestPyPI Trusted Publishing dry-run remains evidence of the test
   publishing path only.
 
-## Compatibility and boundaries
+## v1.0-rc.1 to v1.0.0 compatibility
+
+- The CLI commands and flags are unchanged from `v1.0-rc.1`.
+- The package version moves from PEP 440 `1.0rc1` to `1.0.0`.
+- JSON and Markdown report structure remains compatible, except that the rc
+  evidence label `enrichment_recorded` is replaced by the more specific
+  `scorecard_recorded` value. Consumers matching the old string must update.
+- SARIF remains a conservative subset. The final release additively records
+  `policy_matched`, `policy_level`, and `policy_rule_id` on direct mapped
+  findings, and emits `sdr.new_package` only when `new_package` matched policy.
+- Production PyPI publishing remains deferred; moving from rc to final changes
+  the GitHub Release contract, not the PyPI publishing contract.
+
+## Boundaries
 
 - Default analysis remains local-file based and deterministic.
 - No default network enrichment was added.
 - No CVE lookup, advisory resolution, malware scanning, or package safety
   verdict was added.
 - Policy warnings and failures remain bounded local policy decisions.
-- `enrichment_recorded` was an rc label and is replaced by the more specific
-  `scorecard_recorded` label in the final contract.
 
 ## Release evidence
 
 The tag-gated GitHub Actions workflow builds the wheel and source distribution,
-generates a SHA256 checksum manifest, records workflow artifact attestations,
-and publishes the same built files as GitHub Release assets. Final tags are
-explicitly marked as GitHub Latest; rc tags remain prereleases.
+normalizes build timestamps from the tagged commit time, generates a SHA256
+checksum manifest, records workflow artifact attestations, and publishes the
+same built files as GitHub Release assets. Final tags are explicitly marked as
+GitHub Latest; rc tags remain prereleases.
 
 Expected assets:
 

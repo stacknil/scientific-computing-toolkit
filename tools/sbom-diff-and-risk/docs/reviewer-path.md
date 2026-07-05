@@ -199,13 +199,9 @@ Use this section only when the review question is about the released
 `sbom-diff-and-risk` tool artifacts. It is not the path for judging third-party
 dependency safety.
 
-Release status note: GitHub Latest may still show `v0.9.0` because
-`v1.0-rc.1` is a release candidate. Reviewers checking the current release
-candidate should open the explicit `v1.0-rc.1` release page.
-
-Main is prepared as the `v1.0.0` final candidate. The selected policy is a
-stable GitHub final release with production PyPI still deferred; this is not a
-claim that the final tag already exists.
+Release status: `v1.0.0` is the stable GitHub release and GitHub Latest.
+`v1.0-rc.1` remains historical prerelease evidence. Production PyPI publishing
+is still deferred as a separate contract.
 
 | Evidence surface | Use when | Read |
 | --- | --- | --- |

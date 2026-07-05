@@ -1,9 +1,8 @@
 # sbom-diff-and-risk
 
-Main is the `v1.0.0` Policy Evidence final candidate. The currently published
-release remains `v1.0-rc.1` until the final tag is explicitly approved and
-created. The selected release policy is a stable GitHub `v1.0.0` release while
-production PyPI publishing remains intentionally deferred.
+`v1.0.0` is the stable Policy Evidence GitHub release. GitHub Release assets
+are the supported distribution surface for this version, while production
+PyPI publishing remains intentionally deferred.
 
 `sbom-diff-and-risk` is a local, deterministic CLI for comparing two SBOMs or dependency manifests and producing JSON plus Markdown reports.
 
