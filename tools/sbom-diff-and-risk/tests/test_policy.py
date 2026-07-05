@@ -9,6 +9,7 @@ from sbom_diff_risk.models import Component, RiskBucket, RiskFinding
 from sbom_diff_risk.policy_evaluator import evaluate_policy
 from sbom_diff_risk.policy_models import PolicyConfig, PolicyLevel
 from sbom_diff_risk.policy_parser import build_policy, load_policy
+from sbom_diff_risk.schema_versions import POLICY_SCHEMA_V1
 
 
 def test_policy_parser_accepts_minimal_policy() -> None:
@@ -16,6 +17,7 @@ def test_policy_parser_accepts_minimal_policy() -> None:
 
     policy = load_policy(policy_path)
 
+    assert policy.policy_schema == POLICY_SCHEMA_V1
     assert policy.version == 1
     assert policy.block_on == ("unknown_license",)
     assert policy.warn_on == ("new_package",)
@@ -34,6 +36,28 @@ def test_policy_parser_rejects_unknown_key(tmp_path: Path) -> None:
     path.write_text("version: 1\nunknown_key: true\n", encoding="utf-8")
 
     with pytest.raises(PolicyError, match="unsupported keys"):
+        load_policy(path)
+
+
+def test_policy_parser_accepts_legacy_policy_without_schema_identifier(tmp_path: Path) -> None:
+    path = tmp_path / "policy.yml"
+    path.write_text("version: 1\nwarn_on: [new_package]\n", encoding="utf-8")
+
+    policy = load_policy(path)
+
+    assert policy.policy_schema == POLICY_SCHEMA_V1
+
+
+@pytest.mark.parametrize("schema", ["sbom-diff-risk.policy.v2", 1])
+def test_policy_parser_rejects_unsupported_policy_schema(tmp_path: Path, schema: object) -> None:
+    path = tmp_path / "policy.yml"
+    if isinstance(schema, str):
+        rendered_schema = schema
+    else:
+        rendered_schema = str(schema)
+    path.write_text(f"policy_schema: {rendered_schema}\nversion: 1\n", encoding="utf-8")
+
+    with pytest.raises(PolicyError, match="policy_schema"):
         load_policy(path)
 
 
@@ -87,6 +111,7 @@ def test_policy_evaluator_blocks_on_finding_bucket() -> None:
     assert evaluation.blocking_violations[0].severity_source == "block_on"
     assert evaluation.blocking_violations[0].matched_threshold is None
     assert evaluation.blocking_violations[0].observed_value == "unknown_license"
+    assert evaluation.blocking_violations[0].confidence_level == "policy_matched"
 
 
 def test_policy_evaluator_warns_on_rule_when_configured() -> None:

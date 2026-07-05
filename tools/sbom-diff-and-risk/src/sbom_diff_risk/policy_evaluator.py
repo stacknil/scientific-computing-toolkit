@@ -4,7 +4,15 @@ from dataclasses import dataclass
 from urllib.parse import urlparse
 
 from .diffing import component_key
-from .models import Component, ComponentChange, ProvenanceStatus, RiskBucket, RiskFinding, ScorecardStatus
+from .models import (
+    Component,
+    ComponentChange,
+    EvidenceConfidence,
+    ProvenanceStatus,
+    RiskBucket,
+    RiskFinding,
+    ScorecardStatus,
+)
 from .policy_models import PolicyConfig, PolicyEvaluation, PolicyLevel, PolicyViolation
 
 
@@ -93,6 +101,11 @@ def evaluate_policy(
                     observed_value="unavailable",
                     component_key=component_key(component),
                     component_name=component.name,
+                    confidence_level=(
+                        EvidenceConfidence.PROVENANCE_RECORDED.value
+                        if component.provenance is not None
+                        else EvidenceConfidence.POLICY_MATCHED.value
+                    ),
                 ),
                 blocking_violations=blocking_violations,
                 warning_violations=warning_violations,
@@ -111,6 +124,7 @@ def evaluate_policy(
                     observed_value=False,
                     component_key=component_key(component),
                     component_name=component.name,
+                    confidence_level=EvidenceConfidence.PROVENANCE_RECORDED.value,
                 ),
                 blocking_violations=blocking_violations,
                 warning_violations=warning_violations,
@@ -131,6 +145,7 @@ def evaluate_policy(
                     observed_value=list(assessment.publisher_kinds),
                     component_key=component_key(component),
                     component_name=component.name,
+                    confidence_level=EvidenceConfidence.PROVENANCE_RECORDED.value,
                 ),
                 blocking_violations=blocking_violations,
                 warning_violations=warning_violations,
@@ -165,6 +180,11 @@ def evaluate_policy(
                         observed_value=_provenance_observed_value(assessment),
                         component_key=component_key(component),
                         component_name=component.name,
+                        confidence_level=(
+                            EvidenceConfidence.PROVENANCE_RECORDED.value
+                            if component.provenance is not None
+                            else EvidenceConfidence.POLICY_MATCHED.value
+                        ),
                     ),
                     blocking_violations=blocking_violations,
                     warning_violations=warning_violations,
@@ -243,6 +263,7 @@ def evaluate_policy(
                     observed_value=scorecard_score,
                     component_key=component_key(component),
                     component_name=component.name,
+                    confidence_level=EvidenceConfidence.SCORECARD_RECORDED.value,
                 ),
                 blocking_violations=blocking_violations,
                 warning_violations=warning_violations,
@@ -300,6 +321,7 @@ def _policy_violation(
     component_key: str | None = None,
     component_name: str | None = None,
     finding_bucket: str | None = None,
+    confidence_level: str = EvidenceConfidence.POLICY_MATCHED.value,
 ) -> PolicyViolation:
     return PolicyViolation(
         rule_id=rule_id,
@@ -313,6 +335,7 @@ def _policy_violation(
         component_key=component_key,
         component_name=component_name,
         finding_bucket=finding_bucket,
+        confidence_level=confidence_level,
     )
 
 
@@ -340,6 +363,7 @@ def _record_violation(
                 component_name=violation.component_name,
                 finding_bucket=violation.finding_bucket,
                 suppression_reason="ignored_by_policy",
+                confidence_level=violation.confidence_level,
             )
         )
         return 1
@@ -359,6 +383,7 @@ def _record_violation(
             component_key=violation.component_key,
             component_name=violation.component_name,
             finding_bucket=violation.finding_bucket,
+            confidence_level=violation.confidence_level,
         ),
         blocking_violations,
         warning_violations,

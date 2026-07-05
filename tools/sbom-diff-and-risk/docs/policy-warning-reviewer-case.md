@@ -30,6 +30,7 @@ Reference inputs and policy:
 The minimal policy is intentionally small:
 
 ```yaml
+policy_schema: sbom-diff-risk.policy.v1
 version: 1
 block_on:
   - unknown_license

@@ -15,6 +15,7 @@ JSON reports currently use this top-level structure:
 
 | Field | Description |
 | --- | --- |
+| `report_schema` | Stable report contract identifier; currently `sbom-diff-risk.report.v1`. |
 | `summary` | Compact run summary for deterministic machine consumption. |
 | `evidence_confidence` | Highest evidence-confidence level represented by this report. |
 | `components` | Added, removed, and changed component records. |
@@ -53,6 +54,11 @@ These fields describe why a local policy rule produced a block, warning, or
 suppression. They are policy-decision metadata only; they are not dependency
 safety verdicts, CVE results, or proof that a package is safe or unsafe.
 
+- `matched_rule_id`: Exact policy rule id that produced the decision. The
+  legacy `rule_id` and `policy_rule` fields remain available in report v1.
+- `exact_evidence`: Structured local comparison evidence with
+  `component_key`, `finding_bucket`, `matched_threshold`, and
+  `observed_value`. Values remain `null` when that dimension does not apply.
 - `decision_reason`: Stable reason code for the policy decision, such as
   `risk_finding_matched_policy_rule`,
   `added_package_count_exceeded_threshold`, or
@@ -66,6 +72,9 @@ safety verdicts, CVE results, or proof that a package is safe or unsafe.
   decision, when applicable.
 - `observed_value`: Observed local value that was compared to the policy rule,
   when applicable.
+- `confidence_level`: Evidence level used for this decision. Local policy
+  matches use `policy_matched`; decisions based on recorded provenance or
+  Scorecard data use `provenance_recorded` or `scorecard_recorded`.
 
 Explanation fields appear only on policy finding objects. Risk findings in
 `risks` remain the analyzer's local heuristic findings and do not receive
@@ -80,6 +89,7 @@ consumer snippets, see
 The `--policy-json PATH` CLI option writes a policy-only JSON sidecar using the
 same policy-related sections from the full JSON report:
 
+- `policy_schema`, currently `sbom-diff-risk.policy.v1`
 - `policy_evaluation`
 - `blocking_findings`
 - `warning_findings`
@@ -170,6 +180,8 @@ stable for tests and downstream consumers.
 ## Stability notes
 
 - JSON reports are intended for machine consumption.
+- Consumers should select the contract using `report_schema` before relying on
+  required fields.
 - Golden samples lock important output shape for stable reviewer and CI expectations.
 - The schema is conservative and additive where possible.
 - Missing `summary.policy` means policy was not applied.

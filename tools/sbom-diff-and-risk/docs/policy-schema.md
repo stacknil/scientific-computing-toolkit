@@ -1,20 +1,31 @@
 # Policy schema
 
-`sbom-diff-and-risk` supports YAML-only policy schemas in versions `1`, `2`,
-and `3` for the local, provenance-aware, and optional Scorecard-aware policy
-flows described here.
+`sbom-diff-and-risk` identifies the serialized policy contract with:
+
+```yaml
+policy_schema: sbom-diff-risk.policy.v1
+```
+
+The separate integer `version` remains the policy capability level: `1` for
+local rules, `2` for provenance-aware rules, and `3` for optional
+Scorecard-aware rules. Keeping these concepts separate lets the serialized
+contract evolve without relabeling existing rule capability levels.
 
 The schema is intentionally conservative and fail-closed:
 
 - unknown rule ids are rejected
 - unknown top-level keys are rejected
+- unknown `policy_schema` values are rejected
 - invalid types are rejected
+- policies that omit `policy_schema` remain readable as v1.0-compatible input
+- normalized policy output always records `sbom-diff-risk.policy.v1`
 - version `1` remains the v0.2-compatible schema and existing v0.2 policies continue to work unchanged
 - version `2` adds provenance-aware gating for explicit PyPI enrichment evidence
 - version `3` adds optional Scorecard-aware gating for explicitly requested Scorecard enrichment
 
 ## Version 1 fields
 
+- `policy_schema: sbom-diff-risk.policy.v1`
 - `version: 1`
 - `block_on: [rule_id, ...]`
 - `warn_on: [rule_id, ...]`
@@ -113,6 +124,7 @@ see
 ## Version 1 example
 
 ```yaml
+policy_schema: sbom-diff-risk.policy.v1
 version: 1
 block_on:
   - unknown_license
@@ -130,6 +142,7 @@ ignore_rules:
 ## Version 2 example
 
 ```yaml
+policy_schema: sbom-diff-risk.policy.v1
 version: 2
 block_on:
   - provenance_required
@@ -147,6 +160,7 @@ allow_unattested_publishers:
 ## Version 3 example
 
 ```yaml
+policy_schema: sbom-diff-risk.policy.v1
 version: 3
 warn_on:
   - scorecard_below_threshold

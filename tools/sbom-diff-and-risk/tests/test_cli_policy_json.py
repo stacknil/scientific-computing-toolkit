@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from sbom_diff_risk import cli
+from sbom_diff_risk.schema_versions import POLICY_SCHEMA_V1
 
 
 def test_cli_policy_json_writes_policy_only_file(tmp_path: Path) -> None:
@@ -27,6 +28,7 @@ def test_cli_policy_json_writes_policy_only_file(tmp_path: Path) -> None:
     payload = json.loads(policy_path.read_text(encoding="utf-8"))
 
     assert exit_code == 1
+    assert payload["policy_schema"] == POLICY_SCHEMA_V1
     assert payload["summary"]["policy"] == {
         "status": "fail",
         "blocking": 3,
@@ -91,6 +93,7 @@ def test_cli_policy_json_without_policy_records_not_applied(tmp_path: Path) -> N
     payload = json.loads(policy_path.read_text(encoding="utf-8"))
 
     assert exit_code == 0
+    assert payload["policy_schema"] == POLICY_SCHEMA_V1
     assert payload["policy_evaluation"]["applied"] is False
     assert payload["policy_evaluation"]["exit_code"] == 0
     assert "summary" not in payload
@@ -122,7 +125,12 @@ def test_cli_policy_json_omitted_does_not_write_policy_file(tmp_path: Path) -> N
 
 
 def _policy_sidecar_from_full_report(report_payload: dict[str, object]) -> dict[str, object]:
+    evaluation = report_payload["policy_evaluation"]
+    assert isinstance(evaluation, dict)
+    effective_policy = evaluation["effective_policy"]
+    assert isinstance(effective_policy, dict)
     policy_payload = {
+        "policy_schema": effective_policy["policy_schema"],
         "policy_evaluation": report_payload["policy_evaluation"],
         "blocking_findings": report_payload["blocking_findings"],
         "warning_findings": report_payload["warning_findings"],

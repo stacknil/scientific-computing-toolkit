@@ -27,6 +27,10 @@ policy findings.
 
 ## Field contract
 
+- `matched_rule_id`: Exact policy rule id that produced the decision.
+- `exact_evidence`: Stable object containing the compared component key,
+  finding bucket, configured threshold, and observed value. Non-applicable
+  members remain `null` rather than disappearing.
 - `decision_reason`: Stable reason code for the policy decision.
 - `policy_rule`: Policy rule id that produced the decision.
 - `severity_source`: Source of the active severity, such as `block_on`,
@@ -36,6 +40,11 @@ policy findings.
   decision, when applicable.
 - `observed_value`: Observed local value that was compared to the policy rule,
   when applicable.
+- `confidence_level`: Evidence source level for this decision:
+  `policy_matched`, `provenance_recorded`, or `scorecard_recorded`.
+
+`confidence_level` describes which recorded evidence the decision used. It is
+not a probability and does not express package safety.
 
 The full JSON report shape is documented in [report-schema.md](report-schema.md).
 Policy configuration fields and supported rules are documented in
@@ -47,7 +56,15 @@ A policy finding with:
 
 ```json
 {
+  "matched_rule_id": "max_added_packages",
   "decision_reason": "added_package_count_exceeded_threshold",
+  "exact_evidence": {
+    "component_key": null,
+    "finding_bucket": null,
+    "matched_threshold": 0,
+    "observed_value": 1
+  },
+  "confidence_level": "policy_matched",
   "policy_rule": "max_added_packages",
   "severity_source": "block_on",
   "matched_threshold": 0,
@@ -63,7 +80,15 @@ A policy finding with:
 
 ```json
 {
+  "matched_rule_id": "new_package",
   "decision_reason": "risk_finding_matched_policy_rule",
+  "exact_evidence": {
+    "component_key": "purl:pkg:pypi/example-package",
+    "finding_bucket": "new_package",
+    "matched_threshold": null,
+    "observed_value": "new_package"
+  },
+  "confidence_level": "policy_matched",
   "policy_rule": "new_package",
   "severity_source": "warn_on",
   "matched_threshold": null,

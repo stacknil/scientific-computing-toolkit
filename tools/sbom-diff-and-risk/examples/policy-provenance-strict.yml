@@ -1,4 +1,5 @@
 # Explicit provenance requirements for enriched PyPI evidence.
+policy_schema: sbom-diff-risk.policy.v1
 version: 2
 block_on:
   - provenance_required

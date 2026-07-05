@@ -42,6 +42,8 @@ For a consumer-facing GitHub Actions example, see
 [docs/github-actions-consumer-example.md](docs/github-actions-consumer-example.md).
 For regenerating checked-in local example outputs, see
 [docs/example-artifact-regeneration.md](docs/example-artifact-regeneration.md).
+The v1.1 implementation sequence is fixed in
+[docs/v1.1-input-and-policy-semantics.md](docs/v1.1-input-and-policy-semantics.md).
 
 1. If you want to verify `sbom-diff-and-risk` itself, start with
    [docs/verification.md](docs/verification.md).
@@ -93,11 +95,14 @@ When a `purl` includes a version, the tool keeps the full value in `Component.pu
 
 ## Supported Formats
 
-- CycloneDX JSON
-- SPDX JSON
-- `requirements.txt`
-- `pyproject.toml` via PEP 621 `[project]` metadata
-- `pyproject.toml` dependency groups via PEP 735 `[dependency-groups]` with explicit selection
+- CycloneDX JSON, top-level component subset
+- SPDX JSON, top-level package subset
+- `requirements.txt`, conservative PEP 508 subset
+- `pyproject.toml`, PEP 621 arrays and explicitly selected PEP 735 groups
+
+See the test-backed [input format support matrix](docs/parser-boundaries.md)
+for the exact fields and unsupported constructs. A recognized container format
+does not imply full specification conformance.
 
 ## Risk Bucket Semantics
 
@@ -219,7 +224,7 @@ The checked-in [examples/sample-summary.json](examples/sample-summary.json) arti
 For CI dashboard, job-summary, and local-threshold examples, see [docs/summary-json-ci-cookbook.md](docs/summary-json-ci-cookbook.md).
 
 `--policy-json PATH` writes only policy-related JSON sections from the full
-report. It includes `policy_evaluation`, policy finding lists, `rule_catalog`,
+report. It includes `policy_schema`, `policy_evaluation`, policy finding lists, `rule_catalog`,
 and `summary.policy` when policy evaluation is applied. For CI job-summary
 examples, see
 [docs/policy-decision-ci-cookbook.md](docs/policy-decision-ci-cookbook.md).

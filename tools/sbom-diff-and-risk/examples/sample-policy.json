@@ -1,8 +1,10 @@
 {
+  "policy_schema": "sbom-diff-risk.policy.v1",
   "policy_evaluation": {
     "applied": true,
     "policy_path": "examples/policy-strict.yml",
     "effective_policy": {
+      "policy_schema": "sbom-diff-risk.policy.v1",
       "version": 1,
       "block_on": [
         "unknown_license",
@@ -26,9 +28,17 @@
     "blocking_violations": [
       {
         "rule_id": "max_added_packages",
+        "matched_rule_id": "max_added_packages",
         "level": "block",
         "message": "Added package count 1 exceeds max_added_packages=0.",
         "decision_reason": "added_package_count_exceeded_threshold",
+        "exact_evidence": {
+          "component_key": null,
+          "finding_bucket": null,
+          "matched_threshold": 0,
+          "observed_value": 1
+        },
+        "confidence_level": "policy_matched",
         "policy_rule": "max_added_packages",
         "severity_source": "block_on",
         "matched_threshold": 0,
@@ -40,9 +50,17 @@
       },
       {
         "rule_id": "stale_package",
+        "matched_rule_id": "stale_package",
         "level": "block",
         "message": "stale_package was not evaluated because enrichment mode is disabled.",
         "decision_reason": "risk_finding_matched_policy_rule",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/requests",
+          "finding_bucket": "not_evaluated",
+          "matched_threshold": null,
+          "observed_value": "not_evaluated"
+        },
+        "confidence_level": "policy_matched",
         "policy_rule": "stale_package",
         "severity_source": "block_on",
         "matched_threshold": null,
@@ -54,9 +72,17 @@
       },
       {
         "rule_id": "stale_package",
+        "matched_rule_id": "stale_package",
         "level": "block",
         "message": "stale_package was not evaluated because enrichment mode is disabled.",
         "decision_reason": "risk_finding_matched_policy_rule",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/urllib3",
+          "finding_bucket": "not_evaluated",
+          "matched_threshold": null,
+          "observed_value": "not_evaluated"
+        },
+        "confidence_level": "policy_matched",
         "policy_rule": "stale_package",
         "severity_source": "block_on",
         "matched_threshold": null,
@@ -70,9 +96,17 @@
     "warning_violations": [
       {
         "rule_id": "new_package",
+        "matched_rule_id": "new_package",
         "level": "warn",
         "message": "Component was not present in the before input.",
         "decision_reason": "risk_finding_matched_policy_rule",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/urllib3",
+          "finding_bucket": "new_package",
+          "matched_threshold": null,
+          "observed_value": "new_package"
+        },
+        "confidence_level": "policy_matched",
         "policy_rule": "new_package",
         "severity_source": "warn_on",
         "matched_threshold": null,
@@ -95,9 +129,17 @@
   "blocking_findings": [
     {
       "rule_id": "max_added_packages",
+      "matched_rule_id": "max_added_packages",
       "level": "block",
       "message": "Added package count 1 exceeds max_added_packages=0.",
       "decision_reason": "added_package_count_exceeded_threshold",
+      "exact_evidence": {
+        "component_key": null,
+        "finding_bucket": null,
+        "matched_threshold": 0,
+        "observed_value": 1
+      },
+      "confidence_level": "policy_matched",
       "policy_rule": "max_added_packages",
       "severity_source": "block_on",
       "matched_threshold": 0,
@@ -109,9 +151,17 @@
     },
     {
       "rule_id": "stale_package",
+      "matched_rule_id": "stale_package",
       "level": "block",
       "message": "stale_package was not evaluated because enrichment mode is disabled.",
       "decision_reason": "risk_finding_matched_policy_rule",
+      "exact_evidence": {
+        "component_key": "purl:pkg:pypi/requests",
+        "finding_bucket": "not_evaluated",
+        "matched_threshold": null,
+        "observed_value": "not_evaluated"
+      },
+      "confidence_level": "policy_matched",
       "policy_rule": "stale_package",
       "severity_source": "block_on",
       "matched_threshold": null,
@@ -123,9 +173,17 @@
     },
     {
       "rule_id": "stale_package",
+      "matched_rule_id": "stale_package",
       "level": "block",
       "message": "stale_package was not evaluated because enrichment mode is disabled.",
       "decision_reason": "risk_finding_matched_policy_rule",
+      "exact_evidence": {
+        "component_key": "purl:pkg:pypi/urllib3",
+        "finding_bucket": "not_evaluated",
+        "matched_threshold": null,
+        "observed_value": "not_evaluated"
+      },
+      "confidence_level": "policy_matched",
       "policy_rule": "stale_package",
       "severity_source": "block_on",
       "matched_threshold": null,
@@ -139,9 +197,17 @@
   "warning_findings": [
     {
       "rule_id": "new_package",
+      "matched_rule_id": "new_package",
       "level": "warn",
       "message": "Component was not present in the before input.",
       "decision_reason": "risk_finding_matched_policy_rule",
+      "exact_evidence": {
+        "component_key": "purl:pkg:pypi/urllib3",
+        "finding_bucket": "new_package",
+        "matched_threshold": null,
+        "observed_value": "new_package"
+      },
+      "confidence_level": "policy_matched",
       "policy_rule": "new_package",
       "severity_source": "warn_on",
       "matched_threshold": null,

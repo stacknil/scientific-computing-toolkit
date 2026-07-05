@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from sbom_diff_risk.schema_versions import POLICY_SCHEMA_V1
+
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[1] / "examples" / "policy-decisions"
 DECISION_FILES = {
@@ -61,6 +63,18 @@ def test_pass_warn_fail_examples_mirror_runtime_policy_statuses() -> None:
         else:
             assert policy_summary["blocking"] > 0
             assert any(finding["level"] == "block" for finding in payload["policy_findings"])
+
+        assert payload["policy_schema"] == POLICY_SCHEMA_V1
+        for finding in payload["policy_findings"]:
+            assert finding["matched_rule_id"] == finding["rule_id"]
+            assert set(finding["exact_evidence"]) == {
+                "component_key",
+                "finding_bucket",
+                "matched_threshold",
+                "observed_value",
+            }
+            assert finding["decision_reason"]
+            assert finding["confidence_level"] == "policy_matched"
 
 
 def test_needs_review_is_consumer_interpretation_not_runtime_status() -> None:

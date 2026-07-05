@@ -15,6 +15,18 @@ requirements-file dependency change through the generated report and confirm
 that local risk buckets remain policy-review evidence rather than package
 safety verdicts.
 
+## v1.1: Input and Policy Semantics
+
+The v1.1 route is implementation-led: pin the real input support matrix,
+version policy and report contracts, make policy decision evidence explicit,
+then harden component identity canonicalization and same-input conflict
+diagnostics. The detailed acceptance gates live in
+[tools/sbom-diff-and-risk/docs/v1.1-input-and-policy-semantics.md](tools/sbom-diff-and-risk/docs/v1.1-input-and-policy-semantics.md).
+
+The tool remains in this monorepo. Repository extraction is deferred until
+real third-party adoption creates an independent release or maintenance
+boundary.
+
 ## Parked Directions
 
 - Parser-boundary fixtures, only when the before/after input and normalized

@@ -1,4 +1,5 @@
 {
+  "report_schema": "sbom-diff-risk.report.v1",
   "summary": {
     "added": 1,
     "removed": 0,

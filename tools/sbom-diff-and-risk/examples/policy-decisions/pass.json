@@ -1,5 +1,6 @@
 {
   "example_type": "policy-decision-example",
+  "policy_schema": "sbom-diff-risk.policy.v1",
   "review_decision": "pass",
   "decision_source": "summary.policy",
   "summary": {

@@ -1,4 +1,5 @@
 {
+  "report_schema": "sbom-diff-risk.report.v1",
   "summary": {
     "added": 1,
     "removed": 0,
@@ -312,6 +313,7 @@
     "applied": true,
     "policy_path": "examples/policy-minimal.yml",
     "effective_policy": {
+      "policy_schema": "sbom-diff-risk.policy.v1",
       "version": 1,
       "block_on": [
         "unknown_license"
@@ -327,9 +329,17 @@
     "warning_violations": [
       {
         "rule_id": "new_package",
+        "matched_rule_id": "new_package",
         "level": "warn",
         "message": "Component was not present in the before input.",
         "decision_reason": "risk_finding_matched_policy_rule",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/urllib3",
+          "finding_bucket": "new_package",
+          "matched_threshold": null,
+          "observed_value": "new_package"
+        },
+        "confidence_level": "policy_matched",
         "policy_rule": "new_package",
         "severity_source": "warn_on",
         "matched_threshold": null,
@@ -353,9 +363,17 @@
   "warning_findings": [
     {
       "rule_id": "new_package",
+      "matched_rule_id": "new_package",
       "level": "warn",
       "message": "Component was not present in the before input.",
       "decision_reason": "risk_finding_matched_policy_rule",
+      "exact_evidence": {
+        "component_key": "purl:pkg:pypi/urllib3",
+        "finding_bucket": "new_package",
+        "matched_threshold": null,
+        "observed_value": "new_package"
+      },
+      "confidence_level": "policy_matched",
       "policy_rule": "new_package",
       "severity_source": "warn_on",
       "matched_threshold": null,
@@ -518,6 +536,7 @@
       "applied": true,
       "policy_path": "examples/policy-minimal.yml",
       "effective_policy": {
+        "policy_schema": "sbom-diff-risk.policy.v1",
         "version": 1,
         "block_on": [
           "unknown_license"
@@ -533,9 +552,17 @@
       "warning_violations": [
         {
           "rule_id": "new_package",
+          "matched_rule_id": "new_package",
           "level": "warn",
           "message": "Component was not present in the before input.",
           "decision_reason": "risk_finding_matched_policy_rule",
+          "exact_evidence": {
+            "component_key": "purl:pkg:pypi/urllib3",
+            "finding_bucket": "new_package",
+            "matched_threshold": null,
+            "observed_value": "new_package"
+          },
+          "confidence_level": "policy_matched",
           "policy_rule": "new_package",
           "severity_source": "warn_on",
           "matched_threshold": null,

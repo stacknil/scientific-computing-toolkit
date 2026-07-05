@@ -1,4 +1,5 @@
 # Missing attestation remains a review signal, not proof of compromise.
+policy_schema: sbom-diff-risk.policy.v1
 version: 2
 warn_on:
   - missing_attestation
