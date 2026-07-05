@@ -39,6 +39,16 @@ The parser does not currently constrain the SPDX version or validate the
 document against an SPDX schema. Relationships and file-level data do not
 affect component identity or policy decisions.
 
+## Component identity validation
+
+After parsing, purl-bearing components are canonicalized before diff indexing.
+The purl type, name, and version must agree with the corresponding explicit
+component fields. Invalid or conflicting identity metadata fails closed as
+`conflicting_metadata`; repeated identical records fail as
+`duplicate_component`. See
+[v1.1-input-and-policy-semantics.md](v1.1-input-and-policy-semantics.md) for the
+typed identity contract.
+
 ## Requirements files
 
 `requirements.txt` is treated as a narrow manifest format, not as "everything pip can do in a file".

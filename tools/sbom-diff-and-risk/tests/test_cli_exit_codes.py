@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 
 def test_cli_exit_code_blocking_policy_stderr_summary(tmp_path: Path) -> None:
@@ -84,6 +87,58 @@ def test_cli_exit_code_invalid_policy_schema(tmp_path: Path) -> None:
     assert result.returncode == 2
     assert "Invalid policy schema" in result.stderr
     assert "exit code 2" in result.stderr
+
+
+@pytest.mark.parametrize(
+    "second_supplier,expected_code",
+    [
+        ("Supplier A", "duplicate_component"),
+        ("Supplier B", "conflicting_metadata"),
+    ],
+)
+def test_cli_component_identity_diagnostics_are_stable(
+    tmp_path: Path,
+    second_supplier: str,
+    expected_code: str,
+) -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    before = project_root / "examples" / "cdx_before.json"
+    after = tmp_path / "after.json"
+    component = {
+        "type": "library",
+        "name": "requests",
+        "version": "2.31.0",
+        "purl": "pkg:pypi/requests@2.31.0",
+        "supplier": {"name": "Supplier A"},
+    }
+    second_component = dict(component)
+    second_component["supplier"] = {"name": second_supplier}
+    after.write_text(
+        json.dumps(
+            {
+                "bomFormat": "CycloneDX",
+                "specVersion": "1.5",
+                "components": [component, second_component],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    result = _run_compare(
+        project_root,
+        [
+            "--before",
+            str(before),
+            "--after",
+            str(after),
+            "--out-json",
+            str(tmp_path / "report.json"),
+        ],
+    )
+
+    assert result.returncode == 2
+    assert expected_code in result.stderr
+    assert "after input" in result.stderr
 
 
 def test_cli_fail_on_flag_blocks(tmp_path: Path) -> None:

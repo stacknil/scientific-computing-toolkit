@@ -2,51 +2,25 @@ from __future__ import annotations
 
 from typing import Iterable
 
+from .component_identity import canonicalize_component_identity
+from .errors import ComponentIdentityDiagnosticCode, ComponentIdentityError
 from .models import Component, ComponentChange
 
 
 def component_key(component: Component) -> str:
     """Return a stable identity with purl -> bom_ref -> (ecosystem, name)."""
-    if component.purl:
-        return f"purl:{_purl_identity(component.purl)}"
-    if component.bom_ref:
-        return f"bom-ref:{component.bom_ref.strip().lower()}"
-    ecosystem = component.ecosystem.strip().lower()
-    name = component.name.strip().lower()
-    return f"coord:{ecosystem}:{name}"
-
-
-def _purl_identity(purl: str) -> str:
-    candidate = purl.strip().lower()
-    if not candidate.startswith("pkg:"):
-        return candidate
-
-    end = len(candidate)
-    for separator in ("?", "#"):
-        position = candidate.find(separator)
-        if position != -1:
-            end = min(end, position)
-
-    base = candidate[:end]
-    version_separator = base.rfind("@")
-    name_separator = base.rfind("/")
-    if version_separator != -1 and version_separator > name_separator:
-        return base[:version_separator]
-
-    return base
+    return canonicalize_component_identity(component).component_key
 
 
 def _component_signature(component: Component) -> tuple[object, ...]:
+    identity = canonicalize_component_identity(component)
     return (
-        component.name,
-        component.version,
-        component.ecosystem,
-        component.purl,
-        component.license_id,
-        component.supplier,
-        component.source_url,
-        component.bom_ref,
-        component.raw_type,
+        identity,
+        _normalized_metadata(component.license_id),
+        _normalized_metadata(component.supplier),
+        _normalized_metadata(component.source_url),
+        _normalized_metadata(component.bom_ref, lower=True),
+        _normalized_metadata(component.raw_type, lower=True),
     )
 
 
@@ -71,9 +45,11 @@ def diff_components(
         if _component_signature(before_component) == _component_signature(after_component):
             continue
 
-        classification = "version_changed"
-        if before_component.version == after_component.version:
-            classification = "metadata_changed"
+        before_identity = canonicalize_component_identity(before_component)
+        after_identity = canonicalize_component_identity(after_component)
+        classification = (
+            "version_changed" if before_identity.version != after_identity.version else "metadata_changed"
+        )
 
         changed.append(
             ComponentChange(
@@ -90,8 +66,37 @@ def diff_components(
 def _index_components(components: Iterable[Component], side: str) -> dict[str, Component]:
     indexed: dict[str, Component] = {}
     for component in components:
-        key = component_key(component)
+        try:
+            key = component_key(component)
+        except ComponentIdentityError as exc:
+            raise ComponentIdentityError(
+                exc.code,
+                f"{exc.detail} in {side} input",
+                side=side,
+                component_key=exc.component_key,
+            ) from exc
         if key in indexed:
-            raise ValueError(f"Duplicate component identity in {side} input: {key}")
+            existing = indexed[key]
+            if _component_signature(existing) == _component_signature(component):
+                code = ComponentIdentityDiagnosticCode.DUPLICATE_COMPONENT
+                label = "duplicate component"
+            else:
+                code = ComponentIdentityDiagnosticCode.CONFLICTING_METADATA
+                label = "conflicting metadata"
+            raise ComponentIdentityError(
+                code,
+                f"{label} in {side} input for {key}",
+                side=side,
+                component_key=key,
+            )
         indexed[key] = component
     return indexed
+
+
+def _normalized_metadata(value: str | None, *, lower: bool = False) -> str | None:
+    if value is None:
+        return None
+    normalized = value.strip()
+    if lower:
+        normalized = normalized.lower()
+    return normalized or None
