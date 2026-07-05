@@ -22,6 +22,7 @@ from sbom_diff_risk.normalize import normalize_input
 from sbom_diff_risk.report_json import render_policy_json, render_report_json, render_summary_json
 from sbom_diff_risk.report_md import render_report_markdown
 from sbom_diff_risk.risk import evaluate_risks, summarize_risks
+from sbom_diff_risk.schema_versions import POLICY_SCHEMA_V1, REPORT_SCHEMA_V1
 
 
 def test_report_json_matches_cyclonedx_golden_pass() -> None:
@@ -124,6 +125,7 @@ def test_report_json_keeps_legacy_sections() -> None:
     payload = json.loads(render_report_json(report))
 
     assert set(payload) >= {
+        "report_schema",
         "summary",
         "evidence_confidence",
         "components",
@@ -141,6 +143,7 @@ def test_report_json_keeps_legacy_sections() -> None:
         "metadata",
         "notes",
     }
+    assert payload["report_schema"] == REPORT_SCHEMA_V1
     assert payload["metadata"]["policy_evaluation"] == payload["policy_evaluation"]
     assert payload["metadata"]["enrichment"] == payload["enrichment_metadata"]
     assert payload["metadata"]["evidence_confidence"] == payload["evidence_confidence"]
@@ -222,7 +225,15 @@ def test_report_json_policy_findings_include_explanation_fields() -> None:
     finding = payload["warning_findings"][0]
 
     assert finding["rule_id"] == "new_package"
+    assert finding["matched_rule_id"] == "new_package"
     assert finding["decision_reason"] == "risk_finding_matched_policy_rule"
+    assert finding["exact_evidence"] == {
+        "component_key": finding["component_key"],
+        "finding_bucket": "new_package",
+        "matched_threshold": None,
+        "observed_value": "new_package",
+    }
+    assert finding["confidence_level"] == "policy_matched"
     assert finding["policy_rule"] == "new_package"
     assert finding["severity_source"] == "warn_on"
     assert finding["matched_threshold"] is None
@@ -419,7 +430,12 @@ def _read_example(name: str) -> str:
 
 
 def _policy_sidecar_from_full_report(report_payload: dict[str, object]) -> dict[str, object]:
+    evaluation = report_payload["policy_evaluation"]
+    assert isinstance(evaluation, dict)
+    effective_policy = evaluation["effective_policy"]
+    assert isinstance(effective_policy, dict)
     policy_payload = {
+        "policy_schema": effective_policy["policy_schema"],
         "policy_evaluation": report_payload["policy_evaluation"],
         "blocking_findings": report_payload["blocking_findings"],
         "warning_findings": report_payload["warning_findings"],

@@ -14,8 +14,10 @@ from .policy_models import (
     V2_PROVENANCE_POLICY_RULE_IDS,
     V3_SCORECARD_POLICY_RULE_IDS,
 )
+from .schema_versions import POLICY_SCHEMA_V1
 
 _V1_SUPPORTED_POLICY_KEYS = {
+    "policy_schema",
     "version",
     "block_on",
     "warn_on",
@@ -54,6 +56,15 @@ def load_policy(path: Path) -> PolicyConfig:
     unknown_keys = sorted(set(payload) - _SUPPORTED_POLICY_KEYS)
     if unknown_keys:
         raise PolicyError(f"Invalid policy schema in {path}: unsupported keys: {', '.join(unknown_keys)}.")
+
+    policy_schema = payload.get("policy_schema", POLICY_SCHEMA_V1)
+    if not isinstance(policy_schema, str):
+        raise PolicyError(f"Invalid policy schema in {path}: policy_schema must be a string.")
+    if policy_schema != POLICY_SCHEMA_V1:
+        raise PolicyError(
+            f"Invalid policy schema in {path}: unsupported policy_schema {policy_schema!r}; "
+            f"expected {POLICY_SCHEMA_V1!r}."
+        )
 
     version = payload.get("version")
     if not isinstance(version, int):
@@ -132,6 +143,7 @@ def load_policy(path: Path) -> PolicyConfig:
     return normalize_policy(
         PolicyConfig(
             version=version,
+            policy_schema=policy_schema,
             block_on=block_on,
             warn_on=warn_on,
             max_added_packages=max_added_packages,
@@ -166,6 +178,7 @@ def build_policy(
     seed = base_policy or PolicyConfig(version=1)
     merged = PolicyConfig(
         version=seed.version,
+        policy_schema=seed.policy_schema,
         block_on=_merge_strings(seed.block_on, cli_block_on),
         warn_on=_merge_strings(seed.warn_on, cli_warn_on),
         max_added_packages=seed.max_added_packages,
@@ -187,6 +200,7 @@ def normalize_policy(policy: PolicyConfig) -> PolicyConfig:
     ignore_rules = tuple(dict.fromkeys(policy.ignore_rules))
     return PolicyConfig(
         version=normalized_version,
+        policy_schema=policy.policy_schema,
         block_on=block_on,
         warn_on=warn_on,
         max_added_packages=policy.max_added_packages,

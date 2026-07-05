@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import Any
 
+from .schema_versions import POLICY_SCHEMA_V1
+
 
 class PolicyLevel(StrEnum):
     BLOCK = "block"
@@ -42,6 +44,7 @@ SUPPORTED_POLICY_RULE_IDS = (
 @dataclass(slots=True, frozen=True)
 class PolicyConfig:
     version: int
+    policy_schema: str = POLICY_SCHEMA_V1
     block_on: tuple[str, ...] = ()
     warn_on: tuple[str, ...] = ()
     max_added_packages: int | None = None
@@ -68,6 +71,7 @@ class PolicyViolation:
     component_name: str | None = None
     finding_bucket: str | None = None
     suppression_reason: str | None = None
+    confidence_level: str = "policy_matched"
 
 
 @dataclass(slots=True)

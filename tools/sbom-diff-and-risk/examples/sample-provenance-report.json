@@ -1,4 +1,5 @@
 {
+  "report_schema": "sbom-diff-risk.report.v1",
   "summary": {
     "added": 2,
     "removed": 0,
@@ -372,6 +373,7 @@
     "applied": true,
     "policy_path": "examples/policy-provenance-strict.yml",
     "effective_policy": {
+      "policy_schema": "sbom-diff-risk.policy.v1",
       "version": 2,
       "block_on": [
         "provenance_required",
@@ -393,9 +395,17 @@
     "blocking_violations": [
       {
         "rule_id": "provenance_required",
+        "matched_rule_id": "provenance_required",
         "level": "block",
         "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
         "decision_reason": "required_provenance_not_satisfied",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/mystery-lib",
+          "finding_bucket": null,
+          "matched_threshold": null,
+          "observed_value": "attestation_missing"
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "provenance_required",
         "severity_source": "block_on",
         "matched_threshold": null,
@@ -407,9 +417,21 @@
       },
       {
         "rule_id": "unverified_provenance",
+        "matched_rule_id": "unverified_provenance",
         "level": "block",
         "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
         "decision_reason": "provenance_publisher_not_verified",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/legacy-lib",
+          "finding_bucket": null,
+          "matched_threshold": [
+            "github actions"
+          ],
+          "observed_value": [
+            "manual upload"
+          ]
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "unverified_provenance",
         "severity_source": "block_on",
         "matched_threshold": [
@@ -427,9 +449,17 @@
     "warning_violations": [
       {
         "rule_id": "missing_attestation",
+        "matched_rule_id": "missing_attestation",
         "level": "warn",
         "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
         "decision_reason": "attestation_not_published",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/mystery-lib",
+          "finding_bucket": null,
+          "matched_threshold": null,
+          "observed_value": false
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "missing_attestation",
         "severity_source": "warn_on",
         "matched_threshold": null,
@@ -452,9 +482,17 @@
   "blocking_findings": [
     {
       "rule_id": "provenance_required",
+      "matched_rule_id": "provenance_required",
       "level": "block",
       "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
       "decision_reason": "required_provenance_not_satisfied",
+      "exact_evidence": {
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "finding_bucket": null,
+        "matched_threshold": null,
+        "observed_value": "attestation_missing"
+      },
+      "confidence_level": "provenance_recorded",
       "policy_rule": "provenance_required",
       "severity_source": "block_on",
       "matched_threshold": null,
@@ -466,9 +504,21 @@
     },
     {
       "rule_id": "unverified_provenance",
+      "matched_rule_id": "unverified_provenance",
       "level": "block",
       "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
       "decision_reason": "provenance_publisher_not_verified",
+      "exact_evidence": {
+        "component_key": "purl:pkg:pypi/legacy-lib",
+        "finding_bucket": null,
+        "matched_threshold": [
+          "github actions"
+        ],
+        "observed_value": [
+          "manual upload"
+        ]
+      },
+      "confidence_level": "provenance_recorded",
       "policy_rule": "unverified_provenance",
       "severity_source": "block_on",
       "matched_threshold": [
@@ -486,9 +536,17 @@
   "warning_findings": [
     {
       "rule_id": "missing_attestation",
+      "matched_rule_id": "missing_attestation",
       "level": "warn",
       "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
       "decision_reason": "attestation_not_published",
+      "exact_evidence": {
+        "component_key": "purl:pkg:pypi/mystery-lib",
+        "finding_bucket": null,
+        "matched_threshold": null,
+        "observed_value": false
+      },
+      "confidence_level": "provenance_recorded",
       "policy_rule": "missing_attestation",
       "severity_source": "warn_on",
       "matched_threshold": null,
@@ -669,6 +727,7 @@
       "applied": true,
       "policy_path": "examples/policy-provenance-strict.yml",
       "effective_policy": {
+        "policy_schema": "sbom-diff-risk.policy.v1",
         "version": 2,
         "block_on": [
           "provenance_required",
@@ -690,9 +749,17 @@
       "blocking_violations": [
         {
           "rule_id": "provenance_required",
+          "matched_rule_id": "provenance_required",
           "level": "block",
           "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
           "decision_reason": "required_provenance_not_satisfied",
+          "exact_evidence": {
+            "component_key": "purl:pkg:pypi/mystery-lib",
+            "finding_bucket": null,
+            "matched_threshold": null,
+            "observed_value": "attestation_missing"
+          },
+          "confidence_level": "provenance_recorded",
           "policy_rule": "provenance_required",
           "severity_source": "block_on",
           "matched_threshold": null,
@@ -704,9 +771,21 @@
         },
         {
           "rule_id": "unverified_provenance",
+          "matched_rule_id": "unverified_provenance",
           "level": "block",
           "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
           "decision_reason": "provenance_publisher_not_verified",
+          "exact_evidence": {
+            "component_key": "purl:pkg:pypi/legacy-lib",
+            "finding_bucket": null,
+            "matched_threshold": [
+              "github actions"
+            ],
+            "observed_value": [
+              "manual upload"
+            ]
+          },
+          "confidence_level": "provenance_recorded",
           "policy_rule": "unverified_provenance",
           "severity_source": "block_on",
           "matched_threshold": [
@@ -724,9 +803,17 @@
       "warning_violations": [
         {
           "rule_id": "missing_attestation",
+          "matched_rule_id": "missing_attestation",
           "level": "warn",
           "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
           "decision_reason": "attestation_not_published",
+          "exact_evidence": {
+            "component_key": "purl:pkg:pypi/mystery-lib",
+            "finding_bucket": null,
+            "matched_threshold": null,
+            "observed_value": false
+          },
+          "confidence_level": "provenance_recorded",
           "policy_rule": "missing_attestation",
           "severity_source": "warn_on",
           "matched_threshold": null,
@@ -790,9 +877,17 @@
     "blocking": [
       {
         "rule_id": "provenance_required",
+        "matched_rule_id": "provenance_required",
         "level": "block",
         "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
         "decision_reason": "required_provenance_not_satisfied",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/mystery-lib",
+          "finding_bucket": null,
+          "matched_threshold": null,
+          "observed_value": "attestation_missing"
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "provenance_required",
         "severity_source": "block_on",
         "matched_threshold": null,
@@ -804,9 +899,21 @@
       },
       {
         "rule_id": "unverified_provenance",
+        "matched_rule_id": "unverified_provenance",
         "level": "block",
         "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
         "decision_reason": "provenance_publisher_not_verified",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/legacy-lib",
+          "finding_bucket": null,
+          "matched_threshold": [
+            "github actions"
+          ],
+          "observed_value": [
+            "manual upload"
+          ]
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "unverified_provenance",
         "severity_source": "block_on",
         "matched_threshold": [
@@ -824,9 +931,17 @@
     "warning": [
       {
         "rule_id": "missing_attestation",
+        "matched_rule_id": "missing_attestation",
         "level": "warn",
         "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
         "decision_reason": "attestation_not_published",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/mystery-lib",
+          "finding_bucket": null,
+          "matched_threshold": null,
+          "observed_value": false
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "missing_attestation",
         "severity_source": "warn_on",
         "matched_threshold": null,
@@ -857,9 +972,17 @@
     "blocking": [
       {
         "rule_id": "provenance_required",
+        "matched_rule_id": "provenance_required",
         "level": "block",
         "message": "Provenance is required for new package, but no attestations were published for this PyPI package.",
         "decision_reason": "required_provenance_not_satisfied",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/mystery-lib",
+          "finding_bucket": null,
+          "matched_threshold": null,
+          "observed_value": "attestation_missing"
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "provenance_required",
         "severity_source": "block_on",
         "matched_threshold": null,
@@ -871,9 +994,21 @@
       },
       {
         "rule_id": "unverified_provenance",
+        "matched_rule_id": "unverified_provenance",
         "level": "block",
         "message": "PyPI attestations were present, but publisher kinds manual upload did not match allow_provenance_publishers=github actions.",
         "decision_reason": "provenance_publisher_not_verified",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/legacy-lib",
+          "finding_bucket": null,
+          "matched_threshold": [
+            "github actions"
+          ],
+          "observed_value": [
+            "manual upload"
+          ]
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "unverified_provenance",
         "severity_source": "block_on",
         "matched_threshold": [
@@ -891,9 +1026,17 @@
     "warning": [
       {
         "rule_id": "missing_attestation",
+        "matched_rule_id": "missing_attestation",
         "level": "warn",
         "message": "PyPI release metadata was fetched, but no attestations were published for this package release.",
         "decision_reason": "attestation_not_published",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/mystery-lib",
+          "finding_bucket": null,
+          "matched_threshold": null,
+          "observed_value": false
+        },
+        "confidence_level": "provenance_recorded",
         "policy_rule": "missing_attestation",
         "severity_source": "warn_on",
         "matched_threshold": null,

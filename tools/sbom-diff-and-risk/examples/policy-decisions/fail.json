@@ -1,5 +1,6 @@
 {
   "example_type": "policy-decision-example",
+  "policy_schema": "sbom-diff-risk.policy.v1",
   "review_decision": "fail",
   "decision_source": "summary.policy",
   "summary": {
@@ -13,8 +14,16 @@
   "policy_findings": [
     {
       "rule_id": "max_added_packages",
+      "matched_rule_id": "max_added_packages",
       "level": "block",
       "decision_reason": "added_package_count_exceeded_threshold",
+      "exact_evidence": {
+        "component_key": null,
+        "finding_bucket": null,
+        "matched_threshold": 0,
+        "observed_value": 1
+      },
+      "confidence_level": "policy_matched",
       "policy_rule": "max_added_packages",
       "severity_source": "block_on",
       "matched_threshold": 0,

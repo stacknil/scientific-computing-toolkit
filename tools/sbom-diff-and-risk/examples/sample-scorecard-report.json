@@ -1,4 +1,5 @@
 {
+  "report_schema": "sbom-diff-risk.report.v1",
   "summary": {
     "added": 2,
     "removed": 0,
@@ -286,6 +287,7 @@
     "applied": true,
     "policy_path": "examples/policy-scorecard-minimal.yml",
     "effective_policy": {
+      "policy_schema": "sbom-diff-risk.policy.v1",
       "version": 3,
       "block_on": [],
       "warn_on": [
@@ -304,9 +306,17 @@
     "warning_violations": [
       {
         "rule_id": "scorecard_below_threshold",
+        "matched_rule_id": "scorecard_below_threshold",
         "level": "warn",
         "message": "Scorecard score 6.0 is below minimum_scorecard_score=7.0 for repository github.com/psf/requests.",
         "decision_reason": "scorecard_score_below_threshold",
+        "exact_evidence": {
+          "component_key": "purl:pkg:pypi/requests",
+          "finding_bucket": null,
+          "matched_threshold": 7.0,
+          "observed_value": 6.0
+        },
+        "confidence_level": "scorecard_recorded",
         "policy_rule": "scorecard_below_threshold",
         "severity_source": "warn_on",
         "matched_threshold": 7.0,
@@ -330,9 +340,17 @@
   "warning_findings": [
     {
       "rule_id": "scorecard_below_threshold",
+      "matched_rule_id": "scorecard_below_threshold",
       "level": "warn",
       "message": "Scorecard score 6.0 is below minimum_scorecard_score=7.0 for repository github.com/psf/requests.",
       "decision_reason": "scorecard_score_below_threshold",
+      "exact_evidence": {
+        "component_key": "purl:pkg:pypi/requests",
+        "finding_bucket": null,
+        "matched_threshold": 7.0,
+        "observed_value": 6.0
+      },
+      "confidence_level": "scorecard_recorded",
       "policy_rule": "scorecard_below_threshold",
       "severity_source": "warn_on",
       "matched_threshold": 7.0,
@@ -535,6 +553,7 @@
       "applied": true,
       "policy_path": "examples/policy-scorecard-minimal.yml",
       "effective_policy": {
+        "policy_schema": "sbom-diff-risk.policy.v1",
         "version": 3,
         "block_on": [],
         "warn_on": [
@@ -553,9 +572,17 @@
       "warning_violations": [
         {
           "rule_id": "scorecard_below_threshold",
+          "matched_rule_id": "scorecard_below_threshold",
           "level": "warn",
           "message": "Scorecard score 6.0 is below minimum_scorecard_score=7.0 for repository github.com/psf/requests.",
           "decision_reason": "scorecard_score_below_threshold",
+          "exact_evidence": {
+            "component_key": "purl:pkg:pypi/requests",
+            "finding_bucket": null,
+            "matched_threshold": 7.0,
+            "observed_value": 6.0
+          },
+          "confidence_level": "scorecard_recorded",
           "policy_rule": "scorecard_below_threshold",
           "severity_source": "warn_on",
           "matched_threshold": 7.0,

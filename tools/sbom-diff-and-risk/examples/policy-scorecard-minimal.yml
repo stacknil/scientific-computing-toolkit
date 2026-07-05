@@ -1,3 +1,4 @@
+policy_schema: sbom-diff-risk.policy.v1
 version: 3
 warn_on:
   - scorecard_below_threshold

@@ -148,6 +148,7 @@ def policy_config_to_dict(policy: PolicyConfig | None) -> dict[str, Any] | None:
     if policy is None:
         return None
     payload = {
+        "policy_schema": policy.policy_schema,
         "version": policy.version,
         "block_on": list(policy.block_on),
         "warn_on": list(policy.warn_on),
@@ -176,9 +177,17 @@ def policy_config_to_dict(policy: PolicyConfig | None) -> dict[str, Any] | None:
 def policy_violation_to_dict(violation: PolicyViolation) -> dict[str, Any]:
     return {
         "rule_id": violation.rule_id,
+        "matched_rule_id": violation.policy_rule or violation.rule_id,
         "level": violation.level.value if violation.level is not None else None,
         "message": violation.message,
         "decision_reason": violation.decision_reason,
+        "exact_evidence": {
+            "component_key": violation.component_key,
+            "finding_bucket": violation.finding_bucket,
+            "matched_threshold": violation.matched_threshold,
+            "observed_value": violation.observed_value,
+        },
+        "confidence_level": violation.confidence_level,
         "policy_rule": violation.policy_rule,
         "severity_source": violation.severity_source,
         "matched_threshold": violation.matched_threshold,

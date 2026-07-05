@@ -8,6 +8,7 @@ from .models import CompareReport, Component, ComponentChange, ReportEnrichmentM
 from .presentation import build_policy_report_sections, build_trust_signal_report_sections
 from .policy_models import PolicyEvaluation
 from .scorecard_enrichment import scorecard_evidence_to_dict
+from .schema_versions import POLICY_SCHEMA_V1, REPORT_SCHEMA_V1
 
 
 def render_report_json(report: CompareReport) -> str:
@@ -15,6 +16,7 @@ def render_report_json(report: CompareReport) -> str:
     trust_signal_sections = build_trust_signal_report_sections(report)
     evidence_confidence = evidence_confidence_value(report)
     payload = {
+        "report_schema": REPORT_SCHEMA_V1,
         "summary": _summary_to_dict(report),
         "evidence_confidence": evidence_confidence,
         "components": {
@@ -57,7 +59,9 @@ def render_summary_json(report: CompareReport) -> str:
 
 def render_policy_json(report: CompareReport) -> str:
     policy_sections = build_policy_report_sections(report.metadata.policy_evaluation)
+    effective_policy = report.metadata.policy_evaluation.effective_policy if report.metadata.policy_evaluation else None
     payload: dict[str, object] = {
+        "policy_schema": effective_policy.policy_schema if effective_policy is not None else POLICY_SCHEMA_V1,
         "policy_evaluation": policy_sections["policy_evaluation"],
         "blocking_findings": policy_sections["blocking_findings"],
         "warning_findings": policy_sections["warning_findings"],
