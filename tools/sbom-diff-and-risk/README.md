@@ -88,8 +88,11 @@ Before indexing, each component is converted to an immutable
 `CanonicalComponentIdentity` containing normalized `ecosystem`,
 `package_name`, `version`, `purl`, and `component_key` fields. PURL syntax is
 parsed with the official `packageurl-python` implementation. PyPI package
-names use PEP 503 normalization; names for ecosystems without an explicit
-project rule preserve case.
+names use PEP 503 normalization. npm package names follow the
+`packageurl-python` npm purl name form. Names for ecosystems without an
+explicit project rule preserve case.
+The test-backed ecosystem matrix is documented in
+[docs/component-identity-canonicalization.md](docs/component-identity-canonicalization.md).
 
 The index fails closed with stable diagnostics:
 

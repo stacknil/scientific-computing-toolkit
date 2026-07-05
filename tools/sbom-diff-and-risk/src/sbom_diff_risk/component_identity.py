@@ -10,12 +10,70 @@ from .models import Component
 
 
 @dataclass(slots=True, frozen=True)
+class EcosystemCanonicalizationRule:
+    ecosystem: str
+    package_name_rule: str
+    namespace_rule: str
+    version_rule: str
+
+
+@dataclass(slots=True, frozen=True)
 class CanonicalComponentIdentity:
     ecosystem: str
     package_name: str
     version: str | None
     purl: str | None
     component_key: str
+
+
+_REGISTERED_CANONICALIZATION_RULES: dict[str, EcosystemCanonicalizationRule] = {
+    "generic": EcosystemCanonicalizationRule(
+        ecosystem="generic",
+        package_name_rule="preserve-observed",
+        namespace_rule="preserve-purl-namespace",
+        version_rule="preserve-observed",
+    ),
+    "maven": EcosystemCanonicalizationRule(
+        ecosystem="maven",
+        package_name_rule="preserve-observed",
+        namespace_rule="preserve-purl-namespace",
+        version_rule="preserve-observed",
+    ),
+    "npm": EcosystemCanonicalizationRule(
+        ecosystem="npm",
+        package_name_rule="packageurl-npm-name",
+        namespace_rule="preserve-purl-namespace",
+        version_rule="preserve-observed",
+    ),
+    "nuget": EcosystemCanonicalizationRule(
+        ecosystem="nuget",
+        package_name_rule="preserve-observed",
+        namespace_rule="preserve-purl-namespace",
+        version_rule="preserve-observed",
+    ),
+    "pypi": EcosystemCanonicalizationRule(
+        ecosystem="pypi",
+        package_name_rule="pep503",
+        namespace_rule="preserve-purl-namespace",
+        version_rule="preserve-observed",
+    ),
+}
+
+
+def canonicalization_rules() -> tuple[EcosystemCanonicalizationRule, ...]:
+    return tuple(_REGISTERED_CANONICALIZATION_RULES[name] for name in sorted(_REGISTERED_CANONICALIZATION_RULES))
+
+
+def canonicalization_rule_for_ecosystem(ecosystem: str) -> EcosystemCanonicalizationRule:
+    normalized_ecosystem = ecosystem.strip().lower()
+    if normalized_ecosystem in _REGISTERED_CANONICALIZATION_RULES:
+        return _REGISTERED_CANONICALIZATION_RULES[normalized_ecosystem]
+    return EcosystemCanonicalizationRule(
+        ecosystem=normalized_ecosystem,
+        package_name_rule="preserve-observed",
+        namespace_rule="preserve-purl-namespace",
+        version_rule="preserve-observed",
+    )
 
 
 def canonicalize_component_identity(component: Component) -> CanonicalComponentIdentity:
@@ -103,9 +161,14 @@ def _purl_component_key(parsed: PackageURL, ecosystem: str, package_name: str) -
 
 def _canonical_package_name(ecosystem: str, name: str) -> str:
     stripped = name.strip()
-    if ecosystem == "pypi":
+    rule = canonicalization_rule_for_ecosystem(ecosystem)
+    if rule.package_name_rule == "pep503":
         return canonicalize_name(stripped)
-    return stripped
+    if rule.package_name_rule == "packageurl-npm-name":
+        return stripped.lower()
+    if rule.package_name_rule == "preserve-observed":
+        return stripped
+    raise AssertionError(f"unknown package name canonicalization rule: {rule.package_name_rule}")
 
 
 def _optional_str(value: str | None) -> str | None:

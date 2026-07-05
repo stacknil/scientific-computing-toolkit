@@ -46,6 +46,8 @@ The purl type, name, and version must agree with the corresponding explicit
 component fields. Invalid or conflicting identity metadata fails closed as
 `conflicting_metadata`; repeated identical records fail as
 `duplicate_component`. See
+[component-identity-canonicalization.md](component-identity-canonicalization.md)
+for the ecosystem-specific canonicalization matrix and
 [v1.1-input-and-policy-semantics.md](v1.1-input-and-policy-semantics.md) for the
 typed identity contract.
 
