@@ -176,7 +176,8 @@ REQUIRED_TEXT = {
         "not a package safety verdict engine",
         "not part of the `sbom-diff-and-risk` release surface",
         "why the scientific-computing background helps",
-        "GitHub Latest may still show `v0.9.0` because `v1.0-rc.1` is a release candidate.",
+        "Current stable flagship release: `sbom-diff-and-risk` `v1.0.0`",
+        "GitHub Latest: `v1.0.0`",
         "Production PyPI publishing: intentionally deferred",
     ),
     Path("docs/reviewer-brief.md"): (
@@ -266,9 +267,9 @@ REQUIRED_TEXT = {
         "any malware verdict",
     ),
     Path("tools/sbom-diff-and-risk/docs/release-provenance.md"): (
-        "publish `v1.0.0` as the stable GitHub Release contract",
-        "production PyPI publishing deferred",
-        "marks a final tag such as `v1.0.0` as GitHub Latest",
+        "`v1.0.0` is the stable GitHub Release contract and is marked GitHub Latest",
+        "Production PyPI publishing remains deferred as a separate contract",
+        "marks final tags such as `v1.0.0` as GitHub Latest",
         "workflow artifact attestation",
     ),
     Path("tools/sbom-diff-and-risk/docs/reviewer-path.md"): (
@@ -287,7 +288,8 @@ REQUIRED_TEXT = {
         "runs the tool, uploads `policy.json`, and fails or passes from the policy exit code",
         "not current PyPI package truth",
         "not current repository reputation",
-        "GitHub Latest may still show `v0.9.0` because `v1.0-rc.1` is a release candidate.",
+        "`v1.0.0` is the stable GitHub release and GitHub Latest",
+        "`v1.0-rc.1` remains historical prerelease evidence",
         "It does not decide whether a dependency is safe.",
     ),
     Path("projects/precipitation-anomaly-diagnostics/docs/reviewer-path.md"): (

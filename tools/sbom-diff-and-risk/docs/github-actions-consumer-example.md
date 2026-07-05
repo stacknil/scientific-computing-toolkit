@@ -12,9 +12,7 @@ Production PyPI publishing is intentionally deferred, so consumers should not
 install `sbom-diff-and-risk` from production PyPI. Use a GitHub Release asset or
 a local checkout instead.
 
-The checked-in workflow pins the selected stable contract, `v1.0.0`. Before
-that final release is published, use the currently available `v1.0-rc.1`
-release asset instead.
+The checked-in workflow pins the stable GitHub Release contract, `v1.0.0`.
 
 ## Minimal policy workflow
 
