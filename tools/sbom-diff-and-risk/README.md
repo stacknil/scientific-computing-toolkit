@@ -61,7 +61,7 @@ The v1.1 implementation sequence is fixed in
 - Produce machine-friendly JSON and reviewer-friendly Markdown reports.
 - Stay fully local-file based by default.
 
-## v0.1 Internal Component Model
+## Internal Component Model
 
 The normalized schema is the core design choice for the project:
 
@@ -83,6 +83,24 @@ Diff identity is intentionally conservative and uses this precedence:
 3. `(ecosystem, name)`
 
 When a `purl` includes a version, the tool keeps the full value in `Component.purl` for auditability but uses the versionless package coordinate for identity so upgrades still diff as `changed`.
+
+Before indexing, each component is converted to an immutable
+`CanonicalComponentIdentity` containing normalized `ecosystem`,
+`package_name`, `version`, `purl`, and `component_key` fields. PURL syntax is
+parsed with the official `packageurl-python` implementation. PyPI package
+names use PEP 503 normalization; names for ecosystems without an explicit
+project rule preserve case.
+
+The index fails closed with stable diagnostics:
+
+- `duplicate_component` when one input repeats the same canonical identity and
+  normalized metadata;
+- `conflicting_metadata` when records share an identity but disagree on
+  metadata, or when explicit ecosystem/name/version fields disagree with a
+  purl.
+
+See [docs/v1.1-input-and-policy-semantics.md](docs/v1.1-input-and-policy-semantics.md)
+for the v1.1 identity contract and compatibility boundary.
 
 ## Non-goals
 

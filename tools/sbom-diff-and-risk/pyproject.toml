@@ -26,6 +26,7 @@ classifiers = [
 ]
 dependencies = [
   "packaging>=24.0",
+  "packageurl-python>=0.17.6,<0.18",
   "PyYAML>=6.0",
 ]
 
