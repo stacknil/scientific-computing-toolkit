@@ -54,14 +54,14 @@ def test_release_workflow_normalizes_build_timestamps_before_checksums() -> None
     assert epoch_index < build_index < normalize_index < checksum_index
 
 
-def test_v1_release_metadata_and_public_status_are_aligned() -> None:
+def test_main_development_metadata_and_v1_stable_status_are_aligned() -> None:
     project = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))["project"]
     package_init = PACKAGE_INIT.read_text(encoding="utf-8")
     root_readme = ROOT_README.read_text(encoding="utf-8")
     tool_readme = TOOL_README.read_text(encoding="utf-8")
 
-    assert project["version"] == "1.0.0"
-    assert '__version__ = "1.0.0"' in package_init
+    assert project["version"] == "1.1.0.dev0"
+    assert '__version__ = "1.1.0.dev0"' in package_init
     assert "Current stable flagship release: `sbom-diff-and-risk` `v1.0.0`" in root_readme
     assert "`v1.0.0` is the stable Policy Evidence GitHub release" in tool_readme
     assert "final candidate" not in root_readme
@@ -79,12 +79,12 @@ def test_v1_release_notes_capture_rc_compatibility_boundary() -> None:
     assert "Production PyPI publishing remains deferred" in text
 
 
-def test_v1_sarif_golden_fixtures_use_final_version() -> None:
+def test_main_sarif_golden_fixtures_use_development_version() -> None:
     fixtures = sorted(EXAMPLES.glob("sample-*.sarif"))
 
     assert fixtures
     for fixture in fixtures:
         payload = json.loads(fixture.read_text(encoding="utf-8"))
         driver = payload["runs"][0]["tool"]["driver"]
-        assert driver["version"] == "1.0.0", fixture.name
-        assert driver["semanticVersion"] == "1.0.0", fixture.name
+        assert driver["version"] == "1.1.0.dev0", fixture.name
+        assert driver["semanticVersion"] == "1.1.0.dev0", fixture.name
