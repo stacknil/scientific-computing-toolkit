@@ -83,7 +83,7 @@ def canonicalize_component_identity(component: Component) -> CanonicalComponentI
 
     if component.purl is None:
         if component.bom_ref:
-            component_key = f"bom-ref:{component.bom_ref.strip().lower()}"
+            component_key = f"bom-ref:{component.bom_ref.strip()}"
         else:
             component_key = f"coord:{explicit_ecosystem}:{explicit_name}"
         return CanonicalComponentIdentity(

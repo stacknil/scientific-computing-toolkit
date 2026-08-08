@@ -1,0 +1,19 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "Component-A",
+      "type": "library",
+      "name": "opaque-lib",
+      "version": "1.0.0"
+    },
+    {
+      "bom-ref": "component-a",
+      "type": "library",
+      "name": "opaque-lib",
+      "version": "1.0.0"
+    }
+  ]
+}
