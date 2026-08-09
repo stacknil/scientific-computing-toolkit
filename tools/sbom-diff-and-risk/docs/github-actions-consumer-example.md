@@ -12,7 +12,7 @@ Production PyPI publishing is intentionally deferred, so consumers should not
 install `sbom-diff-and-risk` from production PyPI. Use a GitHub Release asset or
 a local checkout instead.
 
-The checked-in workflow pins the stable GitHub Release contract, `v1.0.0`.
+The checked-in workflow pins the stable GitHub Release contract, `v1.1.0`.
 
 ## Minimal policy workflow
 
@@ -49,15 +49,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p .tooling/sbom-diff-risk
-          gh release download v1.0.0 \
+          gh release download v1.1.0 \
             --repo stacknil/scientific-computing-toolkit \
-            --pattern "sbom_diff_and_risk-1.0.0-py3-none-any.whl" \
+            --pattern "sbom_diff_and_risk-1.1.0-py3-none-any.whl" \
             --dir .tooling/sbom-diff-risk
 
       - name: Install sbom-diff-risk
         run: |
           python -m pip install \
-            .tooling/sbom-diff-risk/sbom_diff_and_risk-1.0.0-py3-none-any.whl
+            .tooling/sbom-diff-risk/sbom_diff_and_risk-1.1.0-py3-none-any.whl
 
       - name: Run dependency policy
         id: compare

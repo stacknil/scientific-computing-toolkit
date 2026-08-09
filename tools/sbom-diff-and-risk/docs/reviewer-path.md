@@ -199,7 +199,7 @@ Use this section only when the review question is about the released
 `sbom-diff-and-risk` tool artifacts. It is not the path for judging third-party
 dependency safety.
 
-Release status: `v1.0.0` is the stable GitHub release and GitHub Latest.
+Release status: `v1.1.0` is the stable GitHub release and GitHub Latest.
 `v1.0-rc.1` remains historical prerelease evidence. Production PyPI publishing
 is still deferred as a separate contract.
 

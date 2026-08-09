@@ -11,6 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 WORKFLOW = REPO_ROOT / ".github" / "workflows" / "sbom-diff-and-risk-ci.yml"
 RELEASE_NOTES = REPO_ROOT / "tools" / "sbom-diff-and-risk" / "RELEASE_NOTES_v1.0-rc.1.md"
 FINAL_RELEASE_NOTES = REPO_ROOT / "tools" / "sbom-diff-and-risk" / "RELEASE_NOTES_v1.0.0.md"
+V1_1_RELEASE_NOTES = REPO_ROOT / "tools" / "sbom-diff-and-risk" / "RELEASE_NOTES_v1.1.0.md"
 PYPROJECT = REPO_ROOT / "tools" / "sbom-diff-and-risk" / "pyproject.toml"
 PACKAGE_INIT = REPO_ROOT / "tools" / "sbom-diff-and-risk" / "src" / "sbom_diff_risk" / "__init__.py"
 ROOT_README = REPO_ROOT / "README.md"
@@ -54,16 +55,17 @@ def test_release_workflow_normalizes_build_timestamps_before_checksums() -> None
     assert epoch_index < build_index < normalize_index < checksum_index
 
 
-def test_main_development_metadata_and_v1_stable_status_are_aligned() -> None:
+def test_main_release_metadata_and_v1_stable_status_are_aligned() -> None:
     project = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))["project"]
     package_init = PACKAGE_INIT.read_text(encoding="utf-8")
     root_readme = ROOT_README.read_text(encoding="utf-8")
     tool_readme = TOOL_README.read_text(encoding="utf-8")
 
-    assert project["version"] == "1.1.0.dev0"
-    assert '__version__ = "1.1.0.dev0"' in package_init
-    assert "Current stable flagship release: `sbom-diff-and-risk` `v1.0.0`" in root_readme
-    assert "`v1.0.0` is the stable Policy Evidence GitHub release" in tool_readme
+    assert project["version"] == "1.1.0"
+    assert "authors" not in project
+    assert '__version__ = "1.1.0"' in package_init
+    assert "Current stable flagship release: `sbom-diff-and-risk` `v1.1.0`" in root_readme
+    assert "`v1.1.0` is the stable Policy Evidence GitHub release" in tool_readme
     assert "final candidate" not in root_readme
     assert "final candidate" not in tool_readme
 
@@ -79,12 +81,23 @@ def test_v1_release_notes_capture_rc_compatibility_boundary() -> None:
     assert "Production PyPI publishing remains deferred" in text
 
 
-def test_main_sarif_golden_fixtures_use_development_version() -> None:
+def test_v1_1_release_notes_capture_identity_and_contract_boundaries() -> None:
+    text = V1_1_RELEASE_NOTES.read_text(encoding="utf-8")
+
+    assert "# sbom-diff-and-risk v1.1.0" in text
+    assert "input and policy contract versioning" in text
+    assert "policy decision explainability" in text
+    assert "canonical component identity" in text
+    assert "opaque local identifier" in text
+    assert "Production PyPI publishing remains intentionally deferred" in text
+
+
+def test_main_sarif_golden_fixtures_use_release_version() -> None:
     fixtures = sorted(EXAMPLES.glob("sample-*.sarif"))
 
     assert fixtures
     for fixture in fixtures:
         payload = json.loads(fixture.read_text(encoding="utf-8"))
         driver = payload["runs"][0]["tool"]["driver"]
-        assert driver["version"] == "1.1.0.dev0", fixture.name
-        assert driver["semanticVersion"] == "1.1.0.dev0", fixture.name
+        assert driver["version"] == "1.1.0", fixture.name
+        assert driver["semanticVersion"] == "1.1.0", fixture.name
