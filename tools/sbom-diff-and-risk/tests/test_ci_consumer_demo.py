@@ -40,8 +40,8 @@ def test_policy_consumer_uploads_policy_json_before_enforcing_exit_code() -> Non
     assert "--out-md" not in text
     assert "--out-sarif" not in text
     assert "tee " not in text
-    assert "gh release download v1.0.0" in text
-    assert "sbom_diff_and_risk-1.0.0-py3-none-any.whl" in text
+    assert "gh release download v1.1.0" in text
+    assert "sbom_diff_and_risk-1.1.0-py3-none-any.whl" in text
 
     run_index = step_names.index("Run dependency policy")
     upload_index = step_names.index("Upload policy JSON")

@@ -7,8 +7,8 @@
         "driver": {
           "name": "sbom-diff-risk",
           "fullName": "sbom-diff-risk",
-          "version": "1.1.0.dev0",
-          "semanticVersion": "1.1.0.dev0",
+          "version": "1.1.0",
+          "semanticVersion": "1.1.0",
           "rules": [
             {
               "id": "sdr.major_upgrade",
