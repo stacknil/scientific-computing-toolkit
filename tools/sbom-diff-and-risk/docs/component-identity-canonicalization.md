@@ -31,6 +31,11 @@ Identity authority remains:
 2. `bom_ref`, when no purl is present;
 3. normalized `(ecosystem, package_name)` coordinate.
 
+When no purl is present, `bom_ref` is an opaque local identifier: trim
+surrounding whitespace only, preserve case, and do not infer aliases. A record
+with a purl uses the purl identity even when `bom_ref` is also populated; a
+bom_ref-only record never aliases a purl string.
+
 When a purl is present, its type, package name, and version must agree with
 explicit component fields. Disagreement fails closed as `conflicting_metadata`.
 Within a single input, repeated identical canonical identities fail as

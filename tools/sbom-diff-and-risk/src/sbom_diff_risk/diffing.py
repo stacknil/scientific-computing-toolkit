@@ -19,7 +19,7 @@ def _component_signature(component: Component) -> tuple[object, ...]:
         _normalized_metadata(component.license_id),
         _normalized_metadata(component.supplier),
         _normalized_metadata(component.source_url),
-        _normalized_metadata(component.bom_ref, lower=True),
+        _normalized_metadata(component.bom_ref),
         _normalized_metadata(component.raw_type, lower=True),
     )
 

@@ -21,6 +21,77 @@ def test_component_key_prefers_purl() -> None:
     assert component_key(component) == "purl:pkg:pypi/requests"
 
 
+def test_component_key_does_not_alias_bom_ref_only_identity_to_purl() -> None:
+    purl_component = Component(
+        name="requests",
+        version="2.31.0",
+        ecosystem="pypi",
+        purl="pkg:pypi/requests@2.31.0",
+        bom_ref="legacy-ref",
+    )
+    bom_ref_only_component = Component(
+        name="requests",
+        version="2.31.0",
+        ecosystem="pypi",
+        bom_ref="legacy-ref",
+    )
+
+    assert component_key(purl_component) == "purl:pkg:pypi/requests"
+    assert component_key(bom_ref_only_component) == "bom-ref:legacy-ref"
+
+
+def test_diff_components_preserves_case_in_opaque_bom_ref_fixture() -> None:
+    fixture = Path(__file__).parent / "fixtures" / "cdx_bom_ref_case_variants.json"
+    _, components, _ = normalize_input(fixture)
+
+    added, removed, changed = diff_components([], components)
+
+    assert {component_key(component) for component in added} == {
+        "bom-ref:Component-A",
+        "bom-ref:component-a",
+    }
+    assert removed == []
+    assert changed == []
+
+
+def test_diff_components_fails_on_duplicate_exact_bom_ref() -> None:
+    duplicate_before = [
+        Component(name="opaque-lib", version="1.0.0", ecosystem="generic", bom_ref="Component-A"),
+        Component(name="opaque-lib", version="1.0.0", ecosystem="generic", bom_ref="Component-A"),
+    ]
+
+    with pytest.raises(ComponentIdentityError, match="duplicate_component") as exc_info:
+        diff_components(duplicate_before, [])
+
+    assert exc_info.value.code is ComponentIdentityDiagnosticCode.DUPLICATE_COMPONENT
+    assert exc_info.value.component_key == "bom-ref:Component-A"
+
+
+def test_diff_components_fails_on_same_bom_ref_with_conflicting_metadata() -> None:
+    conflicting_before = [
+        Component(
+            name="opaque-lib",
+            version="1.0.0",
+            ecosystem="generic",
+            bom_ref="Component-A",
+            supplier="Supplier A",
+        ),
+        Component(
+            name="opaque-lib",
+            version="1.0.0",
+            ecosystem="generic",
+            bom_ref="Component-A",
+            supplier="Supplier B",
+        ),
+    ]
+
+    with pytest.raises(ComponentIdentityError, match="conflicting_metadata") as exc_info:
+        diff_components(conflicting_before, [])
+
+    assert exc_info.value.code is ComponentIdentityDiagnosticCode.CONFLICTING_METADATA
+    assert exc_info.value.component_key == "bom-ref:Component-A"
+
+
 def test_diff_components_empty_inputs() -> None:
     added, removed, changed = diff_components([], [])
     assert added == []
