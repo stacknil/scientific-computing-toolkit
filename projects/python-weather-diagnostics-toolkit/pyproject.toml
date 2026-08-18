@@ -20,7 +20,7 @@ dependencies = [
 [project.optional-dependencies]
 meteo = ["matplotlib>=3.7", "metpy>=1.6", "cartopy>=0.22"]
 download = ["cdsapi>=0.7"]
-dev = ["pytest>=7.0", "ruff>=0.4"]
+dev = ["pytest>=7.0", "ruff>=0.4,<0.16"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
