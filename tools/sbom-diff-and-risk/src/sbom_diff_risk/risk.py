@@ -6,6 +6,7 @@ from ipaddress import ip_address
 from typing import Iterable, Sequence
 from urllib.parse import urlparse
 
+from .component_identity import canonicalize_component_identity
 from .diffing import component_key
 from .models import Component, ComponentChange, RiskBucket, RiskFinding
 
@@ -55,10 +56,12 @@ def evaluate_risks(
 
 
 def _version_change_findings(change: ComponentChange) -> list[RiskFinding]:
-    if change.before.version == change.after.version:
+    before_version = canonicalize_component_identity(change.before).version
+    after_version = canonicalize_component_identity(change.after).version
+    if before_version == after_version:
         return []
 
-    semver_delta = _semver_major_delta(change.before.version, change.after.version)
+    semver_delta = _semver_major_delta(before_version, after_version)
     if semver_delta is not None and semver_delta > 0:
         return [
             RiskFinding(
@@ -66,13 +69,13 @@ def _version_change_findings(change: ComponentChange) -> list[RiskFinding]:
                 component_key=change.key,
                 component=change.after,
                 rationale=(
-                    f"Version changed from {change.before.version or 'unknown'} "
-                    f"to {change.after.version or 'unknown'} with a higher major version."
+                    f"Version changed from {before_version or 'unknown'} "
+                    f"to {after_version or 'unknown'} with a higher major version."
                 ),
             )
         ]
 
-    if change.before.version and change.after.version:
+    if before_version and after_version:
         return [
             RiskFinding(
                 bucket=RiskBucket.VERSION_CHANGE_UNCLASSIFIED,
