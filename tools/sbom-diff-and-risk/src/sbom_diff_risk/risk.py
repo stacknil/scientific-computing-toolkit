@@ -12,10 +12,12 @@ from .models import Component, ComponentChange, RiskBucket, RiskFinding
 
 _UNKNOWN_LICENSES = {"", "unknown", "noassertion"}
 _SEMVER_RE = re.compile(
-    r"^v?(?P<major>0|[1-9]\d*)"
-    r"\.(?P<minor>0|[1-9]\d*)"
-    r"\.(?P<patch>0|[1-9]\d*)"
-    r"(?:[-+][0-9A-Za-z.-]+)?$"
+    r"v?(?P<major>0|[1-9][0-9]*)"
+    r"\.(?:0|[1-9][0-9]*)"
+    r"\.(?:0|[1-9][0-9]*)"
+    r"(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)"
+    r"(?:\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?"
+    r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?"
 )
 
 
@@ -61,8 +63,7 @@ def _version_change_findings(change: ComponentChange) -> list[RiskFinding]:
     if before_version == after_version:
         return []
 
-    semver_delta = _semver_major_delta(before_version, after_version)
-    if semver_delta is not None and semver_delta > 0:
+    if _is_semver_major_increase(before_version, after_version):
         return [
             RiskFinding(
                 bucket=RiskBucket.MAJOR_UPGRADE,
@@ -123,21 +124,23 @@ def _is_unknown_license(license_id: str | None) -> bool:
     return license_id.strip().lower() in _UNKNOWN_LICENSES
 
 
-def _semver_major_delta(before: str | None, after: str | None) -> int | None:
+def _is_semver_major_increase(before: str | None, after: str | None) -> bool:
     before_major = _semver_major(before)
     after_major = _semver_major(after)
     if before_major is None or after_major is None:
-        return None
-    return after_major - before_major
+        return False
+    # Validated ASCII integers have no leading zeroes. Avoid int conversion's
+    # digit limit while comparing their numeric magnitude, not version precedence.
+    return (len(after_major), after_major) > (len(before_major), before_major)
 
 
-def _semver_major(version: str | None) -> int | None:
+def _semver_major(version: str | None) -> str | None:
     if not version:
         return None
-    match = _SEMVER_RE.match(version.strip())
+    match = _SEMVER_RE.fullmatch(version.strip())
     if not match:
         return None
-    return int(match.group("major"))
+    return match.group("major")
 
 
 def _is_suspicious_source(component: Component, allowlist: set[str]) -> bool:

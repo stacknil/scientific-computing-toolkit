@@ -17,6 +17,14 @@ The current rules are intentionally conservative:
 
 - `new_package` is a change signal, not a vulnerability claim.
 - `major_upgrade` fires only when both versions look reliably parseable as strict SemVer.
+- Eligibility follows the [SemVer 2.0.0 grammar](https://semver.org/spec/v2.0.0.html):
+  ASCII `major.minor.patch`, optional prerelease identifiers and optional build
+  metadata. Empty identifiers and leading zeroes in core or numeric prerelease
+  identifiers are ineligible; numeric build identifiers may have leading zeroes.
+  Outer whitespace and one lowercase `v` prefix remain supported tool extensions.
+- Only the validated major integers are compared. Prerelease-to-final,
+  final-to-prerelease, build-only changes and major decreases remain unclassified
+  when the canonical strings differ. No package-manager precedence is inferred.
 - uncertain version changes fall back to `version_change_unclassified`.
 - Version comparison uses the same canonical identity as the diff: a PURL version
   is evidence even when the explicit version field is absent. Conflicting explicit
