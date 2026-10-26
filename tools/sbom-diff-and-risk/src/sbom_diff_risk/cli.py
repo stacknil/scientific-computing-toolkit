@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
-from .diffing import diff_components
+from .diffing import diff_components, validate_component_identities
 from .enrichment import DEFAULT_PYPI_TIMEOUT_SECONDS, PyPIProvenanceEnricher, merge_enrichment_metadata
 from .errors import ParseError, PolicyError
 from .models import CompareReport, ReportComponents, ReportEnrichmentMetadata, ReportMetadata, ReportSummary
@@ -193,6 +193,11 @@ def run_compare(args: argparse.Namespace) -> int:
     )
     if pyproject_group and before_format != "pyproject-toml" and after_format != "pyproject-toml":
         raise ValueError("--pyproject-group requires at least one pyproject.toml input.")
+
+    if enrich_pypi or enrich_scorecard:
+        # Validate both inputs before either provider can perform a lookup.
+        validate_component_identities(before_components, side="before")
+        validate_component_identities(after_components, side="after")
 
     pypi_enrichment_metadata = None
     if enrich_pypi:

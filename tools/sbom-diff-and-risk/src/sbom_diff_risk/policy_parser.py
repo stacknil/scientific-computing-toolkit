@@ -53,6 +53,11 @@ def load_policy(path: Path) -> PolicyConfig:
     if not isinstance(payload, dict):
         raise PolicyError(f"Invalid policy schema in {path}: top-level YAML value must be a mapping.")
 
+    if any(not isinstance(key, str) for key in payload):
+        raise PolicyError(
+            f"Invalid policy schema in {path}: policy keys must be strings."
+        )
+
     unknown_keys = sorted(set(payload) - _SUPPORTED_POLICY_KEYS)
     if unknown_keys:
         raise PolicyError(f"Invalid policy schema in {path}: unsupported keys: {', '.join(unknown_keys)}.")
@@ -67,7 +72,7 @@ def load_policy(path: Path) -> PolicyConfig:
         )
 
     version = payload.get("version")
-    if not isinstance(version, int):
+    if isinstance(version, bool) or not isinstance(version, int):
         raise PolicyError(f"Invalid policy schema in {path}: version must be an integer.")
     if version not in {1, 2, 3}:
         raise PolicyError(f"Invalid policy schema in {path}: only versions 1, 2, and 3 are supported.")
@@ -107,7 +112,11 @@ def load_policy(path: Path) -> PolicyConfig:
     )
 
     max_added_packages = payload.get("max_added_packages")
-    if max_added_packages is not None and (not isinstance(max_added_packages, int) or max_added_packages < 0):
+    if max_added_packages is not None and (
+        isinstance(max_added_packages, bool)
+        or not isinstance(max_added_packages, int)
+        or max_added_packages < 0
+    ):
         raise PolicyError(f"Invalid policy schema in {path}: max_added_packages must be a non-negative integer.")
 
     allow_sources = _parse_string_list(payload.get("allow_sources", []), f"{path}: allow_sources", lower=True)

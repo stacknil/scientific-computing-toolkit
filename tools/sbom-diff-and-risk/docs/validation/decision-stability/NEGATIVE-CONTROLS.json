@@ -1,0 +1,760 @@
+{
+  "actual_round_executions": 42,
+  "collection_failures_are_not_detection": true,
+  "control_results": [
+    {
+      "base_case": "M03",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "detected_check": "decision",
+      "green_validated": true,
+      "id": "N01",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "silently remove blocking violation",
+      "red_detected": true,
+      "target_check": "decision"
+    },
+    {
+      "base_case": "M04",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "WARN",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "warning",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "warn",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "warn_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "detected_check": "decision",
+      "green_validated": true,
+      "id": "N02",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "upgrade warning to blocking",
+      "red_detected": true,
+      "target_check": "decision"
+    },
+    {
+      "base_case": "M03",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "WARN",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "warning",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "warn",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "warn_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "detected_check": "decision",
+      "green_validated": true,
+      "id": "N03",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "downgrade blocking to warning",
+      "red_detected": true,
+      "target_check": "decision"
+    },
+    {
+      "base_case": "M06",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 1,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "suppressed",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": "ignored_by_policy",
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "detected_check": "violation-identity",
+      "green_validated": true,
+      "id": "N04",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "drop suppression evidence",
+      "red_detected": true,
+      "target_check": "violation-identity"
+    },
+    {
+      "base_case": "M18",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "assessment": [
+          true,
+          false,
+          true,
+          [
+            "github actions"
+          ]
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "detected_check": "assessment",
+      "green_validated": true,
+      "id": "N05",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "unavailable provenance becomes verified",
+      "red_detected": true,
+      "target_check": "assessment"
+    },
+    {
+      "base_case": "M20",
+      "before": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": false,
+            "policy_rule": "missing_attestation",
+            "reason": "attestation_not_published",
+            "rule": "missing_attestation",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "detected_check": "violation-identity",
+      "green_validated": true,
+      "id": "N06",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "missing attestation becomes unavailable",
+      "red_detected": true,
+      "target_check": "violation-identity"
+    },
+    {
+      "base_case": "M22",
+      "before": {
+        "assessment": [
+          true,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": [],
+            "policy_rule": "unverified_provenance",
+            "reason": "provenance_publisher_not_verified",
+            "rule": "unverified_provenance",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "assessment": [
+          true,
+          false,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "detected_check": "decision",
+      "green_validated": true,
+      "id": "N07",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "accept missing publisher identity",
+      "red_detected": true,
+      "target_check": "decision"
+    },
+    {
+      "base_case": "M42",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "corrupted": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 3,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "scorecard_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": 6.9,
+            "policy_rule": "scorecard_below_threshold",
+            "reason": "scorecard_score_below_threshold",
+            "rule": "scorecard_below_threshold",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": 7.0
+          }
+        ]
+      },
+      "detected_check": "decision",
+      "green_validated": true,
+      "id": "N08",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "enforce advisory-only Scorecard",
+      "red_detected": true,
+      "target_check": "decision"
+    },
+    {
+      "base_case": "M09",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "corrupted": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "group": "blocking",
+            "key": null,
+            "observed": 1,
+            "rule": "max_added_packages",
+            "threshold": 1
+          }
+        ]
+      },
+      "detected_check": "decision",
+      "green_validated": true,
+      "id": "N09",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "use greater-than-or-equal count threshold",
+      "red_detected": true,
+      "target_check": "decision"
+    },
+    {
+      "base_case": "M03",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "coord:pypi:Qualification_Alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "coord:pypi:Qualification_Alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "detected_check": "identity",
+      "green_validated": true,
+      "id": "N10",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "split canonical identity",
+      "red_detected": true,
+      "target_check": "identity"
+    },
+    {
+      "base_case": "identity-conflict",
+      "before": {
+        "conflicting_metadata_rejected": true
+      },
+      "corrupted": {
+        "conflicting_metadata_rejected": false
+      },
+      "detected_check": "identity-conflict-rejection",
+      "green_validated": true,
+      "id": "N11",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "silently accept conflicting metadata",
+      "red_detected": true,
+      "target_check": "identity-conflict-rejection"
+    },
+    {
+      "base_case": "M03",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "sidecar_observed_value": "corrupted-evidence"
+      },
+      "detected_check": "policy-sidecar",
+      "green_validated": true,
+      "id": "N12",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "alter policy sidecar evidence",
+      "red_detected": true,
+      "target_check": "policy-sidecar"
+    },
+    {
+      "base_case": "CLI-warning",
+      "before": {
+        "exit_code": 0,
+        "warning": 1
+      },
+      "corrupted": {
+        "exit_code": 1,
+        "warning": 1
+      },
+      "detected_check": "exit-blocking",
+      "green_validated": true,
+      "id": "N13",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "replace actual CLI exit with blocking exit",
+      "red_detected": true,
+      "target_check": "exit-blocking"
+    },
+    {
+      "base_case": "M03",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "corrupted": {
+        "package_safety_verdict": "verified_safe"
+      },
+      "detected_check": "no-security-verdict",
+      "green_validated": true,
+      "id": "N14",
+      "mechanism": "reached semantic result replacement; no import or collection failures",
+      "mutation": "launder heuristic into verified safety verdict",
+      "red_detected": true,
+      "target_check": "no-security-verdict"
+    }
+  ],
+  "representative_seed": 103,
+  "rounds": [
+    {
+      "detected": 14,
+      "reached": 14,
+      "seed": 103
+    },
+    {
+      "detected": 14,
+      "reached": 14,
+      "seed": 117
+    },
+    {
+      "detected": 14,
+      "reached": 14,
+      "seed": 120
+    }
+  ],
+  "schema": "local-negative-controls.v1",
+  "unique_controls": 14
+}
