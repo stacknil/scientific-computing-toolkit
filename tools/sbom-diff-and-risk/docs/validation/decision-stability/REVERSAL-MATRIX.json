@@ -1,0 +1,4857 @@
+{
+  "cases": [
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "new_package"
+          ],
+          "version": 1
+        },
+        "before": {
+          "version": 1
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P01",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M02",
+      "perturbation": "activate block rule",
+      "perturbed_case_id": "M03",
+      "previous_decision": "PASS",
+      "reason": "A local finding is enforced only by an explicit rule.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "version": 1,
+          "warn_on": [
+            "new_package"
+          ]
+        },
+        "before": {
+          "block_on": [
+            "new_package"
+          ],
+          "version": 1
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "WARN",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "warning",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "warn",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "warn_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P02",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M03",
+      "perturbation": "explicit severity",
+      "perturbed_case_id": "M04",
+      "previous_decision": "FAIL",
+      "reason": "Configured severity changes enforcement.",
+      "resulting_decision": "WARN",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "new_package"
+          ],
+          "version": 1,
+          "warn_on": [
+            "new_package"
+          ]
+        },
+        "before": {
+          "version": 1,
+          "warn_on": [
+            "new_package"
+          ]
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "WARN",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "warning",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "warn",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "warn_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P03",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M04",
+      "perturbation": "overlapping block rule",
+      "perturbed_case_id": "M05",
+      "previous_decision": "WARN",
+      "reason": "Explicit block wins over an existing warn.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "new_package"
+          ],
+          "ignore_rules": [
+            "new_package"
+          ],
+          "version": 1,
+          "warn_on": [
+            "new_package"
+          ]
+        },
+        "before": {
+          "block_on": [
+            "new_package"
+          ],
+          "version": 1,
+          "warn_on": [
+            "new_package"
+          ]
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 1,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "suppressed",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": "ignored_by_policy",
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P04",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M05",
+      "perturbation": "add ignore",
+      "perturbed_case_id": "M06",
+      "previous_decision": "FAIL",
+      "reason": "Ignore takes precedence but retains suppression evidence.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "max_added_packages": 1,
+          "version": 1
+        },
+        "before": {
+          "max_added_packages": 0,
+          "version": 1
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": null,
+            "level": "block",
+            "name": null,
+            "observed": 1,
+            "policy_rule": "max_added_packages",
+            "reason": "added_package_count_exceeded_threshold",
+            "rule": "max_added_packages",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": 0
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P05",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M08",
+      "perturbation": "count threshold 0 to 1",
+      "perturbed_case_id": "M09",
+      "previous_decision": "FAIL",
+      "reason": "One added component does not exceed a threshold of one.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "max_added_packages": 2,
+          "version": 1
+        },
+        "before": {
+          "max_added_packages": 1,
+          "version": 1
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P06",
+      "observed_classification": "STABLE",
+      "original_case_id": "M09",
+      "perturbation": "count threshold 1 to 2",
+      "perturbed_case_id": "M10",
+      "previous_decision": "PASS",
+      "reason": "Neither threshold is exceeded.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "max_added_packages": 0,
+          "version": 1,
+          "warn_on": [
+            "max_added_packages"
+          ]
+        },
+        "before": {
+          "max_added_packages": 0,
+          "version": 1
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "WARN",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "warning",
+            "key": null,
+            "level": "warn",
+            "name": null,
+            "observed": 1,
+            "policy_rule": "max_added_packages",
+            "reason": "added_package_count_exceeded_threshold",
+            "rule": "max_added_packages",
+            "source": "warn_on",
+            "suppression": null,
+            "threshold": 0
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": null,
+            "level": "block",
+            "name": null,
+            "observed": 1,
+            "policy_rule": "max_added_packages",
+            "reason": "added_package_count_exceeded_threshold",
+            "rule": "max_added_packages",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": 0
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P07",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M08",
+      "perturbation": "explicit warning override",
+      "perturbed_case_id": "M11",
+      "previous_decision": "FAIL",
+      "reason": "Warn overrides implicit default block.",
+      "resulting_decision": "WARN",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "ignore_rules": [
+            "max_added_packages"
+          ],
+          "max_added_packages": 0,
+          "version": 1
+        },
+        "before": {
+          "max_added_packages": 0,
+          "version": 1
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 1,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "suppressed",
+            "key": null,
+            "level": "block",
+            "name": null,
+            "observed": 1,
+            "policy_rule": "max_added_packages",
+            "reason": "added_package_count_exceeded_threshold",
+            "rule": "max_added_packages",
+            "source": "default_block",
+            "suppression": "ignored_by_policy",
+            "threshold": 0
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": null,
+            "level": "block",
+            "name": null,
+            "observed": 1,
+            "policy_rule": "max_added_packages",
+            "reason": "added_package_count_exceeded_threshold",
+            "rule": "max_added_packages",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": 0
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P08",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M08",
+      "perturbation": "ignore implicit block",
+      "perturbed_case_id": "M12",
+      "previous_decision": "FAIL",
+      "reason": "The omitted block is accounted for as a suppression.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "allow_sources": [
+            "pypi.org"
+          ],
+          "version": 1
+        },
+        "before": {
+          "allow_sources": [
+            "github.com"
+          ],
+          "version": 1
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "github.com",
+            "policy_rule": "allow_sources",
+            "reason": "source_host_not_allowed",
+            "rule": "allow_sources",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": [
+              "pypi.org"
+            ]
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 1,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P09",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M13",
+      "perturbation": "source allowlist membership",
+      "perturbed_case_id": "M14",
+      "previous_decision": "PASS",
+      "reason": "Observed host falls outside the narrowed allowed set.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "provenance_unavailable"
+          ],
+          "version": 2
+        },
+        "before": {
+          "block_on": [
+            "provenance_unavailable"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P10",
+      "observed_classification": "STABLE",
+      "original_case_id": "M17",
+      "perturbation": "disabled to failed provenance",
+      "perturbed_case_id": "M18",
+      "previous_decision": "FAIL",
+      "reason": "Both evidence states remain unavailable; confidence describes record presence.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "error"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "provenance_unavailable"
+          ],
+          "version": 2
+        },
+        "before": {
+          "block_on": [
+            "provenance_unavailable"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P11",
+      "observed_classification": "STABLE",
+      "original_case_id": "M18",
+      "perturbation": "failed to unsupported provenance",
+      "perturbed_case_id": "M19",
+      "previous_decision": "FAIL",
+      "reason": "Neither state supplies available provenance.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "error",
+          "unsupported"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "provenance_unavailable"
+          ],
+          "version": 2
+        },
+        "before": {
+          "block_on": [
+            "provenance_unavailable"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P12",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M17",
+      "perturbation": "successful metadata without attestation",
+      "perturbed_case_id": "M21",
+      "previous_decision": "FAIL",
+      "reason": "Unavailable-only policy stops blocking once a lookup succeeds; this is not verified provenance.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "missing"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "unverified_provenance"
+          ],
+          "version": 2
+        },
+        "before": {
+          "block_on": [
+            "unverified_provenance"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          true,
+          false,
+          true,
+          [
+            "manual upload"
+          ]
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          true,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": [],
+            "policy_rule": "unverified_provenance",
+            "reason": "provenance_publisher_not_verified",
+            "rule": "unverified_provenance",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P13",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M22",
+      "perturbation": "recorded publisher supplied",
+      "perturbed_case_id": "M23",
+      "previous_decision": "FAIL",
+      "reason": "A nonempty publisher kind satisfies the current recorded-metadata contract without an allowlist.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "attested",
+          "attested"
+        ],
+        "publishers": [
+          [],
+          [
+            "manual upload"
+          ]
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "allow_provenance_publishers": [
+            "github actions"
+          ],
+          "block_on": [
+            "unverified_provenance"
+          ],
+          "version": 2
+        },
+        "before": {
+          "allow_provenance_publishers": [
+            "manual upload"
+          ],
+          "block_on": [
+            "unverified_provenance"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          true,
+          false,
+          true,
+          [
+            "github actions"
+          ]
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          true,
+          false,
+          false,
+          [
+            "github actions"
+          ]
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": [
+              "github actions"
+            ],
+            "policy_rule": "unverified_provenance",
+            "reason": "provenance_publisher_not_verified",
+            "rule": "unverified_provenance",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": [
+              "manual upload"
+            ]
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P14",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M24",
+      "perturbation": "publisher allowlist membership",
+      "perturbed_case_id": "M25",
+      "previous_decision": "FAIL",
+      "reason": "The recorded publisher is explicitly authorized.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "attested",
+          "attested"
+        ],
+        "publishers": [
+          [
+            "github actions"
+          ],
+          [
+            "github actions"
+          ]
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "allow_provenance_publishers": [
+            "github actions"
+          ],
+          "block_on": [
+            "unverified_provenance"
+          ],
+          "version": 2
+        },
+        "before": {
+          "allow_provenance_publishers": [
+            "github actions"
+          ],
+          "block_on": [
+            "unverified_provenance"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          true,
+          false,
+          true,
+          [
+            "github actions",
+            "manual upload"
+          ]
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          true,
+          false,
+          true,
+          [
+            "github actions"
+          ]
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P15",
+      "observed_classification": "STABLE",
+      "original_case_id": "M25",
+      "perturbation": "additional publisher kind",
+      "perturbed_case_id": "M26",
+      "previous_decision": "PASS",
+      "reason": "The existing allowlist contract requires any matching kind.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "attested",
+          "attested"
+        ],
+        "publishers": [
+          [
+            "github actions"
+          ],
+          [
+            "manual upload",
+            "github actions"
+          ]
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        },
+        "before": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "attestation_missing",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unavailable",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P16",
+      "observed_classification": "STABLE",
+      "original_case_id": "M27",
+      "perturbation": "unknown to known missing attestation",
+      "perturbed_case_id": "M28",
+      "previous_decision": "FAIL",
+      "reason": "Required provenance remains unsatisfied; explanation evidence changes.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "missing"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        },
+        "before": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          true,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unverified",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "attestation_missing",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P17",
+      "observed_classification": "STABLE",
+      "original_case_id": "M28",
+      "perturbation": "missing to unverified attestation",
+      "perturbed_case_id": "M29",
+      "previous_decision": "FAIL",
+      "reason": "Presence alone does not satisfy a provenance requirement.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "missing",
+          "attested"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        },
+        "before": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          true,
+          false,
+          true,
+          [
+            "github actions"
+          ]
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          true,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unverified",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P18",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M29",
+      "perturbation": "recorded publisher identity supplied",
+      "perturbed_case_id": "M30",
+      "previous_decision": "FAIL",
+      "reason": "Recorded publisher metadata satisfies the existing requirement, without a cryptographic claim.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "attested",
+          "attested"
+        ],
+        "publishers": [
+          [],
+          [
+            "github actions"
+          ]
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "require_attestations_for_new_packages": true,
+          "version": 2,
+          "warn_on": [
+            "provenance_required"
+          ]
+        },
+        "before": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "WARN",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "warning",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "warn",
+            "name": "qualification-alpha",
+            "observed": "provenance_unavailable",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "warn_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unavailable",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P19",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M27",
+      "perturbation": "required rule warning override",
+      "perturbed_case_id": "M31",
+      "previous_decision": "FAIL",
+      "reason": "Explicit warn overrides implicit blocking.",
+      "resulting_decision": "WARN",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "ignore_rules": [
+            "provenance_required"
+          ],
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        },
+        "before": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 1,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "suppressed",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unavailable",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": "ignored_by_policy",
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unavailable",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P20",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M27",
+      "perturbation": "ignore required rule",
+      "perturbed_case_id": "M32",
+      "previous_decision": "FAIL",
+      "reason": "An explicit suppression is retained.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "allow_unattested_packages": [
+            "qualification-alpha"
+          ],
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        },
+        "before": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "attestation_missing",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P21",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M28",
+      "perturbation": "authorize package exception",
+      "perturbed_case_id": "M65",
+      "previous_decision": "FAIL",
+      "reason": "A name exception may satisfy a requirement caused solely by missing attestations.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "missing",
+          "missing"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "allow_unattested_packages": [
+            "qualification-alpha"
+          ],
+          "block_on": [
+            "missing_attestation"
+          ],
+          "version": 2
+        },
+        "before": {
+          "block_on": [
+            "missing_attestation"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": false,
+            "policy_rule": "missing_attestation",
+            "reason": "attestation_not_published",
+            "rule": "missing_attestation",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P22",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M20",
+      "perturbation": "authorize missing-attestation exception",
+      "perturbed_case_id": "M66",
+      "previous_decision": "FAIL",
+      "reason": "Only the missing-attestation check is waived.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "missing",
+          "missing"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "allow_unattested_packages": [
+            "qualification-alpha"
+          ],
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        },
+        "before": {
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unavailable",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unavailable",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P23",
+      "observed_classification": "STABLE",
+      "original_case_id": "M27",
+      "perturbation": "add exception to unavailable evidence",
+      "perturbed_case_id": "M67",
+      "previous_decision": "FAIL",
+      "reason": "A package exception does not waive unavailable provenance.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "allow_unattested_packages": [
+            "qualification-alpha"
+          ],
+          "block_on": [
+            "unverified_provenance"
+          ],
+          "version": 2
+        },
+        "before": {
+          "block_on": [
+            "unverified_provenance"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          true,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": [],
+            "policy_rule": "unverified_provenance",
+            "reason": "provenance_publisher_not_verified",
+            "rule": "unverified_provenance",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          true,
+          false,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": [],
+            "policy_rule": "unverified_provenance",
+            "reason": "provenance_publisher_not_verified",
+            "rule": "unverified_provenance",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P24",
+      "observed_classification": "STABLE",
+      "original_case_id": "M22",
+      "perturbation": "add exception to unverified evidence",
+      "perturbed_case_id": "M68",
+      "previous_decision": "FAIL",
+      "reason": "A package exception does not waive an unverified publisher.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "attested",
+          "attested"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "provenance_unavailable"
+          ],
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        },
+        "before": {
+          "block_on": [
+            "provenance_unavailable"
+          ],
+          "require_attestations_for_new_packages": true,
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "provenance_unavailable",
+            "policy_rule": "provenance_required",
+            "reason": "required_provenance_not_satisfied",
+            "rule": "provenance_required",
+            "source": "default_block",
+            "suppression": null,
+            "threshold": null
+          },
+          {
+            "bucket": null,
+            "confidence": "provenance_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "unavailable",
+            "policy_rule": "provenance_unavailable",
+            "reason": "provenance_evidence_unavailable",
+            "rule": "provenance_unavailable",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          true,
+          false,
+          true,
+          [
+            "github actions"
+          ]
+        ],
+        "decision": "PASS",
+        "effective_version": 2,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P25",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M69",
+      "perturbation": "add contradictory enrichment error",
+      "perturbed_case_id": "M41",
+      "previous_decision": "PASS",
+      "reason": "An explicit error dominates attestation availability.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "attested",
+          "error-and-attested"
+        ],
+        "publishers": [
+          [
+            "github actions"
+          ],
+          [
+            "github actions"
+          ]
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        },
+        "before": {
+          "minimum_scorecard_score": 7,
+          "version": 3
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 3,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "scorecard_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": 6.9,
+            "policy_rule": "scorecard_below_threshold",
+            "reason": "scorecard_score_below_threshold",
+            "rule": "scorecard_below_threshold",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": 7.0
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P26",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M42",
+      "perturbation": "activate Scorecard enforcement",
+      "perturbed_case_id": "M43",
+      "previous_decision": "PASS",
+      "reason": "A threshold alone is advisory; the block rule activates enforcement.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          6.9,
+          6.9
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        },
+        "before": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 3,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "scorecard_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": 6.9,
+            "policy_rule": "scorecard_below_threshold",
+            "reason": "scorecard_score_below_threshold",
+            "rule": "scorecard_below_threshold",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": 7.0
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P27",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M43",
+      "perturbation": "score reaches threshold",
+      "perturbed_case_id": "M44",
+      "previous_decision": "FAIL",
+      "reason": "Equality is permitted; only a lower score violates.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          6.9,
+          7.0
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        },
+        "before": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P28",
+      "observed_classification": "STABLE",
+      "original_case_id": "M44",
+      "perturbation": "score above threshold",
+      "perturbed_case_id": "M45",
+      "previous_decision": "PASS",
+      "reason": "Both scores meet the minimum.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          7.0,
+          7.1
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "minimum_scorecard_score": 7,
+          "version": 3,
+          "warn_on": [
+            "scorecard_below_threshold"
+          ]
+        },
+        "before": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "WARN",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "scorecard_recorded",
+            "group": "warning",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "warn",
+            "name": "qualification-alpha",
+            "observed": 6.9,
+            "policy_rule": "scorecard_below_threshold",
+            "reason": "scorecard_score_below_threshold",
+            "rule": "scorecard_below_threshold",
+            "source": "warn_on",
+            "suppression": null,
+            "threshold": 7.0
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 3,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "scorecard_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": 6.9,
+            "policy_rule": "scorecard_below_threshold",
+            "reason": "scorecard_score_below_threshold",
+            "rule": "scorecard_below_threshold",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": 7.0
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P29",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M43",
+      "perturbation": "Scorecard severity",
+      "perturbed_case_id": "M47",
+      "previous_decision": "FAIL",
+      "reason": "Explicit warn changes the policy decision but does not erase evidence.",
+      "resulting_decision": "WARN",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          6.9,
+          6.9
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "ignore_rules": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        },
+        "before": {
+          "minimum_scorecard_score": 7,
+          "version": 3
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 1,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "scorecard_recorded",
+            "group": "suppressed",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": null,
+            "name": "qualification-alpha",
+            "observed": 6.9,
+            "policy_rule": "scorecard_below_threshold",
+            "reason": "scorecard_score_below_threshold",
+            "rule": "scorecard_below_threshold",
+            "source": null,
+            "suppression": "ignored_by_policy",
+            "threshold": 7.0
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P30",
+      "observed_classification": "STABLE",
+      "original_case_id": "M42",
+      "perturbation": "ignore advisory Scorecard",
+      "perturbed_case_id": "M48",
+      "previous_decision": "PASS",
+      "reason": "Decision stays pass while ignored evidence becomes visible.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          6.9,
+          6.9
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        },
+        "before": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 3,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "scorecard_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": 6.9,
+            "policy_rule": "scorecard_below_threshold",
+            "reason": "scorecard_score_below_threshold",
+            "rule": "scorecard_below_threshold",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": 7.0
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P31",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M43",
+      "perturbation": "Scorecard availability lost",
+      "perturbed_case_id": "M49",
+      "previous_decision": "FAIL",
+      "reason": "Unknown scores are not fabricated into threshold violations under current policy.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          6.9,
+          6.9
+        ],
+        "score_available": [
+          true,
+          false
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 6,
+          "version": 3
+        },
+        "before": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "minimum_scorecard_score": 7,
+          "version": 3
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 3,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": null,
+            "confidence": "scorecard_recorded",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": 6.9,
+            "policy_rule": "scorecard_below_threshold",
+            "reason": "scorecard_score_below_threshold",
+            "rule": "scorecard_below_threshold",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": 7.0
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "P32",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "M43",
+      "perturbation": "lower Scorecard threshold",
+      "perturbed_case_id": "M70",
+      "previous_decision": "FAIL",
+      "reason": "6.9 meets a configured minimum of 6.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          6.9,
+          6.9
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "new_package"
+          ],
+          "version": 2
+        },
+        "before": {
+          "block_on": [
+            "new_package"
+          ],
+          "version": 1
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 2,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "FAIL",
+        "effective_version": 1,
+        "exit_code": 1,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": [
+          {
+            "bucket": "new_package",
+            "confidence": "policy_matched",
+            "group": "blocking",
+            "key": "purl:pkg:pypi/qualification-alpha",
+            "level": "block",
+            "name": "qualification-alpha",
+            "observed": "new_package",
+            "policy_rule": "new_package",
+            "reason": "risk_finding_matched_policy_rule",
+            "rule": "new_package",
+            "source": "block_on",
+            "suppression": null,
+            "threshold": null
+          }
+        ]
+      },
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "P33",
+      "observed_classification": "STABLE",
+      "original_case_id": "M03",
+      "perturbation": "policy version 1 to 2",
+      "perturbed_case_id": "M71",
+      "previous_decision": "FAIL",
+      "reason": "An existing local rule retains its severity across capability versions.",
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "after": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "version": 3
+        },
+        "before": {
+          "block_on": [
+            "scorecard_below_threshold"
+          ],
+          "version": 2
+        }
+      },
+      "after": {
+        "assessment": [
+          false,
+          true,
+          false,
+          []
+        ],
+        "decision": "PASS",
+        "effective_version": 3,
+        "exit_code": 0,
+        "identity": "purl:pkg:pypi/qualification-alpha",
+        "ignored_checks": 0,
+        "rows": []
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before": {
+        "decision": "INVALID_INPUT",
+        "error_type": "PolicyError",
+        "exit_code": 2
+      },
+      "before_canonical_identity": null,
+      "expected_classification": "INVALID_INPUT",
+      "id": "P34",
+      "observed_classification": "INVALID_INPUT",
+      "original_case_id": "M51",
+      "perturbation": "policy version 2 to 3",
+      "perturbed_case_id": "M72",
+      "previous_decision": "INVALID_INPUT",
+      "reason": "A Scorecard rule is rejected in v2 and eligible in v3.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "provenance": [
+          "none",
+          "none"
+        ],
+        "publishers": [
+          [],
+          []
+        ],
+        "score": [
+          null,
+          null
+        ],
+        "score_available": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R01",
+      "observed_classification": "STABLE",
+      "original_case_id": "R01-left",
+      "perturbation": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "previous_decision": "FAIL",
+      "reason": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "record_order": [
+        "Qualification_Alpha"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "Qualification_Alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:npm/%40scope/qualification"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:npm/%40scope/qualification"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R02",
+      "observed_classification": "STABLE",
+      "original_case_id": "R02-left",
+      "perturbation": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "previous_decision": "FAIL",
+      "reason": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "record_order": [
+        "qualification"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification",
+              "purl": "pkg:npm/%40scope/qualification@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "Qualification",
+              "purl": "pkg:npm/%40scope/Qualification@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "major_upgrade"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R03",
+      "observed_classification": "STABLE",
+      "original_case_id": "R03-left",
+      "perturbation": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "previous_decision": "FAIL",
+      "reason": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@2.0.0",
+              "version": "2.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@2.0.0",
+              "version": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R04",
+      "observed_classification": "STABLE",
+      "original_case_id": "R04-left",
+      "perturbation": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "previous_decision": "FAIL",
+      "reason": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "bom-ref": "opaque:qualification",
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": null,
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "INVALID_INPUT",
+      "id": "R05",
+      "observed_classification": "INVALID_INPUT",
+      "original_case_id": "R05-left",
+      "perturbation": "Duplicate or conflicting identities must be rejected before report completion.",
+      "previous_decision": "FAIL",
+      "reason": "Duplicate or conflicting identities must be rejected before report completion.",
+      "record_order": [
+        "qualification-alpha",
+        "qualification-alpha"
+      ],
+      "resulting_decision": "INVALID_INPUT",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            },
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": null,
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "INVALID_INPUT",
+      "id": "R06",
+      "observed_classification": "INVALID_INPUT",
+      "original_case_id": "R06-left",
+      "perturbation": "Duplicate or conflicting identities must be rejected before report completion.",
+      "previous_decision": "FAIL",
+      "reason": "Duplicate or conflicting identities must be rejected before report completion.",
+      "record_order": [
+        "qualification-alpha",
+        "qualification-alpha"
+      ],
+      "resulting_decision": "INVALID_INPUT",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            },
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "BSD-3-Clause"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": null,
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "INVALID_INPUT",
+      "id": "R07",
+      "observed_classification": "INVALID_INPUT",
+      "original_case_id": "R07-left",
+      "perturbation": "An explicit version conflicts with its PURL version.",
+      "previous_decision": "FAIL",
+      "reason": "An explicit version conflicts with its PURL version.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "INVALID_INPUT",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "2.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": null,
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "INVALID_INPUT",
+      "id": "R08",
+      "observed_classification": "INVALID_INPUT",
+      "original_case_id": "R08-left",
+      "perturbation": "An explicit name conflicts with its PURL name.",
+      "previous_decision": "FAIL",
+      "reason": "An explicit name conflicts with its PURL name.",
+      "record_order": [
+        "another-package"
+      ],
+      "resulting_decision": "INVALID_INPUT",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "another-package",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "bom-ref:opaque:x"
+      ],
+      "before_canonical_identity": [
+        "bom-ref:Opaque:X"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R09",
+      "observed_classification": "STABLE",
+      "original_case_id": "R09-left",
+      "perturbation": "Opaque references remain distinct; identical policy outcomes do not assert identity equivalence.",
+      "previous_decision": "FAIL",
+      "reason": "Opaque references remain distinct; identical policy outcomes do not assert identity equivalence.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "bom-ref": "opaque:x",
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "bom-ref": "Opaque:X",
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:generic/qualification"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:generic/Qualification"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R10",
+      "observed_classification": "STABLE",
+      "original_case_id": "R10-left",
+      "perturbation": "Unsupported ecosystem case equivalence is not invented.",
+      "previous_decision": "FAIL",
+      "reason": "Unsupported ecosystem case equivalence is not invented.",
+      "record_order": [
+        "qualification"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification",
+              "purl": "pkg:generic/qualification@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "Qualification",
+              "purl": "pkg:generic/Qualification@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:generic/qualification-alpha"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:generic/qualification-alpha"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R11",
+      "observed_classification": "STABLE",
+      "original_case_id": "R11-left",
+      "perturbation": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "previous_decision": "FAIL",
+      "reason": "Supported identity equivalence preserves enforcement; original evidence remains observable.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "description": "Irrelevant synthetic description",
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:generic/qualification-alpha",
+              "version": null
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:generic/qualification-alpha",
+              "version": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": null,
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "INVALID_INPUT",
+      "id": "R12",
+      "observed_classification": "INVALID_INPUT",
+      "original_case_id": "R12-left",
+      "perturbation": "Malformed identity is rejected rather than silently falling back.",
+      "previous_decision": "FAIL",
+      "reason": "Malformed identity is rejected rather than silently falling back.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "INVALID_INPUT",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "not-a-purl",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R13",
+      "observed_classification": "STABLE",
+      "original_case_id": "R13-left",
+      "perturbation": "Only the shared component, version, license and source subset is compared.",
+      "previous_decision": "FAIL",
+      "reason": "Only the shared component, version, license and source subset is compared.",
+      "record_order": [],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "packages": [
+            {
+              "downloadLocation": "https://github.com/example/qualification",
+              "externalRefs": [
+                {
+                  "referenceLocator": "pkg:pypi/qualification-alpha@1.0.0",
+                  "referenceType": "purl"
+                }
+              ],
+              "licenseConcluded": "MIT",
+              "name": "qualification-alpha",
+              "versionInfo": "1.0.0"
+            }
+          ],
+          "spdxVersion": "SPDX-2.3"
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha",
+        "purl:pkg:pypi/qualification-beta",
+        "purl:pkg:pypi/qualification-delta",
+        "purl:pkg:pypi/qualification-gamma"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha",
+        "purl:pkg:pypi/qualification-beta",
+        "purl:pkg:pypi/qualification-delta",
+        "purl:pkg:pypi/qualification-gamma"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R14",
+      "observed_classification": "STABLE",
+      "original_case_id": "R14-left",
+      "perturbation": "Record ordering is irrelevant; each round records its actual permutation.",
+      "previous_decision": "FAIL",
+      "reason": "Record ordering is irrelevant; each round records its actual permutation.",
+      "record_order": [
+        "qualification-beta",
+        "qualification-alpha",
+        "qualification-gamma",
+        "qualification-delta"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-beta",
+              "purl": "pkg:pypi/qualification-beta@1.0.0",
+              "version": "1.0.0"
+            },
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            },
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-gamma",
+              "purl": "pkg:pypi/qualification-gamma@1.0.0",
+              "version": "1.0.0"
+            },
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-delta",
+              "purl": "pkg:pypi/qualification-delta@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            },
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-beta",
+              "purl": "pkg:pypi/qualification-beta@1.0.0",
+              "version": "1.0.0"
+            },
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-gamma",
+              "purl": "pkg:pypi/qualification-gamma@1.0.0",
+              "version": "1.0.0"
+            },
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-delta",
+              "purl": "pkg:pypi/qualification-delta@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "allow_sources": [
+          "pypi.org"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [],
+      "before_canonical_identity": [],
+      "expected_classification": "STABLE",
+      "id": "R15",
+      "observed_classification": "STABLE",
+      "original_case_id": "R15-left",
+      "perturbation": "Raw ignored metadata does not place an unchanged component into policy scope.",
+      "previous_decision": "PASS",
+      "reason": "Raw ignored metadata does not place an unchanged component into policy scope.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "description": "Ignored synthetic annotation",
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "allow_sources": [
+          "pypi.org"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "before_canonical_identity": [],
+      "expected_classification": "JUSTIFIED_REVERSAL",
+      "id": "R16",
+      "observed_classification": "JUSTIFIED_REVERSAL",
+      "original_case_id": "R16-left",
+      "perturbation": "Compared license metadata creates a changed component, so its existing disallowed source enters policy scope.",
+      "previous_decision": "PASS",
+      "reason": "Compared license metadata creates a changed component, so its existing disallowed source enters policy scope.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "BSD-3-Clause"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "STABLE",
+      "id": "R17",
+      "observed_classification": "STABLE",
+      "original_case_id": "R17-left",
+      "perturbation": "Supported field trimming and JSON serialization do not change identity or policy.",
+      "previous_decision": "FAIL",
+      "reason": "Supported field trimming and JSON serialization do not change identity or policy.",
+      "record_order": [
+        " qualification-alpha "
+      ],
+      "resulting_decision": "FAIL",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": " qualification-alpha ",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": " 1.0.0 "
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "new_package"
+        ],
+        "version": 1
+      },
+      "after_canonical_identity": null,
+      "before_canonical_identity": [
+        "purl:pkg:pypi/qualification-alpha"
+      ],
+      "expected_classification": "INVALID_INPUT",
+      "id": "R18",
+      "observed_classification": "INVALID_INPUT",
+      "original_case_id": "R18-left",
+      "perturbation": "A non-string component version is invalid input.",
+      "previous_decision": "FAIL",
+      "reason": "A non-string component version is invalid input.",
+      "record_order": [
+        "qualification-alpha"
+      ],
+      "resulting_decision": "INVALID_INPUT",
+      "source_evidence_changes": {
+        "after": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": 1
+            }
+          ]
+        },
+        "before": {
+          "bomFormat": "CycloneDX",
+          "components": [
+            {
+              "externalReferences": [
+                {
+                  "type": "vcs",
+                  "url": "https://github.com/example/qualification"
+                }
+              ],
+              "licenses": [
+                {
+                  "license": {
+                    "id": "MIT"
+                  }
+                }
+              ],
+              "name": "qualification-alpha",
+              "purl": "pkg:pypi/qualification-alpha@1.0.0",
+              "version": "1.0.0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "active_policy": {
+        "version": 1,
+        "warn_on": [
+          "unknown_license"
+        ]
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "R19",
+      "observed_classification": "STABLE",
+      "original_case_id": "requirements-exact-pin",
+      "perturbation": "requirements to pyproject exact-pin shared subset",
+      "previous_decision": "WARN",
+      "reason": "Exact pins share coordinate identity and unknown-license evidence.",
+      "resulting_decision": "WARN",
+      "source_evidence_changes": "Source formats differ; optional groups, markers and unknown constraints are excluded."
+    },
+    {
+      "active_policy": {
+        "allow_unattested_packages": [
+          "Qualification_Alpha"
+        ],
+        "block_on": [
+          "missing_attestation"
+        ],
+        "version": 2
+      },
+      "after_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "before_canonical_identity": "purl:pkg:pypi/qualification-alpha",
+      "expected_classification": "STABLE",
+      "id": "C02",
+      "observed_classification": "STABLE",
+      "original_case_id": "E08",
+      "perturbation": "PEP 503-equivalent spelling only",
+      "previous_decision": "PASS",
+      "reason": "C02 POLICY DECISION APPROVED: canonical PyPI package-name equality; unchanged exception boundary.",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "observed_names": [
+          "qualification-alpha",
+          "Qualification_Alpha",
+          "qualification.alpha"
+        ]
+      }
+    },
+    {
+      "active_policy": {
+        "block_on": [
+          "provenance_unavailable"
+        ],
+        "version": 2
+      },
+      "after_canonical_identity": {
+        "key": "purl:pkg:pypi/demo-pkg",
+        "version": "1.0.0"
+      },
+      "before_canonical_identity": {
+        "key": "purl:pkg:pypi/demo-pkg",
+        "version": "1.0.0"
+      },
+      "expected_classification": "STABLE",
+      "id": "C03",
+      "observed_classification": "STABLE",
+      "perturbation": "Agreeing explicit versus PURL-only release version",
+      "previous_decision": "PASS",
+      "reason": "CONTRACT_CLARIFIED_CANONICAL_RELEASE_VERSION",
+      "resulting_decision": "PASS",
+      "source_evidence_changes": {
+        "enrichment_enabled": true,
+        "raw_versions": [
+          null,
+          "1.0.0"
+        ]
+      }
+    }
+  ],
+  "classification_counts": {
+    "INVALID_INPUT": 7,
+    "JUSTIFIED_REVERSAL": 23,
+    "STABLE": 25,
+    "SUSPICIOUS_REVERSAL": 0,
+    "UNRESOLVED": 0
+  },
+  "distinct_round_seeds": [
+    103,
+    117,
+    120
+  ],
+  "record_order_permutations": [
+    {
+      "order": [
+        "qualification-beta",
+        "qualification-alpha",
+        "qualification-gamma",
+        "qualification-delta"
+      ],
+      "seed": 103
+    },
+    {
+      "order": [
+        "qualification-delta",
+        "qualification-gamma",
+        "qualification-alpha",
+        "qualification-beta"
+      ],
+      "seed": 117
+    },
+    {
+      "order": [
+        "qualification-gamma",
+        "qualification-delta",
+        "qualification-alpha",
+        "qualification-beta"
+      ],
+      "seed": 120
+    }
+  ],
+  "representative_seed": 103,
+  "round_classifications": [
+    {
+      "counts": {
+        "INVALID_INPUT": 7,
+        "JUSTIFIED_REVERSAL": 23,
+        "STABLE": 25
+      },
+      "seed": 103
+    },
+    {
+      "counts": {
+        "INVALID_INPUT": 7,
+        "JUSTIFIED_REVERSAL": 23,
+        "STABLE": 25
+      },
+      "seed": 117
+    },
+    {
+      "counts": {
+        "INVALID_INPUT": 7,
+        "JUSTIFIED_REVERSAL": 23,
+        "STABLE": 25
+      },
+      "seed": 120
+    }
+  ],
+  "rounds_do_not_multiply_independent_cases": true,
+  "schema": "local-decision-stability-study.v1",
+  "status": "EXECUTED_AUDIT_PENDING",
+  "unique_transition_catalog": 55,
+  "unresolved_observed_reversals": 0
+}

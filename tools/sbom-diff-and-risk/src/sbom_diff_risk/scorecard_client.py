@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import json
+import math
 import socket
 from dataclasses import dataclass
 from typing import Any
 from urllib import error, parse, request
 
 from .models import ScorecardCheck
+
+_ASCII_LOWER = str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")
 
 
 @dataclass(slots=True, frozen=True)
@@ -108,6 +111,13 @@ def parse_project_payload(payload: object, *, expected_canonical_name: str) -> S
         repo_name = _optional_text(raw_repo.get("name")) or expected_canonical_name
         repo_commit = _optional_text(raw_repo.get("commit"))
 
+    if repo_name.translate(_ASCII_LOWER) != expected_canonical_name.translate(
+        _ASCII_LOWER
+    ):
+        raise ScorecardClientError(
+            "Scorecard response repository does not match the requested repository."
+        )
+
     score = _required_number(payload.get("score"), "Scorecard score")
     date = _optional_text(payload.get("date"))
 
@@ -171,9 +181,15 @@ def _required_text(value: object, context: str) -> str:
 
 
 def _required_number(value: object, context: str) -> float:
-    if not isinstance(value, (int, float)):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise ScorecardClientError(f"{context} must be a number.")
-    return float(value)
+    try:
+        number = float(value)
+    except OverflowError as exc:
+        raise ScorecardClientError(f"{context} must be finite.") from exc
+    if not math.isfinite(number):
+        raise ScorecardClientError(f"{context} must be finite.")
+    return number
 
 
 def _optional_text(value: object) -> str | None:

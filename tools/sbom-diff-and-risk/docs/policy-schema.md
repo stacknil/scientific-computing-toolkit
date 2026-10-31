@@ -104,8 +104,21 @@ Version `3` supports every version `1` and `2` rule id plus:
 - `require_attestations_for_new_packages` applies only to added PyPI packages.
 - `require_provenance_for_suspicious_sources` applies only when the component also triggered `suspicious_source`.
 - `allow_unattested_packages` is a narrow package-name override for explicit missing-attestation exceptions only.
+- For PyPI components, both exception entries and component names use PEP 503
+  normalized equality: case and runs of hyphens, underscores and dots are
+  equivalent. This preserves package-name scope across versions; it does not
+  authorize full PURLs, cross-ecosystem aliases or fuzzy name matches. Matching
+  does not rewrite the serialized policy spelling beyond existing parser
+  normalization.
 - `allow_unattested_packages` does not waive `provenance_unavailable` or
   `unverified_provenance`; those remain separate, reviewable policy decisions.
+- Explicit PyPI enrichment uses validated canonical package names and release
+  versions, including versions present only in a valid PyPI PURL. Conflicting
+  or malformed identities fail before provider lookup. Missing versions remain
+  unsupported; no latest release is inferred. Cache entries use canonical
+  ecosystem/name/version coordinates. Observed component fields are preserved.
+  A PURL supplies coordinates, not authenticity or publisher authorization.
+  Offline defaults and policy/report schema versions remain unchanged.
 - `allow_provenance_publishers` and `allow_unattested_publishers` apply only
   when attestations exist and publisher kinds are available to verify.
 - when enrichment is disabled, deterministic local mode is unchanged unless a

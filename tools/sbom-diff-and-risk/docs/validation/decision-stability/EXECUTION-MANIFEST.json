@@ -1,0 +1,490 @@
+{
+  "actual_network_attempts": 0,
+  "audit": {
+    "executed_independent_tests": {
+      "oracle": 129,
+      "production": 105
+    },
+    "independent_negative_controls": 14,
+    "independent_oracle_probes": 7,
+    "reason": "Fresh independent reviewers again interrupted by execution-service credit errors; final index preflight repair has not received completed independent review.",
+    "reviewed_intermediate_tree": "b9931ef405586683b6ce40e1a0d639ad63cb7906",
+    "status": "AUDIT_PENDING"
+  },
+  "audit_status": "AUDIT_PENDING",
+  "base_commit": "29203f9f14e2a3df2ad77a4e874bf752bf44c599",
+  "base_root_tree": "3e6f45e7968d4ac32f475d6842aaa523860fa4a9",
+  "baseline": {
+    "example_artifacts": "PASS",
+    "full_suite": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 473
+    }
+  },
+  "branch": "stacknil/sbom-evidence-decision-stability",
+  "candidate_commit": "NOT_CREATED",
+  "candidate_semantic_tree": "0760a5543df366f3a8237c60a187cde7f3aae0b0",
+  "candidate_semantic_tree_scope": "Base plus exact implementation/test/runner/policy-contract allowlist; derived qualification evidence is excluded to avoid self-reference.",
+  "changed_implementation_files": [
+    "tools/sbom-diff-and-risk/docs/policy-schema.md",
+    "tools/sbom-diff-and-risk/scripts/qualify-decision-stability.py",
+    "tools/sbom-diff-and-risk/src/sbom_diff_risk/cli.py",
+    "tools/sbom-diff-and-risk/src/sbom_diff_risk/diffing.py",
+    "tools/sbom-diff-and-risk/src/sbom_diff_risk/enrichment.py",
+    "tools/sbom-diff-and-risk/src/sbom_diff_risk/policy_evaluator.py",
+    "tools/sbom-diff-and-risk/src/sbom_diff_risk/policy_parser.py",
+    "tools/sbom-diff-and-risk/src/sbom_diff_risk/pypi_provenance.py",
+    "tools/sbom-diff-and-risk/src/sbom_diff_risk/scorecard_client.py",
+    "tools/sbom-diff-and-risk/tests/test_canonical_release_enrichment.py",
+    "tools/sbom-diff-and-risk/tests/test_decision_stability.py",
+    "tools/sbom-diff-and-risk/tests/test_decision_stability_negatives.py",
+    "tools/sbom-diff-and-risk/tests/test_decision_stability_oracle.py",
+    "tools/sbom-diff-and-risk/tests/test_decision_stability_pairs.py",
+    "tools/sbom-diff-and-risk/tests/test_decision_stability_providers.py",
+    "tools/sbom-diff-and-risk/tests/test_decision_stability_reports.py",
+    "tools/sbom-diff-and-risk/tests/test_decision_stability_runner.py",
+    "tools/sbom-diff-and-risk/tests/test_policy_package_equivalence.py",
+    "tools/sbom-diff-and-risk/tests/test_policy_validation_qualification.py",
+    "tools/sbom-diff-and-risk/tests/test_scorecard_evidence_integrity.py"
+  ],
+  "consumer_shell": {
+    "reason": "bash unavailable",
+    "status": "NOT_RUN"
+  },
+  "consumer_shell_supplement": {
+    "exits": [
+      0,
+      1,
+      2
+    ],
+    "platform": "Existing WSL bash",
+    "scope": "Synthetic capture/enforcement snippet only; no actual GitHub workflow or Linux Python execution",
+    "status": "PASS"
+  },
+  "dependencies": {
+    "PyYAML": "6.0.3",
+    "packageurl-python": "0.17.6",
+    "packaging": "26.3",
+    "pytest": "9.1.1"
+  },
+  "format_cleanup": {
+    "earlier_786_test_rounds_retained": true,
+    "final_source_retested": true,
+    "production_AST_unchanged": true
+  },
+  "independent_cases_are_not_multiplied_by_round_count": true,
+  "lint": {
+    "changed_files": "PASS",
+    "correctness_selection": "E9,F63,F7,F82",
+    "full_output_exact_baseline_match": true,
+    "full_scan": "PRE_EXISTING_FAILURE",
+    "preexisting_finding": "F821 tests/test_policy_scorecard.py:58; byte-identical to base",
+    "tool": "ruff 0.17.2"
+  },
+  "linux_execution": {
+    "actual_network_attempts": 0,
+    "consumer_shell": {
+      "kind": "local bash status propagation, no workflow execution",
+      "records": [
+        {
+          "comparison_exit": 0,
+          "final_exit": 0,
+          "output": "exit_code=0"
+        },
+        {
+          "comparison_exit": 1,
+          "final_exit": 1,
+          "output": "exit_code=1"
+        },
+        {
+          "comparison_exit": 2,
+          "final_exit": 2,
+          "output": "exit_code=2"
+        }
+      ],
+      "status": "PASS"
+    },
+    "dependencies": {
+      "PyYAML": "6.0.3",
+      "packageurl-python": "0.17.6",
+      "packaging": "26.3",
+      "pytest": "9.1.1"
+    },
+    "independent_cases_are_not_multiplied_by_round_count": true,
+    "live_evidence_enrichment": "FORBIDDEN",
+    "os": "Linux",
+    "parallelism": 1,
+    "per_command_timeout_seconds": 300,
+    "publication": "NOT_PERFORMED",
+    "python": "3.11.17",
+    "python_implementation": "CPython",
+    "remote_ci": "NOT_RUN",
+    "rounds": [
+      {
+        "counts": {
+          "classifications": {
+            "INVALID_INPUT": 7,
+            "JUSTIFIED_REVERSAL": 23,
+            "STABLE": 25
+          },
+          "cli_cases": 11,
+          "microcases": 72,
+          "negative_controls": 14,
+          "provider_cases": 22,
+          "transitions": 55
+        },
+        "full_suite": {
+          "errors": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests": 817
+        },
+        "seed": 103
+      }
+    ],
+    "seeds": [
+      103
+    ],
+    "source_inventory": {
+      "docs/policy-schema.md": "7994dae3af1182ea36484e940aeccdc53df24d5758d65ac33e335bdd0257201d",
+      "scripts/qualify-decision-stability.py": "dfc5d9f7a5548a92d78ed3cdc463b851c75de74bf72621c174a6e57caeeb14b9",
+      "src/sbom_diff_risk/__init__.py": "6a6775b4814db46e5b905de4de07befd569eb4e82168e59c555f55501e58e4cd",
+      "src/sbom_diff_risk/cli.py": "b1e5233c8d8d721122ed81096d38414e88eb05497de298a83ba79de10a6d20e7",
+      "src/sbom_diff_risk/component_identity.py": "52d820c5fd192ca84847ccecadc19e37e9b759f40de77d40558450e4730ec3af",
+      "src/sbom_diff_risk/diffing.py": "d2822a8c388d0e03c695a19ab3b229688de1094b1669f40db7aea76ebebc7815",
+      "src/sbom_diff_risk/enrichment.py": "d5f75dd0b7ab6baae78d9477066621a5412454996b20e46168d0639e232a837a",
+      "src/sbom_diff_risk/errors.py": "71c329b91f24b64e2f67de6f0a4013d7d5aa6e8e803a1029e9f70e11578061a1",
+      "src/sbom_diff_risk/evidence_confidence.py": "c5fc6281d34cbe2db9bf9af866e3667586cf38578eb3ba6491179a1359e348c7",
+      "src/sbom_diff_risk/models.py": "da27543546456476b511ef31cc29b06f8d66bf9308c47d9cf9f307f22bef75db",
+      "src/sbom_diff_risk/normalize.py": "9badd527b92318d783972a47bf29d90b4a22ab134c4c0d1372f0d9b4840e3472",
+      "src/sbom_diff_risk/parsers/__init__.py": "ff7132ba67e8c0f9951c1b6728c0ea05e12439fa24238f4186d73246bae5da7d",
+      "src/sbom_diff_risk/parsers/common.py": "322c09ddb3040f30844ed27b73f689f5eb4295ddc1ec6489109458a99554eea5",
+      "src/sbom_diff_risk/parsers/cyclonedx_json.py": "15bb8e1075f8115334b099d3c6025aa94d94195d8b4752a6f6c94a771ad3ec6c",
+      "src/sbom_diff_risk/parsers/pyproject_groups.py": "ec2267804d6f30b1fa0af884adab9a065e83ce587ad8852e5e4e9d7cbed2d1d5",
+      "src/sbom_diff_risk/parsers/pyproject_toml.py": "dcaa57a70d67ab5e355ab7aa8a21f4359592f74cff315635ba5a3a4f2ca00b37",
+      "src/sbom_diff_risk/parsers/requirements_rules.py": "d5569c31f8bcc7d53492ff6bc17ee21b361bcfcf8d1536624a618f990961fa3c",
+      "src/sbom_diff_risk/parsers/requirements_txt.py": "ca0bc71b870beb7e1e0fe3f4e9a40b5933180fba8ebbf184a9063ccda1549023",
+      "src/sbom_diff_risk/parsers/spdx_json.py": "75915904bafc0c884ff5f2d8933d7ea589c12162fd176cc8786d02c5f5854f93",
+      "src/sbom_diff_risk/policy_evaluator.py": "f68f76b40da0d863de267111de770573a1826db55284680b30dad947b5c36605",
+      "src/sbom_diff_risk/policy_models.py": "89a85c507e3a3a7ccb6c68603e1a83c79fef67a89196e83f820b2e1eade84361",
+      "src/sbom_diff_risk/policy_parser.py": "1eb7154dfd3626d2a38c944a206c714d4e840478c908c047df6b88b582f2fb3d",
+      "src/sbom_diff_risk/presentation.py": "41200758748fe2b7f283d9d7cc70377d03555c5aebf2493053c25a4ae77888b7",
+      "src/sbom_diff_risk/pypi_integrity_client.py": "115ac3f6facaacd698ab38a849903d778930457e339a0f86bd7f6e52e674f366",
+      "src/sbom_diff_risk/pypi_provenance.py": "09c711e53ee6fe2691d08c7f66f771c447c0fee333a0566618cf76e4a7413bb6",
+      "src/sbom_diff_risk/report_json.py": "535dabe37571ba8cda869243ce35d2a7a3b055e6fa2ea4a3194ee710259159b5",
+      "src/sbom_diff_risk/report_md.py": "36b078399013c790e6c893ade6b7256f50b609b77d35be3df699cb5102c9caa1",
+      "src/sbom_diff_risk/report_sarif.py": "a345c4ceafbbb78d135a885f981a2ce7a69050933e83ef43f85b19ea8a3fc4c3",
+      "src/sbom_diff_risk/repository_mapping.py": "4930a40b83746ec0521ed2ca4683435bf265ca874b9a9ee2da4cb669b7a27ab5",
+      "src/sbom_diff_risk/risk.py": "1532231014562961e294400033df2dca48abcaac51dc8db289aa062332511194",
+      "src/sbom_diff_risk/schema_versions.py": "0dd826c95e974feb6a7be7d8b4839071d8127a7b9025c1768b53db4448d14b7e",
+      "src/sbom_diff_risk/scorecard_client.py": "ac61b302ec7490362e9a0ba4c717e77b46a97f7a5e9e4379b81d972e154ca5e9",
+      "src/sbom_diff_risk/scorecard_enrichment.py": "ccb8ee5a33601a097d16d6141fcfa186255238f27e3b47849c3f236f19fbd55a",
+      "tests/conftest.py": "340b5fabccb10cc03e3b60bf8744e1f40a89b0cf625d3e4234de50a2a06ba015",
+      "tests/test_canonical_release_enrichment.py": "c34538e1b15abf201b5f4d342298d421839fa744507565ee5d71444ad4cfe3ad",
+      "tests/test_ci_consumer_demo.py": "5c0ad5aa334298166a8fac6db1c001857517d7a2d27163e3deb1162fe9a25035",
+      "tests/test_cli_exit_codes.py": "17611bfed88763fd6d5ef38bf9f42fe0244741bacbdf27db5152eb6a14d26d76",
+      "tests/test_cli_no_enrichment_regression.py": "26928304f936a770ca5cde95589cf416206d353016eee5a877fda39ae2a916ca",
+      "tests/test_cli_policy_json.py": "692c337c49370f72f587ad688e1edbfc7596dc9df6555c9bced2562ba1ffbda9",
+      "tests/test_cli_provenance_policy.py": "16bd95451c75a6a6aafb77938a0d436a8db449af796602c49ad39dba72b7d48a",
+      "tests/test_cli_summary_json.py": "b5a1beef4f5386ba0df7917944d68c7661a8caf4df8ded95412bfa5fc3715429",
+      "tests/test_component_identity.py": "ef86543a94ad1ce7761f4b16a1ead8bf569ea0b3fbb64ded46c3088a480203cd",
+      "tests/test_decision_stability.py": "718cb54a0300fa785449a080b02b9bca4b3bee100b3ac387cf69ecd8f1cd7278",
+      "tests/test_decision_stability_negatives.py": "6e443afaf96c37e445c4140798ca1c83aa08ed34f577d8fd9529f81f256817bb",
+      "tests/test_decision_stability_oracle.py": "2989a8bc7d806b24bb5a69011b0211b1a6bd997c3c4cf427db4bc95ab49d2a88",
+      "tests/test_decision_stability_pairs.py": "180b5ecad2bfdd18c0e009f578c2d644cb2c6c84167d8948016e27c5ae16bce3",
+      "tests/test_decision_stability_providers.py": "4ca598d0419ef69a6403f6e4d7baa353c35518240c53d8afe0c1bc5be388c5f9",
+      "tests/test_decision_stability_reports.py": "41f8273abfc9e7b0bd01e5f85fa4ebfd9839a3b6d1a71cf1e499a3a55019ad87",
+      "tests/test_decision_stability_runner.py": "d93e01e6c258da5efd325cdc9a74a3efe4bd22f60496f45b9a51069a9b4e62c8",
+      "tests/test_diffing.py": "2a8a1512456f9a13d740f47cba57f42da1494670b88371d61f27600306dc19ed",
+      "tests/test_evidence_confidence.py": "8351a7df5fc6b0a6d1c5d2554c6509c3dd96ab3e8d9b8f31deb83346ff845dec",
+      "tests/test_example_artifacts.py": "1c84e14cbdd1c479c431085064413d911adf2a36e27d6beca0eefa4220e1644a",
+      "tests/test_normalize.py": "b3d878efcfa5ea3fa974997f6ab419e0e5d262d1b1c0094da5435646a8aeeb81",
+      "tests/test_parsers.py": "9db22c37098c5f7744098dc883f82ca4eb4616e69ee0de260dc06eefda72e3bb",
+      "tests/test_policy.py": "0a7da0334df58262c96ea02bf083b24a16f7d114081210093b8b5c6480498083",
+      "tests/test_policy_decision_examples.py": "e35b45b1d230a90b5cd329ebce5722e84162701549fadf614329422004c2fb43",
+      "tests/test_policy_package_equivalence.py": "d60f90a197f9a6b47e4ecda74158e6e412e980c0646274145d39ed81aad237e4",
+      "tests/test_policy_provenance.py": "aedc127d83b15a871047a7ac4a3d869ac5893e944e977164b5b26cdfd1e7996b",
+      "tests/test_policy_scorecard.py": "9f5e84aba8296fe6bc4dc0502b853da0b19cae840335ac77ad17f6bfb36be929",
+      "tests/test_policy_validation_qualification.py": "c07a0a6609e3c4258b699b9d80b52d2a9ef7d35e8d72f536eac23a5f675c92ae",
+      "tests/test_policy_warning_reviewer_case.py": "ff4dd0d31fa162d16f678dff795ab2c13c5c27ed65502706d178753d349a6ca8",
+      "tests/test_provenance_reporting.py": "6e43b1091e07dbf5ef5ce3e50b3d32e0fba0fbd6ae991fbdf474092e1efbacf9",
+      "tests/test_pypi_enrichment.py": "695025ddc41dc92c340d9445ed1ef2badedffdcc233e496d23820f1c1c5d1b87",
+      "tests/test_pypi_integrity_client.py": "14e5506668d4cbfe539c559bb64062940b3e425e1f4ba4bfb627f8bd6c32514e",
+      "tests/test_release_workflow.py": "86675bcde521a5186a9568574303e457a8eb9aa02cee1c1c39d41d0420bc28c3",
+      "tests/test_report_schema_compatibility.py": "3e39cc210be1f05474eea7a33f9f32e5b0f9b31439024f4d4cc0b8f5da7b711f",
+      "tests/test_reports.py": "589829fd4e704efe6b56b344a79a9dc8e70b41990ef5ef500a79035d255be807",
+      "tests/test_repository_mapping.py": "ddf9a31ce8df50d17f9492c2d781932c5bce595f13db6487b7b85d48739c4f3f",
+      "tests/test_reproducible_sdist.py": "4edc52068416718a9a6f3b02729b156275413abc33e27e333e8246083a699394",
+      "tests/test_risk.py": "63223b579dcd789b35960d6a8f86791b63beff5bce61e1b0f7c621a8d295b2fa",
+      "tests/test_risk_model_boundary_docs.py": "9176fe213b42d3e4c98e28cb75c0abf63474f616ae8f78c0aa7fcb885080b917",
+      "tests/test_sarif.py": "4470631f14f5d512cd2b87f4124b2c657d2aaac37cb57f1a2570e281366385b8",
+      "tests/test_scorecard_client.py": "869ae476c9351f9b1584830305b1c4c225db8ab1fdb0cdd26e3636d3ff1ecdb8",
+      "tests/test_scorecard_enrichment.py": "f0d794557dda7a2647924acca37fa619488d188a2e5b06e63535a2ba25ce6ddf",
+      "tests/test_scorecard_evidence_integrity.py": "a805371c91fc31a6c2b1d5511afc2cfdffe6381370e9f5e4fae62fd695c6d6a1",
+      "tests/test_scorecard_reporting.py": "04878b10608fd6f702ab2fce8b280a953335b7536823ec45354b63bb8d4f5c1a",
+      "tests/test_version_decision_reports.py": "7636106f5d37374b876727b92f0b3681ca39c7515532c8d8cc6455fa2787bd1a",
+      "tests/test_version_decisions.py": "f7051388eb7207fc3642659dd379e70920bd53a744e2224756ecdf645b6a3c47",
+      "tests/test_version_evidence.py": "cb342258c11208af2af29088cbfdb621a3a6f681954f0b8d7a73d0a216735337"
+    },
+    "status": "EXECUTED"
+  },
+  "linux_source_git_blob_match": true,
+  "live_evidence_enrichment": "FORBIDDEN",
+  "local_platform_coverage": {
+    "Linux_executor": "Maintainer after reviewer interruption; not independent execution",
+    "Python": "3.11.17",
+    "Windows_Python_3_12": "PASS: 817 tests per seed 103/117/120",
+    "native_Linux_Python_3_11": "PASS: 817 tests, seed 103; additional targeted rerun",
+    "native_filesystem": "ext4 (findmnt; statfs reports ext2/ext3 family)"
+  },
+  "os": "Windows",
+  "parallelism": 1,
+  "per_command_timeout_seconds": 300,
+  "policy_decisions": {
+    "C02": "CONTRACT_CLARIFIED_CANONICAL_NAME_EQUIVALENCE",
+    "C03": "CONTRACT_CLARIFIED_CANONICAL_RELEASE_VERSION"
+  },
+  "preservation": {
+    "authorized_additions": "Candidate branch and worktree only",
+    "checked": [
+      "HEAD",
+      "branch",
+      "status",
+      "staged diff bytes",
+      "unstaged diff bytes",
+      "original refs",
+      "original worktree registrations"
+    ],
+    "limit": "Untracked names/status checked; initial untracked content bytes were not captured.",
+    "repositories": 4,
+    "status": "PASS"
+  },
+  "publication": "NOT_PERFORMED",
+  "python": "3.12.7",
+  "python_implementation": "CPython",
+  "red_green": {
+    "C03": {
+      "final_regressions": 31,
+      "index_preflight_green_affected": 43,
+      "index_preflight_red_failed": 2,
+      "initial_green_affected": 49,
+      "original_FAIL_to_PASS_reproducer_retained": true,
+      "red_failed": 22,
+      "red_passed": 3
+    },
+    "boundary": {
+      "green_passed": 32,
+      "red_failed": 25,
+      "red_passed": 7
+    },
+    "c02": {
+      "green_passed": 29,
+      "owner_decision": "CONTRACT_CLARIFIED_CANONICAL_NAME_EQUIVALENCE",
+      "red_failed": 17,
+      "red_passed": 12
+    },
+    "c04_unicode": {
+      "green_affected_passed": 60,
+      "red_failed": 3
+    },
+    "oracle_audit": {
+      "classification": "QUALIFICATION_HARNESS_DEFECT",
+      "green_affected_passed": 153,
+      "red_failed": 7
+    },
+    "runner": {
+      "green_passed": 1,
+      "red_failed": 1
+    }
+  },
+  "release_build": "OUT_OF_SCOPE",
+  "remote_ci": "NOT_RUN",
+  "retained_failures": [
+    {
+      "classification": "TEST_ORACLE_DEFECT",
+      "failed": 2,
+      "label": "pairs-first",
+      "passed": 51
+    },
+    {
+      "accepted_as_production_defect": false,
+      "classification": "TEST_ORACLE_DEFECT",
+      "failed": 2,
+      "label": "release-cache-red"
+    },
+    {
+      "cause": "Dynamic import map lost statically unused imports; repaired explicit map.",
+      "classification": "TEST_HARNESS_DEFECT",
+      "completed_rounds": 0,
+      "label": "campaign-v1"
+    },
+    {
+      "classification": "INVOCATION_ERROR",
+      "counts_as_red": false,
+      "exit": 4,
+      "label": "oracle-audit-red",
+      "tests": 0
+    },
+    {
+      "classification": "MIXED_PRODUCTION_FAILURES_AND_TEST_HARNESS_DEFECTS",
+      "details": "Mock return values reached serialization; invocation-specific policy_path mismatch. Corrected before authoritative RED run.",
+      "label": "c03-owner-red",
+      "superseded_by": "c03-owner-red-corrected"
+    }
+  ],
+  "rounds": [
+    {
+      "counts": {
+        "classifications": {
+          "INVALID_INPUT": 7,
+          "JUSTIFIED_REVERSAL": 23,
+          "STABLE": 25
+        },
+        "cli_cases": 11,
+        "microcases": 72,
+        "negative_controls": 14,
+        "provider_cases": 22,
+        "transitions": 55
+      },
+      "full_suite": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 817
+      },
+      "seed": 103
+    },
+    {
+      "counts": {
+        "classifications": {
+          "INVALID_INPUT": 7,
+          "JUSTIFIED_REVERSAL": 23,
+          "STABLE": 25
+        },
+        "cli_cases": 11,
+        "microcases": 72,
+        "negative_controls": 14,
+        "provider_cases": 22,
+        "transitions": 55
+      },
+      "full_suite": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 817
+      },
+      "seed": 117
+    },
+    {
+      "counts": {
+        "classifications": {
+          "INVALID_INPUT": 7,
+          "JUSTIFIED_REVERSAL": 23,
+          "STABLE": 25
+        },
+        "cli_cases": 11,
+        "microcases": 72,
+        "negative_controls": 14,
+        "provider_cases": 22,
+        "transitions": 55
+      },
+      "full_suite": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 817
+      },
+      "seed": 120
+    }
+  ],
+  "seeds": [
+    103,
+    117,
+    120
+  ],
+  "source_inventory": {
+    "docs/policy-schema.md": "7994dae3af1182ea36484e940aeccdc53df24d5758d65ac33e335bdd0257201d",
+    "scripts/qualify-decision-stability.py": "dfc5d9f7a5548a92d78ed3cdc463b851c75de74bf72621c174a6e57caeeb14b9",
+    "src/sbom_diff_risk/__init__.py": "6a6775b4814db46e5b905de4de07befd569eb4e82168e59c555f55501e58e4cd",
+    "src/sbom_diff_risk/cli.py": "b1e5233c8d8d721122ed81096d38414e88eb05497de298a83ba79de10a6d20e7",
+    "src/sbom_diff_risk/component_identity.py": "52d820c5fd192ca84847ccecadc19e37e9b759f40de77d40558450e4730ec3af",
+    "src/sbom_diff_risk/diffing.py": "d2822a8c388d0e03c695a19ab3b229688de1094b1669f40db7aea76ebebc7815",
+    "src/sbom_diff_risk/enrichment.py": "d5f75dd0b7ab6baae78d9477066621a5412454996b20e46168d0639e232a837a",
+    "src/sbom_diff_risk/errors.py": "71c329b91f24b64e2f67de6f0a4013d7d5aa6e8e803a1029e9f70e11578061a1",
+    "src/sbom_diff_risk/evidence_confidence.py": "c5fc6281d34cbe2db9bf9af866e3667586cf38578eb3ba6491179a1359e348c7",
+    "src/sbom_diff_risk/models.py": "da27543546456476b511ef31cc29b06f8d66bf9308c47d9cf9f307f22bef75db",
+    "src/sbom_diff_risk/normalize.py": "9badd527b92318d783972a47bf29d90b4a22ab134c4c0d1372f0d9b4840e3472",
+    "src/sbom_diff_risk/parsers/__init__.py": "ff7132ba67e8c0f9951c1b6728c0ea05e12439fa24238f4186d73246bae5da7d",
+    "src/sbom_diff_risk/parsers/common.py": "322c09ddb3040f30844ed27b73f689f5eb4295ddc1ec6489109458a99554eea5",
+    "src/sbom_diff_risk/parsers/cyclonedx_json.py": "15bb8e1075f8115334b099d3c6025aa94d94195d8b4752a6f6c94a771ad3ec6c",
+    "src/sbom_diff_risk/parsers/pyproject_groups.py": "ec2267804d6f30b1fa0af884adab9a065e83ce587ad8852e5e4e9d7cbed2d1d5",
+    "src/sbom_diff_risk/parsers/pyproject_toml.py": "dcaa57a70d67ab5e355ab7aa8a21f4359592f74cff315635ba5a3a4f2ca00b37",
+    "src/sbom_diff_risk/parsers/requirements_rules.py": "d5569c31f8bcc7d53492ff6bc17ee21b361bcfcf8d1536624a618f990961fa3c",
+    "src/sbom_diff_risk/parsers/requirements_txt.py": "ca0bc71b870beb7e1e0fe3f4e9a40b5933180fba8ebbf184a9063ccda1549023",
+    "src/sbom_diff_risk/parsers/spdx_json.py": "75915904bafc0c884ff5f2d8933d7ea589c12162fd176cc8786d02c5f5854f93",
+    "src/sbom_diff_risk/policy_evaluator.py": "f7920cdda0a9fd0ad162af09e652e970d4c6c432b48b08a3eec0068db9754414",
+    "src/sbom_diff_risk/policy_models.py": "89a85c507e3a3a7ccb6c68603e1a83c79fef67a89196e83f820b2e1eade84361",
+    "src/sbom_diff_risk/policy_parser.py": "30222b549e94a7bcbcbbb80d674de1dde89deb5e6f00d7467f8e72bb3b2c374e",
+    "src/sbom_diff_risk/presentation.py": "41200758748fe2b7f283d9d7cc70377d03555c5aebf2493053c25a4ae77888b7",
+    "src/sbom_diff_risk/pypi_integrity_client.py": "115ac3f6facaacd698ab38a849903d778930457e339a0f86bd7f6e52e674f366",
+    "src/sbom_diff_risk/pypi_provenance.py": "09c711e53ee6fe2691d08c7f66f771c447c0fee333a0566618cf76e4a7413bb6",
+    "src/sbom_diff_risk/report_json.py": "535dabe37571ba8cda869243ce35d2a7a3b055e6fa2ea4a3194ee710259159b5",
+    "src/sbom_diff_risk/report_md.py": "36b078399013c790e6c893ade6b7256f50b609b77d35be3df699cb5102c9caa1",
+    "src/sbom_diff_risk/report_sarif.py": "a345c4ceafbbb78d135a885f981a2ce7a69050933e83ef43f85b19ea8a3fc4c3",
+    "src/sbom_diff_risk/repository_mapping.py": "4930a40b83746ec0521ed2ca4683435bf265ca874b9a9ee2da4cb669b7a27ab5",
+    "src/sbom_diff_risk/risk.py": "1532231014562961e294400033df2dca48abcaac51dc8db289aa062332511194",
+    "src/sbom_diff_risk/schema_versions.py": "0dd826c95e974feb6a7be7d8b4839071d8127a7b9025c1768b53db4448d14b7e",
+    "src/sbom_diff_risk/scorecard_client.py": "0394f3a1e7c808d01bc5961a59c19a8e51dea65fa06b1fe252f76461c59cc8bc",
+    "src/sbom_diff_risk/scorecard_enrichment.py": "ccb8ee5a33601a097d16d6141fcfa186255238f27e3b47849c3f236f19fbd55a",
+    "tests/conftest.py": "340b5fabccb10cc03e3b60bf8744e1f40a89b0cf625d3e4234de50a2a06ba015",
+    "tests/test_canonical_release_enrichment.py": "c34538e1b15abf201b5f4d342298d421839fa744507565ee5d71444ad4cfe3ad",
+    "tests/test_ci_consumer_demo.py": "5c0ad5aa334298166a8fac6db1c001857517d7a2d27163e3deb1162fe9a25035",
+    "tests/test_cli_exit_codes.py": "17611bfed88763fd6d5ef38bf9f42fe0244741bacbdf27db5152eb6a14d26d76",
+    "tests/test_cli_no_enrichment_regression.py": "26928304f936a770ca5cde95589cf416206d353016eee5a877fda39ae2a916ca",
+    "tests/test_cli_policy_json.py": "692c337c49370f72f587ad688e1edbfc7596dc9df6555c9bced2562ba1ffbda9",
+    "tests/test_cli_provenance_policy.py": "16bd95451c75a6a6aafb77938a0d436a8db449af796602c49ad39dba72b7d48a",
+    "tests/test_cli_summary_json.py": "b5a1beef4f5386ba0df7917944d68c7661a8caf4df8ded95412bfa5fc3715429",
+    "tests/test_component_identity.py": "ef86543a94ad1ce7761f4b16a1ead8bf569ea0b3fbb64ded46c3088a480203cd",
+    "tests/test_decision_stability.py": "718cb54a0300fa785449a080b02b9bca4b3bee100b3ac387cf69ecd8f1cd7278",
+    "tests/test_decision_stability_negatives.py": "6e443afaf96c37e445c4140798ca1c83aa08ed34f577d8fd9529f81f256817bb",
+    "tests/test_decision_stability_oracle.py": "2989a8bc7d806b24bb5a69011b0211b1a6bd997c3c4cf427db4bc95ab49d2a88",
+    "tests/test_decision_stability_pairs.py": "180b5ecad2bfdd18c0e009f578c2d644cb2c6c84167d8948016e27c5ae16bce3",
+    "tests/test_decision_stability_providers.py": "4ca598d0419ef69a6403f6e4d7baa353c35518240c53d8afe0c1bc5be388c5f9",
+    "tests/test_decision_stability_reports.py": "41f8273abfc9e7b0bd01e5f85fa4ebfd9839a3b6d1a71cf1e499a3a55019ad87",
+    "tests/test_decision_stability_runner.py": "d93e01e6c258da5efd325cdc9a74a3efe4bd22f60496f45b9a51069a9b4e62c8",
+    "tests/test_diffing.py": "2a8a1512456f9a13d740f47cba57f42da1494670b88371d61f27600306dc19ed",
+    "tests/test_evidence_confidence.py": "8351a7df5fc6b0a6d1c5d2554c6509c3dd96ab3e8d9b8f31deb83346ff845dec",
+    "tests/test_example_artifacts.py": "1c84e14cbdd1c479c431085064413d911adf2a36e27d6beca0eefa4220e1644a",
+    "tests/test_normalize.py": "b3d878efcfa5ea3fa974997f6ab419e0e5d262d1b1c0094da5435646a8aeeb81",
+    "tests/test_parsers.py": "9db22c37098c5f7744098dc883f82ca4eb4616e69ee0de260dc06eefda72e3bb",
+    "tests/test_policy.py": "0a7da0334df58262c96ea02bf083b24a16f7d114081210093b8b5c6480498083",
+    "tests/test_policy_decision_examples.py": "e35b45b1d230a90b5cd329ebce5722e84162701549fadf614329422004c2fb43",
+    "tests/test_policy_package_equivalence.py": "d60f90a197f9a6b47e4ecda74158e6e412e980c0646274145d39ed81aad237e4",
+    "tests/test_policy_provenance.py": "aedc127d83b15a871047a7ac4a3d869ac5893e944e977164b5b26cdfd1e7996b",
+    "tests/test_policy_scorecard.py": "9f5e84aba8296fe6bc4dc0502b853da0b19cae840335ac77ad17f6bfb36be929",
+    "tests/test_policy_validation_qualification.py": "c07a0a6609e3c4258b699b9d80b52d2a9ef7d35e8d72f536eac23a5f675c92ae",
+    "tests/test_policy_warning_reviewer_case.py": "ff4dd0d31fa162d16f678dff795ab2c13c5c27ed65502706d178753d349a6ca8",
+    "tests/test_provenance_reporting.py": "6e43b1091e07dbf5ef5ce3e50b3d32e0fba0fbd6ae991fbdf474092e1efbacf9",
+    "tests/test_pypi_enrichment.py": "695025ddc41dc92c340d9445ed1ef2badedffdcc233e496d23820f1c1c5d1b87",
+    "tests/test_pypi_integrity_client.py": "14e5506668d4cbfe539c559bb64062940b3e425e1f4ba4bfb627f8bd6c32514e",
+    "tests/test_release_workflow.py": "86675bcde521a5186a9568574303e457a8eb9aa02cee1c1c39d41d0420bc28c3",
+    "tests/test_report_schema_compatibility.py": "3e39cc210be1f05474eea7a33f9f32e5b0f9b31439024f4d4cc0b8f5da7b711f",
+    "tests/test_reports.py": "589829fd4e704efe6b56b344a79a9dc8e70b41990ef5ef500a79035d255be807",
+    "tests/test_repository_mapping.py": "ddf9a31ce8df50d17f9492c2d781932c5bce595f13db6487b7b85d48739c4f3f",
+    "tests/test_reproducible_sdist.py": "4edc52068416718a9a6f3b02729b156275413abc33e27e333e8246083a699394",
+    "tests/test_risk.py": "63223b579dcd789b35960d6a8f86791b63beff5bce61e1b0f7c621a8d295b2fa",
+    "tests/test_risk_model_boundary_docs.py": "9176fe213b42d3e4c98e28cb75c0abf63474f616ae8f78c0aa7fcb885080b917",
+    "tests/test_sarif.py": "4470631f14f5d512cd2b87f4124b2c657d2aaac37cb57f1a2570e281366385b8",
+    "tests/test_scorecard_client.py": "869ae476c9351f9b1584830305b1c4c225db8ab1fdb0cdd26e3636d3ff1ecdb8",
+    "tests/test_scorecard_enrichment.py": "f0d794557dda7a2647924acca37fa619488d188a2e5b06e63535a2ba25ce6ddf",
+    "tests/test_scorecard_evidence_integrity.py": "a805371c91fc31a6c2b1d5511afc2cfdffe6381370e9f5e4fae62fd695c6d6a1",
+    "tests/test_scorecard_reporting.py": "04878b10608fd6f702ab2fce8b280a953335b7536823ec45354b63bb8d4f5c1a",
+    "tests/test_version_decision_reports.py": "7636106f5d37374b876727b92f0b3681ca39c7515532c8d8cc6455fa2787bd1a",
+    "tests/test_version_decisions.py": "f7051388eb7207fc3642659dd379e70920bd53a744e2224756ecdf645b6a3c47",
+    "tests/test_version_evidence.py": "cb342258c11208af2af29088cbfdb621a3a6f681954f0b8d7a73d0a216735337"
+  },
+  "status": "BLOCKED",
+  "type_check": "NOT_CONFIGURED"
+}

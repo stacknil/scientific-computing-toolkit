@@ -63,6 +63,11 @@ def diff_components(
     return added, removed, changed
 
 
+def validate_component_identities(components: Iterable[Component], *, side: str) -> None:
+    """Validate a comparison input before optional network-capable enrichment."""
+    _index_components(components, side=side)
+
+
 def _index_components(components: Iterable[Component], side: str) -> dict[str, Component]:
     indexed: dict[str, Component] = {}
     for component in components:

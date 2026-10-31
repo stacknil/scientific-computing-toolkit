@@ -4,6 +4,7 @@ import base64
 import binascii
 import json
 
+from .component_identity import CanonicalComponentIdentity, canonicalize_component_identity
 from .models import (
     Component,
     ProvenanceEvidence,
@@ -27,29 +28,30 @@ _STATUS_ORDER = {
 
 
 def normalize_pypi_provenance(component: Component, *, client: PyPIIntegrityClient) -> ProvenanceEvidence:
-    if component.ecosystem.strip().lower() != "pypi":
-        return _unsupported_provenance(component)
-    if not component.name.strip() or not component.version or not component.version.strip():
-        return _unsupported_provenance(component)
+    identity = canonicalize_component_identity(component)
+    if identity.ecosystem != "pypi":
+        return _unsupported_provenance(identity)
+    if not identity.package_name.strip() or not identity.version or not identity.version.strip():
+        return _unsupported_provenance(identity)
 
     try:
-        release = client.fetch_release(component.name, component.version)
+        release = client.fetch_release(identity.package_name, identity.version)
     except PyPIClientError as exc:
         if exc.status_code == 404:
-            return _unsupported_provenance(component, lookup_performed=True)
+            return _unsupported_provenance(identity, lookup_performed=True)
         return ProvenanceEvidence(
             provider="pypi",
             requested=True,
             supported=True,
             lookup_performed=True,
-            package_name=component.name,
-            package_version=component.version,
-            release_url=_release_url(component.name, component.version),
+            package_name=identity.package_name,
+            package_version=identity.version,
+            release_url=_release_url(identity.package_name, identity.version),
             statuses=(ProvenanceStatus.ENRICHMENT_ERROR,),
             error=str(exc),
         )
 
-    return _normalize_release_provenance(component, release=release, client=client)
+    return _normalize_release_provenance(identity, release=release, client=client)
 
 
 def normalize_provenance_file(
@@ -130,13 +132,13 @@ def provenance_evidence_to_dict(provenance: ProvenanceEvidence | None) -> dict[s
 
 
 def _normalize_release_provenance(
-    component: Component,
+    identity: CanonicalComponentIdentity,
     *,
     release: PyPIRelease,
     client: PyPIIntegrityClient,
 ) -> ProvenanceEvidence:
     if not release.files:
-        return _unsupported_provenance(component, lookup_performed=True)
+        return _unsupported_provenance(identity, lookup_performed=True)
 
     component_statuses: set[ProvenanceStatus] = set()
     file_evidence: list[ProvenanceFileEvidence] = []
@@ -144,7 +146,7 @@ def _normalize_release_provenance(
 
     for release_file in release.files:
         try:
-            provenance = client.fetch_provenance(component.name, component.version or "", release_file.filename)
+            provenance = client.fetch_provenance(identity.package_name, identity.version or "", release_file.filename)
         except PyPIClientError as exc:
             component_statuses.add(ProvenanceStatus.ENRICHMENT_ERROR)
             if first_error is None:
@@ -173,9 +175,9 @@ def _normalize_release_provenance(
         requested=True,
         supported=True,
         lookup_performed=True,
-        package_name=component.name,
-        package_version=component.version,
-        release_url=release.release_url or _release_url(component.name, component.version or ""),
+        package_name=identity.package_name,
+        package_version=identity.version,
+        release_url=release.release_url or _release_url(identity.package_name, identity.version or ""),
         statuses=_sorted_statuses(component_statuses or {ProvenanceStatus.ATTESTATION_UNAVAILABLE}),
         files=tuple(file_evidence),
         files_evaluated=files_evaluated,
@@ -186,7 +188,7 @@ def _normalize_release_provenance(
 
 
 def _unsupported_provenance(
-    component: Component,
+    identity: CanonicalComponentIdentity,
     *,
     lookup_performed: bool = False,
 ) -> ProvenanceEvidence:
@@ -195,9 +197,9 @@ def _unsupported_provenance(
         requested=True,
         supported=False,
         lookup_performed=lookup_performed,
-        package_name=component.name,
-        package_version=component.version,
-        release_url=_release_url(component.name, component.version or ""),
+        package_name=identity.package_name,
+        package_version=identity.version,
+        release_url=_release_url(identity.package_name, identity.version or ""),
         statuses=(ProvenanceStatus.UNSUPPORTED_FOR_PACKAGE,),
     )
 

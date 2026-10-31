@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from dataclasses import replace
 
+from .component_identity import canonicalize_component_identity
 from .models import (
     Component,
     ProvenanceEvidence,
@@ -31,9 +32,10 @@ class PyPIProvenanceEnricher:
         self._seen_keys: set[tuple[str, str, str]] = set()
 
     def enrich_components(self, components: list[Component]) -> list[Component]:
+        # Fail the complete batch before a valid earlier item can trigger I/O.
+        keys = [_component_identity(component) for component in components]
         enriched: list[Component] = []
-        for component in components:
-            key = _component_identity(component)
+        for component, key in zip(components, keys):
             if key not in self._cache:
                 self._seen_keys.add(key)
                 self._cache[key] = normalize_pypi_provenance(component, client=self.client)
@@ -116,10 +118,11 @@ def enrichment_metadata_to_dict(metadata: ReportEnrichmentMetadata) -> dict[str,
 
 
 def _component_identity(component: Component) -> tuple[str, str, str]:
+    identity = canonicalize_component_identity(component)
     return (
-        component.ecosystem.strip().lower(),
-        component.name.strip().lower(),
-        (component.version or "").strip().lower(),
+        identity.ecosystem,
+        identity.package_name,
+        identity.version or "",
     )
 
 

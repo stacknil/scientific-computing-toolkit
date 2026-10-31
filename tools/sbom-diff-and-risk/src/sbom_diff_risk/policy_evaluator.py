@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from urllib.parse import urlparse
 
+from packaging.utils import canonicalize_name
+
 from .diffing import component_key
 from .models import (
     Component,
@@ -409,7 +411,12 @@ def _components_for_policy(added: list[Component], changed: list[ComponentChange
 
 
 def _package_is_unattested_allowed(policy: PolicyConfig, component: Component) -> bool:
-    return component.name.strip().lower() in set(policy.allow_unattested_packages)
+    if component.ecosystem.strip().lower() != "pypi":
+        return False
+    package_name = canonicalize_name(component.name.strip())
+    return package_name in {
+        canonicalize_name(name.strip()) for name in policy.allow_unattested_packages
+    }
 
 
 def _assess_provenance(component: Component, policy: PolicyConfig) -> ProvenanceAssessment:
