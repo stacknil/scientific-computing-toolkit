@@ -4,7 +4,9 @@ This repository centers on a release-facing supply-chain review tool that
 favors deterministic behavior, auditable outputs, and clear release evidence.
 The scientific diagnostics projects remain bounded supporting material.
 
-## Current Flagship Tool
+## sbom-diff-and-risk
+
+The standalone CLI lives in this repository and uses its own package name, install instructions and release history. The [policy qualification candidate](tools/sbom-diff-and-risk/docs/validation/decision-stability/REPRODUCTION.md) includes a runnable decision-stability case.
 
 [`tools/sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md) is the
 current flagship tool. It compares SBOMs and dependency manifests, produces
