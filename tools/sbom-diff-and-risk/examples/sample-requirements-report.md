@@ -78,7 +78,7 @@
 ## Added components
 | name | version | ecosystem | risk buckets |
 |------|---------|-----------|--------------|
-| urllib3 | 2.7.0 | pypi | new_package, not_evaluated, unknown_license |
+| urllib3 | 2.8.0 | pypi | new_package, not_evaluated, unknown_license |
 
 ## Removed components
 | name | version | ecosystem |
@@ -93,11 +93,11 @@
 ## Risk findings
 | bucket | component | version | rationale |
 |--------|-----------|---------|-----------|
-| new_package | urllib3 | 2.7.0 | Component was not present in the before input. |
+| new_package | urllib3 | 2.8.0 | Component was not present in the before input. |
 | not_evaluated | requests | 2.34.2 | stale_package was not evaluated because enrichment mode is disabled. |
-| not_evaluated | urllib3 | 2.7.0 | stale_package was not evaluated because enrichment mode is disabled. |
+| not_evaluated | urllib3 | 2.8.0 | stale_package was not evaluated because enrichment mode is disabled. |
 | unknown_license | requests | 2.34.2 | License is missing, empty, UNKNOWN, or NOASSERTION. |
-| unknown_license | urllib3 | 2.7.0 | License is missing, empty, UNKNOWN, or NOASSERTION. |
+| unknown_license | urllib3 | 2.8.0 | License is missing, empty, UNKNOWN, or NOASSERTION. |
 | version_change_unclassified | requests | 2.34.2 | Version changed but did not qualify as a parseable SemVer major upgrade. |
 
 ## Blocking violations
