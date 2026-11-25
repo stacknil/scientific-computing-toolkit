@@ -6,7 +6,7 @@ The scientific diagnostics projects remain bounded supporting material.
 
 ## sbom-diff-and-risk
 
-The standalone CLI lives in this repository and uses its own package name, install instructions and release history. The [policy qualification candidate](tools/sbom-diff-and-risk/docs/validation/decision-stability/REPRODUCTION.md) includes a runnable decision-stability case.
+The standalone CLI lives in this repository and uses its own package name, install instructions and release history. The [policy qualification case](tools/sbom-diff-and-risk/docs/validation/decision-stability/REPRODUCTION.md) includes a runnable decision-stability case.
 
 [`tools/sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md) is the
 current flagship tool. It compares SBOMs and dependency manifests, produces
@@ -86,7 +86,7 @@ Project:
 [`sbom-diff-and-risk`](tools/sbom-diff-and-risk/README.md)
 
 Status:
-Stable GitHub release: `v1.1.0`. Production PyPI publishing remains deferred.
+Stable GitHub release: [v1.2.0](https://github.com/stacknil/scientific-computing-toolkit/releases/tag/v1.2.0). Production PyPI publishing remains deferred.
 
 What to review:
 Deterministic SBOM/dependency diffing, JSON/Markdown/SARIF output, local policy
@@ -100,6 +100,7 @@ Useful entry points:
 - [Reviewer path](tools/sbom-diff-and-risk/docs/reviewer-path.md)
 - [Reviewer brief](tools/sbom-diff-and-risk/docs/reviewer-brief.md)
 - [Reviewer evidence pack](tools/sbom-diff-and-risk/docs/reviewer-evidence-pack.md)
+- [v1.2.0 release notes](https://github.com/stacknil/scientific-computing-toolkit/releases/tag/v1.2.0)
 - [v1.1.0 release notes][release-notes-v110]
 - [v1.0.0 release notes][release-notes-v100]
 - [v1.0-rc.1 release notes][release-notes-v10rc1]
@@ -228,10 +229,10 @@ the review question:
 
 ## Status
 
-- Current stable flagship release: `sbom-diff-and-risk` `v1.1.0`
-- GitHub Release assets: available for `v1.1.0`
-- GitHub Latest: `v1.1.0`
-- Package metadata: `1.1.0`
+- Current stable flagship release: `sbom-diff-and-risk` `v1.2.0`
+- GitHub Release assets: available for `v1.2.0`
+- GitHub Latest: `v1.2.0`
+- Package metadata: `1.2.0`
 - TestPyPI Trusted Publishing dry-run: completed
 - Production PyPI publishing: intentionally deferred
 

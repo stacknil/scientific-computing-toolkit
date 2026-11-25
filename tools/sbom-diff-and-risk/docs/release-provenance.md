@@ -9,9 +9,9 @@ This document is about the second surface: verifying a GitHub Release and a down
 
 This page is only about the `sbom-diff-and-risk` tool's own GitHub Releases. If you want the quick "which verification page do I need?" guide, start with [verification.md](verification.md).
 
-## v1.1 release policy
+## Stable release policy
 
-`v1.1.0` is the stable GitHub Release contract and is marked GitHub Latest.
+`v1.2.0` is the stable GitHub Release contract and is marked GitHub Latest.
 Production PyPI publishing remains deferred as a separate contract.
 
 For `v1.1.0`, stability applies to the CLI, report schemas, policy decision
