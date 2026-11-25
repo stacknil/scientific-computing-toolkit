@@ -2,7 +2,7 @@
 
 ## Release candidate from PR #121
 
-Use [the merged source](https://github.com/stacknil/scientific-computing-toolkit/commit/51e1090c7dcd60f9d78ea042c1aa9a57dadc0400) for a release-candidate replay. The package metadata at that revision still identifies v1.1.0. The focused policy, evidence integrity, equivalence and decision-stability selection passed 313 tests; generated CycloneDX, policy, requirements and SARIF examples matched. The full tool suite, including the C03 canonical-release tests, passed 817 tests. The final independent C03 audit remains a separate release consideration. The historical qualification below records the pre-merge campaign.
+Use [the merged source](https://github.com/stacknil/scientific-computing-toolkit/commit/51e1090c7dcd60f9d78ea042c1aa9a57dadc0400) for a release-candidate replay. The package metadata at that revision still identifies v1.1.0. The focused policy, evidence integrity, equivalence and decision-stability selection passed 313 tests; generated CycloneDX, policy, requirements and SARIF examples matched. The full tool suite, including the C03 canonical-release tests, passed 817 tests. [PR #121](https://github.com/stacknil/scientific-computing-toolkit/pull/121) records the subsequent targeted independent review and its conditional acceptance for local commit. That disposition covers the reviewed source and scope. The historical qualification below records the pre-merge campaign.
 
 The frozen base is `29203f9f14e2a3df2ad77a4e874bf752bf44c599`, root tree
 `3e6f45e7968d4ac32f475d6842aaa523860fa4a9`. The candidate is an uncommitted
