@@ -64,8 +64,8 @@ def test_main_release_metadata_and_v1_stable_status_are_aligned() -> None:
     assert project["version"] == "1.2.0"
     assert "authors" not in project
     assert '__version__ = "1.2.0"' in package_init
-    assert "Current stable flagship release: `sbom-diff-and-risk` `v1.1.0`" in root_readme
-    assert "`v1.1.0` is the stable Policy Evidence GitHub release" in tool_readme
+    assert "Current stable flagship release: `sbom-diff-and-risk` `v1.2.0`" in root_readme
+    assert "[v1.2.0](https://github.com/stacknil/scientific-computing-toolkit/releases/tag/v1.2.0) is the stable GitHub release" in tool_readme
     assert "final candidate" not in root_readme
     assert "final candidate" not in tool_readme
 
