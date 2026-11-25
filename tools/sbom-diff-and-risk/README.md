@@ -1,6 +1,6 @@
 # sbom-diff-and-risk
 
-`v1.1.0` is the stable Policy Evidence GitHub release. GitHub Release assets
+[v1.2.0](https://github.com/stacknil/scientific-computing-toolkit/releases/tag/v1.2.0) is the stable GitHub release. GitHub Release assets
 are the supported distribution surface for this version, while production
 PyPI publishing remains intentionally deferred.
 
