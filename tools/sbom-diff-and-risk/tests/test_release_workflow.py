@@ -61,9 +61,9 @@ def test_main_release_metadata_and_v1_stable_status_are_aligned() -> None:
     root_readme = ROOT_README.read_text(encoding="utf-8")
     tool_readme = TOOL_README.read_text(encoding="utf-8")
 
-    assert project["version"] == "1.1.0"
+    assert project["version"] == "1.2.0"
     assert "authors" not in project
-    assert '__version__ = "1.1.0"' in package_init
+    assert '__version__ = "1.2.0"' in package_init
     assert "Current stable flagship release: `sbom-diff-and-risk` `v1.1.0`" in root_readme
     assert "`v1.1.0` is the stable Policy Evidence GitHub release" in tool_readme
     assert "final candidate" not in root_readme
@@ -99,5 +99,5 @@ def test_main_sarif_golden_fixtures_use_release_version() -> None:
     for fixture in fixtures:
         payload = json.loads(fixture.read_text(encoding="utf-8"))
         driver = payload["runs"][0]["tool"]["driver"]
-        assert driver["version"] == "1.1.0", fixture.name
-        assert driver["semanticVersion"] == "1.1.0", fixture.name
+        assert driver["version"] == "1.2.0", fixture.name
+        assert driver["semanticVersion"] == "1.2.0", fixture.name
